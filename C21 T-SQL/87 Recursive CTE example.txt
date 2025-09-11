@@ -1,0 +1,44 @@
+WITH Numbers AS
+(
+	SELECT 1 AS Number
+	UNION ALL
+	SELECT Number + 1  FROM Numbers
+	WHERE Number < 10
+)
+SELECT * FROM Numbers;
+
+
+
+--Example 1
+WITH Factorial AS
+(
+	SELECT 5 AS Number, 5 AS Result
+	UNION ALL
+	SELECT Number - 1, Result * (Number - 1) FROM Factorial
+	WHERE Number > 1
+)
+SELECT * FROM Factorial
+
+
+
+--Example 2
+WITH Factorial AS
+(
+	SELECT 2 AS Number, 2 AS Result
+	UNION ALL
+	SELECT Number+1 , 2 *Number As Result  FROM Factorial
+	WHERE Number < 10
+)
+SELECT * FROM Factorial
+
+
+
+--Ex3
+WITH Factorial AS
+(
+	SELECT 2 AS Number, 2 AS Result
+	UNION ALL
+	SELECT Number+1 , (2 * (Number+1)) As Result  FROM Factorial
+	WHERE Number < 10
+)
+SELECT * FROM Factorial

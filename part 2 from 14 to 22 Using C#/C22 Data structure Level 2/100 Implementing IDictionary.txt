@@ -1,0 +1,181 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Linq;
+using System.Reflection;
+using System.Xml;
+
+
+
+public class SimpleDictionary<TKey, TValue> : IDictionary<TKey, TValue>
+{
+    private List<KeyValuePair<TKey, TValue>> _list = new List<KeyValuePair<TKey, TValue>>();
+    IEnumerator IEnumerable.GetEnumerator() => _list.GetEnumerator();
+    public IEnumerator<KeyValuePair<TKey, TValue>> GetEnumerator() => _list.GetEnumerator();
+
+    public TValue this[TKey Key]
+    {
+
+        get 
+        {
+            foreach (var Kvp in _list)
+            {
+                if (Equals(Kvp.Key , Key) )
+                {
+                    return Kvp.Value;
+                }
+            }
+
+            throw new KeyNotFoundException($"The given key '{Key}' was not present in the dictionary.");
+        }
+        set 
+        {
+            for (int i = 0; i < _list.Count; i++)
+            {
+                if (Equals(_list[i], Key))
+                {
+                    _list[i] = new KeyValuePair<TKey, TValue> ( Key, value);
+                    return;
+                }
+            }
+           
+            _list.Add( new KeyValuePair<TKey, TValue> (Key, value) );
+
+
+        }
+    }
+    public ICollection<TKey> Keys => _list.ConvertAll(kvp => kvp.Key);
+    public ICollection<TValue> Values => _list.ConvertAll(kvp => kvp.Value);
+
+    public int Count => _list.Count;
+    public bool IsReadOnly => false;
+    public void Add(TKey Key, TValue Value )
+    {
+        foreach (var Kvp in _list)
+        {
+            if (Equals(Kvp.Key, Key))
+            {
+                throw new ArgumentException("An element with the same key already exists.");
+            }
+        }
+        _list.Add ( new KeyValuePair<TKey, TValue> (Key , Value) );
+    }
+
+    public void Add(KeyValuePair<TKey, TValue> item)
+    {
+        Add(item.Key, item.Value);
+    }
+
+    public void Clear()
+    {
+        _list.Clear();
+    }
+    public bool Contains(KeyValuePair<TKey, TValue> item)
+    {
+        return _list.Contains(item);
+    }
+
+    public bool ContainsKey(TKey key)
+    {
+        foreach (var Kvp in _list)
+        {
+            if (Equals(Kvp.Key, key))
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+    public void CopyTo(KeyValuePair<TKey, TValue>[] array, int arrayIndex)
+    {
+        _list.CopyTo(array, arrayIndex);
+    }
+
+    //For ICollection
+    public bool Remove(TKey key)
+    {
+        for (int i = 0; i < _list.Count; i++)
+        {
+            if (Equals(_list[i].Key, key))
+            {
+                _list.RemoveAt(i);
+                return true;
+            }
+        }
+        return false;
+    }
+    //For IDictionary
+    public bool Remove(KeyValuePair<TKey, TValue> item)
+    {
+        return _list.Remove(item);
+    }
+
+    public bool TryGetValue(TKey key, out TValue value)
+    {
+        foreach (var kvp in _list)
+        {
+            if (Equals(kvp.Key, key))
+            {
+                value = kvp.Value;
+                return true;
+            }
+        }
+        value = default;
+        return false;
+    }
+
+
+
+}
+class Program
+{
+
+    static void Main()
+    {
+        SimpleDictionary<int , string> myDic = new SimpleDictionary<int , string>();
+        myDic.Add(1 , "Amine");
+        myDic.Add(2, "Anas");
+        myDic.Add(3, "Saad");
+        myDic.Add(4, "Rachid");
+        myDic.Add(5, "Salim");
+
+        // Updating an element by key
+        myDic[2] = "Two Updated";
+        Console.WriteLine($"Updated element with key 2: {myDic[2]}");
+
+
+        //Check if is Exist
+        int KeyToRemove = 1;
+        if (myDic.ContainsKey(KeyToRemove) )
+        {
+            //Remove Item
+            myDic.Remove(KeyToRemove);
+            Console.WriteLine("KeyToRemove is Removed Successfully");
+        }
+
+        //Accessing Item
+        Console.WriteLine("The  Second Item is:" + myDic[2]);
+
+        //Iteration  of myDic
+        foreach (var kvp in myDic)
+        {
+            Console.WriteLine($"Key: {kvp.Key} , Value:{kvp.Value}");
+        }
+
+        // Display the dictionary after removal
+        Console.WriteLine("\nDictionary Before removing all elements:");
+        foreach (var kvp in myDic)
+        {
+            Console.WriteLine($"Key: {kvp.Key}, Value: {kvp.Value}");
+        }
+
+        myDic.Clear();
+
+        Console.ReadKey();
+
+    }
+
+ 
+
+}

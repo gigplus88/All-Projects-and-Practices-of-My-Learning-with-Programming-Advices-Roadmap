@@ -1,0 +1,19 @@
+#include <iostream>
+#include <cmath>
+#include <string>
+using namespace std;
+
+
+void PrintName (string Name)
+{
+    cout << "Your name is: " << Name <<"\n";
+    
+}
+
+int main()
+{
+
+    PrintName("Ayoub");
+    return 0;
+
+}

@@ -1,0 +1,77 @@
+#include <iostream>
+#include <iostream>
+#include <fstream>
+#include <string>
+#include <vector>
+#include <iomanip>
+
+using namespace std;
+
+class clsPerson
+{
+private:
+    class clsAddress 
+    {
+    private:
+        string _FullName;
+        string _AddressLine1;
+        string _AddressLine2;
+        string _City;
+        string _Country;
+
+    public:
+       /* clsAddress(string AddressLine1 , string AddressLine2, string City, string Country)
+        {
+            _AddressLine1 = AddressLine1;
+            _AddressLine2 = AddressLine2;
+            _City= City;
+            _Country = Country;
+
+        }*/
+
+        void PrintAddress()
+        {
+            cout << "\nAddress: ";
+            cout << "\n" << _FullName;
+            cout << "\n" << _AddressLine1;
+            cout << "\n" << _AddressLine2;
+            cout << "\n" << _Country;
+            cout << "\n" << _City;
+
+        }
+
+        friend class clsPerson;
+    };
+
+public:
+    string FullName;
+    clsAddress Address;
+
+    clsPerson(string FullName, string AddressLine1, string AddressLine2, string Country, string City)
+    {
+        Address._FullName = FullName;
+        Address._AddressLine1 = AddressLine1;
+        Address._AddressLine2 = AddressLine2;
+        Address._Country = Country;
+        Address._City = City;
+    }
+
+   
+
+
+};
+
+
+
+int main()
+{
+    clsPerson Person1( "Ayoub Fellah", "Oulad Tayeb", " B 14 N 19", "Morocco", "Fes");
+   
+    Person1.Address.PrintAddress();
+
+
+
+
+    system("pause>0");
+    return 0;
+}

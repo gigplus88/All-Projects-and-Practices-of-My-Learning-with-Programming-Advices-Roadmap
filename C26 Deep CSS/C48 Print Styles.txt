@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Print Styles Demo</title>
+  <style>
+    body { font-family: serif; line-height: 1.4; }
+    nav { background: #333; color: #fff; padding: 0.5rem; }
+    .no-print { color: red; }
+
+    @media print {
+      body {
+        font-size: 12pt;
+        color: #000;
+      }
+      nav, .no-print {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav>Main Navigation</nav>
+  <h1>Article Title</h1>
+  <p>This paragraph will print in black text at 12pt size.</p>
+  <p class="no-print">This line is marked “no-print” and won’t appear on paper.</p>
+</body>
+</html>

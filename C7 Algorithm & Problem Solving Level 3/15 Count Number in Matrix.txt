@@ -1,0 +1,77 @@
+#include <iostream>
+#include <string>
+#include <iomanip>
+
+using namespace std;
+
+
+
+void PrintMatrix1(int arr[3][3], short Rows, short Cols)
+{
+    for (int i = 0; i < Rows; i++)
+    {
+        for (int j = 0; j < Cols; j++)
+        {
+            printf(" %0*d  ", 2, arr[i][j]);
+            //cout << setw(3) << arr[i][j] << "\t";
+        }
+        cout << endl;
+    }
+
+}
+
+
+short CountNumberInMatrix(int Matrix1[3][3], short Rows, short Cols , short NumberToCount)
+{
+    short Counter = 0;
+    for (int i = 0; i < Rows; i++)
+    {
+        for (int j = 0; j < Cols; j++)
+        {
+            if (Matrix1[i][j] == NumberToCount)
+            {
+                Counter++;
+            }
+            
+        }
+        
+    }
+
+    return Counter;
+}
+
+
+
+int main()
+{
+    srand((unsigned)time(NULL));
+
+    int Matrix1[3][3]= 
+    { {1,2,5},
+      {2,4,6},
+      {5,6,2}
+    };
+    short NumberToCount = 0;
+
+   
+
+    cout << "Matrix1 :" << endl;
+    PrintMatrix1(Matrix1, 3, 3);
+
+    cout << "Enter the number to count in matrix?";
+    cin >> NumberToCount;
+
+
+   
+    cout << "Number" << NumberToCount << "count in matrix is:" << CountNumberInMatrix( Matrix1, 3, 3, NumberToCount);
+
+   
+
+
+   
+  
+    system("pause>0");
+
+
+    return 0;
+}

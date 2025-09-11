@@ -1,0 +1,52 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
+using System.Threading.Tasks;
+
+
+
+class Program
+{
+
+    static void Main()
+    {
+        // Declaring a 2D array
+        int[, ,] matrix1 = { { { 1, 2, 3 }, { 4, 5, 6 }, { 4, 5, 6 } } };
+
+        int[,] matrix = 
+                        {  { 1, 2, 3 },
+                           { 4, 5, 6 } 
+                        };
+
+        for (int i = 0; i < matrix1.GetLength(0); i++)
+        {
+            for (int j = 0; j < matrix1.GetLength(1); j++)
+            {
+                for (int k = 0; k < matrix1.GetLength(2); k++)
+                {
+                    Console.Write(matrix1[i, j, k] + " ");
+
+                }
+            }
+
+        }
+        Console.WriteLine("\n");
+
+        for (int i = 0; i < matrix.GetLength(0); i++)
+        {
+            for (int j = 0; j < matrix.GetLength(1); j++)
+            {
+                Console.Write(matrix[i, j] + " ");
+
+            }
+
+        }
+
+            Console.ReadKey();
+
+    }
+
+
+}

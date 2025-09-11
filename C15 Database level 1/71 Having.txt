@@ -1,0 +1,55 @@
+
+
+
+Select TotallCount = Count(MonthlySalary) ,
+       TotallSum = Sum(MonthlySalary),
+	   Average = Avg(MonthlySalary),
+	   MinSalary = Min(MonthlySalary),
+	   MaxSalary = Max(MonthlySalary)
+
+	 from Employees; 
+
+
+Select TotallCount = Count(MonthlySalary) ,
+       TotallSum = Sum(MonthlySalary),
+	   Average = Avg(MonthlySalary),
+	   MinSalary = Min(MonthlySalary),
+	   MaxSalary = Max(MonthlySalary)
+
+	 from Employees where DepartmentID in(1);
+	 
+Select DepartmentID , TotallCount = Count(MonthlySalary) ,
+       TotallSum = Sum(MonthlySalary),
+	   Average = Avg(MonthlySalary),
+	   MinSalary = Min(MonthlySalary),
+	   MaxSalary = Max(MonthlySalary)
+
+	 from Employees 
+	 Group By DepartmentID
+	 Order By DepartmentID;
+	  
+
+	  	 
+Select DepartmentID , TotallCount = Count(MonthlySalary) ,
+       TotallSum = Sum(MonthlySalary),
+	   Average = Avg(MonthlySalary),
+	   MinSalary = Min(MonthlySalary),
+	   MaxSalary = Max(MonthlySalary)
+	   from Employees 
+	   Group By DepartmentID
+	   Having Count(MonthlySalary) >= 100
+	   Order By DepartmentID;
+
+select * from
+(
+Select DepartmentID , TotallCount = Count(MonthlySalary) ,
+       TotallSum = Sum(MonthlySalary),
+	   Average = Avg(MonthlySalary),
+	   MinSalary = Min(MonthlySalary),
+	   MaxSalary = Max(MonthlySalary)
+	   from Employees 
+	   Group By DepartmentID
+	   
+) T1
+Where T1.TotallCount >=100; 
+

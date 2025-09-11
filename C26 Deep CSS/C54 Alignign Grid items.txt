@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>High-DPI Background</title>
+  <style>
+    .grid {
+      background-color: bisque;
+      display: grid;
+      grid-template-columns:  repeat(3 , 1fr); 
+      
+      gap: 10px;
+      width: 100vw;
+      height: 400px;
+      margin: auto;
+      border: 2Px solid black;
+      
+    }
+    .grid div {
+      background: rgb(96, 95, 125);
+      color: white;
+      padding: 0.5rem;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+    .example1 {
+      
+      place-items: start ;
+      
+    }
+    .example2 {
+      align-items: start;
+      justify-items: end;
+      
+    }
+    .example3 {
+      align-items: center;
+      justify-items: center;
+      
+    }
+    .example4 {
+      align-items: stretch;
+      justify-items: stretch;
+      
+    }
+    
+   
+  </style>
+</head>
+<body>
+   <h1>Fixed Grid Example</h1>
+  <br>
+    <div class="grid example1">
+      <div>1</div><div>2</div><div>3</div>
+    <div>4</div><div>5</div><div>6</div>
+    </div>
+
+     <div class="grid example2">
+      <div>1</div><div>2</div><div>3</div>
+    <div>4</div><div>5</div><div>6</div>
+    </div>
+
+     <div class="grid example3">
+      <div>1</div><div>2</div><div>3</div>
+    <div>4</div><div>5</div><div>6</div>
+    </div>
+
+    
+    <div class="grid example4">
+      <div>1</div><div>2</div><div>3</div>
+    <div>4</div><div>5</div><div>6</div>
+    </div>
+    </body>
+</html>

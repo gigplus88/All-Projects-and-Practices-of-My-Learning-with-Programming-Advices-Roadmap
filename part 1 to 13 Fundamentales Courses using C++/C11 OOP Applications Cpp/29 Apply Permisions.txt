@@ -1,0 +1,37 @@
+// The Code for permissions in the Begin for All Client Functions
+
+  if (!CheckAccessRights(clsUser::enPermissions::pTranactions))
+  {
+      return;// this will exit the function and it will not continue
+  }
+
+
+// In clsUser
+ bool CheckAccessPermission(enPermissions Permission)
+    {
+        if (this->Permissions == enPermissions::eAll)
+            return true;
+
+        if ((Permission & this->Permissions) == Permission)
+            return true;
+        else
+            return false;
+
+    }
+
+// In clsScreen
+
+  static bool CheckAccessRights(clsUser::enPermissions Permission)
+    {
+     
+            if (!CurrentUser.CheckAccessPermission(Permission))
+            {
+                cout << "\t\t\t\t\t______________________________________";
+                cout << "\n\n\t\t\t\t\t  Access Denied! Contact your Admin.";   
+                cout << "\n\t\t\t\t\t______________________________________\n\n";
+                return false;
+            }
+            else
+            {
+                return true;
+            }

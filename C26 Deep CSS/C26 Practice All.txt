@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>CSS ex Unit Demonstration</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.4; /* Default line-height  1.4 from font size for readability */
+      background: rgb(212, 197, 197) url("Image2.jpg") no-repeat scroll  center/cover;
+      color: #ffffff;
+      padding: 7vmin 7vmin;
+    }
+    .avatar {
+      background: url("medium-image.jpg") no-repeat center/cover;
+      border: solid 2px #33caca;
+      border-radius: 10%;
+      width: 15vmin;
+      height: 15vmin;
+      margin: 2vmin auto;
+
+    }
+    .avatar:hover {
+      transform:scale(1.2);
+      transition: transform 1s ease-in-out;
+      transition-duration: 0.5s;
+    }
+    header {
+      text-align: center;
+      margin-bottom: 2em;
+      border: solid 2px #33caca;
+      padding: 2vw 2vw;
+      width: 100vw;
+      
+    }
+    section {
+      margin-bottom: 2em;
+    }
+
+    /* Example 1: Line-height using ex */
+    .line-ex {
+      font-size: 1.5rem;        /* Base font size */
+      line-height: 4ex;       /* Twice the x-height of the font */
+      background: rgb(236, 132, 132 , 0.3);
+      padding: 1vw;
+      border: 1px solid #33caca;
+    }
+
+    /* Example 2: Height and width using ex */
+    .box-ex {
+      font-family: 'Courier New', monospace;
+      font-size: 20px;        /* Larger font for clarity */
+      width: 20ex;            /* Width equal to 20 × the x-height */
+      height: 10ex;           /* Height equal to 10 × the x-height */
+      background: #d6b3ff;
+      border: 2px dashed #0f0e0c;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+
+    /* Example 3: Padding using ex */
+    .pad-ex {
+      font-size: 18px;
+      padding: 2vmin;           /* Padding equal to 3 × the x-height */
+      background: rgba(248, 83, 207, 0.3);
+      border: 2px solid #efb7ff;
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 2em;
+      font-size: 0.9em;
+      color: #fff;
+      padding: 7vmin 7vmin;
+      border-top: 1px solid #33caca;
+
+    }
+  </style>
+</head>
+<body>
+    <div class="avatar">
+    </div>
+  <header>
+    <h1>Demonstrating the <code>ex</code> Unit</h1>
+    <p>1ex ≈ the x-height (lowercase “x”) of the current font.</p>
+  </header>
+
+  <section>
+    <h2>Line-Height Example</h2>
+    <div class="line-ex">
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ut arcu vitae 
+      purus interdum sollicitudin. Donec nec sapien non risus tincidunt accumsan sit 
+      amet a mauris. Curabitur at ex nec mauris vehicula tincidunt.
+    </div>
+  </section>
+
+  <section>
+    <h2>Box Dimensions Example</h2>
+    <div class="box-ex">
+      .box-ex<br>
+      width: 20ex;<br>
+      height: 10ex;
+    </div>
+  </section>
+
+  <section>
+    <h2>Padding Example</h2>
+    <div class="pad-ex">
+      This container has <strong>3ex</strong> of padding on all sides.
+    </div>
+  </section>
+
+  
+  <footer>
+    Resize your browser or change the font-size in DevTools to see how <code>ex</code> adapts to the x-height.
+  </footer>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>CSS Units Showcase</title>
+  <style>
+    html {
+      font-size: 16px; /* base for rem */
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20vmin;
+    }
+
+    .unit-box {
+      border: 2px solid #333;
+      margin: 20px auto;
+      text-align: center;
+      color: white;
+      font-weight: bold;
+      padding: 10px;
+    }
+
+    /* 1. px */
+    .px-box {
+      width: 300px;
+      height: 100px;
+      background: #2196f3;
+    }
+
+    /* 2. in */
+    .in-box {
+      width: 2in;
+      height: 1in;
+      background: #4caf50;
+    }
+
+    /* 3. cm */
+    .cm-box {
+      width: 5cm;
+      height: 2cm;
+      background: #f44336;
+    }
+
+    /* 4. % */
+    .percent-box {
+      width: 80%;
+      height: 50px;
+      background: #ff9800;
+    }
+
+    /* 5. em */
+    .em-box {
+      font-size: 1.5em;
+      padding: 2em;
+      background: #9c27b0;
+      width: 20em;
+    }
+
+    /* 6. rem */
+    .rem-box {
+      font-size: 1.25rem;
+      padding: 1rem;
+      background: #00bcd4;
+      width: 25rem;
+    }
+
+    /* 7. vw/vh */
+    .vw-box {
+      width: 50vw;
+      height: 20vh;
+      background: #795548;
+    }
+
+    /* 8. ch */
+    .ch-box {
+      width: 30ch;
+      background: #607d8b;
+    }
+
+    /* 9. ex */
+    .ex-box {
+      margin-top: 4ex;
+      background: #e91e63;
+      height: 10ex;
+      width: 100%;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="unit-box px-box">PX Box (300px × 100px)</div>
+  <div class="unit-box in-box">IN Box (2in × 1in)</div>
+  <div class="unit-box cm-box">CM Box (5cm × 2cm)</div>
+  <div class="unit-box percent-box">% Box (80% width)</div>
+  <div class="unit-box em-box">EM Box (20em width, 2em padding)</div>
+  <div class="unit-box rem-box">REM Box (25rem width, 1rem padding)</div>
+  <div class="unit-box vw-box">VW/VH Box (50vw × 20vh)</div>
+  <div class="unit-box ch-box">CH Box (30ch width)</div>
+  <div class="unit-box ex-box">EX Box (Margin: 4ex, Height: 10ex)</div>
+
+</body>
+</html>
+
+
+
+Solutions 2:
+html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Unit Showcase: A Journey Through CSS Units</title>
+  <style>
+    /* Global Styles */
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      line-height: 1.4;
+      background: #f9f9f9;
+      color: #333;
+    }
+    header {
+      background: #4CAF50;
+      color: white;
+      padding: 1rem;
+      text-align: center;
+    }
+    section {
+      margin: 2rem auto;
+      padding: 1rem;
+      background: white;
+      border-radius: 8px;
+      max-width: 90%;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    h2 {
+      margin-top: 0;
+    }
+
+    /* 1. Pixels */
+    .pixels {
+      padding: 20px;        /* 20px padding */
+      border: 2px solid #2196F3; /* 2px border */
+    }
+
+    /* 2. Inches & Centimeters */
+    .inches-cm {
+      width: 4in;           /* 4 inches wide */
+      padding: 1cm;         /* 1 cm padding */
+      border: 1px dashed #FF5722;
+      margin: 1rem auto;
+    }
+
+    /* 3. Percentages */
+    .percent {
+      max-width: 50%;           /* 80% of parent width */
+      margin: 0 auto;
+      padding: 2%;
+      background: #E8F5E9;
+      border: 1% solid #4CAF50;
+      text-align: center;
+    }
+
+    /* 4. em (relative to parent font-size) */
+    .em-unit {
+      font-size: 1.25em;    /* 1.25 × inherited font-size */
+      padding: 1em;         /* 1 × inherited font-size */
+      background: #FFF3E0;
+      border: 0.1em solid #FB8C00;
+    }
+
+    /* 5. rem (relative to root font-size) */
+    html { font-size: 16px; }
+    .rem-unit {
+      font-size: 1.5rem;    /* 1.5 × 16px = 24px */
+      padding: 1rem;
+      background: #E3F2FD;
+      border: 0.25rem solid #1976D2;
+    }
+
+    /* 6. Viewport Units */
+    .viewport-hero {
+      width: 100vw;
+      height: 30vh;
+      background: #673AB7;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    /* 7. ch (character width) */
+    .ch-unit {
+      width: 60ch;          /* 40 characters wide */
+      padding: 6ch;
+      background: #FCE4EC;
+      border: 1px solid #D81B60;
+      margin: 0 auto;
+    }
+
+    /* 8. ex (x-height) */
+    .ex-unit {
+      font-size: 18px;
+      margin-top: 2ex;      /* 2 × x-height */
+      padding: 1ex;         /* 1 × x-height */
+      background: #EDE7F6;
+      border: 1px solid #5E35B1;
+      line-height: 5ex;
+    }
+
+    footer {
+      text-align: center;
+      padding: 4vmin;
+      background: #333;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Unit Showcase: A Journey Through CSS Units</h1>
+    <p>Experience a short tale styled with different CSS units.</p>
+  </header>
+
+  <!-- Viewport Hero -->
+  <div class="viewport-hero">
+    The Land of Units Awaits
+  </div>
+
+  <!-- Pixels Section -->
+  <section class="pixels">
+    <h2>1. Pixels (px)</h2>
+    <p>
+      Once upon a time, in a pixel-perfect kingdom, the heroes measured every step in <strong>pixels</strong>.  
+      Sir Pixel strides <em>20px</em> at a time, ensuring precision in every corner of the land.
+    </p>
+  </section>
+
+  <!-- Inches & Centimeters Section -->
+  <section class="inches-cm">
+    <h2>2. Inches & Centimeters (in, cm)</h2>
+    <p>
+      In the Queen’s royal garden, paths were laid out in <strong>inches</strong> and <strong>centimeters</strong>.  
+      Each rose bed spanned exactly <em>4in wide</em>, with regal <em>1 cm</em> borders of marble.
+    </p>
+  </section>
+
+  <!-- Percentages Section -->
+  <section class="percent">
+    <h2>3. Percentages (%)</h2>
+    <p>
+      The castle walls filled <strong>80%</strong> of the great courtyard, leaving <em>2%</em> padding to roam freely.  
+      Such fluid design ensured the courtyard looked grand on every screen size.
+    </p>
+  </section>
+
+  <!-- EM Section -->
+  <section class="em-unit">
+    <h2>4. em – Relative to Parent</h2>
+    <p>
+      Lady Emila’s scrolls used the <strong>em</strong> unit. She set her headings to <em>1.25em</em> and margins to <em>1em</em>,  
+      so when the scribe adjusted the base text size, everything scaled harmoniously.
+    </p>
+  </section>
+
+  <!-- REM Section -->
+  <section class="rem-unit">
+    <h2>5. rem – Relative to Root</h2>
+    <p>
+      The Grand Library preferred <strong>rem</strong> units: text at <em>1.5rem</em> for clear reading,  
+      and padding of <em>1rem</em> around each tome. Regardless of nesting, all margins stayed consistent.
+    </p>
+  </section>
+
+  <!-- ch Section -->
+  <section class="ch-unit">
+    <h2>6. ch – Character Width</h2>
+    <p>
+      In the Scriptorium, each input box was exactly <strong>40ch</strong> wide, fitting forty “0” characters  
+      for scribing spells without overflow.
+    </p>
+  </section>
+
+  <!-- ex Section -->
+  <section class="ex-unit">
+    <h2>7. ex – x-Height</h2>
+    <p>
+      The Typography Tower measured vertical spacing in <strong>ex</strong>. A top margin of <em>2ex</em> and padding of <em>1ex</em>  
+      matched the height of the letter “x,” making text feel organically spaced.
+    </p>
+  </section>
+
+  <footer>
+    © 2025 Unit Showcase. Resize your window or inspect with DevTools to see the magic of CSS units!  
+  </footer>
+</body>
+</html>
+

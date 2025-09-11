@@ -1,0 +1,21 @@
+#include <iostream>
+using namespace std;
+#include <cmath>
+#include <string>
+
+string PrintYourName(string YourName)
+{
+    return YourName;
+     
+
+
+}
+int main()
+{
+    string YourName ;
+    cout << "Print Your Name please : " << endl;
+    getline(cin, YourName);
+    cout << PrintYourName(YourName);
+    return 0;
+
+}

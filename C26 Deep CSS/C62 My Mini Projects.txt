@@ -1,0 +1,1045 @@
+<!--Practice1-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Grid Areas Example 2</title>
+  <style>
+    
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: sans-serif; padding: 1rem; }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+
+    }
+    .card{
+      margin-top: 10px;
+      border: 2px solid rgb(192, 183, 183);
+      border-radius: 8px;
+      display: flex;
+      flex-direction: column;
+    }
+    .card img {
+      width: 100%;
+      height: auto;
+    }
+    .card-content {
+      width: 100%;
+      height: auto;
+      background-color: rgb(247, 109, 109);
+      padding: 1rem 0.5rem;
+    }
+   
+</style>
+</head>
+<body>
+  <div class="grid">
+    <div class="card">
+      <img src="Products/1.jpg" alt="">
+      <div class="card-content">
+        <h3>Item 1</h3>
+        <p>Short description of product 1.</p>
+      </div>
+    </div>
+    <div class="card">
+      <img src="Products/2.jpg" alt="">
+      <div class="card-content">
+        <h3>Item 2</h3>
+        <p>Short description of product 2.</p>
+      </div>
+    </div>
+   
+     <!-- Repeat up to Item 6 -->
+    <div class="card">
+      <img src="Products/3.jpg" alt="">
+      <div class="card-content">
+        <h3>Item 3</h3>
+        <p>Short description of product 3.</p>
+      </div>
+    </div>
+    <div class="card">
+      <img src="Products/4.jpg" alt="">
+      <div class="card-content">
+        <h3>Item 4</h3>
+        <p>Short description of product 4.</p>
+      </div>
+    </div>
+    <div class="card">
+      <img src="Products/5.jpg" alt="">
+      <div class="card-content">
+        <h3>Item 5</h3>
+        <p>Short description of product 5.</p>
+      </div>
+    </div>
+    <div class="card">
+      <img src="Products/3.jpg" alt="">
+      <div class="card-content">
+        <h3>Item 6</h3>
+        <p>Short description of product 6.</p>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--Practice2-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Grid Areas Example 2</title>
+  <style>
+    
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: sans-serif; padding: 2rem; background-color: #f4f4f4;}
+   .pricing{
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+    }
+    .plan{
+      display: flex;
+      flex-direction: column;
+      border: 2px solid #ccc;
+      border-radius: 8px;
+      background: #f9f9f9;
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+    .plan-header, .plan-cta {
+      background: #3498db;
+      color: #fff;
+      padding: 1rem;
+      text-align: center;
+      font-weight: bold; 
+      display: block;
+      text-decoration: none;
+    }
+    .plan-price {
+      font-size: 2rem;
+      margin: 1rem 0;
+      text-align: center;
+    }
+    .plan-features {
+      padding: 1rem;
+      list-style: none;
+      padding: 1rem 1rem;
+    }
+    .plan-features li {
+      padding: 0.5rem 0;
+      border-bottom: 1px solid #eee;
+    }
+    @media screen and (max-width: 768px) {
+      .pricing { grid-template-columns: 1fr ; }
+    }
+   
+</style>
+</head>
+<body>
+  <h1>Our Pricing Plans</h1>
+  <div class="pricing">
+    <div class="plan">
+      <div class="plan-header">Basic</div>
+      <div class="plan-price">$9<span>/mo</span></div>
+      <ul class="plan-features">
+        <li>1 User</li>
+        <li>10GB Storage</li>
+        <li>Email Support</li>
+      </ul>
+      <a href="#" class="plan-cta">Choose Basic</a>
+    </div>
+
+    <div class="plan">
+      <div class="plan-header">Pro</div>
+      <div class="plan-price">$29<span>/mo</span></div>
+      <ul class="plan-features">
+        <li>5 Users</li>
+        <li>100GB Storage</li>
+        <li>Priority Support</li>
+      </ul>
+      <a href="#" class="plan-cta">Choose Pro</a>
+    </div>
+
+    <div class="plan">
+      <div class="plan-header">Enterprise</div>
+      <div class="plan-price">$99<span>/mo</span></div>
+      <ul class="plan-features">
+        <li>Unlimited Users</li>
+        <li>1TB Storage</li>
+        <li>24/7 Support</li>
+      </ul>
+      <a href="#" class="plan-cta">Choose Enterprise</a>
+    </div>
+  </div>
+</body>
+</html>
+
+
+
+
+
+
+
+
+<!--Practice3-->    
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>CSS Animations Combined Demo</title>
+    <style>
+      /* Reset & Base Styles */
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        font-family: Arial, sans-serif;
+        padding: 2rem;
+        font-size: 1rem;
+      }
+      h1{
+         margin-bottom: 1rem; 
+        text-align: center;
+      }
+      .calendar{
+        display: grid;
+        grid-template-columns: repeat(7 , 1Fr);
+        gap: 1px;
+        grid-auto-rows: 100px; /*for row height*/ 
+        background: #ddd;
+      }
+      .calendar div{
+        background: #fff;
+        padding: 0.5rem;
+      }
+
+       .header{
+        background: #f0f0f0;
+        font-weight: bold;
+        text-align: center;
+      }
+      
+      .date{
+        padding: 0.5rem;
+        color: #555;
+
+      }
+
+      .event{
+        padding: 0.5rem;
+        margin-top:0.5rem;
+        font-size: 12px;
+      color: #f40606;
+      }
+     
+    </style>
+  </head>
+  <body>
+    <h1>This Week</h1>
+    <div class="calendar">
+      <!-- Headers -->
+      <div class="header">Sun</div>
+      <div class="header">Mon</div>
+      <div class="header">Tue</div>
+      <div class="header">Wed</div>
+      <div class="header">Thu</div>
+      <div class="header">Fri</div>
+      <div class="header">Sat</div>
+
+      <!-- Week days -->
+      <div>
+        <div class="date">1</div>
+        <div class="event">Coffee Chat</div>
+      </div>
+      <div>
+        <div class="date">2</div>
+      </div>
+      <div>
+        <div class="date">3</div>
+        <div class="event">Team Meeting</div>
+      </div>
+      <div>
+        <div class="date">4</div>
+      </div>
+      <div>
+        <div class="date">5</div>
+        <div class="event">Project Deadline</div>
+      </div>
+      <div>
+        <div class="date">6</div>
+      </div>
+      <div>
+        <div class="date">7</div>
+        <div class="event">Workshop</div>
+      </div>
+    </div>
+  </body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+<!--Practice4-->  
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>CSS Animations Combined Demo</title>
+    <style>
+      /* Reset & Base Styles */
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      :root{
+        --global-padding : 1rem;
+      }
+      body {
+        font-family: Arial, sans-serif;
+        font-size: 1rem;
+        position: relative;
+        background-color: #f0f2f5;
+      }
+      .dashboard{
+        display: grid;
+        grid-template-columns: 250px 1fr;
+        grid-template-rows: auto 1fr auto;
+        grid-template-areas: "sidebar header"
+                             "sidebar menu"
+                             "sidebar footer" ;
+        height: 100vh;
+
+      }
+      .sidebar{
+        grid-area: sidebar;
+        padding: 1rem;
+        color: white;
+        font-size: 1rem;
+        background-color: #2c3e50;
+      }
+     
+      ul li{
+        list-style: none;
+        margin: 1rem;
+        padding: 1rem;
+         border: 1px solid rgb(128, 128, 128);
+        border-radius: 4px;
+      }
+      li:hover{
+        background-color: rgb(177, 216, 216);
+      }
+      header{
+        padding: 1rem;
+        grid-area: header;
+        background-color: white;
+                 text-align: center;
+
+      }
+      .main{
+        grid-area: menu;
+        padding: 1rem;
+        height: auto;
+      }
+
+      .main .card{
+        padding: 1rem;
+        margin-bottom :1rem ;
+        background-color: white;
+        border: 1px solid rgb(128, 128, 128);
+        border-radius: 4px;
+      }
+
+      footer{
+         grid-area: footer;
+         padding: 1rem;
+         background-color: white;
+         text-align: center;
+      }
+
+
+      @media screen and (max-width: 768px){
+         .dashboard{
+        grid-template-rows: auto auto 1fr auto;
+        grid-template-columns: 1fr;
+        grid-template-areas: " header"
+                             " sidebar"
+                             "menu"
+                             " footer" ;
+       }
+        .sidebar ul{
+       display: flex;
+       flex-wrap: wrap;
+       text-align: center;
+       justify-content: center;
+      }
+
+      
+
+      }
+      
+
+     
+    </style>
+  </head>
+  <body>
+    <div class="dashboard">
+      <header>Admin Dashboard</header>
+      <aside class="sidebar">
+        <h2>Menu</h2>
+        <ul>
+          <li>Overview</li>
+          <li>Reports</li>
+          <li>Settings</li>
+        </ul>
+      </aside>
+      <main class="main">
+        <div class="card"><h3>Users</h3><p>1,234 active</p></div>
+        <div class="card"><h3>Sales</h3><p>$56,789</p></div>
+        <div class="card"><h3>Errors</h3><p>12 today</p></div>
+      </main>
+      <footer>© 2025 Company Name</footer>
+    </div>
+
+  </body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--Practice5-->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>CSS Animations Combined Demo</title>
+    <style>
+      /* Reset & Base Styles */
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      :root{
+        --global-padding : 1rem;
+      }
+      body {
+        font-family: Arial, sans-serif;
+        font-size: 1rem;
+        position: relative;
+        background-color: #f0f2f5;
+               padding: 1rem;
+
+      }
+      .grid{
+        display: grid;
+        grid-template-columns: 200px 1fr 150px;
+        grid-template-rows: auto 1fr auto;
+        grid-template-areas: "header header header"
+                             "nav content ads"
+                             "footer footer footer" ;
+                             gap: 1rem;
+        height: 100vh;
+
+      }
+      header{
+        grid-area: header;
+        padding: 1rem;
+        background-color: rgb(127, 127, 253);
+        color: #f0f2f5;
+        text-align: center;
+      }
+      nav{
+        grid-area: nav;
+        background-color: aquamarine;
+                padding: 1rem;
+
+      }
+      nav ul{
+        display: flex;
+        flex-wrap: wrap;
+      }
+      nav li{
+        list-style: none;
+        padding: 1rem;
+        justify-content: center;
+      }
+      nav li a{
+        text-decoration: none;
+        color: blue;
+      }
+       nav li a:hover{
+        color: rgb(34, 34, 53);
+      }
+
+      .content {
+        grid-area: content;
+        background-color: orange;
+                padding: 1rem;
+
+      }
+      .ads{
+        grid-area: ads;
+        background-color: blueviolet;
+                padding: 1rem;
+
+      }
+      footer{
+        grid-area: footer;
+                padding: 2rem;
+        background-color: rgb(157, 59, 250);
+        color: white;
+        text-align: center;
+
+      }
+      
+      @media screen and (max-width: 768px){
+         .grid{
+        grid-template-rows: auto auto 1fr auto;
+        grid-template-columns: 1fr;
+        grid-template-areas: " header"
+                             " nav"
+                             "content"
+                             "ads"
+                             " footer" ;
+       }
+        
+
+      }
+      
+
+     
+    </style>
+  </head>
+  <body>
+     <div class="grid">
+    <header>My Magazine Header</header>
+    <nav>
+      <ul>
+        <li><a href="#">Section 1</a></li>
+        <li><a href="#">Section 2</a></li>
+        <li><a href="#">Section 3</a></li>
+      </ul>
+    </nav>
+    <div class="content">
+      <h1>Article Title</h1>
+      <p>Long scrolling content… Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur nec viverra dolor.</p>
+    </div>
+    <aside class="ads">
+      <h2>Sponsored</h2>
+      <p>Ad content here.</p>
+    </aside>
+    <footer>© 2025 My Magazine</footer>
+  </div>
+
+  </body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--Practice6-->
+
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>CSS Animations Combined Demo</title>
+    <style>
+      /* Reset & Base Styles */
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      :root{
+        --global-padding : 1rem;
+      }
+      body {
+        font-family: Arial, sans-serif;
+        font-size: 1rem;
+        position: relative;
+        background-color: #f0f2f5;
+        padding: 2rem;
+
+      }
+      h1{ text-align: center; font-weight:bold ; margin-bottom: 1rem;}
+      .blog-grid{
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        grid-template-rows: auto auto auto;
+        grid-template-areas: "featured featured featured"
+                             "post1 post2 post3"
+                             "post4 post5 post6" ;
+                             gap: 1rem;
+        height: auto;
+
+      }
+      .featured{
+        grid-area: featured;
+        padding: 1.5rem;
+        background-color: rgba(17, 17, 209, 0.952);
+        color: #f0f2f5;
+      }
+      .post{
+        
+        background-color: rgb(216, 218, 217);
+        padding: 1rem;
+
+      }
+      
+      
+      .post1{ grid-area: post1; }
+      .post2{ grid-area: post2; }
+      .post3{ grid-area: post3; }
+      .post4{ grid-area: post4; }
+      .post5{ grid-area: post5; }
+      .post6{ grid-area: post6; }
+
+
+
+      
+      @media screen and (max-width: 768px){
+        .blog-grid{
+        grid-template-rows: auto auto auto auto;
+        grid-template-columns: 1fr;
+        grid-template-areas: " featured"
+                             " post1"
+                             "post2"
+                             "post3"
+                             " post4"
+                             " post5"
+                             " post6" ;
+       }
+        
+
+      }
+      
+
+     
+    </style>
+  </head>
+  <body>
+
+    <h1>My Blog</h1>
+  <div class="blog-grid">
+    <article class="featured">
+      <h2>Featured Article</h2>
+      <p>This is the standout post that spans all columns.</p>
+    </article>
+    <article id="post1" class="post"><h3>Post 1</h3><p>Summary of post one.</p></article>
+    <article id="post2" class="post"><h3>Post 2</h3><p>Summary of post two.</p></article>
+    <article id="post3" class="post"><h3>Post 3</h3><p>Summary of post three.</p></article>
+    <article id="post4" class="post"><h3>Post 4</h3><p>Summary of post four.</p></article>
+    <article id="post5" class="post"><h3>Post 5</h3><p>Summary of post five.</p></article>
+    <article id="post6" class="post"><h3>Post 6</h3><p>Summary of post six.</p></article>
+  </div>
+
+  </body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--Practice7-->
+
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>CSS Animations Combined Demo</title>
+    <style>
+      /* Reset & Base Styles */
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      :root{
+        --global-padding : 1rem;
+      }
+      body {
+        font-family: Arial, sans-serif;
+        font-size: 1rem;
+        position: relative;
+        background-color: #f0f2f5;
+        padding: 2rem;
+
+      }
+      h1{ text-align: center; font-weight:bold ; margin-bottom: 1rem;}
+      .gallery{
+        display: grid;
+        grid-template-columns: repeat(auto-fit , minmax(200px , 1fr) );
+        gap: 1rem;
+      }
+      .photo-item{
+       position: relative;
+       overflow: hidden;
+       perspective: 600px;
+      }
+      .photo-item img{
+        width: 100%;
+        height: auto;
+        object-fit: cover;
+        transform-style: preserve-3d;
+        transition: transform 0.4s; 
+      }
+     
+
+       .photo-item img:hover{
+        transform: scale(1.1);
+;
+      }
+
+      .caption{
+        position:absolute;
+        width: 100%;
+        z-index: 1000;
+        text-align: center;
+        background-color: rgba(12, 11, 11, 0.377);
+        color: white;
+        padding: 0.5rem;
+        left: 0px;
+        bottom: 3px;
+        font-size: 0.9rem;
+      }
+     
+      
+      @media screen and (max-width: 768px){
+        .blog-grid{
+        grid-template-rows: auto auto auto auto;
+        grid-template-columns: 1fr;
+        grid-template-areas: " featured"
+                             " post1"
+                             "post2"
+                             "post3"
+                             " post4"
+                             " post5"
+                             " post6" ;
+       }
+        
+
+      }
+      
+
+     
+    </style>
+  </head>
+  <body>
+
+     <h1>Photo Gallery</h1>
+  <div class="gallery">
+    <div class="photo-item">
+      <img src="Images/A1.jpg" alt="Photo A">
+      <div class="caption">Caption A</div>
+    </div>
+    <div class="photo-item">
+      <img src="Images/A2.jpg" alt="Photo B">
+      <div class="caption">Caption B</div>
+    </div>
+    <div class="photo-item">
+      <img src="Images/A3.jpg" alt="Photo C">
+      <div class="caption">Caption C</div>
+    </div>
+    <div class="photo-item">
+      <img src="Images/A4.jpg" alt="Photo D">
+      <div class="caption">Caption D</div>
+    </div>
+    <div class="photo-item">
+      <img src="Images/A10.jpg" alt="Photo E">
+      <div class="caption">Caption E</div>
+    </div>
+    <div class="photo-item">
+      <img src="Images/A11.jpg" alt="Photo F">
+      <div class="caption">Caption F</div>
+    </div>
+  </div>
+
+  </body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--Practice8-->
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>CSS Animations Combined Demo</title>
+    <style>
+      /* Reset & Base Styles */
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      :root{
+        --global-padding : 1rem;
+      }
+      body {
+        font-family: Arial, sans-serif;
+        font-size: 1rem;
+        position: relative;
+        background-color: #f0f2f5;
+        padding: 2rem;
+
+      }
+      h1{ text-align: center; font-weight:bold ; margin-bottom: 1rem;}
+      .mosaic{
+        display: grid;
+        grid-template-columns: repeat(auto-fit , minmax(150px , 1fr) );
+        gap: 0.5rem;
+        grid-auto-rows: 150px;
+        grid-auto-flow:dense;
+      }
+      .mosaic img{
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+      .span-2x{
+       grid-column: span 2 ;
+       grid-row: span 2;
+      }
+      
+     
+
+           
+        
+    
+      
+
+     
+    </style>
+  </head>
+  <body>
+
+     <h1>Masonry-Style Mosaic</h1>
+  <div class="mosaic">
+    <img src="Images/A1.jpg" class="span-2x" alt="">
+    <img src="Images/A2.jpg" alt="">
+    <img src="Images/A3.jpg" alt="">
+    <img src="Images/A4.jpg" alt="">
+    <img src="Images/A5.jpg" class="span-2x" alt="">
+    <img src="Images/A6.jpg" alt="">
+    <img src="Images/A7.jpg" alt="">
+    <img src="Images/A8.jpg" class="span-2x" alt="">
+    <img src="Images/A9.jpg" alt="">
+    <img src="Images/A10.jpg" alt="">
+  </div>
+  </body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--Practice9-->
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>CSS Animations Combined Demo</title>
+    <style>
+      /* Reset & Base Styles */
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+     
+      body {
+        font-family: Arial, sans-serif;
+        font-size: 1rem;
+        background-color: #e0dedea1;
+        padding: 2rem;
+        
+      }
+      h1{ text-align: center; font-weight:bold ; margin-bottom: 1rem;}
+
+      form{
+        display: grid;
+        grid-template-columns: 1fr  1fr;
+        gap: 1rem;
+        max-width: 600px;
+        margin: 0 auto;
+      }
+      label{
+       margin-bottom: 4px;
+        display: block;
+      }
+      .full-width{
+        grid-column:  1 / -1;
+      }
+      input , select , textarea ,
+      button 
+      {
+        width: 100%;
+        border: solid 1px rgb(104, 101, 101);
+        border-radius: 5px;
+        padding: 0.5rem;
+      }
+
+      button{
+        background-color: rgb(0, 180, 120);
+        color: white;
+        border: none;
+        cursor: pointer;
+        font-weight: bold;
+      }
+      
+     
+       @media screen and (max-width: 600px) {
+      form { grid-template-columns: 1fr; }
+      }
+           
+        
+    
+      
+
+     
+    </style>
+  </head>
+  <body>
+
+      <h1>Sign Up Form</h1>
+  <form>
+    <div>
+      <label for="first">First Name</label>
+      <input id="first" type="text" required>
+    </div>
+    <div>
+      <label for="last">Last Name</label>
+      <input id="last" type="text" required>
+    </div>
+    <div class="full-width">
+      <label for="email">Email Address</label>
+      <input id="email" type="email" required>
+    </div>
+    <div>
+      <label for="country">Country</label>
+      <select id="country">
+        <option>USA</option>
+        <option>Canada</option>
+        <option>UK</option>
+      </select>
+    </div>
+    <div>
+      <label for="subscribe">Subscribe?</label>
+      <select id="subscribe">
+        <option>Yes</option>
+        <option>No</option>
+      </select>
+    </div>
+    <div class="full-width">
+      <label for="comments">Comments</label>
+      <textarea id="comments" rows="4"></textarea>
+    </div>
+    <button class="full-width" type="submit">Submit</button>
+  </form>
+  </body>
+</html>

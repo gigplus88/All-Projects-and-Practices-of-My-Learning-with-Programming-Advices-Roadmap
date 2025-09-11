@@ -1,0 +1,17 @@
+
+with SalesTotals As(
+
+select EmployeeID , sum(SaleAmount) As TotalSales
+from SalesRecords 
+Group By EmployeeID
+
+),  TopThreeSalesEmployees As 
+(
+select Top 3 EmployeeID ,TotalSales
+	   from SalesTotals
+	   Order By TotalSales Desc
+)
+select Avg(TotalSales) As  AverageTopSales
+from TopThreeEmployeesSales ;
+
+

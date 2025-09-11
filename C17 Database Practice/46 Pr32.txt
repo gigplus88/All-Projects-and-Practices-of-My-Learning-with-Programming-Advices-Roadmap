@@ -1,0 +1,21 @@
+ select  VehicleDetails.Vehicle_Display_Name , 
+         year , 
+		 CarAge=(YEAR(GetDate()) - VehicleDetails.Year) 
+ from VehicleDetails 
+ where (YEAR(GetDate()) - VehicleDetails.Year) between 15 and 25
+ Order By CarAge desc;
+
+
+
+
+-- When the Database know Age Before Where 
+-- Teqcher Solution
+ select * from
+ (
+  select  VehicleDetails.Vehicle_Display_Name , 
+         year , 
+		 CarAge=(YEAR(GetDate()) - VehicleDetails.Year) 
+ from VehicleDetails 
+ )R1
+  where R1.CarAge between 15 and 25
+ Order By CarAge desc;

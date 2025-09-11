@@ -1,0 +1,19 @@
+#include <iostream>
+using namespace std;
+
+int main()
+{
+    float   Billvalue=0.0 , TotalBill=0.0;
+   
+    cout << " Give me The Billvalue: ";
+    cin >> Billvalue;
+    Billvalue = Billvalue * 1.1 ;
+    Billvalue = Billvalue * 1.16 ;
+    TotalBill = Billvalue;
+
+    cout << "The TotalBill is: " << TotalBill;
+    
+       
+    return 0 ;
+
+}

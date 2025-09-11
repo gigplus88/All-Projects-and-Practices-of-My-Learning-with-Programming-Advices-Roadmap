@@ -1,0 +1,52 @@
+#include <iostream>
+#include <cmath>
+#include <string>
+using namespace std;
+
+// With array and simple method Num1 and Num2:
+
+void ReadTriangleData(float &a , float &b , float& c)
+{
+    
+    cout << "Please enter a" << endl;
+    cin >> a;
+
+    cout << "Please enter b" << endl;
+    cin >> b;
+
+    cout << "Please enter c" << endl;
+    cin >> c;
+
+    
+}
+
+float CircleAreaByTriangle(float a, float b , float c )
+{
+    const float PI = 3.141592653589793238;
+    float p = (a + b + c) / 2;
+    float Area = PI* pow((a * b * c),2) / pow( 4 * sqrt(p * (p - a) * (p - b) * (p - c)),2);
+     return Area;
+}
+void PrintArea(float Area)
+{
+    cout << "The Circle Area is: " << Area << endl;
+
+}
+
+
+ 
+
+
+
+
+int main()
+{
+    float a,b,c;
+    
+    ReadTriangleData( a, b,c);
+    PrintArea(CircleAreaByTriangle(a,b,c));
+
+
+    return 0;
+
+}

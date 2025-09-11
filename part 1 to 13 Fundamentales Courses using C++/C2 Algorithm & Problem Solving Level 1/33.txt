@@ -1,0 +1,123 @@
+
+#include <iostream>
+#include <cmath>
+#include <string>
+using namespace std;
+
+
+void ReadGrade(short int &Grade)
+{
+    cout << "enter your Grade please " << endl;
+    cin >> Grade;
+
+}
+
+void PrintResultA()
+{
+    cout << "A" << endl;
+
+}
+
+void PrintResulBt()
+{
+    cout << "B" << endl;
+
+}
+
+void PrintResultC()
+{
+    cout << "C" << endl;
+
+}
+
+void PrintResultD()
+{
+    cout << "D" << endl;
+
+}
+
+void PrintResultE()
+{
+    cout << "E" << endl;
+
+}
+
+
+void PrintOtherwise()
+{
+    cout << "F" << endl;
+
+}
+
+
+
+int main()
+{
+   
+    short int Grade =0;
+
+    ReadGrade(Grade);
+
+    if (Grade >= 90 && Grade<=100)
+    {
+        PrintResultA();
+        
+    }
+
+    else if (Grade >= 80 && Grade <= 89)
+
+    {
+        PrintResulBt();
+        
+
+    }
+
+    else if (Grade >= 70 && Grade <= 79)
+
+    {
+        PrintResultC();
+
+
+    }
+
+    else if (Grade >= 60 && Grade <= 69)
+
+    {
+        PrintResultD();
+
+
+    }
+
+    else if (Grade >= 50 && Grade <= 59)
+
+    {
+        PrintResultE();
+
+
+    }
+
+    else 
+
+    {
+        PrintOtherwise();
+
+
+    }
+
+    return 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

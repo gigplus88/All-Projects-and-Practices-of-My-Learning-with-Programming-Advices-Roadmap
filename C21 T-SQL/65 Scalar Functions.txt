@@ -1,0 +1,64 @@
+
+Create Function GetAverageGrade(@Subject nVarchar(50))
+Returns Int
+
+As
+Begin
+	Declare @AverageGrade int;
+
+	Select @AverageGrade = Avg(Grade)
+	From Students 
+	Where Subject = @Subject;
+
+	Return @AverageGrade;
+End;
+
+
+Select * From Students 
+
+Select * From Teachers 
+
+
+select * , dbo.GetAverageGrade(Subject) As AverageGrades from Teachers
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Alter Function dbo.CalculateBonus(@PerformanceRating int, @Salary int)
+Returns int
+
+As 
+Begin
+	Declare @Bonus int;
+
+	if @PerformanceRating >= 80
+		set @Bonus = @Salary *6;
+
+	else
+	Begin
+		if @PerformanceRating >= 60 and @PerformanceRating  <80
+		set @Bonus = @Salary *3;
+
+	else
+		set @Bonus = @Salary *1;
+	End
+	
+
+	return @Bonus;
+End;
+
+
+select *from Employees2
+select * , Bonus = dbo.CalculateBonus(PerformanceRating , Salary) from Employees2;
+

@@ -1,0 +1,52 @@
+#include <iostream>
+#include <iostream>
+#include <fstream>
+#include <string>
+#include <vector>
+#include <iomanip>
+
+using namespace std;
+
+// Abstract class / Interface /Contract
+class clsA
+{
+private:
+    int _Var1;
+protected:
+    int Var3;
+public:
+    int Var2;
+
+    clsA()
+    {
+        _Var1 = 2;
+        Var2 = 7;
+        Var3 = 8;
+    }
+
+    friend int MySum(clsA A1);
+    friend int MySum13(clsA A1);
+};
+
+int MySum(clsA A1)
+{
+    return A1._Var1 + A1.Var2 + A1.Var3;
+}
+
+
+    int MySum13(clsA A1)
+    {
+        return A1.Var3;
+    }
+
+
+int main()
+{
+    clsA A1;
+   
+    cout << MySum(A1) << endl;
+    cout << MySum13( A1);
+
+    system("pause>0");
+    return 0;
+}

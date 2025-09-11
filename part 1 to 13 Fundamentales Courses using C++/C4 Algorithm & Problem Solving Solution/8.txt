@@ -1,0 +1,63 @@
+#include <iostream>
+#include <cmath>
+#include <string>
+using namespace std;
+
+
+enum enPassFail {PASS=1 , FAIL=2};
+enPassFail enCheck;
+
+int ReadMark()
+{
+   
+    int Mark;
+    cout << "Please enter your Mark" <<endl;
+    cin >> Mark;
+
+    
+    return Mark;
+}
+enPassFail ChekMark(int Mark)
+{
+    
+    if (Mark >=50 )
+    {
+        return enPassFail::PASS;
+    }
+    else
+    {
+        return enPassFail::FAIL;
+    }
+
+}
+
+void PrintFullName(int Mark)
+{
+    if (ChekMark(Mark) == enPassFail::PASS)
+    {
+        cout << "Pass" << endl;
+    }
+    else
+    {
+        cout << "Fail" << endl;
+    }
+    
+
+}
+
+
+
+
+
+
+int main()
+{
+   
+
+    PrintFullName(ReadMark());
+        return 0;
+
+   
+
+}
+

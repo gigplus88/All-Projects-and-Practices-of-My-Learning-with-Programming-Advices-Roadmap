@@ -1,0 +1,50 @@
+
+#define KOKO
+//#define KOKO
+
+using System;
+using System.Diagnostics;
+using System.IO;
+using System.Runtime.Serialization.Json;
+
+
+[Serializable]
+public class Person
+{
+    public string Name { get; set; }
+    public int Age { get; set; }
+
+    [NonSerialized]
+    public string Job;
+
+}
+
+public class MyClass
+{
+    //[Conditional("DEBUG")] //for debugin mode
+    [Conditional("KOKO")]
+   public void DebugMethod()
+   {
+        Console.WriteLine("Debug Method Execute");
+   }
+
+    public void SimpleMethod()
+    {
+        Console.WriteLine("Simple Method Execute");
+    }
+
+}
+
+
+class Program
+{
+    static void Main()
+    {
+        MyClass myClass = new MyClass();
+
+        myClass.DebugMethod();
+        myClass.SimpleMethod();
+
+        Console.ReadLine();
+    }
+}

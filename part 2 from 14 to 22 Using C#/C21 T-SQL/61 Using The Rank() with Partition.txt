@@ -1,0 +1,9 @@
+
+SELECT 
+    StudentID, 
+    Name, 
+    Subject, 
+    Grade,
+    Rank()  OVER (Partition by Subject ORDER BY Grade DESC) AS GradeRank
+FROM 
+    Students;

@@ -1,0 +1,70 @@
+#include <iostream>
+#include <cmath>
+#include <string>
+using namespace std;
+
+// With array and simple method Num1 and Num2:
+
+int ReadAge()
+{
+    int Age;
+    cout << "Please enter  your Age" << endl;
+    cin >> Age;
+    return Age;
+
+}
+
+bool ValidateNumberInRange(int Age, int From , int To )
+{
+    /*if (Num >= From && Num <= 45)
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }*/
+    return (Age >= From && Age <= 45);
+
+}
+
+
+int ReadUntilAgeBetween(int From, int To)
+{
+    int Age = 0;
+   
+    do
+    {
+        Age=(ReadAge());
+
+
+    } while (!ValidateNumberInRange(Age, From, To));
+
+    return Age;
+
+}
+
+
+void PrintResult(int Age)
+{
+
+    
+        cout << "Your Age is: " << Age  << endl;
+
+
+}
+
+
+ 
+
+
+
+
+int main()
+{
+    
+    PrintResult(ReadUntilAgeBetween(18,45));
+
+    return 0;
+
+}

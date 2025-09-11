@@ -1,0 +1,19 @@
+using Beak= System.Console; //Create alias 
+using System; //Import Library
+using static System.Math; //Import static directive
+using static System.Console;
+
+class Program
+{
+    static void Main()
+    {
+        
+        double x = Sqrt(2);
+
+        WriteLine(Round(x ) );
+
+    }
+    
+
+}
+

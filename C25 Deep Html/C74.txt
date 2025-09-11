@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Button Link Example</title>
+</head>
+<body>
+    <p>
+         Visit our <a href="https://www.ProgrammingAdvices.com">Homepage</a> to learn more.
+    </p>
+
+    <p>Visit our 
+            <a href="https://www.ProgrammingAdvices.com" 
+            style="color: gray;"
+            onmouseover="this.style.color = 'red' " 
+            onmouseout="this.style.color = 'blue' " 
+            onmousedown="this.style.color = 'yellow' " 
+            onmouseup="this.style.color='green'"    
+            >Homepage
+            </a> to learn more.
+   </p>
+   
+
+</body>
+</html>

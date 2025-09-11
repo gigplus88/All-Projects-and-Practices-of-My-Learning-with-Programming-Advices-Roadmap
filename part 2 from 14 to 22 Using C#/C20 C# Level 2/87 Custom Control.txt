@@ -1,0 +1,132 @@
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace MyAppForControlLibrary
+{
+    public partial class MyCustomTextBox : TextBox
+    {
+        public MyCustomTextBox()
+        {
+            InitializeComponent();
+        }
+
+        protected override void OnPaint(PaintEventArgs pe)
+        {
+            base.OnPaint(pe);
+        }
+
+
+        private bool _IsRequired { get; set; }
+        public bool IsRequired
+        {
+            get
+            {
+                return _IsRequired;
+            }
+            set
+            {
+                _IsRequired = value;
+                if (_IsRequired)
+                {
+                   Validating += ValidatingTexbox;
+                }
+                else
+                {
+                    Validating += ValidatingTexbox;
+                }
+            }
+        }
+
+
+
+
+        public enum InputTypeEnum { TextInput , NumberInput}
+        private InputTypeEnum _InputType { get; set; } = InputTypeEnum.TextInput;
+
+
+        public InputTypeEnum InputType
+        {
+            get
+            {
+                return _InputType;
+            }
+            set
+            {
+                _InputType = value;
+                
+                 Validating += ValidatingNumber;
+               
+            }
+        }
+
+        private bool IsNumeric()
+        {
+            string s = this.Text.Trim();
+
+            foreach (var c in s)
+            {
+                if (!char.IsDigit(c) && c != '.' )
+                {
+                    
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        //public Boolean IsValid()
+        //{
+        //   if(IsRequired)
+        //   {
+        //        if (this.Text.Trim().Length == 0)
+        //            return false;
+        //   }
+
+        //    if (InputType ==InputTypeEnum.NumberInput)
+        //    {
+        //        return IsNumeric();
+        //    }
+        //    return false;
+        //}
+       
+
+        ErrorProvider errorProvider = new ErrorProvider();
+        public void ValidatingTexbox(object sender, CancelEventArgs e)
+        {
+            if (this.Text.Trim() == "")
+            {
+                e.Cancel = true;
+                errorProvider.SetError(this, "Is Required");
+            }
+            else
+            {
+                e.Cancel = false;
+                errorProvider.SetError(this, "");
+            }
+
+        }
+        public void ValidatingNumber (object sender, CancelEventArgs e)
+        {
+            if (!IsNumeric())
+            {
+                e.Cancel = true;
+                errorProvider.SetError(this, "The value is Number Required");
+            }
+
+            else
+            {
+                e.Cancel = false;
+                errorProvider.SetError(this, "");
+            }
+
+
+        }
+    }
+}

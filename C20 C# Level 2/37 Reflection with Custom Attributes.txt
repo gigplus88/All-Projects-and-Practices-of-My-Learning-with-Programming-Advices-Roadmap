@@ -1,0 +1,88 @@
+using System;
+using System.Linq;
+using System.Reflection;
+
+
+class Program
+{
+    // The Bejhavior for My Custom Attribute
+    [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method | AttributeTargets.Property, AllowMultiple = true)]
+    public class MyCustom : Attribute
+    {
+        public string Description { get; }
+
+
+        public MyCustom(string description)
+        {
+            Description = description;
+        }
+    }
+
+
+
+
+
+
+    [MyCustom("This Class For Manage Person Info")]
+    public class MyClass
+    {
+        [MyCustom("This h For Manage Person Info")]
+        public int PersonJob { get; set; }
+
+        [MyCustom("This Method is  For Calculate Monthly Salary without Taxes for each Employee")]
+
+        public double SalaryAfterTaxing(float Salary , double taxes)
+        {
+            return Salary - Salary * (taxes/100);
+        }
+
+        public void Method2(int value1, string value2)
+        {
+            Console.WriteLine($"\tMethod2 is Executed with parameters: {value1}, {value2}");
+        }
+    }
+  
+    static void Main()
+    {
+
+        // Get the System.String type
+        Type myClass = typeof(MyClass);
+
+
+        Console.WriteLine($"Class Name: {myClass.Name}");
+
+        object[] classAttributes = myClass.GetCustomAttributes(typeof(MyCustomAttribute), false);
+
+        foreach (MyCustomAttribute Attribute in classAttributes)
+        {
+            Console.WriteLine($"\tClass Desc: {Attribute.Description}");
+
+        }
+
+
+        // Method Info
+
+        MethodInfo methodInfo = myClass.GetMethod("SalaryAfterTaxing");
+
+        //Get SalaryAfterTaxing Attributes
+        object[] MethodAttributes = methodInfo.GetCustomAttributes(typeof(MyCustomAttribute), false);
+
+        foreach (MyCustomAttribute Attribute in MethodAttributes)
+        {
+            Console.WriteLine($"\tSalaryAfterTaxing Att: {Attribute.Description}");
+
+        }
+
+
+
+        Console.ReadKey();
+
+
+    }
+
+
+    static string GetParameterList(ParameterInfo[] parameters)
+    {
+        return string.Join(", ", parameters.Select(parameter => $"{parameter.ParameterType} {parameter.Name}"));
+    }
+}

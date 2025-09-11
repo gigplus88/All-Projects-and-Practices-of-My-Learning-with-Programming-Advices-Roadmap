@@ -1,0 +1,45 @@
+#include <iostream>
+#include <cmath>
+#include <string>
+using namespace std;
+
+enum enPrimeNotPrime { Prime = 1, NotPrime = 2 };
+
+float ReadPositiveNumber( string Message)
+{
+    float Number = 0.0; 
+
+    do
+    {
+        cout << Message << endl;
+        cin >> Number;
+
+    } while (Number<=0);
+    
+    return Number;
+}
+
+float CalculatRemainder(float TotalBill , float TotalCashPaid)
+{
+    return TotalCashPaid - TotalBill; 
+    
+}
+ 
+
+int main()
+{
+    float TotalBill = ReadPositiveNumber("Please enter a Total Bill: ");
+    float TotalCashPaid = ReadPositiveNumber("Please enter a Total Cash  Paid: ");
+
+    cout << endl;
+
+    cout << "Total Bill is: " << TotalBill << endl;
+    cout << " Total Cash Paid : " << TotalCashPaid << endl;
+    cout << "*********************************" << endl;
+
+    cout << " The remainder is: " << CalculatRemainder(TotalBill, TotalCashPaid);
+
+
+    return 0;
+
+}

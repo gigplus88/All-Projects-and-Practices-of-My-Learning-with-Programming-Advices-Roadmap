@@ -1,0 +1,114 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
+using System.Threading.Tasks;
+
+
+
+class Program
+{
+
+    static void Main()
+    {
+
+        // Create a BitArray from an array of booleans
+
+        bool[] initialValues = { true, false, true, true, false };
+        BitArray bits2 = new BitArray(initialValues);
+
+        //Assignment of bits2 element 
+        bits2.Set(2, false);
+        bits2.Set(3, false);
+        bits2[0] = false;
+
+
+        foreach (var item in bits2)
+        {
+            Console.Write($"- {item} " );
+        }
+        Console.WriteLine();
+
+
+
+        bits2.SetAll(true);
+
+
+        // Get the value of the bit at index 3
+
+        bool bitValue = bits2[3]; 
+
+        foreach (var item in bits2)
+        {
+            Console.Write($"- {item} ");
+        }
+
+
+
+
+        // Create a BitArray from a byte array
+        Console.WriteLine($"\n##############################");
+
+        //Hexadecimal value to bit value with BitArray
+        byte[] byteArray = { 0xAA, 0x55 , 0x43}; // 10101010, 01010101
+        BitArray bits3 = new BitArray(byteArray);
+        foreach (var item in bits3)
+        {
+            Console.Write($"- {item}");
+        }
+        Console.WriteLine($"\n##############################");
+
+        Console.WriteLine("\nbits3 content: " + BitArrayToString(bits3));
+        for (int i = 0; i < bits3.Count; i++)
+        {
+            bool bitVal = bits3[i];
+            Console.WriteLine($"Bit at index {i}: {bitVal}");
+        }
+
+
+        Console.WriteLine($"\n##############################");
+
+
+
+        BitArray bitArray = new BitArray(10); // Default value of BitArray element is 0 == false
+        bitArray.Set( 0,true);
+        bitArray.Set(4, true);
+
+        Console.WriteLine($"\nThe Length of bitArray is {bitArray.Length} ");
+
+        for (int i = 0; i < bitArray.Length; i++)
+        {
+            bool BitValue = bitArray[i];
+            Console.Write($"\nBit at index {i} is : {BitValue} ");
+        }
+
+        string StringValue = BitArrayToString(bitArray);
+
+        Console.WriteLine($"\n The bitArray content: is {StringValue} ");
+
+
+
+
+
+
+
+        //Full Example
+
+        Console.ReadKey();
+
+    }
+
+    static string BitArrayToString(BitArray bitArray)
+    {
+        char[] chars = new char[bitArray.Length];
+
+        for (int i = 0; i < bitArray.Length; i++)
+        {
+            chars[i] = bitArray[i] ? '1' : '0';
+        }
+
+        return new string (chars);
+    }
+
+}

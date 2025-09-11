@@ -1,0 +1,47 @@
+#include <iostream>
+#include <iostream>
+#include <fstream>
+#include <string>
+#include <vector>
+#include <iomanip>
+
+using namespace std;
+
+// Abstract class / Interface /Contract
+class clsA
+{
+private:
+    int _Var1;
+public:
+    int Var2;
+
+    clsA()
+    {
+        _Var1 = 2;
+        Var2 = 7;
+    }
+
+    friend class clsB; // To access to all members in clsA fom clsB;
+};
+
+class clsB
+{
+public:
+    void display(clsA A1)
+    {
+        cout << "\nThe value of Var2 is: " << A1.Var2;
+        cout << "\nThe value of Var1 is: " << A1._Var1;
+
+    }
+};
+
+int main()
+{
+    clsA A1;
+    clsB B1;
+
+    B1.display(A1);
+    
+    system("pause>0");
+    return 0;
+}

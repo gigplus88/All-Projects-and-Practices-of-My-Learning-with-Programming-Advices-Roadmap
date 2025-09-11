@@ -1,0 +1,44 @@
+using System;
+using System.Linq;
+using System.Data;
+
+namespace ConsoleAppDataTable
+{
+    public class Example
+    {
+        public static void Main(string[] args)
+        {
+
+            DataTable Employee = new DataTable();
+
+            // Columns
+            Employee.Columns.Add("ID", typeof(int));
+            Employee.Columns.Add("Name", typeof(string));
+            Employee.Columns.Add("Country" , typeof(string));
+            Employee.Columns.Add("Salary" , typeof(Double));
+            Employee.Columns.Add("Date" , typeof(DateTime));
+
+            DataColumn[] PrimaryKeyColumn = new DataColumn[1];
+            PrimaryKeyColumn[0] = Employee.Columns["ID"];
+
+            Employee.PrimaryKey = PrimaryKeyColumn;
+
+            // Rows
+
+            Employee.Rows.Add(1 , "Ayoub Fellah" , "Morocco" , 2000 , DateTime.Now);
+            Employee.Rows.Add(2, "Saad Bihi", "Morocco", 5000, DateTime.Now);
+            Employee.Rows.Add(3, "Ayoub Rochdi", "Lebnano", 1000, DateTime.Now);
+            Employee.Rows.Add(4, "Zaid smikss", "Ksa", 2000, DateTime.Now);
+            Employee.Rows.Add(5, "Rachad Fellah", "Morocco", 8000, DateTime.Now);
+            Employee.Rows.Add(6, "Zoubir laroui", "Tunisie", 9000, DateTime.Now);
+
+            foreach (DataRow Row in Employee.Rows)
+            {
+                Console.WriteLine($"ID : {Row["ID"]} \t Name : {Row["Name"]} \t Country : {Row["Country"]}  \t Salary : {Row["Salary"]}  \t Date : {Row["Date"]} ");
+                //Console.WriteLine("ID : {0} \t Name : {1} \t Country : {2}  \t Salary : {3}  \t Date : {4}", Row[0], Row[1],Row[2],Row[3],Row[4]);
+            }
+
+            
+        }
+    }
+}

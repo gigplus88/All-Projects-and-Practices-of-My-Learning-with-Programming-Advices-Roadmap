@@ -1,0 +1,33 @@
+#include <iostream>
+#include "clsBankClient.h"
+#include "clsInputValidate.h"
+#include <iomanip>
+#include <vector>
+#include "clsMainScreen.h"
+#include "clsLoginScreen.h"
+#include "clsCurrency.h"
+
+template <typename T> T MyMax(T Number1, T Number2)
+{
+    return (Number1 > Number2) ? Number1 : Number2;
+}
+
+int main()
+
+{
+   
+
+    
+
+    while (true)
+    {
+        if (!clsLoginScreen::ShowLoginScreen())
+        {
+            break;
+        }
+    }
+
+  
+    system("pause>0");
+    return 0;
+}

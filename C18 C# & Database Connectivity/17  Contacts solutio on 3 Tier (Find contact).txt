@@ -1,0 +1,186 @@
+// ContactsBusinessLayer
+
+
+
+using System;
+using ContactsDataAccessLayer;
+
+namespace ContactsBusinessLayer
+{
+    public class clsContact
+    {
+        public int ID { get; set; }
+        public string FirstName  { get; set; }
+        public string LastName { get; set; }
+        public string Email { get; set; }
+        public string Phone { get; set; }
+        public string Address { get; set; }
+        public string ImagePath { get; set; }
+        public DateTime DateOfBirth { get; set; }
+        public int CountryID { get; set; }
+
+        public clsContact(int ID , string FirstName , string LastName , string Email , string Phone , string Address
+            , DateTime DateOfBirth, int CountryID, string ImagePath   ) 
+        {
+            this.ID = ID;
+            this.FirstName = FirstName;
+            this.LastName = LastName;
+            this.Email = Email;
+            this.Phone = Phone;
+            this.Address = Address;
+            this.ImagePath = ImagePath;
+            this.DateOfBirth = DateOfBirth;
+            this.CountryID = CountryID;
+
+        }
+        public static clsContact Find(int ID)
+        {
+            string FirstName = "", LastName = "", Email = "", Phone = "", Address = "", ImagePath = "";
+            DateTime DateOfBirth = DateTime.Now;
+            int CountryID = -1;
+
+            if (clsContactDataAccess.GetContatctInfoByID( ref ID,  ref FirstName, ref LastName, ref Email,
+            ref Phone, ref Address, ref DateOfBirth,ref  CountryID, ref ImagePath))
+            {
+                return new clsContact(ID, FirstName, LastName, Email,
+             Phone, Address, DateOfBirth, CountryID, ImagePath);
+
+            }
+
+            else
+            {
+                return null;
+            }
+        }
+    }
+
+}
+
+
+
+
+
+
+
+
+
+
+
+// ContactsDataAccessLayer
+
+using System;
+namespace ContactsDataAccessLayer
+{
+    public class clsContactDataAccess
+    {
+        public static bool GetContatctInfoByID(ref int ID , ref string FirstName , ref string LastName , ref string Email ,
+            ref string Phone , ref string Address , ref DateTime DateOfBirth , ref int CountryID , ref string ImagePath)
+        {
+            bool isFound = false;
+            SqlConnection connection = new SqlConnection(clsDataAccessSetting.connectionString);
+
+            string query = "SELECT * FROM Contacts " +
+                         "  Where ContactID = @ContactID";
+
+            SqlCommand command = new SqlCommand(query, connection);
+
+            command.Parameters.AddWithValue("ContactID", ID);
+
+            try
+            {
+                connection.Open();
+
+                SqlDataReader reader = command.ExecuteReader();
+
+                if (reader.Read())
+                {
+                    isFound = true;
+
+                    FirstName = (string)reader["FirstName"];
+                    LastName = (string)reader["LastName"];
+                    Email = (string)reader["Email"];
+                    Phone = (string)reader["Phone"];
+                    Address = (string)reader["Address"];
+                    DateOfBirth = (DateTime)reader["DateOfBirth"];
+                    CountryID = (int)reader["CountryID"];
+                    if (reader["ImagePath"] != DBNull.Value)
+                    {
+                       ImagePath = (string)reader["ImagePath"];
+                    }
+
+                    else
+                    {
+                       ImagePath = "";
+                    }
+                }
+
+
+                else
+                {
+                    isFound = false;
+                }
+                reader.Close();
+            }
+
+            catch (Exception ex)
+            {
+                isFound = false;
+                Console.WriteLine("Error: " + ex.Message);
+            }
+
+            finally
+            {
+
+                connection.Close();
+
+            } 
+
+                return isFound;
+
+        }
+
+
+
+    }
+    }
+
+
+
+
+// Main
+
+using System;
+using System.Data;
+using ContactsBusinessLayer;
+
+namespace ContactsConsoleApplication_PresentationLayer
+{
+    internal class Program
+    {
+        static void TestFindContact(int ID)
+        {
+            clsContact Contact1 = clsContact.Find(ID);
+
+            if (Contact1 != null)
+            {
+                Console.WriteLine($"Contact Name:{Contact1.FirstName} {Contact1.LastName}");
+                Console.WriteLine($"Contact Email:{Contact1.Email} ");
+                Console.WriteLine($"Contact Phone:{Contact1.Phone} ");
+                Console.WriteLine($"Contact Address:{Contact1.Address} ");
+                Console.WriteLine($"Contact DateOfBirth:{Contact1.DateOfBirth} ");
+                Console.WriteLine($"Contact CountryID:{Contact1.CountryID} ");
+                Console.WriteLine($"Contact ImagePath:{Contact1.ImagePath} ");
+
+            }
+
+            else
+            {
+                Console.WriteLine($"Contact By This {ID} not Found");
+            }
+        }
+        static void Main(string[] args)
+        {
+            TestFindContact(2);
+        }
+    }
+}

@@ -1,0 +1,91 @@
+#include <iostream>
+#include <cmath>
+#include <string>
+using namespace std;
+
+// With array and simple method Num1 and Num2:
+
+int ReadNumber ()
+{
+    int N;
+    cout << "Please enter  your number" << endl;
+    cin >> N;
+    return N;
+
+}
+
+void PrintRangeFromNto1_UssingWhile (int N)
+{
+    cout << "Range printed using While statement: " << endl;
+
+    int i = N;
+    while (i>=1)
+    {
+        cout << i << endl;
+        i--;
+    }
+
+}
+
+void PrintRangeFromNto1_UssingDoWhile(int N)
+{
+    cout << "Range printed using do While statement: " << endl;
+
+    int i = N;
+    do
+    {
+        cout << i << endl;
+        i--;
+
+    } while (i>=1);
+
+
+
+}
+
+void PrintRangeFrom1toN_UssingFor(int N)
+{
+    cout << "Range printed using For statement: " << endl;
+    for (int i = N; i >= 1; i--)
+    {
+        cout  <<i  <<endl;
+
+    }
+
+
+}
+
+//
+//int ReadUntilAgeBetween(int From, int To)
+//{
+//    int Age=0;
+//    return Age;
+//
+//}
+//
+//
+//void PrintResult(int Age)
+//{
+//
+//    
+//        cout << "Your Age is: " << Age  << endl;
+//
+//
+//}
+//
+
+ 
+
+
+
+
+int main()
+{
+    int N = ReadNumber();
+    PrintRangeFromNto1_UssingWhile(N);
+    PrintRangeFromNto1_UssingDoWhile(N);
+    PrintRangeFrom1toN_UssingFor(N);
+    return 0;
+
+}
+

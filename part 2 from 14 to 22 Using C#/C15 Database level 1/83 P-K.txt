@@ -1,0 +1,20 @@
+
+
+
+Create table Books
+( ID int Not Null,
+Name Varchar(50) Not Null , 
+Author Varchar(30) Not Null,
+Edition date ,
+Constraint Pk_Books Primary Key(ID,Name));
+
+Alter table Books
+Add Constraint Pk_Books Primary Key(ID,Name);
+
+
+Alter table Books
+Drop Constraint Pk_Books;
+
+
+Alter table Books
+Add Constraint Pk_Books Primary Key(ID);

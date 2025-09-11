@@ -1,0 +1,73 @@
+
+
+
+
+
+
+
+
+
+CREATE TABLE Persons1 (
+   ID int NOT NULL PRIMARY KEY,
+   LastName varchar(255) NOT NULL,
+   FirstName varchar(255),
+   Age int CHECK (Age >= 18) ,
+   City Varchar(255) Default 'Morrooco'
+
+);
+
+
+
+
+
+
+CREATE TABLE Persons (
+   ID int NOT NULL,
+   LastName varchar(255) NOT NULL,
+   FirstName varchar(255),
+   Age int CHECK (Age>=18)
+);
+
+
+CREATE TABLE Persons (
+   ID int NOT NULL,
+   LastName varchar(255) NOT NULL,
+   FirstName varchar(255),
+   Age int,
+   City varchar(255),
+    CONSTRAINT CHK_Person CHECK (Age>=18 AND City='Amman')
+);
+
+
+
+CREATE TABLE Orders (
+   OrderID int NOT NULL ,
+   OrderNumber int NOT NULL,
+   PRIMARY KEY(OrderID),
+   PersonID int,
+   Constraint FK_PersonOrder Foreign Key(PersonID) 
+   References Persons(ID));
+
+
+CREATE TABLE Persons1 (
+   ID int NOT NULL PRIMARY KEY,
+   LastName varchar(255) NOT NULL,
+   FirstName varchar(255),
+   Age int CHECK (Age >= 18) ,
+   City Varchar(255) Default 'Morrooco',
+   Constraint CHK_Person CHECK (Age >=20)
+);
+
+
+Alter Table Persons
+Drop Constraint CHK_Person;
+
+
+Alter Table Persons
+ADD Constraint CHK_PersonAge 
+Check (Age >= 15);
+
+
+
+Alter Table Persons
+Drop Constraint CK__Persons__Age__540C7B00;

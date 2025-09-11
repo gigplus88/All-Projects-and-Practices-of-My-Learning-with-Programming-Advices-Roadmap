@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Canvas Example</title>
+</head>
+<body>
+   <form action="/submit" method="post">
+    <label for="name">Name:</label>
+    <input type="text" id="name" name="name">
+    <button type="submit">Submit</button>
+</form>
+
+<!-- Form with multipart/form-data for file uploads -->
+<form action="/upload" method="post" enctype="multipart/form-data">
+    <label for="file">File:</label>
+    <input type="file" id="file" name="file">
+    <button type="submit">Upload</button>
+</form>
+
+<!-- Form with text/plain for debugging -->
+<form action="/debug" method="post" enctype="text/plain">
+    <label for="info">Info:</label>
+    <input type="text" id="info" name="info">
+    <button type="submit">Send</button>
+</form>
+</body>
+</html>

@@ -1,0 +1,49 @@
+using Beak= System.Console;
+using System;
+using System.IO;
+using static System.Math;
+using static System.Console;
+using System.Xml.Serialization;
+
+[Serializable]
+public class Person
+{
+    public string Name { get; set; }
+    public int Age { get; set; }
+}
+class Program
+{
+    
+    static void Main()
+    {
+
+        Person person = new Person { Name = "Test" , Age = 5 };
+
+        //person.Age = 5;
+        //person.Name = "Test";
+
+        XmlSerializer serializer = new XmlSerializer(typeof(Person));
+
+        string file = "person.xml";
+        using (TextWriter writer = new StreamWriter(file) )
+        {
+            serializer.Serialize(writer, person);
+        }
+
+
+        //Deserialization
+
+        using (TextReader reader = new StreamReader(file))
+        {
+            Person DeserializePerson = (Person) serializer.Deserialize(reader);
+
+            WriteLine("Name: " + DeserializePerson.Name + " Age: " + DeserializePerson.Age);
+        }
+
+
+
+
+    }
+}
+
+

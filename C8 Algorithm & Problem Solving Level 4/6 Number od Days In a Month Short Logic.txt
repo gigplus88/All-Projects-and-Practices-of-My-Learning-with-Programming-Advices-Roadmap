@@ -1,0 +1,95 @@
+#include <iostream>
+#include <fstream>
+#include <string>
+#include <vector>
+#include <iomanip>
+
+using namespace std;
+
+short ReadYear()
+{
+    int Year;
+
+    cout << "Enter a year";
+    cin >> Year;
+
+    return Year;
+}
+
+short ReadMonth()
+{
+    int Month;
+
+    cout << "Enter a Month";
+    cin >> Month;
+
+    return Month;
+}
+
+bool IsLeapYear(short Year)
+{
+
+    return (Year % 400 == 0) || ((Year % 100 != 0) && (Year % 4 == 0));
+
+    
+
+    
+}
+
+bool CheckMonth2(short Month)
+{
+    return true;
+}
+
+short MonthToDays(short Year , short Month)
+{
+
+    if (Month<1 || Month> 12)
+    {
+        return 0;
+    }
+   
+    short NumberOfDays[12] = {31 , 28 , 31 , 30 , 31 ,30 , 31 , 31 , 31 , 30 , 31 , 30};
+    return  (Month == 2) ? IsLeapYear(Year) ? 29 : 28 : NumberOfDays[Month - 1];
+
+}
+
+
+short MonthToHours (short Year, short Month)
+{
+    
+    return MonthToDays( Year , Month) * 24 ;
+
+}
+
+int MonthToMinutes(short Year, short Month)
+{
+    
+    return MonthToHours(Year, Month) * 60;
+}
+
+int MonthToSeconds(short Year, short Month)
+{
+   
+    return MonthToMinutes( Year,  Month) * 60;
+
+}
+
+
+int main()
+
+// The result with hours and minutes and seconds but our teacher does days ;
+
+{
+    short Year = ReadYear();
+    short Month = ReadMonth();
+
+    cout <<"Number of Days in Month [" << Month <<"] is " << MonthToDays( Year,  Month) << endl; 
+    cout << "Number of Hours in Month [" << Year << "] is " << MonthToHours(Year, Month) << endl;
+    cout << "Number of Minutes in Month [" << Year << "] is " << MonthToMinutes(Year, Month) << endl;
+    cout << "Number of Seconds in Month [" << Year << "] is "  << MonthToSeconds(Year, Month);
+
+   
+    system("pause>0");
+    return 0;
+}

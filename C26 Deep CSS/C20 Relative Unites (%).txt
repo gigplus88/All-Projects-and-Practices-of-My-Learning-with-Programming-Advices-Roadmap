@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Pixels Example</title>
+  <style>
+    .pixel-box {
+      /* Styles for the element with the class "pixel-box" */
+
+      width: 300px;
+      /* Sets the width of the box to 300 pixels */
+
+      height: 150px;
+
+      background: lightgray;
+
+      border: 2px solid #333;
+
+      margin: 20px auto;
+
+      text-align: center;
+
+      line-height: 150px;
+
+      font-size: 16px;
+    }
+
+    .cm-box {
+      /* Styles for the element with the class "pixel-box" */
+
+      width: 30cm;
+      /* Sets the width of the box to 300 pixels */
+
+      height: 10cm;
+
+      background: rgb(230, 74, 74);
+
+      border: 2px solid #333;
+
+      margin: 20px auto;
+
+      text-align: center;
+
+      line-height: 150px;
+
+      font-size: 16px;
+    }
+    .in-box {
+      /* Styles for the element with the class "pixel-box" */
+
+      width: 30in;
+      /* Sets the width of the box to 300 pixels */
+
+      height: 15in;
+
+      background: lightgray;
+
+      border: 2px solid #333;
+
+      margin: 20px auto;
+
+      text-align: center;
+
+      line-height: 150px;
+
+      font-size: 16px;
+    }
+
+    .body-text {
+      font-size: 12pt;  /* Standard body copy size in print */
+      display: block;
+    }
+    .heading {
+      font-size: 18pt;  /* Larger heading for print */
+      margin-bottom: 20px;
+      display: block;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Starts the body section where the content appears -->
+<table border="1" style="width: 90%;">
+    <tr style="width: 500px;">
+        <td style="width: 20%;">Cell One</td>
+        <td> <a href="https:www.google.com"><img src="Image.jpg" style="width: 20%;" alt=""></a> </td>
+    </tr>
+</table>
+
+</body>
+</html>

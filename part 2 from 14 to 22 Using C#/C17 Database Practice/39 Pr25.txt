@@ -1,0 +1,5 @@
+
+ select Makes.Make , * from VehicleDetails
+ Inner Join Makes On Makes.MakeID = VehicleDetails.MakeID
+ where   (VehicleDetails.Engine like '%OHV%')  and (VehicleDetails.Engine_Cylinders = 4);
+

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>CSS Background Image Example</title>
+  <style>
+    /* Set a background image on the body element */
+    body {
+      background-image: url("image.jpg");
+      background-repeat: no-repeat;  /* Don't repeat the image */
+      background-size: cover;        /* Scale the image to cover the entire viewport */
+      background-position: center ;   /* Center the image */
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      color: white;
+    }
+    
+    /* Create a header with a semi-transparent overlay */
+    header {
+      background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black overlay */
+      color: #FFF;
+      padding: 20px;
+      text-align: center;
+    }
+    
+    /* Style a section with its own background image */
+    .feature {
+      background-image: url("Image2.jpg");
+      background-repeat:repeat;
+      background-size: contain;
+      background-position: left;
+      padding: 40px;
+      margin: 20px;
+      border: 2px solid #333333;
+      border-radius: 6px;
+    }
+    .feature p {
+      background-repeat:repeat;
+      background-size: cover;
+      background-position: right;
+      padding: 40px;
+      margin: 20px;
+      border: 2px solid #8cf871;
+      border-radius: 6px;
+      background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background for text readability */
+    }rgba(189, 77, 77, 0.5)
+    
+    /* Style for a button with a background image */
+    .btn {
+      background-image: url("Image2.jpg");
+      background-repeat: repeat-y;
+      background-size: 100% 50%;
+      height: 100px;
+      border: solid 2px #8cf871;
+      color: white;
+      padding: 15px 25px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+    .btn:hover {
+      border-color: #fff;
+    }rgb(129, 54, 54)rgb(238, 84, 84)
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Welcome to CSS Background Images!</h1>
+    <p>Enhance your web design with stunning background images and overlays.</p>
+  </header>
+  
+  <section class="feature">
+    <h2>Feature Section</h2>
+    <p>
+      This section demonstrates the use of a background image on a container element. Notice how the image is scaled and positioned to create a visually appealing design.
+    </p>
+  </section>
+  
+  <section>
+    <h2>Call to Action</h2>
+    <p>Click the button below to learn more about our design services.</p>
+    <button class="btn">Learn More</button>
+  </section>
+</body>
+</html>

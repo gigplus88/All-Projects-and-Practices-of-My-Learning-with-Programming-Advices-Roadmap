@@ -1,0 +1,23 @@
+
+
+Declare forward_only_Cursor Cursor Dynamic forward_only for  --Dynamic or static
+select StudentID , Name , Grade from Students;
+
+
+Open forward_only_Cursor;
+
+insert into Students(StudentID , Name , Grade) values(24 ,' San' , 90); -- This row should be adding to Dynamic_Cursor because it is dynamic
+
+Declare  @StudentID int, @Name nvarchar(50), @Grade int;
+
+Fetch Next from forward_only_Cursor into @StudentID, @Name, @Grade ; 
+
+while @@FETCH_STATUS =0 
+Begin
+	Print 'Student ID: ' + cast(@StudentID as nvarchar(5) )+ ' Student Name: '+  @Name + ' Student Grade: ' +  cast(@Grade as nvarchar(5) ) ;
+
+	Fetch Next from forward_only_Cursor into @StudentID, @Name, @Grade ; 
+End;
+
+Close forward_only_Cursor;
+Deallocate forward_only_Cursor;

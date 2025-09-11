@@ -1,0 +1,59 @@
+
+Restore Database VehicleMakesDB from disk ='C\:VehicleMakesDB.bak';
+
+select * from VehicleDetails;
+select * from Makes;
+select * from MakeModels;
+select * from SubModels;
+select * from Bodies;
+select * from DriveTypes;
+select * from FuelTypes;
+
+--Create view VehicleMasterDetails;
+
+select * from VehicleMasterDetails;
+select count(*) from VehicleMasterDetails;
+select count(*) from VehicleMasterDetails1;
+select count(*) from VehicleDetails;
+
+
+
+
+create view VehicleMasterDetails1  as
+select   v.ID, v.MakeID, ma.Make,v.ModelID, m.ModelName, v.SubModelID, s.SubModelName, v.BodyID,b.BodyName,v.Vehicle_Display_Name,v.Year, v.DriveTypeID,d.DriveTypeName,v.Engine, v.Engine_CC, v.Engine_Cylinders, v.Engine_Liter_Display, v.FuelTypeID, f.FuelTypeName,v.NumDoors
+
+from VehicleDetails v
+join SubModels s
+on s.SubModelID = v.SubModelID
+
+join MakeModels m
+on s.ModelID = m.ModelID
+
+join Makes ma
+on m.MakeID = ma.MakeID
+
+left join Bodies b
+on v.BodyID = b.BodyID
+
+left join DriveTypes d
+on d.DriveTypeID = v.DriveTypeID
+
+left join FuelTypes f
+on f.FuelTypeID = v.FuelTypeID;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

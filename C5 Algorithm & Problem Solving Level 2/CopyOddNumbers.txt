@@ -1,0 +1,138 @@
+#include <iostream>
+#include <cmath>
+#include <string>
+#include <cstdlib>
+
+using namespace std;
+
+
+enum enOddOrEven { Odd = 1, Even = 2 };
+
+int ReadPositiveNumber(string Message)
+{
+
+    int Number;
+
+    do
+    {
+        cout << Message << endl;
+        cin >> Number;
+
+    } while (Number <= 0);
+
+    return Number;
+}
+
+
+enOddOrEven ChekOddOeEven(int Number)
+{
+
+    if (Number % 2 == 0)
+    {
+        return enOddOrEven::Even;
+    }
+
+    else
+    {
+        return enOddOrEven::Odd;
+    }
+}
+
+int RandomNumber(int From, int To)
+{
+
+    int randNum = rand() % (To - From + 1) + From;
+
+
+    return randNum;
+}
+
+void FillArray(int arr[100], int  &arrLength)
+
+{
+    cout << "Enter number of elements:" << endl;
+    cin >> arrLength;
+
+    for (int i = 0; i < arrLength; i++)
+    {
+
+        arr[i] = RandomNumber(1, 100);
+
+    }
+
+}
+
+void PrintArray(int arr[100], int arrLength)
+
+{
+    for (int i = 0; i < arrLength; i++)
+    {
+        cout << arr[i] << " ";
+    }
+    cout << endl;
+}
+
+
+void AddArrayElement(int  Number, int arr[100], int& arr2Length)
+
+{
+    arr2Length++;
+    
+    arr[arr2Length - 1] = Number;
+    
+   
+}
+
+
+void CopyOddNumbers(int arr[100], int arr2[100], int arrLength, int &arr2Length)
+
+{
+   
+
+    for (int i = 0; i < arrLength; i++)
+    {
+         if (arr[i] % 2 != 0)
+         {
+             AddArrayElement(arr[i], arr2, arr2Length);
+
+         }
+        
+
+    }
+
+}
+
+
+
+
+
+
+
+
+
+
+int main()
+{
+    srand((unsigned)time(NULL));
+
+    int   arr2[100], arr[100], arrLength = 0, arr2Length = 0;
+
+
+    FillArray(arr, arrLength);
+
+
+    CopyOddNumbers(arr, arr2, arrLength, arr2Length);
+
+    cout << endl << "Array elements: ";
+    PrintArray(arr, arrLength);
+
+    cout << endl << "Array elements 2: ";
+    PrintArray(arr2, arr2Length);
+
+
+
+
+    return 0;
+
+}
+

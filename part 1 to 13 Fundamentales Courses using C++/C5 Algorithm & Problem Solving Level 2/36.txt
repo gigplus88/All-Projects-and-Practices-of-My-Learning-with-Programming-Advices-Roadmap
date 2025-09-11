@@ -1,0 +1,96 @@
+#include <iostream>
+#include <cmath>
+#include <string>
+#include <cstdlib>
+
+using namespace std;
+
+
+
+
+int ReadPositiveNumber()
+{
+    string Message;
+    int Number;
+
+    do
+    {
+        cout << "Please enter a number:" << endl;
+        cin >> Number;
+
+    } while (Number <= 0);
+
+    return Number;
+}
+
+
+void AddArrayElement(int arr[100], int &arrLength, int  Number)
+         
+{
+    
+
+    arrLength++;
+    arr[arrLength - 1] = Number;
+
+}
+
+
+
+void InputUserNumbersInArrayArray(int arr[100], int  Number , int &arrLength)
+
+{
+    bool AddMore = true;
+    do
+    {
+        AddArrayElement(arr, arrLength, ReadPositiveNumber());
+
+
+        cout << "Do you want to add more numbers yes [1] , No[0]: ";
+        cin >> AddMore;
+
+
+
+    } while (AddMore);
+   
+}
+
+
+ void PrintArray(int arr[100] , int arrLength)
+
+{
+   for (int i = 0; i < arrLength; i++)
+    {
+       cout << arr[i] << " ";
+    }
+   cout << endl;
+  }
+
+ 
+
+
+
+
+int main()
+{
+    int   Number=0 ,arr[100] , arrLength=0;
+    
+
+
+  
+    InputUserNumbersInArrayArray( arr, Number, arrLength);
+
+
+    cout << "Array Length: " << arrLength;
+
+    cout << endl << "Array elements: ";
+    PrintArray(arr, arrLength);
+
+
+   
+    
+
+    return 0;
+
+}
+
+

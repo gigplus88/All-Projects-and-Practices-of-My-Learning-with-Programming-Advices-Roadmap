@@ -1,0 +1,63 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
+using System.Threading.Tasks;
+
+
+
+class Program
+{
+
+    static void Main()
+    {
+
+        Stack<int> stack = new Stack<int>();
+
+        for (int i = 0; i < 6; i++)
+        {
+            stack.Push(i);
+        }
+
+        Console.WriteLine("Stack count Items:"+ stack.Count);
+
+        foreach (var item in stack)
+        {
+            Console.WriteLine(item);
+        }
+
+        stack.Pop(); // Remove Last Element 5
+
+
+        Console.WriteLine(stack.Contains(4) );
+
+        // Checking if the stack is empty
+        if (stack.Count == 0)
+        {
+            Console.WriteLine("Stack is empty.");
+        }
+        else
+        {
+            Console.WriteLine("Top element: " + stack.Peek());
+        }
+
+        Console.WriteLine("Give us your element to remove");
+        int ElementToRemove =Convert.ToInt32( Console.ReadLine() );
+
+        if (stack.Contains(  ElementToRemove ) && ElementToRemove == stack.Peek())
+        {
+            stack.Pop() ;
+        }
+        else
+        {
+            Console.WriteLine($"Element  {ElementToRemove} to remove is not the Last ");
+        }
+
+        stack.Clear();
+        Console.ReadKey();
+
+    }
+
+    
+}

@@ -1,0 +1,92 @@
+#include <iostream>
+#include <string>
+#include <iomanip>
+
+using namespace std;
+
+enum enWatToCount {SmallLetters =1 , CapitallLetters=2 , All=3};
+string ReadString()
+{
+    string  S1;
+    cout << "Please Enter Your String?" << endl;
+    getline(cin, S1);
+    
+    return S1;
+}
+
+char ReadLetter()
+{
+    char  letter=' ';
+    cout << "Please Enter Your Character?" << endl;
+    cin>> letter;
+
+    return letter;
+}
+
+
+
+
+short CounterOfLetterCase( string S1 , char letter, bool MatchCase = true) 
+{
+    short Counter = 0 ;
+
+    for (short i = 0; i < S1.length(); i++)
+    {
+        if (MatchCase)
+        {
+            if (S1[i] == letter)
+            Counter++;            
+        }
+       
+        else
+        {
+            if (toupper(S1[i]) == toupper(letter))
+            {
+                Counter++;
+            }
+        }
+    }
+    return Counter;
+}
+
+char InvertLetterCase(char  Character)
+{
+    return isupper(Character) ? tolower(Character) : toupper(Character);
+}
+
+// My Solution:
+short CounterOfLetterCases(string S1, char letter)
+{
+    short Counter = 0;
+
+    for (short i = 0; i < S1.length(); i++)
+    {
+        if (S1[i] == toupper(letter) || S1[i] == tolower(letter))
+        {
+            Counter++;
+        }
+
+    }
+    return Counter;
+}
+
+//
+
+
+
+
+int main()
+{
+    
+    char letter = ' ';
+    string S1 = ReadString();
+     letter = ReadLetter();
+    
+    cout << "Letter '" << letter << "' Count = " << CounterOfLetterCase( S1,  letter) << endl;
+    cout << "Letter ' " << letter <<"' Or '" << InvertLetterCase(letter) << "' Count = " << CounterOfLetterCase(S1, letter, false);
+
+
+    system("pause>0");
+
+    return 0;
+}

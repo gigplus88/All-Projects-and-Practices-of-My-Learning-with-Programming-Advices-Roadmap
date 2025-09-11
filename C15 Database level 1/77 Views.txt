@@ -1,0 +1,29 @@
+
+
+Select * from Employees 
+where ExitDate is NULL;
+
+Create View ActiveEmployees AS
+Select * from Employees 
+where ExitDate is NULL;
+
+Select * from ActiveEmployees;
+
+Create View USAEmployees AS
+Select * from Employees 
+where CountryID in (Select Countries.ID from Countries where countries.Name = 'USA' );
+
+Select * from USAEmployees;
+
+Create View ShortDetailsEmployees AS
+Select ID , FirstName , LastName , Gendor from Employees ;  
+
+Select * from ShortDetailsEmployees;
+
+
+Select * from ShortDetailsEmployees
+Where Gendor ='M'
+Order By FirstName Asc;
+
+
+

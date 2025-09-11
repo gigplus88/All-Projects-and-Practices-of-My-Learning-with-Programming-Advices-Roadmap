@@ -1,0 +1,84 @@
+#include <iostream>
+#include <string>
+#include <iomanip>
+
+using namespace std;
+
+
+
+void PrintMatrix1(int arr[3][3] , short Rows, short Cols)
+{
+    for (int i = 0; i < Rows; i++)
+    {
+        for (int j = 0; j < Cols; j++)
+        {
+            printf(" %0*d  ", 2, arr[i][j]);
+            //cout << setw(3) << arr[i][j] << "\t";
+        }
+        cout << endl ;
+    }
+
+}
+
+
+bool IsScalarMatrix(int Matrix1[3][3],short Rows, short Cols)
+{
+    int FirstDiagonalElement = Matrix1[0][0];
+    for (int i = 0; i < Rows; i++)
+    {
+        for (int j = 0; j < Cols; j++)
+        {
+            if (i==j  &&  Matrix1[i][j] != FirstDiagonalElement)
+            {
+                return false;
+
+            }
+
+            else if (i != j && Matrix1[i][j] != 0)
+            {
+                
+                    return  false;
+                
+            }
+
+        }
+
+    }
+
+    return true;
+}
+
+
+int main()
+{
+    srand((unsigned)time(NULL));
+
+    int Matrix1[3][3] = 
+    {
+        {2 , 0 , 0},
+        {0 , 2 , 0},
+        {0 , 0 , 2}
+    };
+
+    //FillMatrix1WithRandumNumbers(Matrix1, 3, 3);
+    cout << "Matrix1 :" << endl;
+    PrintMatrix1(Matrix1, 3, 3);
+
+   
+
+
+    if (IsScalarMatrix( Matrix1,  3,  3) )
+    {
+        cout << "Yes : Matrices is  Scalar" << endl;
+    }
+    else
+    {
+        cout << "NO : Matrices is not Scalar" << endl;
+
+    }
+  
+    system("pause>0");
+
+
+    return 0;
+}

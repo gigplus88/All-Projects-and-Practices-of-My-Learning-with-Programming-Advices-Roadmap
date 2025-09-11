@@ -1,0 +1,44 @@
+
+
+
+
+
+Select * from Employees
+Where DepartmentID in(1,2,5);
+
+
+Select * from Employees
+Where FirstName in('Jameson','Ava','Iris');
+
+
+Select * from Employees
+Where DepartmentID=1  or DepartmentID=2 ;
+
+Select DepartmentID from Employees
+Where MonthlySalary <= 210 ;
+
+Select FirstName  from Employees
+Where MonthlySalary <= 210 ;
+
+Select Departments.Name  from Departments
+Where ID in ( select DepartmentID from Employees where MonthlySalary <= 210 );
+
+
+Select Departments.Name  from Departments
+Where Not ID in ( select DepartmentID from Employees where MonthlySalary <= 210 );
+
+Select Countries.Name  from Countries
+Where ID in ( select CountryID from Employees where MonthlySalary >= 2990 );
+
+
+Select * from Employees
+Where ExitDate is Null  and (CountryID = 3) and Gendor = 'F';
+
+Select * from Employees
+Where ExitDate is not Null ;
+
+
+
+
+
+

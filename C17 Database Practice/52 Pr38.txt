@@ -1,0 +1,10 @@
+
+select distinct Engine_CC from VehicleDetails
+Order By Engine_CC desc ;
+
+
+-- Adding from me
+select count(*) as NumberEngineCC from
+(
+select distinct VehicleDetails.Engine_CC from VehicleDetails
+) R1;

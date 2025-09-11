@@ -1,0 +1,125 @@
+using System;
+using System.Data;
+using System.Data.SqlClient;
+using static System.Net.Mime.MediaTypeNames;
+using System.Diagnostics;
+using System.Configuration;
+using System.Collections.Generic;
+using System.Xml.Linq;
+
+
+class Program
+{
+    static void Main()
+    {
+        //List<int> numbers = new List<int> { 1,2,3,4,5,6,7,8,9,10};
+
+        //numbers.Add(11);
+        //Console.WriteLine($"After Adding 11 the list become:" + string.Join(", " , numbers) );
+
+
+        //numbers.Insert(0, 0);
+
+        //Console.WriteLine($"After inserting 0  in O index ,the list become:" + string.Join(", ", numbers));
+
+
+        //numbers.InsertRange(1, new List<int> { 22 , 23} );
+        //Console.WriteLine($"After inserting 22 and 23   in 1 index ,the list become:" + string.Join(", ", numbers));
+
+
+        List<string> products = new List<string> { "Samsung S23", "Pixel 8", "OnePlus 11" };
+
+        Console.WriteLine($"The Products list Before inserting \"iPhone 15 Pro\" ,the list become:" + string.Join(", ", products));
+
+        products.Insert(0, "iPhone 15 Pro");
+        Console.WriteLine($"The Products list After inserting \"iPhone 15 Pro\" ,the list become:" + string.Join(", ", products));
+
+
+
+
+        List<string> employee = new List<string> { "Saad", "Samir", "Morade" , "Ayoub" };
+        Console.WriteLine($"\nThe Employee list Before inserting ,the list become:" + string.Join(", ", employee));
+
+        employee.InsertRange(3, new List<string> { "Alice", "Bob", "Charlie" });
+        Console.WriteLine($"The Employee list After inserting ,the list become:" + string.Join(", ", employee));
+
+
+        List<string> posts = new List<string>();
+
+        int Counter=0;
+        for (int i = 1; i <= 12; i++)
+        {
+            posts.Add("Post" + i);
+            Counter++; 
+
+            if (Counter == 5)
+            {
+                posts.Add("Add");
+                Counter = 0;            
+            }
+
+
+        }
+        Console.WriteLine($"The Posts list After inserting ,the list become:" + string.Join(", ", posts));
+
+
+	
+        List<string> fruits = new List<string>();
+        fruits.Add("Apple");
+        fruits.Add("Banana");
+        fruits.Add("Orange");
+
+        fruits.Insert(fruits.IndexOf("Orange"), "Mango");
+
+
+        Console.WriteLine($"The fruits list After inserting ,the list become:" + string.Join(", ", fruits));
+
+
+        List<string> names = new List<string>() { "Ali", "Youssef", "Fatima" };
+        List<string> newNames = new List<string>() { "Salma", "Tariq" };
+
+
+        names.InsertRange(1, newNames);
+
+        Console.WriteLine($"The name list After inserting ,the list become:" + string.Join(", ", names));
+
+
+        List<string> cities = new List<string>() { "Paris", "Rome", "Cairo", "Tokyo" };
+
+
+        int ParisIndex =cities.IndexOf("Paris");
+
+        cities[ParisIndex] = "Morocco";
+
+        Console.WriteLine($"The cities list After inserting ,the list become:" + string.Join(", ", cities));
+
+
+
+        List<string> employee = new List<string> { "Saad", "Samir", "Morade" , "Ayoub" };
+        Console.WriteLine($"\nThe Employee list Before inserting ,the list become:" + string.Join(", ", employee));
+
+        employee.InsertRange(3, new List<string> { "Alice", "Bob", "Charlie" });
+        Console.WriteLine($"The Employee list After inserting ,the list become:" + string.Join(", ", employee));
+
+
+        List<string> posts = new List<string>();
+
+        int Counter=0;
+        for (int i = 1; i <= 12; i++)
+        {
+            posts.Add("Post" + i);
+            Counter++; 
+
+            if (Counter == 5)
+            {
+                posts.Add("Add");
+                Counter = 0;            
+            }
+
+
+        }
+        Console.WriteLine($"The Posts list After inserting ,the list become:" + string.Join(", ", posts));
+
+    }
+}
+

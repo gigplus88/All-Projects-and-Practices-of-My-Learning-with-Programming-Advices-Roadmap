@@ -1,0 +1,46 @@
+#include <iostream>
+#include <cmath>
+#include <string>
+using namespace std;
+
+
+
+int ReadNumber( )
+{
+   
+    int Num;
+    cout << "Please enter your Number" <<endl;
+    cin >>  Num  ;
+    
+    return Num;
+}
+float GetHalfNumber(int Num)
+{
+   
+    return (float)Num/2 ;
+}
+
+void Printresults(int Num)
+{
+    string Result= "Half of:" + to_string(Num) + " is: " + to_string(GetHalfNumber(Num));
+    cout << Result << endl;
+    //cout << "Half of:" + to_string(Num) + " is: " << float(GetHalfNumber(Num)) << endl;
+    
+
+}
+
+
+
+
+
+
+int main()
+{
+   
+    Printresults(ReadNumber());
+
+    return 0;
+
+   
+
+}

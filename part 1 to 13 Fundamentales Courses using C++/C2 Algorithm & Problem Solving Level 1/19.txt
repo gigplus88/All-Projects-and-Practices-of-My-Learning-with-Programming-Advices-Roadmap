@@ -1,0 +1,46 @@
+
+
+#include <iostream>
+using namespace std;
+#include <cmath>
+#include <string>
+
+ float CircleAreaThroughDiameter( float D , float Area )
+{
+     const float PI = 3.14;
+     Area = (PI * pow(D, 2)) / 4;
+     return Area;
+
+}
+
+
+
+
+
+
+ int main()
+ {
+     float D;
+     const float PI = 3.14;
+     cout << "Enter the D :";
+     cin >> D;
+     float   Area = (PI * pow(D, 2)) / 4;
+
+
+     cout << "The Area of the circle is: " << CircleAreaThroughDiameter(D, Area)<< endl;
+
+
+     cout << "The Area of the circle with ceil fun is: " << ceil(CircleAreaThroughDiameter(D, Area)) << endl;
+
+
+     return 0;
+
+
+}
+
+
+
+
+
+
+

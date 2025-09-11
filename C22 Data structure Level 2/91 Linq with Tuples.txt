@@ -1,0 +1,60 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+
+class Program
+{
+
+    static void Main()
+    {
+        //List of Tuples
+        List<(int Id, string Name, int Age)> people = new List<(int, string, int)>
+        {
+            (1, "Alice", 30),
+            (3, "Sam", 30),
+            (2, "Bob", 25),
+            (3, "Charlie", 35),
+            (4, "Diana", 28)
+        };
+
+        // Filter people with age above 30
+        var filteredPeople = people.Where( p => p.Age > 30);
+        var SortingPeople = people.OrderBy(p => p.Age);
+        var GroupingByAge = people.GroupBy( p => p.Age).Select( group => new { Age = group.Key , People = group.OrderBy(p => p.Name) }) ;
+
+
+
+        foreach (var group in GroupingByAge)
+        {
+            Console.WriteLine("Group Age:" + group.Age);
+            
+            foreach (var person in group.People)
+            {
+                Console.WriteLine($"Id {person.Id} , Name: {person.Name} ");
+
+            }
+            Console.WriteLine();
+        }
+
+        // Find average age
+        double averageAge = people.Average(p => p.Age);
+        Console.WriteLine("Average Age: " + averageAge);
+
+        // Find Max age
+        double MaxOfAge = people.Max(p => p.Age);
+        Console.WriteLine("Max Age: " + MaxOfAge);
+
+        // Find Min age
+        double MinOfAge = people.Min(p => p.Age);
+        Console.WriteLine("Min Age: " + MinOfAge);
+
+        Console.WriteLine("" );
+
+
+        Console.ReadKey();
+
+    }
+
+   
+}

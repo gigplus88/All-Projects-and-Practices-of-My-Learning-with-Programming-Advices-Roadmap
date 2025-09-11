@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Percentage Padding Example</title>
+  <style>
+    .percentage-padding {
+      background-color: #fce4ec; /* Light pink background */
+      border: 1px solid #d81b60; /* Pinkish border */
+      width: 80%; /* 80% width of its container */
+      padding: 5%; /* Padding is 5% of the container's width */
+      margin: 20px auto; /* It places this child in the center*/ 
+      text-align: center;
+    }
+
+     .padding {
+      background-color: #fce4ec; /* Light pink background */
+      border: 1px solid #d81b60; /* Pinkish border */
+      width: 60%; /* 80% width of its container */
+      padding: 5%; /* Padding is 5% of the container's width */
+      margin: 20px auto; /* It places this child in the center*/ 
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="percentage-padding">
+    This div uses percentage-based padding. The padding is 5% of the container's width.
+  </div>
+
+   <div class="padding">
+    This div uses padding. The padding is ... of the container's width.
+  </div>
+</body>
+</html>

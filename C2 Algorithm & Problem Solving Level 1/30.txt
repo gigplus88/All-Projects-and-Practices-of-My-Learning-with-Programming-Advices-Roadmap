@@ -1,0 +1,118 @@
+// with while loop
+
+#include <iostream>
+#include <cmath>
+#include <string>
+using namespace std;
+
+
+void ReadNumber(int& Num)
+{
+    cout << "Enter your number please\n";
+    cin >> Num;
+}
+
+void ReadPositiveNumber(int& i, int& Num, int& F)
+{
+    
+    while (Num < 0)
+    {
+        cout << "Factorial must be positive number , Please enter a positive number ";
+        cin >> Num;
+
+    }
+   
+
+}
+
+void PrintNumber(int& i, int& Num, int& F)
+{
+
+
+    F = 1;
+    i = Num;
+
+    while (i >= 1)
+    {
+        F = F * i;
+        i--;
+    }
+
+    cout << F;
+
+
+}
+
+
+
+int main()
+{
+    int Num = 0, i = 0, F = 0;
+
+    ReadNumber(Num);
+    ReadPositiveNumber(i, Num, F);
+    PrintNumber(i, Num, F);
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// with if else
+#include <iostream>
+#include <cmath>
+#include <string>
+using namespace std;
+
+
+void ReadNumber(int& Num)
+{
+    cout << "Enter your number please\n";
+    cin >> Num;
+}
+
+void PrintNumber(int& i, int& Num, int& F)
+{
+    if (Num<0)
+    {
+        cout << "Factorial must be positive number";
+    }
+    else
+    {
+        F = 1;
+
+        for (int i = Num; i >= 1; i--)
+        {
+
+            F = F * i;
+
+
+        }
+        cout << F;
+    }
+   
+    
+}
+
+
+int main()
+{
+    int Num = 0, i = 0, F = 0;
+
+    ReadNumber(Num);
+    PrintNumber(i, Num, F);
+
+}
+

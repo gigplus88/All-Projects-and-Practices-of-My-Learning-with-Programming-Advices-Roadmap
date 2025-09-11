@@ -1,0 +1,25 @@
+#include <iostream>
+#include <vector>
+#include <string>
+#include <fstream>
+#include <ctime>
+#pragma warning (disable : 4996)
+
+using namespace std;
+
+
+int main()
+{
+    time_t t = time(0); // time(0) give us time in seconds;
+
+    char* dt = ctime(&t); // ctime is function which I can convert time  from seconds to string , and I use pointer to stand on first ctime char ;
+
+    cout << "Local Date and Time is: " << dt <<endl; // the print the first char can print all date;
+    
+
+    tm* gmt = gmtime(&t); // to convet local time to UTC;
+    dt = asctime(gmt); // To convert struct to string
+
+    cout << "UTC date and time is: " << dt;
+    return 0;
+}

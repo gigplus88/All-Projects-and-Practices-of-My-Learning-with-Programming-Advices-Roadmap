@@ -1,0 +1,18 @@
+select  MAX(NumberOfModels) as MaximumOfModels from
+(
+select    Makes.Make ,count(*) as NumberOfModels
+from MakeModels
+Inner Join Makes On MakeModels.MakeID = Makes.MakeID
+Group by Makes.Make 
+)  R1 
+;
+
+
+-- Second Solution
+
+
+select top 1   count(*) as NumberOfModels
+from MakeModels
+Inner Join Makes On MakeModels.MakeID = Makes.MakeID
+Group by Makes.Make 
+Order By NumberOfModels Desc;

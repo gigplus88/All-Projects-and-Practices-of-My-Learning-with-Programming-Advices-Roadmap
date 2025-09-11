@@ -1,0 +1,42 @@
+#include <iostream>
+using namespace std;
+#include <cmath>
+#include <string>
+
+ float CircleAreaThroughDiagonal( float r , float Area )
+{
+     const float PI = 3.14;
+     Area = PI * pow(r, 2);
+     return Area;
+
+}
+
+
+
+
+
+
+ int main()
+ {
+
+     float  r;
+     const float PI = 3.14;
+
+     cout << "Give me r number: ";
+     cin >> r;
+
+
+
+     float Area = PI * pow(r, 2);
+
+     cout << "The area of this circle is: " << RectangleAreaThroughDiagonal( r,  Area) << endl;
+    
+     // With ceil function
+
+     cout << "The area of this circle with ceil function is: " << ceil(RectangleAreaThroughDiagonal(r, Area));
+
+     return 0;
+
+
+}
+

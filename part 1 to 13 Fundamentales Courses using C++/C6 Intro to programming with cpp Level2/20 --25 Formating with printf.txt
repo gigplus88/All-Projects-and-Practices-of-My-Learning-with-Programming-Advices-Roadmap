@@ -1,0 +1,68 @@
+#include <iostream>
+#include <cmath>
+#include <string>
+using namespace std;
+
+
+
+int main()
+{
+    int Page = 1, TotalPages = 90;
+
+    printf("The page number of this book is: %d \n", Page);
+    printf("Yes You are in the page %d of %d \n", Page , TotalPages);
+
+    // Width specification
+
+    printf("The Page number is: %0*d \n", 1, Page);
+    printf("The Page number is: %0*d \n", 2, Page);
+    printf("The Page number is: %0*d \n", 3, Page);
+    printf("The Page number is: %0*d \n", 6, Page);
+    printf("The Page number is: %0*d \n", 10, Page);
+
+    int Num1 = 2, Num2 = 4 ,Sum= Num1 + Num2;
+
+    printf("The sum of %d and %d is %d \n", Num1, Num2, Sum);
+
+   // The float formatting;
+    
+    printf("\n\n\n\n");
+
+    float PI = 3.14159265;
+    printf("Precision specification of %.*f \n " , 1, PI);
+    printf("Precision specification of %.*f \n ", 2, PI);
+    printf("Precision specification of %.*f \n ", 3, PI);
+    printf("Precision specification of %.*f \n ", 4, PI);
+    printf("Precision specification of %.*f \n ", 5, PI);
+
+
+    float x = 2.3, y = 4.5 , Division= x / y;
+    printf("The float Division of %.4f / %.4f is %.10f: \n ", x, y, Division);
+
+    double d = 4.432;
+    printf(" \n \nThe double value is: %.3f  \n", d);
+    printf("The double value is: %.4f  \n", d);
+    printf("The double value is: %.6f  \n", d);
+
+    printf("\n\n\n\n");
+
+    
+    char MyName[] = "Ayoub fellah" , NameSchool[]="Program free";
+
+    printf("Dear %s how are you\n", MyName);
+    printf("Welcome to %s \n ", NameSchool);
+
+    char s = 's';
+
+    printf("Setting the width of c :%*c \n", 1, s);
+    printf("Setting the width of c :%*c \n", 2, s);
+    printf("Setting the width of c :%*c \n", 3, s);
+    printf("Setting the width of c :%*c \n", 4, s);
+
+
+
+
+    return 0;
+
+}
+

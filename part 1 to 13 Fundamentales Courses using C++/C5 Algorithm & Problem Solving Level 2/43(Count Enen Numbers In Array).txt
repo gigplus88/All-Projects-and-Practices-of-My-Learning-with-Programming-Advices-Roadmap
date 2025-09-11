@@ -1,0 +1,104 @@
+#include <iostream>
+#include <cmath>
+#include <string>
+#include <cstdlib>
+
+using namespace std;
+
+
+
+int ReadPositiveNumber(string Message)
+{
+
+    int Number;
+
+    do
+    {
+        cout << Message << endl;
+        cin >> Number;
+
+    } while (Number <= 0);
+
+    return Number;
+}
+
+
+int RandomNumber(int From, int To)
+{
+
+    int randNum = rand() % (To - From + 1) + From;
+
+
+    return randNum;
+}
+
+void FillArray(int arr[100], int  arrLength)
+
+{
+
+    for (int i = 0; i < arrLength; i++)
+    {
+
+        arr[i] = RandomNumber(1, 100);
+
+    }
+
+}
+
+
+void PrintArrayElements(int arr[100], int  &arrLength)
+
+{
+    for (int i = 0; i < arrLength; i++)
+    {
+        cout << arr[i] << " ";
+    }
+
+}
+
+
+
+int EvenCount (int arr[100], int  arrLength)
+{
+    int Counter = 0;
+
+    for (int i = 0; i < arrLength; i++)
+    {
+
+        if (arr[i] % 2 == 0)
+        {
+            Counter++;
+        }
+
+    }
+    return Counter;
+}
+
+
+
+
+int main()
+{
+    srand((unsigned)time(NULL));
+
+    int  arr[100] , arrLength = 0;
+    
+    arrLength = ReadPositiveNumber("Enter your number please");
+
+    FillArray(arr, arrLength);
+
+    cout << "Array 1 elements: " << endl;
+    PrintArrayElements(arr,  arrLength);
+
+
+    cout <<endl << " Even Numbers count is: " << EvenCount( arr, arrLength)
+        ;
+
+   
+
+
+
+
+    return 0;
+
+}

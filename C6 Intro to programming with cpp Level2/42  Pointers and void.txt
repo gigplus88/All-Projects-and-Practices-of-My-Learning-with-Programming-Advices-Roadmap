@@ -1,0 +1,36 @@
+#include <iostream>
+#include <cmath>
+#include <string>
+#include <iomanip>
+#include <vector>
+
+using namespace std;
+
+struct stEmployee
+{
+    string FirstName, LastName;
+    float Salary;
+
+};
+
+int main()
+{
+    void* ptr;
+    float f = 39.4;
+
+    ptr = &f;
+    cout << ptr << endl;
+
+    cout << *(static_cast<float*> (ptr)) << endl;
+
+    int x = 23;
+    ptr = &x;
+
+    cout << ptr << endl;
+    cout << *(static_cast<int*> (ptr)) << endl;
+
+
+    
+    return 0;
+}
+

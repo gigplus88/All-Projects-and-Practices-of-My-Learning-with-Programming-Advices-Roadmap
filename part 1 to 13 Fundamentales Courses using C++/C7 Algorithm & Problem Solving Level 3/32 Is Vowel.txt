@@ -1,0 +1,64 @@
+#include <iostream>
+#include <string>
+#include <iomanip>
+
+using namespace std;
+
+enum enWatToCount {SmallLetters =1 , CapitallLetters=2 , All=3};
+
+
+char ReadLetter()
+{
+    char  letter=' ';
+    cout << "Please Enter Your Character?" << endl;
+    cin>> letter;
+
+    return letter;
+}
+
+
+
+// My Solution
+bool ISVowel(  char letter, char arrVowel[5])
+{
+
+    for (short i = 0; i < 5; i++)
+    {
+        if (toupper(letter) == toupper(arrVowel[i]))
+        {
+            return true;
+        }
+    }
+    return false;
+}
+
+bool IsVowel(char letter)
+{
+
+    letter = tolower(letter);
+
+    return((letter == 'a') || (letter == 'o') || (letter == 'u') || (letter == 'i') || (letter == 'e'));
+}
+
+
+
+
+int main()
+{
+    char arrVowel[5] = {'a' , 'o' , 'u' , 'i' , 'e'};
+   
+    char letter = ReadLetter();
+    
+    if (IsVowel( letter))
+    
+        cout << "Yes Letter'" << letter << "' is vowel";
+    
+    else
+        cout << "NO Letter'" << letter << "' is  not vowel";
+
+
+
+    system("pause>0");
+
+    return 0;
+}

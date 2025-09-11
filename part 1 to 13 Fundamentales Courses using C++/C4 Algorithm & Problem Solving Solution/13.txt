@@ -1,0 +1,80 @@
+#include <iostream>
+#include <cmath>
+#include <string>
+using namespace std;
+
+
+
+void Readof2Numbers(int&Num1, int& Num2, int &Num3, int arr[2])
+{
+
+    cout << "Please enter your Number 1" << endl;
+    cin >> Num1;
+
+    cout << "Please enter your Number 2" << endl;
+    cin >> Num2;
+
+    cout << "Please enter your Number 3" << endl;
+    cin >> Num3;
+
+
+}
+int TheMaxOf3Numbers(int Num1, int Num2, int Num3, int arr[2])
+{
+    /*return max(arr[0], arr[1]);*/
+
+    if (Num1 >Num2)
+    {
+        if (Num1>Num3)
+        {
+            return Num1;
+        }
+        else
+        {
+            return Num3;
+        }
+        
+
+    }
+
+    else if (Num2 > Num1)
+    {
+        if (Num2>Num3)
+        {
+            return Num2;
+        }
+
+        else
+        {
+            return Num3;
+        }
+    }
+ 
+}
+
+
+
+
+
+void PrintResults(int Num1, int Num2 , int Num3,int arr[2])
+{
+    
+    cout << "The Max of " << Num1 <<" and " <<  Num2 << " and " << Num3 << " is " << TheMaxOf3Numbers(Num1, Num2, Num3, arr) << endl;
+
+   
+}
+
+
+
+
+
+
+int main()
+{
+    int  Num1, Num2, Num3, arr[2] = {};
+    Readof2Numbers(Num1, Num2 ,Num3, arr);
+    PrintResults(Num1, Num2,Num3, arr);
+    return 0;
+
+}
+

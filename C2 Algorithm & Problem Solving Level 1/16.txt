@@ -1,0 +1,35 @@
+
+#include <iostream>
+using namespace std;
+#include <cmath>
+#include <string>
+
+ float RectangleAreaThroughDiagonal( float a, float d , float Area)
+{
+     Area = a * sqrt(pow(d, 2) - pow(a, 2));
+     return Area;
+
+}
+
+
+
+
+
+
+int main()
+{
+    float a = 0.0, d = 0.0;
+    cout << "Enter the a :";
+    cin >> a;
+
+    cout << "Enter the d : ";
+    cin >> d;
+    float Area = a * sqrt(pow(d, 2) - pow(a, 2));
+
+    cout << "The Area is: " << RectangleAreaThroughDiagonal( a, d, Area);
+    
+
+
+    return 0;
+
+}

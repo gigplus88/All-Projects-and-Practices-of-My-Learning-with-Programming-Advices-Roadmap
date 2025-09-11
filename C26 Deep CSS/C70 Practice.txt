@@ -1,0 +1,319 @@
+
+<!--
+  Code Overview: Shadow Practice Activities 🛠️
+  -------------------------------------------------
+  Purpose:
+    • Demonstrate advanced shadow effects: multi-layered button shadows,
+      neon‐style glowing text, inset input fields, and drop-shadowed images.
+
+  Layout:
+    • Four sections, each targeting one practice activity.
+    • Each section contains descriptive heading and related element(s).
+
+  Use Cases:
+    • Button depth for interactive UI feedback.
+    • Neon text for eye-catching headings.
+    • Inset inputs for tactile form controls.
+    • Floating gallery thumbnails for visual emphasis.
+
+  Key Properties:
+    • box-shadow: offset-x offset-y blur-radius spread-radius color [inset]
+    • text-shadow: offset-x offset-y blur-radius color
+    • filter: drop-shadow(offset-x offset-y blur color)
+    • transition: smooth hover animations
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>CSS Shadow Practice Activities</title>
+  <style>
+    * { box-sizing: border-box; margin:0; padding:0; }
+    body {
+      font-family: Arial, sans-serif;
+      background: rgb(43, 33, 33);
+      color: #eee;
+      padding: 2rem;
+      line-height: 1.5;
+    }
+    section { margin-bottom: 3rem; }
+    h2 {
+      margin-bottom: 1rem;
+      color: #00e6e6;
+      font-size: 1.5rem;
+      text-shadow: 0 0 7px #00e6e6;
+    }
+
+    /* 1) Button Depth */
+    .btn-depth button {
+      background: linear-gradient(135deg, #444, #222);
+      color: #fff;
+      padding: 0.75rem 1.5rem;
+      font-size: 1rem;
+      border: none;
+      border-radius: 4px;
+      box-shadow:
+        2px 2px 5px rgba(255, 255, 255, 0.5),
+        -2px -2px 5px rgba(220, 219, 219, 0.1);
+      cursor: pointer;
+      transition: box-shadow 3s, transform 0.3s;
+    }
+    .btn-depth button:hover {
+      box-shadow:
+        4px 4px 15px white,
+        -4px -4px 15px wheat;
+      transform: translateY(-3px);
+    }
+
+    /* 2) Glowing Text */
+    .glow-text h3 {
+      font-size: 2rem;
+      text-align: center;
+      margin-bottom: 1rem;
+      color: #ff33cc;
+      text-shadow:
+        0 0 5px #ff33cc,
+        0 0 10px #ff33cc,
+        0 0 20px #ff33cc,
+        0 0 30px #ff33cc;
+    }
+
+    /* 3) Inset Input Fields */
+    .inset-input input {
+      width: 100%;
+      max-width: 300px;
+      padding: 0.5rem 1rem;
+      font-size: 1rem;
+      border: none;
+      border-radius: 4px;
+      background: #2a2a2a;
+      color: #eee;
+      box-shadow:
+        inset 2px 2px 5px rgba(0,0,0,0.7),
+        inset -2px -2px 5px rgba(255,255,255,0.05) ;
+      transition: box-shadow 0.3s;
+    }
+    .inset-input input:focus {
+      outline: none;
+      box-shadow:
+        inset 1px 1px 3px rgba(0,0,0,0.9),
+        inset -1px -1px 3px rgba(255,255,255,0.1);
+    }
+
+    /* 4) Image Gallery Shadows */
+    .gallery {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .gallery img {
+      width: 150px;
+      height: 100px;
+      object-fit: cover;
+      border-radius: 4px;
+      filter: drop-shadow(0 4px 6px white);
+      transition: filter 0.3s, transform 0.3s;
+    }
+    .gallery img:hover {
+      filter: drop-shadow(0 8px 12px rgb(90, 106, 250));
+      transform: translateY(-5px);
+    }
+  </style>
+</head>
+<body>
+
+  <section class="btn-depth">
+    <h2>1) Button Depth</h2>
+    <button>3D Shadow Button</button>
+  </section>
+
+  <section class="glow-text">
+    <h2>2) Glowing Text</h2>
+    <h3>Neon Glow Heading</h3>
+  </section>
+
+  <section class="inset-input">
+    <h2>3) Inset Input Fields</h2>
+    <input type="text" placeholder="Press here...">
+  </section>
+
+  <section class="gallery">
+    <h2 style="flex-basis:100%;">4) Image Gallery Shadows</h2>
+    <img src="Images/A1.jpg" alt="Thumb1">
+    <img src="Images/A2.jpg" alt="Thumb2">
+    <img src="Images/A3.jpg" alt="Thumb3">
+    <img src="Images/A4.jpg" alt="Thumb4">
+  </section>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--
+  Code Overview: Shadow Practice Activities 🛠️
+  -------------------------------------------------
+  Purpose:
+    • Demonstrate advanced shadow effects: multi-layered button shadows,
+      neon‐style glowing text, inset input fields, and drop-shadowed images.
+
+  Layout:
+    • Four sections, each targeting one practice activity.
+    • Each section contains descriptive heading and related element(s).
+
+  Use Cases:
+    • Button depth for interactive UI feedback.
+    • Neon text for eye-catching headings.
+    • Inset inputs for tactile form controls.
+    • Floating gallery thumbnails for visual emphasis.
+
+  Key Properties:
+    • box-shadow: offset-x offset-y blur-radius spread-radius color [inset]
+    • text-shadow: offset-x offset-y blur-radius color
+    • filter: drop-shadow(offset-x offset-y blur color)
+    • transition: smooth hover animations
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>CSS Shadow Practice Activities</title>
+  <style>
+    * { box-sizing: border-box; margin:0; padding:0; }
+    body {
+      font-family: Arial, sans-serif;
+      background: rgb(43, 33, 33);
+      color: #eee;
+      padding: 2rem;
+      line-height: 1.5;
+    }
+    section { margin-bottom: 3rem; }
+    h2 {
+      margin-bottom: 1rem;
+      color: #00e6e6;
+      font-size: 1.5rem;
+      text-shadow: 0 0 7px #00e6e6;
+    }
+
+    /* 1) Button Depth */
+    .btn-depth button {
+      background: linear-gradient(135deg, #444, #222);
+      color: #fff;
+      padding: 0.75rem 1.5rem;
+      font-size: 1rem;
+      border: none;
+      border-radius: 4px;
+      box-shadow:
+        2px 2px 5px rgba(255, 255, 255, 0.5),
+        -2px -2px 5px rgba(220, 219, 219, 0.1);
+      cursor: pointer;
+      transition: box-shadow 3s, transform 0.3s;
+    }
+    .btn-depth button:hover {
+      box-shadow:
+        4px 4px 15px white,
+        -4px -4px 15px wheat;
+      transform: translateY(-3px);
+    }
+
+    /* 2) Glowing Text */
+    .glow-text h3 {
+      font-size: 2rem;
+      text-align: center;
+      margin-bottom: 1rem;
+      color: #ff33cc;
+      text-shadow:
+        0 0 5px #ff33cc,
+        0 0 10px #ff33cc,
+        0 0 20px #ff33cc,
+        0 0 30px #ff33cc;
+    }
+
+    /* 3) Inset Input Fields */
+    .inset-input input {
+      width: 100%;
+      max-width: 300px;
+      padding: 0.5rem 1rem;
+      font-size: 1rem;
+      border: none;
+      border-radius: 4px;
+      background: #2a2a2a;
+      color: #eee;
+      box-shadow:
+        inset 2px 2px 5px rgba(0,0,0,0.7),
+        inset -2px -2px 5px rgba(255,255,255,0.05) ;
+      transition: box-shadow 0.3s;
+    }
+    .inset-input input:focus {
+      outline: none;
+      box-shadow:
+        inset 1px 1px 3px rgba(0,0,0,0.9),
+        inset -1px -1px 3px rgba(255,255,255,0.1);
+    }
+
+    /* 4) Image Gallery Shadows */
+    .gallery {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .gallery img {
+      width: 150px;
+      height: 100px;
+      object-fit: cover;
+      border-radius: 4px;
+      filter: drop-shadow(0 4px 6px white);
+      transition: filter 0.3s, transform 0.3s;
+    }
+    .gallery img:hover {
+      filter: drop-shadow(0 8px 12px rgb(90, 106, 250));
+      transform: translateY(-5px);
+    }
+  </style>
+</head>
+<body>
+
+  <section class="btn-depth">
+    <h2>1) Button Depth</h2>
+    <button>3D Shadow Button</button>
+  </section>
+
+  <section class="glow-text">
+    <h2>2) Glowing Text</h2>
+    <h3>Neon Glow Heading</h3>
+  </section>
+
+  <section class="inset-input">
+    <h2>3) Inset Input Fields</h2>
+    <input type="text" placeholder="Press here...">
+  </section>
+
+  <section class="gallery">
+    <h2 style="flex-basis:100%;">4) Image Gallery Shadows</h2>
+    <img src="Images/A1.jpg" alt="Thumb1">
+    <img src="Images/A2.jpg" alt="Thumb2">
+    <img src="Images/A3.jpg" alt="Thumb3">
+    <img src="Images/A4.jpg" alt="Thumb4">
+  </section>
+
+</body>
+</html>

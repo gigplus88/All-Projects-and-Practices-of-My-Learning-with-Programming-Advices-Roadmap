@@ -1,0 +1,115 @@
+#include <iostream>
+#include <fstream>
+#include <string>
+#include <vector>
+#include <iomanip>
+#include <ctime>
+
+#pragma warning (disable : 4996)
+
+using namespace std;
+
+short ReadYear()
+{
+    int Year;
+
+    cout << "Enter a year: ";
+    cin >> Year;
+    cout << "\n\n";
+    return Year;
+}
+
+short ReadMonth()
+{
+    int Month;
+
+    cout << "Enter a Month: ";
+    cin >> Month;
+
+    return Month;
+}
+
+short ReadDay()
+{
+    int Day;
+
+    cout << "Enter a day: ";
+    cin >> Day;
+
+    return Day;
+}
+
+
+struct sDate {
+
+    short Year, Month, Day;
+};
+
+
+bool CheckIslessDate(sDate Date1, sDate Date2)
+{
+    return (Date1.Year < Date2.Year) ? true : ((Date1.Year == Date2.Year) ? (Date1.Month < Date2.Month) ? true : (Date1.Month == Date2.Month ? Date1.Day < Date2.Day : false) : false);
+}
+
+sDate ReadFullDate()
+{
+    sDate Date;
+    Date.Day = ReadDay();
+    Date.Month = ReadMonth();
+    Date.Year = ReadYear();
+
+    return Date;
+}
+
+
+bool CheckAreEqualDate(sDate Date1, sDate Date2)
+{
+    return (Date1.Year == Date2.Year) ? ((Date1.Month == Date2.Month) ? ((Date1.Day == Date2.Day) ? true : false) : false) : false;
+
+}
+
+
+bool IsDate1AfterDate2(sDate Date1, sDate Date2)
+{
+    return !CheckIslessDate(Date1, Date2) && !CheckAreEqualDate( Date1,  Date2);
+
+}
+
+enum enCompareDate { Date1Before = -1 , Date1EqualDate2 = 0 , Date1After= 1};
+
+
+enCompareDate ComparDates(sDate Date1, sDate Date2) // Enum can give me number results;
+{
+    if (CheckIslessDate( Date1,  Date2))
+    {
+        return enCompareDate::Date1Before;
+    }
+
+    else if (CheckAreEqualDate(Date1, Date2))
+    {
+        return enCompareDate::Date1EqualDate2;
+
+    }
+
+    /*else
+    {
+        return enCompareDate::Date1After;
+    }*/
+   
+    // It is Faster
+    return enCompareDate::Date1After;
+
+}
+int main()
+
+{   
+    sDate Date1 = ReadFullDate();
+
+    sDate Date2= ReadFullDate();
+
+    cout << " Compare Result = " << ComparDates( Date1,  Date2);
+    
+
+    system("pause>0");
+    return 0;
+}

@@ -1,0 +1,194 @@
+#pragma warning(disable : 4996)
+#pragma once
+
+#include <iostream>
+#include <queue>
+#include <stack>
+#include <string>
+#include "clsMyQueue.h"
+
+
+
+class clsQueueLine
+{
+private:
+	struct _sTicketsInfo
+	{
+		string _ClientName;
+		string _YourTime;
+		int _AverageTimeToWeight = 0;
+		int _TimeToServe = 0;
+		int ClientCounter = 0;
+		int _WaitingClient = 0;
+	};
+
+	string _Pre;
+	int _TotalTickets = 0;
+	int _ServedClients = 0;
+	int _WaitingClient = 0;
+
+
+
+	queue <_sTicketsInfo> PayBillsQueueLine;
+
+	_sTicketsInfo TicketInfo;
+
+	string GetSystemDateTimeString()
+	{
+		//system datetime string
+		time_t t = time(0);
+		tm* now = localtime(&t);
+
+		short Day, Month, Year, Hour, Minute, Second;
+
+		Year = now->tm_year + 1900;
+		Month = now->tm_mon + 1;
+		Day = now->tm_mday;
+		Hour = now->tm_hour;
+		Minute = now->tm_min;
+		Second = now->tm_sec;
+
+		return (to_string(Day) + "/" + to_string(Month) + "/"
+			+ to_string(Year) + " - "
+			+ to_string(Hour) + ":" + to_string(Minute)
+			+ ":" + to_string(Second));
+
+	}
+public:
+	clsQueueLine(string Pre, int AverageTimeToWeight)
+	{
+		_Pre = Pre;
+		TicketInfo._AverageTimeToWeight = AverageTimeToWeight;
+	}
+
+
+
+
+	void IssueTicket()
+	{
+		TicketInfo._ClientName = _Pre + to_string(TicketInfo.ClientCounter + 1);
+		TicketInfo._YourTime = GetSystemDateTimeString();
+		TicketInfo._WaitingClient = TicketInfo.ClientCounter;
+		TicketInfo._TimeToServe = TicketInfo._AverageTimeToWeight * TicketInfo._WaitingClient;
+		_TotalTickets++;
+		_WaitingClient++; // For Totall Client
+		TicketInfo.ClientCounter++;
+		PayBillsQueueLine.push(TicketInfo);
+	}
+
+	void PrintInfo()
+	{
+		cout << "\n\t\t\t_________________________________\n\n";
+		cout << "\t\t\t\tQueue Info";
+		cout << "\n\t\t\t_________________________________\n\n";
+
+		cout << "\n\n\t\t\t\tPrefix:" << _Pre << "\n";
+		cout << "\n\t\t\t\tTotal Tickets:" << _TotalTickets << "\n";
+		cout << "\n\t\t\t\tServed Clients:" << _ServedClients << "\n";
+		cout << "\n\t\t\t\tWaiting Clients:" << _WaitingClient << "\n";
+
+		cout << "\n\t\t\t_________________________________\n\n\n";
+
+	}
+
+	void PrintTicketsLineLTR()
+	{
+		cout << "\t\t\t" << "Tickets:";
+		queue <_sTicketsInfo> QueueLine = PayBillsQueueLine;
+
+		while (QueueLine.size() != 0)
+		{
+			cout << "  " << QueueLine.front()._ClientName << "-->";
+			QueueLine.pop();
+
+		}
+
+	}
+
+	void PrintTicketsLineRTL()
+	{
+		cout << "\n\n\t\t\t" << "Tickets:  ";
+		queue <_sTicketsInfo> QueueLine2 = PayBillsQueueLine;
+
+		/*while (QueueLine2.size() != 0)
+		{
+			cout << "  " << QueueLine2.front()._ClientName << "<--";
+			QueueLine2.pop();
+		}*/
+
+		for (int i = 1; i <= QueueLine2.size(); i++)
+		{
+			printf("A%0*d <-- ", 2, i);
+		}
+
+
+
+		/*{
+			cout << "\n\n\t\t\t\tTickets: ";
+			for (short i = 1; i <= PayBillsQueueLine.size(); i++)
+			{
+				printf("A%0*d <-- ", 2, i);
+			}
+			cout << endl;
+		}*/
+
+	}
+
+	void PrintAllTicket()
+	{
+		queue <_sTicketsInfo> PayBillsQueueLine1 = PayBillsQueueLine;
+
+		cout << "\n\n\t\t\t\t\tTickets:\n\n";
+
+		while (PayBillsQueueLine1.size() != 0) {
+
+			cout << "\n\n\t\t\t_________________________________\n\n";
+
+			cout << "\n\n\t\t\t\t\t" << PayBillsQueueLine1.front()._ClientName << "\n\n";
+			cout << "\n\n\t\t\t\t " << PayBillsQueueLine1.front()._YourTime << "\n\n";
+			cout << "\n\n\t\t\t\t Waiting Client = " << PayBillsQueueLine1.front()._WaitingClient << "\n\n";
+			cout << "\n\n\t\t\t\t Serve Time In:" << PayBillsQueueLine1.front()._TimeToServe << "Minutes" << "\n\n";
+
+			cout << "\n\n\t\t\t_________________________________\n\n";
+			PayBillsQueueLine1.pop();
+		}
+
+
+
+	}
+
+
+	// For waiting I use : _WaitingClient = PayBillsQueueLine.size() -1;
+	// for Time to serve : _TimeToServe = _AverageTimeToWeight * _WaitingClient;
+
+	void ServeNextClient()
+	{
+
+		cout << "Pay Bills Queue After serving one client" << endl;
+
+
+
+		if (_WaitingClient == 0)
+		{
+			cout << "You don't Have any Client";
+			return;
+		}
+		else
+		{
+			_WaitingClient--;
+			_ServedClients++;
+			while (!PayBillsQueueLine.empty())
+			{
+
+				PayBillsQueueLine.pop();
+				if (PayBillsQueueLine.size() == _TotalTickets - 1)
+				{
+					return;
+				}
+			}
+
+		}
+
+	}
+
+};

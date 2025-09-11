@@ -1,0 +1,22 @@
+#include <iostream>
+#include "MyLibrary.h"
+#include "MyInputLibrary.h"
+
+using namespace std;
+
+
+int main()
+{
+    
+    string  Result;
+    int Num=0;
+
+    Num = MyInputLibrary::ReadNumber("Please enter your Number");
+
+    Result = (Num == 0) ? "It s zero": ((Num >= 0)? "It s positive" : "It s negative");
+
+    cout << Result;
+    return 0;
+
+}
+

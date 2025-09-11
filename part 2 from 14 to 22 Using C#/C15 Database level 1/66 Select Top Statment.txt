@@ -1,0 +1,25 @@
+
+select  * from Employees;
+
+select top 4 * from Employees;
+
+
+select Distinct top 3 MonthlySalary from Employees
+Order By MonthlySalary Desc
+
+
+select ID, FirstName , MonthlySalary  from Employees where MonthlySalary in
+(
+select Distinct top 3 MonthlySalary from Employees
+Order By MonthlySalary Desc
+)
+Order By MonthlySalary Desc;
+
+
+
+select Distinct ID, FirstName , MonthlySalary  from Employees where MonthlySalary in
+(
+select Distinct top 3 MonthlySalary from Employees
+Order By MonthlySalary Asc
+)
+Order By MonthlySalary Asc;

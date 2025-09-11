@@ -1,0 +1,58 @@
+
+
+#include <iostream>
+using namespace std;
+#include <cmath>
+#include <string>
+
+ float TaskDurationInSeconds( float day , float hours , float minutes , float seconds , float dayPerSecond, float hourPerSecond, float minutesPerSecond, float ResultPerSecond)
+{
+     
+     
+         dayPerSecond = day * 24 * 3600,
+         hourPerSecond = hours * 3600,
+         minutesPerSecond = minutes * 60,
+         ResultPerSecond = dayPerSecond + hourPerSecond + minutesPerSecond + seconds;
+
+     return  ResultPerSecond ;
+
+}
+ 
+ 
+
+
+
+
+
+ int main()
+ {
+     float   day = 0.0, hours = 0.0, minutes = 0.0, seconds = 0.0;
+
+     cout << " Give me The day of your task: ";
+     cin >> day;
+
+     cout << " Give me The hours of your task: ";
+     cin >> hours;
+
+     cout << " Give me The minutes of your task: ";
+     cin >> minutes;
+
+     cout << " Give me The seconds of your task: ";
+     cin >> seconds;
+
+     float
+         dayPerSecond = day * 24 * 3600,
+         hourPerSecond = hours * 3600,
+         minutesPerSecond = minutes * 60,
+         ResultPerSecond =dayPerSecond + hourPerSecond + minutesPerSecond + seconds;
+
+     cout << "the task duration in seconds is: " << TaskDurationInSeconds( day, hours,  minutes,  seconds, dayPerSecond, hourPerSecond,  minutesPerSecond,ResultPerSecond) << " Seconds" << endl;
+     cout << "the task duration in seconds is: " << round(TaskDurationInSeconds(day, hours, minutes, seconds, dayPerSecond, hourPerSecond, minutesPerSecond, ResultPerSecond)) << " Seconds";
+
+
+
+     return 0;
+
+ }
+
+

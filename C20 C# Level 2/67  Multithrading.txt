@@ -1,0 +1,59 @@
+using System.Threading;
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        // Note that your program is the main thread.
+
+
+        // Create a new thread and start it
+        Thread t = new Thread(FuelLiterCalculateThread);
+       
+        t.Start();
+
+        if (t.IsAlive)
+        {
+            Console.WriteLine("Yes Is Running");
+        }
+
+        t.Join();
+
+
+        Thread t2 = new Thread(OilLiterCalculateThread);
+        t2.Start();
+
+        t2.Join();
+
+
+        // Main thread continues its execution
+        for (int i = 1; i <= 100; i++)
+        {
+            Console.WriteLine("Kilometer Calculate Thread: " + i );
+            Thread.Sleep(1000); // Sleep for 1 second
+        }
+
+       
+
+        Console.ReadKey();
+    }
+
+
+    static void FuelLiterCalculateThread()
+    {
+        for (int i = 1; i <= 5; i++)
+        {
+            Console.WriteLine("Fuel Liter Thread : " + i);
+            Thread.Sleep(1000);
+        }
+    }
+    static void OilLiterCalculateThread()
+    {
+        for (int i = 1; i <= 5; i++)
+        {
+            Console.WriteLine("Oil Liter Calculate: " + i );
+            Thread.Sleep(1000);
+        }
+    }
+}

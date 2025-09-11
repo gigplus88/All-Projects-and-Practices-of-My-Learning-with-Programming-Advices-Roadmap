@@ -1,0 +1,82 @@
+--Way1
+CREATE PROCEDURE SP_GetPersonByID
+    @PersonID INT
+AS
+BEGIN
+    SELECT * FROM People WHERE PersonID = @PersonID
+END
+
+
+
+
+
+
+
+EXEC SP_GetPersonByID
+		@PersonID = 1
+
+
+-- Way2
+
+Create Procedure SP_GetPersonByID2
+	@PersonID int ,
+	@FirstName nvarchar(100) output,
+	@LastName nvarchar(100) output,
+	@Email nvarchar(150) output,
+	@IsFound bit OutPut
+As
+Begin
+	 if Exists(select  found =1 from People where PersonID = @PersonID)
+	 Begin
+
+		 select
+			@FirstName = FirstName,
+			@LastName = LastName ,
+			@Email = Email
+			from People 
+			where PersonID = @PersonID;
+		
+		Set @IsFound = 1;
+	 End
+
+	 else 	
+	 Begin
+		Set @IsFound = 0;
+	 End
+End
+
+
+
+
+
+
+
+
+-- Alter
+
+Alter Procedure SP_GetPersonByID2
+	@PersonID int ,
+	@FirstName nvarchar(100) output,
+	@LastName nvarchar(100) output,
+	@Email nvarchar(150) output,
+	@IsFound bit OutPut
+As
+Begin
+	 if Exists(select  found =1 from People where PersonID = @PersonID)
+	 Begin
+
+		 select
+			@FirstName = FirstName,
+			@LastName = LastName ,
+			@Email = Email
+			from People 
+			where PersonID = @PersonID;
+		
+		Set @IsFound = 1;
+	 End
+
+	 else 	
+	 Begin
+		Set @IsFound = 0;
+	 End
+End

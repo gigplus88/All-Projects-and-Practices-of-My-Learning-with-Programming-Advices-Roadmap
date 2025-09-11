@@ -1,0 +1,32 @@
+#include <iostream>
+#include <cmath>
+#include <string>
+using namespace std;
+
+
+void ReadNumber(int& i)
+{
+    i = 65;
+    while ( i>=65 && i<=90)
+    {
+        cout << char(i) << endl;
+        i++;
+
+    
+    }
+    
+}
+
+
+
+
+
+
+int main()
+{
+    int i= 0;
+
+    ReadNumber(i);
+    
+
+}

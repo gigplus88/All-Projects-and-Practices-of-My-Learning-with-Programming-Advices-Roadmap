@@ -1,0 +1,36 @@
+
+#include <iostream>
+using namespace std;
+#include <cmath>
+#include <string>
+
+ float CircleAreaInscribesINASquare( float A , float Area )
+{
+     const float PI = 3.14;
+     Area = PI * pow(A / 2, 2);
+     return Area;
+
+}
+
+
+
+
+
+
+ int main()
+ {
+     float A;
+     cout << "Enter the A :";
+     cin >> A;
+     const float PI = 3.14;
+     float   Area = PI * pow(A / 2, 2);
+
+     cout << "The Area of the circle is: " << CircleAreaInscribesINASquare(A, Area) << endl;
+
+     cout << "The Area of the circle with ceil is: " << ceil(CircleAreaInscribesINASquare(A, Area));
+
+
+     return 0;
+
+
+}

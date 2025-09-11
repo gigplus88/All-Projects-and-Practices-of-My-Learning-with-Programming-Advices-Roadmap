@@ -1,0 +1,52 @@
+using System;
+using System.Data;
+using System.Data.SqlClient;
+using static System.Net.Mime.MediaTypeNames;
+using System.Diagnostics;
+using System.Configuration;
+using System.Collections.Generic;
+using System.Xml.Linq;
+
+
+class Program
+{
+   
+    static void Main()
+    {
+        // List initialization
+        List<int> numbers = new List<int> { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+
+        numbers.Remove(5);
+
+        Console.WriteLine("numbers Items :" + string.Join( ", " , numbers));
+
+        numbers.RemoveAt(4);
+
+        Console.WriteLine("numbers Items :" + string.Join(", ", numbers));
+
+
+        numbers.RemoveAll(n => n >= 4 );
+
+        Console.WriteLine("numbers Items :" + string.Join(", ", numbers));
+
+
+
+        List<string> animals = new List<string>() { "Cat", "Dog", "Elephant", "Dog", "Lion" };
+        //animals.Remove("Dog");   //Remove first item == "Dog"
+        animals.RemoveAll( n=> n.EndsWith("n") );
+        Console.WriteLine("animals Items :" + string.Join(", ", animals));
+
+
+        string item =  animals.Find(n => n == "Dog");
+        animals.Remove(item);
+
+        Console.WriteLine("animals Items :" + string.Join(", ", animals));
+
+        animals.Clear();
+        Console.WriteLine("animals Items :" + string.Join(", ", animals));
+
+
+
+    }
+}
+

@@ -1,0 +1,55 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
+using System.Threading.Tasks;
+
+
+
+class Program
+{
+
+    static void Main()
+    {
+        var employees = new[]
+        {
+            new { Id = 1, Name = "Alice", DepartmentId = 2 },
+            new { Id = 2, Name = "Bob", DepartmentId = 1 }
+        };
+
+
+        // Array of departments
+        var departments = new[]
+        {
+            new { Id = 1, Name = "Human Resources" },
+            new { Id = 2, Name = "Development" }
+        };
+
+
+        // Joining employees with departments and projecting the result
+        //var employeeDetails = employees.Join(departments, e => e.DepartmentId,
+        //                                     d => d.Id,
+        //                                     (e, d) => new { EmployeeName =  e.Name, Department = d.Name });
+
+
+
+        var employeeDetails2 = from e in employees
+                               join
+                               d in departments
+                               on e.DepartmentId equals d.Id
+                               select new { EmployeeName =  e.Name, Department = d.Name };
+                               
+
+        foreach (var item in employeeDetails2)
+        {
+            Console.WriteLine($"Employee: {item.EmployeeName}, Department: {item.Department}");
+        }
+
+
+        Console.ReadKey();
+
+    }
+
+
+}

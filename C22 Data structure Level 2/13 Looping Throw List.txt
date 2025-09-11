@@ -1,0 +1,43 @@
+using System;
+using System.Data;
+using System.Data.SqlClient;
+using static System.Net.Mime.MediaTypeNames;
+using System.Diagnostics;
+using System.Configuration;
+using System.Collections.Generic;
+using System.Xml.Linq;
+
+
+class Program
+{
+   
+    static void Main()
+    {
+        // List initialization
+        List<int> numbers = new List<int> { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+
+        for (int i = 0; i < numbers.Count; i++)
+        {
+            Console.WriteLine(numbers[i]);
+        }
+        Console.WriteLine( "\n");
+
+
+        foreach (var number in numbers)
+        {
+            Console.WriteLine(number);
+        }
+
+        Console.WriteLine("\n");
+        Console.WriteLine("\n");
+
+        numbers.ForEach(number =>  Console.WriteLine(number));
+
+        numbers.ForEach(number =>
+        {
+            Console.WriteLine(number);
+            
+        });
+    }
+}
+

@@ -1,0 +1,33 @@
+  using System;
+
+    sealed  class clsA
+    {
+
+
+    }
+
+    // trying to inherit sealed class
+    // Error Code
+    class clsB : clsA
+    {
+
+
+    }
+
+    class Program
+    {
+        static void Main(string[] args)
+        {
+
+            // create an object of B class
+            clsB B1 = new clsB();
+               
+              // We can implement seald class but not inherit its
+              ObjectA1.Method();
+
+            Console.ReadKey();
+        }
+    }
+
+
+As class A cannot be inherited

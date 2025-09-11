@@ -1,0 +1,74 @@
+#include <iostream>
+#include <cmath>
+#include <string>
+using namespace std;
+
+enum enIsperfectNumber { Perfect = 1, NotPerfect = 2 };
+enIsperfectNumber IsperfectNumber;
+
+float ReadPositiveNumber(string Message)
+{
+    float Number = 0.0;
+
+    do
+    {
+        cout << Message << endl;
+        cin >> Number;
+
+    } while (Number <= 0);
+
+    return Number;
+}
+
+bool CheckPerfect(int Number)
+{
+     int sum = 0;
+    for (int i = 1; i <= Number - 1; i++)
+    {
+
+        if (Number % i == 0)
+        {
+            sum = sum + i;
+
+        }
+
+    }
+    return Number == sum;
+    
+}
+
+
+
+
+void GetPerfectNumbersFrom1ToNumber(int Number)
+{
+    
+    cout << endl << "Perfect numbers from 1 to " << Number << "is : " << endl;
+
+    for (int i = 1; i <= Number; i++)
+    {
+
+        if (CheckPerfect(i))
+        {
+            cout << i << endl;
+
+        }
+    }
+
+}
+
+
+
+
+int main()
+{
+    int Number = ReadPositiveNumber("Please enter a positive number");
+    GetPerfectNumbersFrom1ToNumber(Number);
+    
+    return 0;
+
+}
+
+
+
+

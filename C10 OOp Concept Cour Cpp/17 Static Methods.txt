@@ -1,0 +1,53 @@
+#include <iostream>
+#include <iostream>
+#include <fstream>
+#include <string>
+#include <vector>
+#include <iomanip>
+
+using namespace std;
+
+
+class clsB
+{
+   
+public:
+    static short var;
+    
+    
+    short Function1()
+    {
+        return 34;
+    }
+
+    static short Function2()
+    {
+        return 40 ;
+    }
+
+};
+
+short clsB::var = 0;
+
+int main()
+
+{
+    clsB B1, B2, B3;
+
+    cout << clsB::Function2() << endl;
+
+    cout << B1.Function2() << endl;
+    cout << B2.Function1() << endl;
+    cout << B3.Function2() << endl;
+
+    
+    cout << B1.var << endl;
+    B2.var++;
+
+    cout << B3.var << endl;
+    B3.var = 30;
+
+    cout << B2.var << endl;
+    system("pause>0");
+    return 0;
+}

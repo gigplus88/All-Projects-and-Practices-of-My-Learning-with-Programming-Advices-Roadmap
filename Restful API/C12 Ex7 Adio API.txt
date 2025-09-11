@@ -1,0 +1,85 @@
+using System;
+using NAudio.CoreAudioApi;
+
+class Program
+{
+    static void Main()
+    {
+        Console.WriteLine("Welcome to the Volume Control App");
+        Console.WriteLine("1: Increase volume");
+        Console.WriteLine("2: Decrease volume");
+        Console.WriteLine("3: Set Volume (0-100)");
+        Console.WriteLine("4: Exit");
+
+        var volumeControl = new VolumeControl();
+
+        while (true)
+        {
+            Console.Write("\nEnter choice: ");
+            string input = Console.ReadLine();
+
+            switch (input)
+            {
+                case "1":
+                    volumeControl.IncreaseVolume();
+                    break;
+
+                case "2":
+                    volumeControl.DecreaseVolume();
+                    break;
+
+                case "3":
+                    Console.Write("Enter volume (0-100): ");
+                    if (int.TryParse(Console.ReadLine(), out int val))
+                        volumeControl.SetVolume(val);
+                    else
+                        Console.WriteLine("Invalid number.");
+                    break;
+
+                case "4":
+                case "Exit":
+                    Console.WriteLine("Goodbye!");
+                    return;
+
+                default:
+                    Console.WriteLine("Invalid option, try again.");
+                    break;
+            }
+        }
+    }
+}
+
+public class VolumeControl
+{
+    private readonly MMDevice _device;
+
+    public VolumeControl()
+    {
+        _device = new MMDeviceEnumerator()
+            .GetDefaultAudioEndpoint(DataFlow.Render, Role.Multimedia);
+    }
+
+    public void IncreaseVolume()
+    {
+        _device.AudioEndpointVolume.VolumeStepUp();
+        Console.WriteLine($"Volume: {_device.AudioEndpointVolume.MasterVolumeLevelScalar:P0}");
+    }
+
+    public void DecreaseVolume()
+    {
+        _device.AudioEndpointVolume.VolumeStepDown();
+        Console.WriteLine($"Volume: {_device.AudioEndpointVolume.MasterVolumeLevelScalar:P0}");
+    }
+
+    public void SetVolume(int value)
+    {
+        float vol = value / 100f;
+
+        // Manual clamping
+        if (vol < 0f) vol = 0f;
+        if (vol > 1f) vol = 1f;
+
+        _device.AudioEndpointVolume.MasterVolumeLevelScalar = vol;
+        Console.WriteLine($"Volume set → {vol:P0}");
+    }
+}

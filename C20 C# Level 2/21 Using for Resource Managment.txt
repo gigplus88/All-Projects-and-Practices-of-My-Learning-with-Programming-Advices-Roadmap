@@ -1,0 +1,111 @@
+using Beak= System.Console;
+using System;
+using System.IO;
+using static System.Math;
+using static System.Console;
+using System.ComponentModel;
+using System.Data.SqlClient;
+using System.Xml.Linq;
+
+class Program
+{
+    static void Main()
+    {
+
+        var ConnectionString = "Server=.;Database=C21_DB1; User Id=sa;Password=123456;";
+
+        try
+        {
+            using (SqlConnection connection = new SqlConnection(ConnectionString))
+            {
+                connection.Open();
+
+                string query = "SELECT * FROM Employees Where DepartmentID = 2";
+
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        if (reader.HasRows)
+                        {
+                            string Name = (string)reader["Name"];
+                            int DepartmentID = (int)reader["DepartmentID"];
+                            WriteLine($"The Employee Name is: {Name} and its ID is:{DepartmentID} ");
+                        }
+                        else
+                        {
+                            WriteLine("Sorry No Rows Found ");
+
+                        }
+                    }
+
+                    
+
+                   
+                }
+
+            }
+
+
+        }
+
+        catch (Exception ex)
+        {
+
+            Console.WriteLine("Error: " + ex.Message);
+        }
+
+        finally
+        {
+
+            WriteLine("Error: ");
+
+        }
+    }
+    
+
+}
+
+
+
+
+
+
+
+
+// Example 2
+
+using System;
+using System.IO;
+
+class Program
+{
+    static void Main()
+    {
+        string filePath = "log.txt"; // Replace with the path to your text file.
+
+        try
+        {
+            // Use the StreamReader with a 'using' statement to read from the file.
+            using (StreamReader reader = new StreamReader(filePath))
+            {
+                string line;
+
+                // Read and display each line from the file.
+                while ((line = reader.ReadLine()) != null)
+                {
+                    Console.WriteLine(line);
+                }
+            }
+        }
+        catch (FileNotFoundException)
+        {
+            Console.WriteLine($"File not found: {filePath}");
+        }
+        catch (IOException ex)
+        {
+            Console.WriteLine($"An error occurred while reading the file: {ex.Message}");
+        }
+    }
+}

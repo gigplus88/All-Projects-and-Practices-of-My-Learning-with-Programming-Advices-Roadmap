@@ -1,0 +1,15 @@
+USE [C21_DB1]
+GO
+
+CREATE PROCEDURE SP_DeletePerson
+    @PersonID INT
+AS
+BEGIN
+   Delete FROM People WHERE PersonID = @PersonID
+END
+
+
+EXEC	SP_DeletePerson
+	@PersonID = 5
+
+	select * from People

@@ -1,0 +1,10 @@
+
+ Select Customers.CustomerID , Customers.Name , Orders.Amount
+ From Customers left join Orders
+ On Customers.CustomerID = Orders.CustomerID
+ Where Customers.CustomerID > 3;
+
+
+ Select Customers.CustomerID , Customers.Name , Orders.Amount
+ From Customers left join Orders
+ On Customers.CustomerID = Orders.CustomerID;

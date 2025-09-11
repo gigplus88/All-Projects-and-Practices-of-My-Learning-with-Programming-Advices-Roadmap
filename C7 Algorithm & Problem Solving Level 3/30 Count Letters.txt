@@ -1,0 +1,59 @@
+#include <iostream>
+#include <string>
+#include <iomanip>
+
+using namespace std;
+
+enum enWatToCount {SmallLetters =1 , CapitallLetters=2 , All=3};
+string ReadString()
+{
+    string  S1;
+    cout << "Please Enter Your String?" << endl;
+    getline(cin, S1);
+    
+    return S1;
+}
+
+char ReadLetter()
+{
+    char  letter=' ';
+    cout << "Please Enter Your Character?" << endl;
+    cin>> letter;
+
+    return letter;
+}
+
+
+
+int CounterOfLetterCase( string S1 , char letter)
+{
+    short Counter = 0 ;
+
+    for (short i = 0; i < S1.length(); i++)
+    {
+        if (S1[i]== letter)
+        {
+            Counter++;
+        }
+       
+    }
+    return Counter;
+}
+
+
+
+
+int main()
+{
+    
+
+    string S1 = ReadString();
+    char letter = ReadLetter();
+    
+    cout << "Letter '" << letter << "' Count = " << CounterOfLetterCase( S1,  letter);
+   
+
+    system("pause>0");
+
+    return 0;
+}

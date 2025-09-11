@@ -1,0 +1,33 @@
+using System;
+using System.Data;
+using System.Data.SqlClient;
+using static System.Net.Mime.MediaTypeNames;
+using System.Diagnostics;
+using System.Configuration;
+using System.Collections.Generic;
+
+
+class Program
+{
+  
+
+    static void Main()
+    {
+        List<int> numbers = new List<int>();
+
+
+        for (int i = 0; i < 20; i++)
+        {
+            numbers.Add(i);
+            Console.WriteLine($"the element {i} is:" + numbers[i]);
+
+        }
+
+        numbers[7] = 39;
+        Console.WriteLine($"the element 7 is:" + numbers[7]);
+
+        Console.WriteLine("The list count  is:" + numbers.Count);
+
+    }
+}
+

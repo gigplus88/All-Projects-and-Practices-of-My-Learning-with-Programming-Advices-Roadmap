@@ -1,0 +1,22 @@
+
+Declare @PageNumber int; 
+Declare @RowPerPage int; 
+
+set @PageNumber = 3;
+set @RowPerPage = 3;
+
+
+SELECT 
+    StudentID, 
+    Name, 
+    Subject, 
+    Grade,
+    ROW_NUMBER()  OVER (ORDER BY Grade DESC) AS RowNum
+FROM 
+    Students
+	Order By Grade Desc
+	Offset (@PageNumber - 1) * @RowPerPage Rows
+	Fetch Next @RowPerPage Rows Only;
+
+
+	select * from Students 	Order By Grade Desc;

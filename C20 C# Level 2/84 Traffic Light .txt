@@ -1,0 +1,427 @@
+// For Traffic Project
+
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Drawing;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+using Traffic_Light_Project.Properties;
+
+namespace Traffic_Light_Project
+{
+    public partial class ctrlTrafficLight : UserControl
+    {
+
+        public enum LightEnum { Red = 0, Orange = 1, Green = 2 }
+        public LightEnum _CurrentLight;
+
+        private Timer moveTimer = new Timer();
+        private int dx = 5;
+        private int dy = 0;
+
+        public class TraficLightEventArgs : EventArgs
+        {
+            public LightEnum CurrentLight { get; }
+            public int LightDuration { get; }
+
+            public TraficLightEventArgs(LightEnum CurrentLight, int LightDuration)
+            {
+                this.CurrentLight = CurrentLight;
+                this.LightDuration = LightDuration;
+            }
+        }
+
+        public LightEnum CurrentLight
+        {
+            get
+            {
+                return _CurrentLight;
+            }
+
+            set
+            {
+                _CurrentLight = value;
+
+                switch (_CurrentLight)
+                {
+                    case LightEnum.Red:
+                        pbTrafficLight.Image = Resources.Red;
+                        lblCounter.ForeColor = Color.Red;
+                         _CurrentCountDownValue = RedTime;
+                        //  lblCountDown.Text = _CurrentCountDownValue.ToString();
+                        break;
+                    case LightEnum.Orange:
+                        pbTrafficLight.Image = Resources.Orange;
+                        lblCounter.ForeColor = Color.Orange;
+                        _CurrentCountDownValue = OrangeTime;
+                        // lblCountDown.Text = _CurrentCountDownValue.ToString();
+                        break;
+                    case LightEnum.Green:
+                        pbTrafficLight.Image = Resources.Green;
+                        lblCounter.ForeColor = Color.Green;
+                        _CurrentCountDownValue = GreenTime;
+                        //  lblCountDown.Text = _CurrentCountDownValue.ToString();
+                        break;
+                    default:
+                        lblCounter.ForeColor = Color.Red;
+                        _CurrentCountDownValue = RedTime;
+                        //  lblCountDown.Text = _CurrentCountDownValue.ToString();
+                        break;
+                }
+
+            }
+
+        }
+
+        private int _RedTime = 10;
+        private int _OrangeTime = 3;
+        private int _GreenTime = 10;
+
+
+        public int OrangeTime
+        {
+            set
+            {
+                _OrangeTime = value;
+
+            }
+            get
+            {
+                return _OrangeTime;
+            }
+        }
+
+        public int RedTime
+        {
+            set
+            {
+                _RedTime = value;
+
+            }
+            get
+            {
+                return _RedTime;
+            }
+        }
+
+        public int GreenTime
+        {
+            set
+            {
+                _GreenTime = value;
+
+            }
+            get
+            {
+                return _GreenTime;
+            }
+        }
+        [Category("Action")]
+        public event EventHandler<TraficLightEventArgs> OrangeLightOn;
+
+        [Category("Action")]
+        public event EventHandler<TraficLightEventArgs> RedLightOn;
+
+        [Category("Action")]
+        public event EventHandler<TraficLightEventArgs> GreenLightOn;
+
+        private int _CurrentCountDownValue , CountDownValueInContext;
+
+        public ctrlTrafficLight()
+        {
+            InitializeComponent();
+            LightTimer.Interval = 1000;
+
+        }
+        public void RaiseRedLightOff()
+        {
+            RaiseRedLightOff(new TraficLightEventArgs(LightEnum.Orange, _OrangeTime));
+        }
+       
+        public void RaiseRedLightOn()
+        {
+            RaiseRedLightOn(new TraficLightEventArgs(LightEnum.Red, _RedTime));
+        }
+        protected virtual void RaiseRedLightOn(TraficLightEventArgs e)
+        {
+            RedLightOn?.Invoke(this, e);
+        }
+        protected virtual void RaiseRedLightOff(TraficLightEventArgs e)
+        {
+            RedLightOn?.Invoke(this, e);
+        }
+
+
+        protected virtual void RaiseOrangeLightOn(TraficLightEventArgs e)
+        {
+            OrangeLightOn?.Invoke(this, e);
+        }
+        protected virtual void RaiseOrangeLightOff(TraficLightEventArgs e)
+        {
+            OrangeLightOn?.Invoke(this, e);
+        }
+
+        public void RaiseOrangeLightOn()
+        {
+            RaiseRedLightOn(new TraficLightEventArgs(LightEnum.Orange, _OrangeTime));
+        }
+        public void RaiseOrangeLightOff()
+        {
+            RaiseOrangeLightOff(new TraficLightEventArgs(LightEnum.Red, _RedTime));
+        }
+
+
+        protected virtual void RaiseGreenLightOn(TraficLightEventArgs e)
+        {
+            GreenLightOn?.Invoke(this, e);
+        }
+        protected virtual void RaiseGreenLightOff(TraficLightEventArgs e)
+        {
+            GreenLightOn?.Invoke(this, e);
+        }
+
+        public void RaiseGreenLightOff()
+        {
+            RaiseGreenLightOff(new TraficLightEventArgs(LightEnum.Orange, _OrangeTime));
+        }
+        public void RaiseGreenLightOn()
+        {
+            RaiseGreenLightOff(new TraficLightEventArgs(LightEnum.Green, _GreenTime));
+        }
+
+        private void ctrlTrafficLight_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        public void Start()
+        {
+            _CurrentCountDownValue = GetCurrentTime();
+            LightTimer.Start();
+        }
+        public void StartInContext()
+        {
+            
+            _CurrentCountDownValue = _CurrentCountDownValue;
+            LightTimer.Start();
+        }
+
+        public void ChangeLight()
+        {
+            switch (_CurrentLight)
+            {
+                case LightEnum.Red:
+  
+                    CurrentLight = LightEnum.Green;
+
+                    lblCounter.Text = _CurrentCountDownValue.ToString();
+                    RaiseGreenLightOn();
+                    
+                    
+
+                    break;
+
+                case LightEnum.Orange:
+
+                    CurrentLight = LightEnum.Red;
+
+                    lblCounter.Text = _CurrentCountDownValue.ToString();
+                    RaiseRedLightOn();
+               
+                    break;
+                case LightEnum.Green:
+                
+                    CurrentLight = LightEnum.Orange;
+
+                    lblCounter.Text = _CurrentCountDownValue.ToString();
+                    RaiseOrangeLightOn();
+
+ 
+                    break;
+                default:
+                    lblCounter.ForeColor = Color.Red;
+                    // _CurrentCountDownValue = RedTime;
+                    lblCounter.Text = _CurrentCountDownValue.ToString();
+                    break;
+            }
+
+        }
+        public int GetCurrentTime()
+        {
+
+            switch (_CurrentLight)
+            {
+                case LightEnum.Orange:
+                    return OrangeTime;
+
+                case LightEnum.Green:
+                    return GreenTime;
+                case LightEnum.Red:
+                    return RedTime;
+                default: return RedTime;
+            }
+
+        }
+
+        public void Stop()
+        {
+            LightTimer.Stop();
+
+        }
+        private void LightTimer_Tick(object sender, EventArgs e)
+        {
+            lblCounter.Text = _CurrentCountDownValue.ToString();
+            if (_CurrentCountDownValue == 0)
+            {
+                // LightTimer.Stop();
+                ChangeLight();
+
+            }
+            else
+            {
+
+
+                --_CurrentCountDownValue;
+
+            }
+
+        }
+
+        private void btnStop_Click(object sender, EventArgs e)
+        {
+            //Stop();
+        }
+
+        private void btnStart_Click(object sender, EventArgs e)
+        {
+            Stop();
+            MessageBox.Show("This Light Is in f$Fix Mode", "Info" , MessageBoxButtons.OKCancel , MessageBoxIcon.Information );
+            CountDownValueInContext = _CurrentCountDownValue;
+        }
+
+        private void btnStart_Click_1(object sender, EventArgs e)
+        {
+            StartInContext();
+        }
+    }
+}
+
+
+// Main Form 
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace Traffic_Light_Project
+{
+    public partial class Form1 : Form
+    {
+        public Form1()
+        {
+            InitializeComponent();
+            ctrlTrafficLight1._CurrentLight = ctrlTrafficLight.LightEnum.Red;
+            ctrlTrafficLight2._CurrentLight = ctrlTrafficLight.LightEnum.Red;
+
+            ctrlTrafficLight3._CurrentLight = ctrlTrafficLight.LightEnum.Green;
+            ctrlTrafficLight4._CurrentLight = ctrlTrafficLight.LightEnum.Green;
+            LoadLightTimers();
+
+        }
+
+        void LoadLightTimers()
+        {
+            ctrlTrafficLight1.Start();
+            ctrlTrafficLight2.Start();
+            ctrlTrafficLight3.Start();
+            ctrlTrafficLight4.Start();
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            
+
+        }
+
+
+
+        private void ctrlTrafficLight1_OrangeLightOn(object sender, ctrlTrafficLight.TraficLightEventArgs e)
+        {
+            MessageBox.Show(e.CurrentLight.ToString());
+
+        }
+
+        private void ctrlTrafficLight1_RedLightOn(object sender, ctrlTrafficLight.TraficLightEventArgs e)
+        {
+            if (e.CurrentLight.ToString() == "Red")
+            {
+                
+            }
+            MessageBox.Show(e.CurrentLight.ToString());
+
+        }
+
+        private void ctrlTrafficLight1_GreenLightOn(object sender, ctrlTrafficLight.TraficLightEventArgs e)
+        {
+            MessageBox.Show(e.CurrentLight.ToString());
+
+        }
+
+        private void btnStop_Click(object sender, EventArgs e)
+        {
+            //ctrlTrafficLight1.Stop();
+        }
+
+        private void btnStart_Click(object sender, EventArgs e)
+        {
+            //ctrlTrafficLight1.Start();
+        }
+
+        private void ctrlTrafficLight3_RedLightOn(object sender, ctrlTrafficLight.TraficLightEventArgs e)
+        {
+
+        }
+
+        private void ctrlTrafficLight3_GreenLightOn(object sender, ctrlTrafficLight.TraficLightEventArgs e)
+        {
+
+        }
+
+        private void ctrlTrafficLight3_OrangeLightOn(object sender, ctrlTrafficLight.TraficLightEventArgs e)
+        {
+
+        }
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

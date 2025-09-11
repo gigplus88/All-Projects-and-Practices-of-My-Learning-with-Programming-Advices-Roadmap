@@ -1,0 +1,67 @@
+
+#include <iostream>
+#include <cmath>
+#include <string>
+using namespace std;
+// Problem n8
+
+void ReadMarks(int &Mark1, int &Mark2, int &Mark3 )
+{
+    cout << "enter your Mark1 please " << endl;
+    cin >> Mark1;
+
+    cout << "enter your Mark2 please " << endl;
+    cin >> Mark2;
+
+    cout << "enter your Mark3 please " << endl;
+    cin >> Mark3;
+
+}
+
+float PrintAverage(int Mark1, int Mark2, int Mark3 , int Average)
+{
+
+    return Average = (Mark1 + Mark2 + Mark3) / 3;
+
+}
+
+int main()
+{
+   
+    int Mark1 = 0, Mark2 = 0, Mark3=0;
+
+
+    ReadMarks(Mark1, Mark2, Mark3);
+     
+    int Average = (Mark1 + Mark2 + Mark3) / 3;
+
+    cout << PrintAverage(Mark1, Mark2, Mark3 , Average) << endl;
+
+    if (Average>= 50 )
+    {
+        cout << "PASS" << endl;
+
+
+    }
+
+    else
+
+    {
+        cout << "FAIL" << endl;
+
+
+    }
+
+    return 0;
+}
+
+
+
+
+
+
+
+
+
+
+

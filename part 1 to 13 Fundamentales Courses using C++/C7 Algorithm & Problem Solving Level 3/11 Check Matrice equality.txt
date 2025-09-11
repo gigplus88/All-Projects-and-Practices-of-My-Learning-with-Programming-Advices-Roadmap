@@ -1,0 +1,128 @@
+#include <iostream>
+#include <string>
+#include <iomanip>
+
+using namespace std;
+
+int RandomNumber(int From, int To)
+{
+
+    int randNum = rand() % (To - From + 1) + From;
+
+
+    return randNum;
+}
+
+void FillMatrix1WithRandumNumbers(int Matrix1[3][3], short Rows, short Cols)
+{
+    for (int i = 0; i < Rows; i++)
+    {
+        for (int j = 0; j < Cols; j++)
+        {
+            Matrix1[i][j] = RandomNumber( 1, 10);
+
+        }
+
+    }
+
+}
+
+void PrintMatrix1(int arr[3][3] , short Rows, short Cols)
+{
+    for (int i = 0; i < Rows; i++)
+    {
+        for (int j = 0; j < Cols; j++)
+        {
+            printf(" %0*d  ", 2, arr[i][j]);
+            //cout << setw(3) << arr[i][j] << "\t";
+        }
+        cout << endl ;
+    }
+
+}
+
+void FillMatrix2WithRandumNumbers(int Matrix2[3][3], short Rows, short Cols)
+{
+    for (int i = 0; i < Rows; i++)
+    {
+        for (int j = 0; j < Cols; j++)
+        {
+            Matrix2[i][j] = RandomNumber(1, 10);
+
+        }
+
+    }
+
+}
+
+void PrintMatrix2(int arr[3][3], short Rows, short Cols)
+{
+    for (int i = 0; i < Rows; i++)
+    {
+        for (int j = 0; j < Cols; j++)
+        {
+            printf(" %0*d  ", 2, arr[i][j]);
+            //cout << setw(3) << arr[i][j] << "\t";
+        }
+        cout << endl;
+    }
+
+}
+
+int SumOfMatrix(int Matrix1[3][3], short Rows, short Cols)
+{
+    short sum1 = 0;
+    for (int i = 0; i < Rows; i++)
+    {
+        for (int j = 0; j < Cols; j++)
+        {
+            sum1 += Matrix1[i][j];
+
+        }
+
+    }
+
+    return sum1;
+}
+
+
+
+bool IfMatrixEqual(int Matrix1[3][3], int Matrix2[3][3], short Rows, short Cols)
+{
+
+    return (SumOfMatrix(Matrix1, 3, 3) == SumOfMatrix(Matrix2, 3, 3));
+            
+   
+}
+
+
+int main()
+{
+    srand((unsigned)time(NULL));
+
+    int Matrix1[3][3] , Matrix2[3][3];
+
+    FillMatrix1WithRandumNumbers(Matrix1, 3, 3);
+    cout << "Matrix1 :" << endl;
+    PrintMatrix1(Matrix1, 3, 3);
+
+    FillMatrix2WithRandumNumbers(Matrix2, 3, 3);
+    cout << "Matrix2 :" << endl;
+    PrintMatrix1(Matrix2, 3, 3);
+
+
+    if (IfMatrixEqual( Matrix1,  Matrix2,  3,  3) )
+    {
+        cout << "Yes : Matrice are  equal" << endl;
+    }
+    else
+    {
+        cout << "NO : Matrice are Not equal" << endl;
+
+    }
+  
+    system("pause>0");
+
+
+    return 0;
+}

@@ -1,0 +1,46 @@
+#include <iostream>
+using namespace std;
+#include <cmath>
+#include <string>
+
+ float CircleAreaInscribedAroundAnArbitraryTriangle( float a , float b,float c , float p, float Area )
+{
+     const float PI = 3.14;
+
+     Area = PI * pow((a * b * c) / (4 * sqrt(p * (p - a) * (p - b) * (p - c))), 2);
+     return Area;
+
+}
+
+
+
+
+
+
+ int main()
+ {
+     float a = 0.0, b = 0.0, c = 0.0;
+     cout << "Enter the a :";
+     cin >> a;
+
+     cout << "Enter the b :";
+     cin >> b;
+
+     cout << "Enter the c :";
+     cin >> c;
+
+     const float PI = 3.14;
+     float   p = (a + b + c) / 2, Area = PI * pow((a * b * c) / (4 * sqrt(p * (p - a) * (p - b) * (p - c))), 2);
+
+     cout << "The Area of the circle is: " << CircleAreaInscribedAroundAnArbitraryTriangle(a, b, c, p, Area) << endl;
+
+     cout << "The Area of the circle with round is: " << round(CircleAreaInscribedAroundAnArbitraryTriangle(a, b, c, p, Area));
+
+
+
+
+     return 0;
+
+ }
+
+

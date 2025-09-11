@@ -1,0 +1,38 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+
+class Program
+{
+    static void Main()
+    {
+        // Creating and populating a HashSet
+        HashSet<string> fruits = new HashSet<string> { "Apple", "Banana", "Cherry" , "Big" };
+
+        Console.WriteLine("HashSet Item Count = " + fruits.Count.ToString());
+
+        // Removing "Banana" from the HashSet
+        //fruits.Remove("Big");
+        fruits.RemoveWhere( he => he == "Big");
+
+        Console.WriteLine("\nHashSet Item Count after removing Big = " + fruits.Count.ToString()); 
+        // Displaying the remaining elements
+        foreach (string fruit in fruits)
+        {
+            Console.WriteLine(fruit);
+        }
+
+        Console.WriteLine("\nHash Set Item Count after clear = " + fruits.Count.ToString());
+
+
+        //this will remove all elements
+        fruits.Clear();
+        Console.WriteLine("\nHash Set Item Count after clear = " + fruits.Count.ToString());
+
+
+
+
+        Console.ReadKey();
+    }
+}

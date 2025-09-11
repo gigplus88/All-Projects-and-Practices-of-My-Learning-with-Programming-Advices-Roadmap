@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>CSS Gradients Demo</title>
+
+  <!-- ──────────────── Code Overview ────────────────
+       🎯 Purpose: Display five core CSS-gradient types inside a responsive grid,
+                  illustrating how linear, radial, repeating, and conic
+                  gradients differ in direction, repetition, and shape.
+
+       🏗️ Layout:  • A CSS Grid (`.demo-grid`) auto-fits gradient tiles.
+                  • Each tile (`.box`) uses a distinct `background-image`
+                    declaration to render a colorful backdrop.
+
+       🧰 Use Cases: Design tokens, dashboards, or style guides where you need
+                  to demo or apply gradient palettes with zero extra images.
+
+       🔗 Key Properties & Sections:
+           • `display: grid` / `grid-template-columns` → responsive gallery.
+           • `.box`                                  → shared tile styling.
+           • `.linear`                               → one-direction blend.
+           • `.repeating`                            → diagonal striped pattern.
+           • `.radial`                               → circular fade-out.
+           • `.rep-radial`                           → bullseye stripes.
+           • `.conic`                                → pie-chart swirl.
+  ─────────────────────────────────────────────────── -->
+  <style>
+    /* 🌐 Base page styling */
+    body {
+      font-family: sans-serif;
+      padding: 2rem;
+      background: #f5f5f5;
+      color: #333;
+    }
+
+    h1 { text-align: center; margin-bottom: 2rem; }
+
+    /* 📐 Responsive grid wrapper */
+    .demo-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* auto wrap */
+      gap: 1rem;
+    }
+
+    /* 🧱 Universal tile look-and-feel */
+    .box {
+      height: 150px;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      display: flex;               /* 👉 centers label text */
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-weight: bold;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+    }
+
+    /* ─────── Gradient Variants ─────── */
+
+    /* 1️⃣ Linear gradient — smooth horizontal blend */
+    .linear {
+      /* to right ➜ left-to-right ramp; start peach, end apricot */
+      background-image: linear-gradient(to right, #ff7e5f, #feb47b);
+    }
+    .linear2{
+      background-image:linear-gradient(to right  , hsl(240, 96%, 69%),
+      rgb(38, 38, 245));
+      
+    }
+    /* 2️⃣ Repeating linear gradient — diagonal stripes 10 px wide */
+    .repeating {
+      background-image: repeating-linear-gradient(
+        45deg,          /* ↗ stripes run at a 45° angle               */
+        #8e44ad 0px,    /* stripe color 1 starts at 0 px              */
+        #8e44ad 10px,   /* … lasts until 10 px                        */
+        #3498db 10px,   /* stripe color 2 begins *exactly* at 10 px   */
+        #3498db 20px    /* … lasts until 20 px, then pattern repeats  */
+      );
+       background:repeat cover/center;
+
+    }
+
+    /* 3️⃣ Radial gradient — soft circle fading toward edges */
+    .radial {
+      background-image: radial-gradient(
+        circle at left,      /* ⭕ perfect circle centered in the box  */
+        #1abc9c,               /* inner teal core                        */
+        #16a085 30%,           /* blend to darker teal at 60% radius     */
+        transparent            /* fade out to transparency beyond that  */
+      );
+    }
+
+    /* 4️⃣ Repeating radial gradient — bullseye rings every 5 px */
+    .rep-radial {
+      background-image: repeating-radial-gradient(
+        circle,                /* ⭕ concentric circles                  */
+        #e74c3c 0px,           /* red ring start                        */
+        #e74c3c 10px,           /* red ring thickness                    */
+        #c0392b 10px,           /* darker ring begins at 5 px            */
+        #c0392b 15px           /* darker ring end; pattern repeats      */
+      );
+    }
+
+    /* 5️⃣ Conic gradient — 360° sweep like a pie chart */
+    .conic {
+      background-image: conic-gradient(
+        from 0deg at right,   /* 🌀 start angle 0°, pivot at center      */
+        #f1c40f,               /* yellow at 0°                           */
+        #22e62c,               /* orange mid-way                         */
+        #e74c3c,               /* red toward 270°                        */
+        #840ff1               /* loop back to yellow to close circle    */
+      );
+    }
+  </style>
+</head>
+<body class="repeating" >
+
+  <h1>CSS Gradients Showcase</h1>
+
+  <div class="demo-grid">
+    <div class="box linear">Linear</div>
+    <div class="box repeating">Repeat-Linear</div>
+    <div class="box radial">Radial</div>
+    <div class="box rep-radial">Repeat-Radial</div>
+    <div class="box conic">Conic</div>
+    <div class="box linear2">Linear2</div>
+
+  </div>
+
+</body>
+</html>

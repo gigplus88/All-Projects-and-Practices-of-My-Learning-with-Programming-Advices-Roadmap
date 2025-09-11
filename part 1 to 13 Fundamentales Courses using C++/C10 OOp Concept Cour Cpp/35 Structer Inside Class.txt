@@ -1,0 +1,104 @@
+#include <iostream>
+#include <iostream>
+#include <fstream>
+#include <string>
+#include <vector>
+#include <iomanip>
+
+using namespace std;
+
+class clsPerson
+{
+private:
+    struct stAddresses 
+    {
+        string AddressLine1;
+        string AddressLine2;
+        string City;
+        string Country;
+    };
+    stAddresses Address;
+
+public:
+    string FullName;
+
+    clsPerson( string FullName ,string AddressLine1 , string AddressLine2 , string City , string Country)
+    {
+        FullName = FullName;
+        Address.AddressLine1 = AddressLine1;
+        Address.AddressLine2 = AddressLine2;
+        Address.Country = Country;
+        Address.City = City;
+    }
+
+    void PrintAddress()
+    {
+        cout <<"\nAddress: " ;
+        cout << "\n" << Address.AddressLine1;
+        cout << "\n" << Address.AddressLine2;
+        cout << "\n" << Address.Country;
+        cout << "\n" << Address.City;
+
+    }
+    friend class clsDoctor;
+
+};
+
+class clsDoctor : public clsPerson
+{
+    struct stDoctor
+    {
+        int ID=0 ;
+        string Department;
+        float Salary=0;
+        string WorkTime;
+    };
+   
+
+public:
+   
+    stDoctor Doctor;
+
+    clsDoctor(string FullName, string AddressLine1, string AddressLine2, string City, string Country, int ID, string Department, float Salary, string WorkTime)
+    : clsPerson(FullName, AddressLine1, AddressLine2, City, Country)
+    {
+        Doctor.ID = 10;
+        Doctor.Department = "Head";
+        Doctor.Salary = 5000;
+        Doctor.WorkTime = "Morning";
+
+    };
+
+   
+    void PrintAddress()
+    {
+        cout << "\nAddress: ";
+        cout << "\n" << Address.AddressLine1;
+        cout << "\n" << Address.AddressLine2;
+        cout << "\n" << Address.Country;
+        cout << "\n" << Address.City;
+        cout << "\n" << Doctor.ID;
+        cout << "\n" << Doctor.Department;
+        cout << "\n" << Doctor.Salary;
+        cout << "\n" << Doctor.WorkTime;
+
+
+    }
+
+    void AddDoctor()
+    {
+
+    }
+};
+
+
+int main()
+{
+    clsDoctor Doctor1("Ayoub Fellah" , "Oulad Tayeb" , "Hay Drissi" , "Morocco" , "Fes" ,  10 , "Head" , 5000 , "Moorning");
+    Doctor1.PrintAddress();
+   
+    
+
+    system("pause>0");
+    return 0;
+}

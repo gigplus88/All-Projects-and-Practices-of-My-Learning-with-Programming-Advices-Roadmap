@@ -1,0 +1,688 @@
+#pragma once
+#include<iostream>
+#include<string>
+#include<vector>
+
+
+
+using namespace std;
+
+class clsString
+{
+private:
+	string _Value , _delim;
+    char _Character;
+    vector<string> _vJoin = SplitString(_Value, _delim);
+    
+public:
+	clsString()
+	{
+		_Value = "";
+	}
+
+	clsString(string Value)
+	{
+		_Value = Value;
+	}
+
+	void SetValue(string Value)
+	{
+		_Value = Value;
+	}
+
+	string GetValue()
+	{
+		return _Value;
+	}
+
+    void SetCharacter(char Character)
+    {
+        _Character = Character;
+    }
+
+    char GetCharacter()
+    {
+        return _Character;
+    }
+
+    void SetDelimiter(string delim)
+    {
+        _delim = delim;
+    }
+
+    string GetDelimiter()
+    {
+        return _delim;
+    }
+
+   
+
+    
+
+
+    
+	__declspec(property(get = GetValue, put = SetValue)) string Value;
+    __declspec(property(get = GetCharacter, put = SetCharacter)) char Character;
+    __declspec(property(get = GetDelimiter, put = SetDelimiter)) string delim;
+   
+    // Lenth Of String
+
+    static short Length(string S1)
+    {
+        return S1.length();
+    }
+
+     short Length()
+    {
+       return  _Value.length();
+    }
+
+     // Count Words
+
+    static short CountWords(string S1)
+    {
+
+        string delim = " "; // delimiter  
+        short Counter = 0;
+        short pos = 0;
+        string sWord; // define a string variable  
+
+        // use find() function to get the position of the delimiters  
+        while ((pos = S1.find(delim)) != std::string::npos)
+        {
+            sWord = S1.substr(0, pos); // store the word   
+            if (sWord != "")
+            {
+                Counter++;
+            }
+
+            //erase() until positon and move to next word.
+            S1.erase(0, pos + delim.length());
+        }
+
+        if (S1 != "")
+        {
+            Counter++; // it counts the last word of the string.
+        }
+
+        return Counter;
+
+    }
+
+    short CountWords()
+    {
+        return   CountWords( _Value);
+        
+    }
+
+
+    // First Letter in a Word
+    static void PrintFirstLetterOfEachWord(string  YourInput)
+    {
+        bool isFirstLetter = true;
+        for (short i = 0; i < YourInput.length(); i++) // أتحكم في أول حرف بالفراغ فقط
+        {
+            if (YourInput[i] != ' ' && isFirstLetter)
+            {
+                cout << YourInput[i] << endl;
+            }
+
+            isFirstLetter = (YourInput[i] == ' ' ? true : false); 
+
+        }
+
+    }
+
+     void PrintFirstLetterOfEachWord()
+    {
+         PrintFirstLetterOfEachWord(Value);
+    }
+
+     // First Letter To upper
+
+     static string UpperFirstLetterOfEachWord(string  YourInput)
+     {
+
+         bool isFirstLetter = true;
+         for (short i = 0; i < YourInput.length(); i++)
+         {
+             if (YourInput[i] != ' ' && isFirstLetter)
+             {
+                 YourInput[i] = toupper(YourInput[i]);
+             }
+
+             isFirstLetter = (YourInput[i] == ' ' ? true : false);
+
+         }
+
+         return YourInput;
+
+     }
+
+      void UpperFirstLetterOfEachWord()
+     {
+          // return UpperFirstLetterOfEachWord(Value);
+       
+          _Value = UpperFirstLetterOfEachWord(_Value); // To updat in Object member
+
+     }
+
+      // First Letter to lower
+
+      static string LowerFirstLetterOfEachWord(string  YourInput)
+      {
+
+          bool isFirstLetter = true;
+          for (short i = 0; i < YourInput.length(); i++)
+          {
+              if (YourInput[i] != ' ' && isFirstLetter)
+              {
+                  YourInput[i] = tolower(YourInput[i]);
+              }
+
+              isFirstLetter = (YourInput[i] == ' ' ? true : false);
+
+          }
+
+          return YourInput;
+
+      }
+
+      void LowerFirstLetterOfEachWord()
+      {
+          //return LowerFirstLetterOfEachWord(Value);
+          _Value = LowerFirstLetterOfEachWord(_Value);
+          
+      }
+
+      // Upper Letter Of a Word
+
+      static string UpperLetterOfEachWord(string  YourInput)
+      {
+
+          bool isFirstLetter = true;
+          for (short i = 0; i < YourInput.length(); i++)
+          {
+
+              YourInput[i] = toupper(YourInput[i]);
+
+
+          }
+
+          return YourInput;
+
+      }
+
+      void UpperLetterOfEachWord()
+      {
+          //return UpperLetterOfEachWord(Value);
+          _Value = UpperLetterOfEachWord(_Value);
+      
+      }
+
+      // Lower Letter Of a Word
+
+      static string LowerLetterOfEachWord(string  YourInput)
+      {
+
+          bool isFirstLetter = true;
+          for (short i = 0; i < YourInput.length(); i++)
+          {
+
+              YourInput[i] = tolower(YourInput[i]);
+
+
+          }
+
+          return YourInput;
+
+      }
+
+      void LowerLetterOfEachWord( )
+      {
+          //return LowerLetterOfEachWord(Value);
+          _Value = UpperLetterOfEachWord(_Value);
+
+      }
+      // Invert Letter
+
+      static char InvertLetterCase(char  Character)
+      {
+          return isupper(Character) ? tolower(Character) : toupper(Character);
+      }
+
+     
+      // Invert All Letters in Words
+
+       static string InvertAllLettersCase(string S1)
+      {
+          char  Character;
+          for (short i = 0; i < S1.length(); i++)
+          {
+              S1[i] = InvertLetterCase(S1[i]);
+          }
+          return S1;
+      }
+
+       string InvertAllLettersCase()
+       {
+           //return InvertAllLettersCase(Value);
+           _Value = InvertAllLettersCase(_Value);
+
+       }
+
+
+       // Count Of Letters
+        
+       enum enWatToCount { SmallLetters = 1, CapitallLetters = 2, All = 3 };
+
+       static short CounterLetters(enWatToCount WatToCount, string S1)
+       {
+           short Counter = 0;
+
+           if (WatToCount == enWatToCount::All)
+           {
+               return S1.length();
+           }
+
+           for (short i = 0; i < S1.length(); i++)
+           {
+
+               if (WatToCount == enWatToCount::CapitallLetters && isupper(S1[i]))
+
+                   Counter++;
+
+               else if (WatToCount == enWatToCount::SmallLetters && islower(S1[i]))
+               {
+                   Counter++;
+               }
+
+           }
+
+
+
+           return Counter;
+
+
+       }
+
+
+       // Count Of Capital Letter
+       static int CounterOfCapitalLetterCase(string S1)
+       {
+           short CapitalCounter = 0;
+
+           for (short i = 0; i < S1.length(); i++)
+           {
+
+               if (isupper(S1[i]))
+               {
+                   CapitalCounter++;
+               }
+
+           }
+           return CapitalCounter;
+       }
+
+       int CounterOfCapitalLetterCase()
+       {
+           return CounterOfCapitalLetterCase(_Value);
+          
+       }
+
+       // Count Of Small Letter
+
+       static int CounterOfSmallLetterCase(string S1)
+       {
+           short SmallCounter = 0;
+
+           for (short i = 0; i < S1.length(); i++)
+           {
+
+               if (islower(S1[i]))
+               {
+                   SmallCounter++;
+               }
+
+           }
+           return SmallCounter;
+       }
+
+       int CounterOfSmallLetterCase()
+       {
+           return CounterOfSmallLetterCase(_Value);
+
+       }
+
+       // Count Of Letters Showing
+
+       static int CounterOfLetterCase(string S1, char letter, bool MatchCase = true)
+       {
+           short Counter = 0;
+
+           for (short i = 0; i < S1.length(); i++)
+           {
+               if (MatchCase)
+               {
+                   if (S1[i] == letter)
+                       Counter++;
+               }
+
+               else
+               {
+                   if (toupper(S1[i]) == toupper(letter))
+                   {
+                       Counter++;
+                   }
+               }
+
+           }
+           return Counter;
+       }
+
+       int CounterOfLetterCase(char letter , bool MatchCase = true)
+       {
+           return CounterOfLetterCase(_Value, letter, MatchCase);
+       }
+
+
+       //Is Vowel
+
+       static void ItIsVowel(char letter)
+       {
+
+           letter = tolower(letter);
+
+           if( (letter == 'a') || (letter == 'o') || (letter == 'u') || (letter == 'i') || (letter == 'e') )
+           {
+               cout << "Yes Letter'" << letter << "' is vowel";
+           }
+             else
+             cout << "NO Letter'" << letter << "' is  not vowel";
+       }
+
+
+       // Count Vowels In string
+       
+       static int CountVowelInString(string S1)
+       {
+
+           int Counter = 0;
+           for (short i = 0; i < S1.length(); i++)
+           {
+               S1[i] = tolower(S1[i]);
+
+               if ((S1[i] == 'a') || (S1[i] == 'o') || (S1[i] == 'u') || (S1[i] == 'i') || (S1[i] == 'e'))
+               {
+                   Counter++;
+               }
+
+           }
+
+           return Counter;
+       }
+
+       int CountVowelInString()
+       {
+          return  CountVowelInString(_Value);
+       }
+
+
+       
+       // Print All Vowels
+
+
+       static void PrintVowelsInString(string  S1)
+       {
+           for (short i = 0; i < S1.length(); i++)
+           {
+               if ( (S1[i] == 'a') || (S1[i] == 'o') || (S1[i] == 'u') || (S1[i] == 'i') || (S1[i] == 'e') )
+               {
+                   cout << S1[i] << "\t";
+               }
+           }
+
+       }
+
+       void PrintVowelsInString()
+       {
+           PrintVowelsInString(Value);
+           
+       }
+
+       // Print Each Word in String
+
+       static void PrintEachWordInString(string  S1)
+       {
+           string delim = " ";
+           short posi = 0;
+           cout << "Your String words are:" << endl << endl;
+           string sWord;
+
+           while ((posi = S1.find(delim)) != std::string::npos)
+           {
+               sWord = S1.substr(0, posi); // Store the word
+               if (sWord != "")
+               {
+                   cout << sWord << endl;
+
+               }
+
+               S1.erase(0, posi + delim.length()); // delim.length() لأن الفراغ بعد الكلمة قد يكون في أكثر من خانة
+           }
+           if (S1 != "")
+           {
+               cout << S1 << endl; // It print last word of the string
+           }
+       }
+
+       void PrintEachWordInString()
+       {
+           PrintEachWordInString(_Value);
+       }
+
+
+       // Split String
+
+       static vector<string> SplitString(string  S1, string delim)
+       {
+           vector<string> vSplit;
+           string Word;
+           short pos = 0;
+
+
+           while ((pos = S1.find(delim)) != std::string::npos)
+           {
+               Word = S1.substr(0, pos);
+
+               if (Word != "")
+               {
+                   vSplit.push_back(Word);
+
+               }
+
+               S1.erase(0, pos + delim.length());
+           }
+
+
+           if (S1 != "")
+           {
+               vSplit.push_back(S1);
+           }
+
+           return vSplit;
+
+       }
+
+        vector<string> SplitString(string delim)
+       {
+           return  SplitString( _Value,  delim);
+       }
+
+        // Trim Left or Right or Simple
+
+        static string TrimLeft(string S1)
+        {
+
+            for (short i = 0; i < S1.length(); i++)
+            {
+                if (S1[i] != ' ')
+                {
+                    return S1.substr(i, S1.length() - i);
+                }
+
+            }
+            return "";
+        }
+
+        void TrimLeft()
+        {
+            _Value =TrimLeft( _Value);
+        }
+
+
+        static string TrimRight(string S1)
+        {
+
+            for (short i = S1.length() - 1; i >= 0; i--)
+            {
+
+                if (S1[i] != ' ')
+                {
+                    return S1.substr(0, i + 1); // i is not ' ';
+                }
+
+            }
+            return"";
+
+        }
+
+        void TrimRight()
+        {
+            _Value = TrimRight(_Value);
+        }
+
+
+
+        static string Trim(string S1)
+        {
+           
+            return TrimLeft(TrimRight(S1));
+
+        }
+
+       string Trim()
+       {
+           _Value = Trim(_Value);
+       }
+
+       // Join String
+
+       static string JoinString(vector<string> vJoin,  string delim)
+       {
+
+           string Word = "";
+
+           for (string& s : vJoin)
+           {
+               Word = Word + s + delim;
+
+           }
+
+           return  Word.substr(0, Word.length() - delim.length());
+       }
+
+      
+
+           static string JoinString(string arrString[], short Length, string Delim)
+           {
+
+               string S1 = "";
+
+               for (short i = 0; i < Length; i++)
+               {
+                   S1 = S1 + arrString[i] + Delim;
+               }
+
+               return S1.substr(0, S1.length() - Delim.length());
+
+           }
+       
+
+       // Reverse words in String
+
+       static string ReverseWordInString(string S1)
+       {
+           vector<string> vString;
+
+           string S2 = "";
+           vString = SplitString(S1, " ");
+
+           vector <string>::iterator iter = vString.end();
+
+           while (iter != vString.begin())
+           {
+
+               iter--; // لأنه يؤشر الآن على نهاية الفيكتور وليس على آخر كلمة في الفيكتور
+
+               S2 += *iter + " ";
+           }
+           S2 = S2.substr(0, S2.length() - 1);
+           return S2;
+       }
+
+        void ReverseWordInString()
+       {
+           _Value = ReverseWordInString(_Value);
+       }
+
+
+        // Replace Word
+        static string ReplaceWordsInString(string S1, string WordToReplace, string NewWord)
+       {
+           short  pos = S1.find(WordToReplace);
+
+           while (pos != std::string::npos)
+           {
+               S1 = S1.replace(pos, WordToReplace.length(), NewWord);
+               pos = S1.find(WordToReplace); //   find the next
+
+           }
+           return S1;
+
+       }
+
+        string ReplaceWordsInString(string WordToReplace , string NewWord)
+        {
+            return ReplaceWordsInString( _Value,  WordToReplace,  NewWord);
+        }
+
+
+        // Remove Ponctuation
+
+        static string RemovePunctuations(string S1)
+        {
+
+            string S2 = "";
+
+            for (short i = 0; i < S1.length(); i++)
+            {
+                if (!ispunct(S1[i]))
+                {
+                    S2 += S1[i];
+                }
+            }
+
+            return S2;
+
+        }
+
+         string RemovePunctuations()
+        {
+            return RemovePunctuations(_Value);
+        }
+
+
+};
+
+

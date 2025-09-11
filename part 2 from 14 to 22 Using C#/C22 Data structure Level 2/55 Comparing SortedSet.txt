@@ -1,0 +1,76 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+
+
+class Program
+{
+    static void Main()
+    {
+        SortedSet<int> set1 = new SortedSet<int>() { 1, 2, 3, 4, 5 };
+        SortedSet<int> set2 = new SortedSet<int>() { 3, 4, 5, 6, 7 };
+
+        Console.WriteLine("Set1 :" + string.Join( "," , set1) );
+        Console.WriteLine("Set2 :" + string.Join(",", set2));
+
+        bool AreEqual = set1.Equals(set2 ); 
+        
+
+        //Equal
+        Console.WriteLine("Equal:");
+
+        if (AreEqual)
+            Console.WriteLine("Set1 is Equal Set2");
+        else
+            Console.WriteLine("Set1 is not Equal Set2");
+
+
+        //IsSubsetOf
+        Console.WriteLine("SubSet:");
+
+        bool IsSubSet = set1.IsSubsetOf(set2);
+
+        if (IsSubSet)
+            Console.WriteLine("Set1 is SubsetOf Set2");
+        else
+            Console.WriteLine("Set1 is not SubsetOf Set2");
+
+        //IsSupersetOf
+        Console.WriteLine("SubSet:");
+
+        bool IsSupersetOf = set1.IsSupersetOf(set2);
+
+        if (IsSupersetOf)
+            Console.WriteLine("Set1 is SupersetOf Set2");
+        else
+            Console.WriteLine("Set1 is not SupersetOf Set2");
+
+        //IsSupersetOf
+
+        Console.WriteLine("SubSet:");
+
+        bool IsOverlaps = set1.Overlaps(set2);
+
+        if (IsOverlaps)
+            Console.WriteLine("Set1 is Overlaps with Set2");
+        else
+            Console.WriteLine("Set1 is not Overlaps with Set2");
+
+
+
+
+
+
+
+        Console.WriteLine();
+
+
+
+        Console.WriteLine();
+
+
+
+
+    }
+}

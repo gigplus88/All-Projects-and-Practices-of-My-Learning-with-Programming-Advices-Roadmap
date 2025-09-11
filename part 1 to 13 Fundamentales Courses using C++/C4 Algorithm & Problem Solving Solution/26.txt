@@ -1,0 +1,76 @@
+#include <iostream>
+#include <cmath>
+#include <string>
+using namespace std;
+
+
+
+int ReadNumber ()
+{
+    int N;
+    cout << "Please enter  your number" << endl;
+    cin >> N;
+    return N;
+
+}
+
+void PrintRangeFrom1toN_UssingWhile (int N)
+{
+    cout << "Range printed using While statement: " << endl;
+
+    int i = 1;
+    while (i<=N)
+    {
+        cout << i << endl;
+        i++;
+    }
+
+}
+
+void PrintRangeFrom1toN_UssingDoWhile(int N)
+{
+    cout << "Range printed using do While statement: " << endl;
+
+    int i = 1;
+    do
+    {
+        cout << i << endl;
+        i++;
+
+    } while (i<=N);
+
+
+
+}
+
+void PrintRangeFrom1toN_UssingFor(int N)
+{
+    cout << "Range printed using For statement: " << endl;
+    for (int i = 1; i <= N; i++)
+    {
+        cout  <<i  <<endl;
+
+    }
+
+
+}
+
+
+
+
+ 
+
+
+
+
+int main()
+{
+    int N = ReadNumber();
+    PrintRangeFrom1toN_UssingFor(N);
+    PrintRangeFrom1toN_UssingDoWhile(N);
+    PrintRangeFrom1toN_UssingWhile(N);
+    return 0;
+
+}
+
+

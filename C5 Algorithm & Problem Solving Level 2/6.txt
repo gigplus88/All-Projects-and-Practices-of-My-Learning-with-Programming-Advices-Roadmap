@@ -1,0 +1,43 @@
+
+float ReadPositiveNumber(string Message)
+{
+    float Number;
+
+    do
+    {
+        cout << Message << endl;
+        cin >> Number;
+
+    } while (Number <= 0);
+
+    return Number;
+}
+
+
+int SumOfDigits(int Number)
+{
+
+
+    int Remainder = 0 , sum =0;
+  
+     while (Number>0)
+     {
+         Remainder = Number % 10;
+         Number = Number / 10;
+         
+         sum += Remainder;
+     }
+     return sum;
+     
+}
+
+int main()
+{
+  
+    cout << "Sum of Digits is: " << SumOfDigits(ReadPositiveNumber("Enter your number please "));
+
+    
+
+    return 0;
+
+}

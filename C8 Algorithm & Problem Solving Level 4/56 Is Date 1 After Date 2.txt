@@ -1,0 +1,98 @@
+#include <iostream>
+#include <fstream>
+#include <string>
+#include <vector>
+#include <iomanip>
+#include <ctime>
+
+#pragma warning (disable : 4996)
+
+using namespace std;
+
+short ReadYear()
+{
+    int Year;
+
+    cout << "Enter a year: ";
+    cin >> Year;
+    cout << "\n\n";
+    return Year;
+}
+
+short ReadMonth()
+{
+    int Month;
+
+    cout << "Enter a Month: ";
+    cin >> Month;
+
+    return Month;
+}
+
+short ReadDay()
+{
+    int Day;
+
+    cout << "Enter a day: ";
+    cin >> Day;
+
+    return Day;
+}
+
+
+struct sDate {
+
+    short Year, Month, Day;
+};
+
+
+bool CheckIslessDate(sDate Date1, sDate Date2)
+{
+    return (Date1.Year < Date2.Year) ? true : ((Date1.Year == Date2.Year) ? (Date1.Month < Date2.Month) ? true : (Date1.Month == Date2.Month ? Date1.Day < Date2.Day : false) : false);
+}
+
+sDate ReadFullDate()
+{
+    sDate Date;
+    Date.Day = ReadDay();
+    Date.Month = ReadMonth();
+    Date.Year = ReadYear();
+
+    return Date;
+}
+
+
+bool CheckAreEqualDate(sDate Date1, sDate Date2)
+{
+    return (Date1.Year == Date2.Year) ? ((Date1.Month == Date2.Month) ? ((Date1.Day == Date2.Day) ? true : false) : false) : false;
+
+}
+
+
+bool IsDate1AfterDate2(sDate Date1, sDate Date2)
+{
+    return !CheckIslessDate(Date1, Date2) && !CheckAreEqualDate( Date1,  Date2);
+
+}
+int main()
+
+{   
+    sDate Date1 = ReadFullDate();
+
+    sDate Date2= ReadFullDate();
+
+    if (IsDate1AfterDate2( Date1,  Date2))
+    {
+        cout << "Yes , Date1 is After Date2" << endl;
+    }
+
+    else
+    {
+        cout << "No , Date1 is  not After Date2" << endl;
+
+    }
+    
+
+    system("pause>0");
+    return 0;
+}

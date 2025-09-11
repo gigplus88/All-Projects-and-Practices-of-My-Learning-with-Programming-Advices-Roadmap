@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>vmin & vmax Demo</title>
+  <style>
+    .box {
+      width: 50ch; 
+      height: 40ch; 
+      background-color: #c2ffc4;
+      color: rgb(27, 14, 14);
+      margin-bottom: 10ch;
+    }
+    input {
+      width: 30ch; 
+      height: 2ch; 
+      font-size: 2ch;
+      padding: 1ch;
+    }
+    code {
+      display: block;
+      width: 50ch;
+      background-color: #f0f0f0;
+      padding: 2ch;
+      margin-top: 1ch;
+      font-family: monospace;
+      font-size: 4ch;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>this is character units course</h1>
+
+  <div class="box">
+    width 50 "0"
+  </div>
+
+  <div>
+    <label for="">Input with ch</label><br>
+    <input type="text" placeholder="Type something here..." >
+  </div>
+
+  <div>
+    <pre>
+        <code>
+        let box = document.querySelector('.box');
+        box.style.width = '50ch';
+        box.style.height = '40ch';
+        box.style.backgroundColor = '#c2ffc4';
+        box.style.color = 'rgb(27, 14, 14)';
+        box.style.marginBottom = '10ch';
+
+    </code>
+    </pre>
+    
+  </div>
+
+
+</body>
+</html>

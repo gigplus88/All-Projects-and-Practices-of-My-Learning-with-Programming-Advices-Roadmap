@@ -1,0 +1,358 @@
+#include <iostream>
+#include <cmath>
+#include <string>
+using namespace std;
+
+
+void ReadDay(int&Month)
+{
+    cout << "enter your number of Month please " << endl;
+    cin >> Month;
+
+}
+
+void PrintJanuary()
+{
+    cout << "January";
+}
+
+void PrintFebruary()
+{
+    cout << "February";
+}
+
+void PrintMarch()
+{
+    cout << "March";
+}
+
+void PrintApril()
+{
+    cout << "April";
+
+}
+
+void PrintMai()
+{
+    cout << "Mai";
+}
+
+
+void PrintJune()
+{
+    cout << "June";
+}
+
+void PrintJuly()
+{
+    cout << "July";
+}
+
+void PrintAugust()
+{
+    cout << "August";
+}
+
+void PrintSeptember()
+{
+    cout << "September";
+}
+
+void PrintOctober()
+{
+    cout << "October";
+}
+
+void PrintNovember()
+{
+    cout << "November";
+}
+
+void PrintDecember()
+{
+    cout << "December";
+}
+
+void ForPrintSorry()
+{
+    cout << "Wrong Month";
+
+}
+
+
+
+int main()
+{
+
+    int Month;
+
+    ReadDay(Month);
+
+    switch (Month)
+    {
+    case 1:
+        PrintJanuary();
+        break;
+    case 2:
+        PrintFebruary();
+        break;
+    case 3:
+        PrintMarch();
+        break;
+    case 4:
+        PrintApril();
+        break;
+    case 5:
+        PrintMai();
+        break;
+    case 6:
+        PrintJune();
+        break;
+    case 7:
+        PrintJuly;
+        break;
+    case 8:
+        PrintAugust();
+        break;
+    case 9:
+        PrintSeptember();
+        break;
+    case 10:
+        PrintOctober();
+        break;
+    case 11:
+        PrintNovember();
+        break;
+    case 12:
+        PrintDecember();
+        break;
+    default:
+        ForPrintSorry();
+        
+
+    }
+
+   
+    return 0;
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#include <iostream>
+#include <cmath>
+#include <string>
+using namespace std;
+
+
+void ReadMonth(string &Month)
+{
+    cout << "enter your number of Month please " << endl;
+    cin >> Month;
+
+
+}
+
+
+void PrintJanuary()
+{
+    cout << "January";
+}
+
+void PrintFebruary()
+{
+    cout << "February";
+}
+
+void PrintMarch()
+{
+    cout << "March";
+}
+ 
+void PrintApril()
+{
+    cout << "April" ;
+
+}
+
+void PrintMai()
+{
+    cout << "Mai";
+}
+
+
+void PrintJune()
+{
+    cout << "June";
+}
+
+void PrintJuly()
+{
+    cout << "July";
+}
+
+void PrintAugust()
+{
+    cout << "August";
+}
+
+void PrintSeptember()
+{
+    cout << "September";
+}
+
+void PrintOctober()
+{
+    cout << "October";
+}
+
+void PrintNovember()
+{
+    cout << "November";
+}
+
+void PrintDecember()
+{
+    cout << "December";
+}
+
+
+
+
+void ForPrintSorry()
+{
+    cout << "Wrong Month";
+
+}
+
+
+
+int main()
+{
+   
+    string Month;
+
+    ReadMonth(Month);
+
+
+    if (Month == "1" )
+    {
+        PrintJanuary();
+    }
+
+    else if (Month == "2")
+
+    {
+        PrintFebruary();
+
+
+    }
+
+    else if (Month == "3")
+
+    {
+        PrintMarch();
+
+
+    }
+
+    else if (Month == "4")
+
+    {
+        PrintApril();
+
+
+    }
+
+    else if (Month == "5")
+
+    {
+        PrintMai();
+
+
+    }
+
+    else if (Month == "6")
+
+    {
+        PrintJune();
+
+
+    }
+
+    else if (Month == "7")
+
+    {
+        PrintJuly();
+
+
+    }
+
+    else if (Month == "8")
+
+    {
+        PrintAugust();
+
+
+    }
+
+    else if (Month == "9")
+
+    {
+        PrintSeptember();
+
+
+    }
+
+    else if (Month == "10")
+
+    {
+        PrintOctober();
+
+
+    }
+
+    else if (Month == "11")
+
+    {
+        PrintNovember();
+
+
+    }
+
+   
+
+    else if (Month == "12")
+
+    {
+        PrintDecember();
+
+
+    }
+
+    else 
+
+    {
+        ForPrintSorry();
+
+    }
+
+
+    return 0;
+}
+
+
+
+

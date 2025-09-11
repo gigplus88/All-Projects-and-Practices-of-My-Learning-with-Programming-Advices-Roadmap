@@ -1,0 +1,116 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
+using System.Threading.Tasks;
+
+
+
+class Program
+{
+
+    static void Main()
+    {
+
+        LinkedList<int> Linkedlist = new LinkedList<int>();
+
+
+        Linkedlist.AddLast(1);
+        Linkedlist.AddLast(2);
+        Linkedlist.AddLast(3);
+        Linkedlist.AddLast(4);
+        Linkedlist.AddLast(5);
+
+
+        Console.WriteLine("Linked List count Items:" + Linkedlist.Count);
+
+        foreach (var item in Linkedlist)
+        {
+            Console.WriteLine(item);
+        }
+
+        Console.WriteLine("Please Enter your element to remove");
+
+        int Element = Convert.ToInt32( Console.ReadLine() );
+
+        // Contain Item 
+        if (Linkedlist.Contains(Element) )
+        {
+            Linkedlist.Remove(Element);
+            Console.WriteLine(" The item removed Successfully");
+        }
+        else
+        {
+            Console.WriteLine(" The item not removed Successfully");
+        }
+
+
+        // Find Node 
+        LinkedListNode<int> Node =  Linkedlist.Find(3);
+
+        // Add After
+        Console.WriteLine(" Add 66  after 3");
+
+        if (Linkedlist.Count > 0 && Node != null)
+        {
+            Linkedlist.AddAfter(Node, 66);
+
+        }
+        foreach (var item in Linkedlist)
+        {
+            Console.WriteLine(item);
+        }
+
+
+
+        // Add  Before 5
+        Node = Linkedlist.Find(5);
+        Console.WriteLine(" Add -4  Before 5");
+
+        if (Linkedlist.Count > 0 && Node != null)
+        {
+            Linkedlist.AddBefore(Node, -4);
+
+        }
+        foreach (var item in Linkedlist)
+        {
+            Console.WriteLine(item);
+        }
+
+
+
+        // Add in first
+        Console.WriteLine(" Add 3  the first");
+
+        if (Linkedlist.Count> 0)
+        {
+            Linkedlist.AddFirst(3);
+
+        }
+        foreach (var item in Linkedlist)
+        {
+            Console.WriteLine(item);
+        }
+
+
+        // Add in Last
+        Console.WriteLine(" Add 0 in the last");
+        if (Linkedlist.Count > 0)
+        {
+            Linkedlist.AddLast(00);
+
+        }
+        foreach (var item in Linkedlist)
+        {
+            Console.WriteLine(item);
+        }
+         
+
+
+        Console.ReadKey();
+
+    }
+
+
+}

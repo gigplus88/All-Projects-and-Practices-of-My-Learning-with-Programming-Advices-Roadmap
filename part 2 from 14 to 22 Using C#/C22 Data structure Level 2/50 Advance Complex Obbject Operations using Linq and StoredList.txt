@@ -1,0 +1,107 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+
+public class Employee
+{
+    public string Name { get; set; }
+    public string Department { get; set; }
+    public decimal Salary { get; set; }
+
+
+    public Employee(string name, string department, decimal salary)
+    {
+        Name = name;
+        Department = department;
+        Salary = salary;
+    }
+}
+
+class Program
+{
+    static void Main()
+    {
+        //SortedList
+
+        // Initialize a SortedList of int keys and string values with fruit names
+        SortedList<int, Employee> sortedList = new SortedList<int, Employee>
+        {
+            { 1, new Employee( "Ayoub" , "IT" , 2000) },
+            { 3, new Employee( "Saad" , "Marketing" , 1000) },
+            { 2, new Employee( "Mimoun" , "HR" , 3000) },
+            { 4, new Employee( "Mourad" , "IT" , 2050) }
+
+        };
+
+
+
+        var Query = sortedList.Where( e => e.Value.Salary >2000)
+                              .OrderByDescending(e => e.Value.Salary);
+
+
+        foreach (var employee in Query)
+        {
+            Console.WriteLine($"Name  {employee.Value.Name} || Department : {employee.Value.Department} || Salary : {employee.Value.Salary} ");
+        }
+
+
+
+        //var Query = sortedList.Where(e => e.Value.Salary > 2000)
+        //                     .OrderByDescending(e => e.Value.Salary)
+        //                     .Select(e => e.Value.Name);
+
+
+        //foreach (var employee in Query)
+        //{
+        //    Console.WriteLine($"Name :" + employee );
+        //}
+
+
+        //List
+
+        List<Employee> list = new List<Employee>
+        {
+            { new Employee( "Ayoub" , "IT" ,2343) },
+            { new Employee( "Saad" , "Marketing" ,4330) },
+            { new Employee( "Rachid" , "Sales" ,1303) },
+
+        };
+
+        var Query1 = list.Where(e => e.Name.StartsWith("S") )
+                              .OrderByDescending(e => e.Salary);
+        Console.WriteLine("#########################################3");
+
+        foreach (var employee in Query1)
+        {
+            Console.WriteLine($"Name  {employee.Name} || Department : {employee.Department} || Salary : {employee.Salary} ");
+        }
+
+
+
+
+        //Dictionary
+
+
+        Dictionary<int, Employee> dictionary = new Dictionary<int, Employee>
+        {
+            { 1, new Employee( "Ayoub" , "IT" , 2000) },
+            { 3, new Employee( "Saad" , "Marketing" , 1000) },
+            { 2, new Employee( "Mimoun" , "HR" , 3000) },
+            { 4, new Employee( "Mourad" , "IT" , 2050) }
+
+        };
+
+
+
+        var Query3 = dictionary.Where(e => e.Value.Salary > 200)
+                              ;
+
+        Console.WriteLine("#########################################3");
+        foreach (var employee in Query3)
+        {
+            Console.WriteLine($"Name  {employee.Value.Name} || Department : {employee.Value.Department} || Salary : {employee.Value.Salary} ");
+        }
+
+    }
+}

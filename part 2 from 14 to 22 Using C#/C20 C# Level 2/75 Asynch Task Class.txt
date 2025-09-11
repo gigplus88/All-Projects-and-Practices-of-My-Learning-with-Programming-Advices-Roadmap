@@ -1,0 +1,76 @@
+using System;
+using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
+
+
+class Program
+{
+    static async Task Main()
+    {
+        // Create and run an asynchronous task
+        Task<int> resultTask = PerformAsyncOperation();
+
+        // Do some other work while waiting for the task to complete
+        Console.WriteLine("Doing some other work...");
+        CalculateStudents();
+
+
+        // Wait for the task to complete and retrieve the result
+        int result = await resultTask;
+
+
+        // Process the result
+        Console.WriteLine($"Result: {result}");
+
+
+
+
+        Task<bool> ResultWorks = FinishRetrievingData();
+
+        Console.WriteLine("Build Table Students For Data UI");
+
+        bool Result = await ResultWorks;
+
+        Console.WriteLine($"The Task is: {Result}");
+
+    }
+
+
+    static async Task<int> PerformAsyncOperation()
+    {
+        // Simulate an asynchronous operation
+        await Task.Delay(4000);
+
+        int result;
+
+        // Return a result
+        for (int i = 0; i < 1000; i++)
+        {
+            
+            result = i;
+        }
+        return 309;
+    }
+
+    static int Result;
+
+    static void CalculateStudents()
+    {
+
+        for (int i = 1; i < 1000; i++)
+        {
+            Result = i;
+        }
+        Console.WriteLine("Calculate Students is doing Successfully");
+
+    }
+
+    static async Task<bool> FinishRetrievingData()
+    {
+
+        await Task.Delay(3000);
+        Console.WriteLine("Data Imported Successfully ");
+
+        return true;
+    }
+}

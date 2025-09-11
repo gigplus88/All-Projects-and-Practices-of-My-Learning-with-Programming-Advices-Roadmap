@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>font-weight Examples</title>
+  <style>
+    body {
+      margin: 20px;
+      font-family: Arial, sans-serif;
+      line-height: 1.4;
+    }
+    p { margin-bottom: 1em; }
+
+    .normal    { font-weight: normal;    /* 400 */ }
+    .bold      { font-weight: bold;      /* 700 */ }
+    .lighter   { font-weight: lighter;   /* relative */ }
+    .bolder    { font-weight: bolder;    /* relative */ }
+
+    /* Numeric weights (if supported) */
+    .w100      { font-weight: 100; }
+    .w300      { font-weight: 300; }
+    .w500      { font-weight: 500; }
+    .w900      { font-weight: 900; }
+    .w400      { font-weight: 400; } /* same as normal */
+  </style>
+</head>
+<body>
+  <h1>font-weight Demonstration</h1>
+
+  <p class="normal">This is <strong>normal</strong> weight (400).</p>
+  <p class="bold">This is <strong>bold</strong> weight (700).</p>
+  <p class="lighter">This is <strong>lighter</strong> weight (relative to parent).</p>
+  <p class="bolder">This is <strong>bolder</strong> weight (relative to parent).</p>
+
+  <h2>Numeric Weights</h2>
+  <p class="w100">Weight 100 (very thin)</p>
+  <p class="w300">Weight 300 (light)</p>
+  <p class="w400">Weight 400 (light)</p>
+  <p class="w500">Weight 500 (medium)</p>
+  <p class="w900">Weight 900 (very bold)</p>
+</body>
+</html>

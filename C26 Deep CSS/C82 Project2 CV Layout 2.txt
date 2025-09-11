@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Modern Resume – Split Sidebar (CSS-only Theme Toggle)</title>
+
+  <!--
+    STUDENT PROJECT #2 — Split Sidebar Resume (CSS-only theme toggle)
+
+    What this showcases
+    • Responsive two-column layout (fixed-width sidebar + fluid main) using CSS Grid
+    • Theming with CSS custom properties (tokens) and a pure-CSS toggle via :has()
+    • Sticky sidebar, rounded “cards”, soft shadows, subtle gradients
+    • Accessible structure and print-friendly adjustments
+
+    Browser note
+    • :has() support: Chromium 105+, Safari 15.4+, Firefox 121+
+    • If unavailable, we still fall back to system dark mode with prefers-color-scheme
+  -->
+
+  <style>
+    /* ================================================================
+       🎨 THEME TOKENS (LIGHT BY DEFAULT)
+       Define all design tokens once on :root. We flip them in dark mode.
+    ================================================================= */
+    :root {
+      /* Surfaces & palette */
+      --bg:            #f6f8fb;    /* page background */
+      --sidebar:       #0ea5a5;    /* sidebar base (teal) */
+      --sidebar-ink:   #ecfeff;    /* light ink used on teal sidebar */
+      --card:          #ffffff;    /* card/background in main column */
+      --ink:           #0f172a;    /* primary text color */
+      --muted:         #6b7280;    /* secondary/quiet text */
+      --accent:        #f97316;    /* brand/accent (orange) */
+      --line:          #e5e7eb;    /* hairline borders/dividers */
+
+      /* Shape & depth */
+      --radius:        18px;                     /* global rounding */
+      --ring:          0 10px 25px rgba(2,6,23,.08); /* soft shadow */
+
+      /* Spacing scale */
+      --space-1: 6px;  --space-2: 10px; --space-3: 14px;
+      --space-4: 20px; --space-5: 28px; --space-6: 40px;
+
+      /* Layout caps */
+      --sidebar-w:     350px;      /* fixed sidebar width on desktop */
+      --maxw:          1300px;     /* page max width */
+    }
+
+    /* ================================================================
+       🌗 DARK THEME VIA PURE CSS
+       When the checkbox #themeSwitch is checked, :has() matches on :root
+       and we override tokens. No JavaScript required.
+    ================================================================= */
+    :root:has(#themeSwitch:checked) {
+      --bg:          #0b1220;
+      --sidebar:     #075e5e;
+      --sidebar-ink: #c9f3f5;
+      --card:        #0f172a;
+      --ink:         #e5e7eb;
+      --muted:       #9aa3b2;
+      --accent:      #fb923c;
+      --line:        #1f2a44;
+      --ring:        none; /* avoid glow on dark */
+    }
+
+    /* ================================================================
+       🌓 SYSTEM DARK FALLBACK
+       If the custom toggle isn’t present/used, follow OS theme instead.
+    ================================================================= */
+    @media (prefers-color-scheme: dark) {
+      :root:not(:has(#themeSwitch)) {
+        --bg:          #0b1220;
+        --sidebar:     #075e5e;
+        --sidebar-ink: #c9f3f5;
+        --card:        #0f172a;
+        --ink:         #e5e7eb;
+        --muted:       #9aa3b2;
+        --accent:      #fb923c;
+        --line:        #1f2a44;
+        --ring:        none;
+      }
+    }
+
+    /* ================================================================
+       🧱 BASE & PAGE LAYOUT
+    ================================================================= */
+    *,*::before,*::after { box-sizing: border-box; }             /* predictable sizing */
+    html { -webkit-text-size-adjust: 100%; }                     /* avoid iOS auto-zoom */
+    body {
+      margin: 0;
+      font: 16px/1.6 system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color: var(--ink);
+      background: var(--bg);
+    }
+    img { max-width: 100%; display: block; }                     /* responsive media */
+    a { color: var(--accent); text-decoration: none; }           /* links pick accent */
+    a:hover { text-decoration: underline; }
+
+    .wrap {
+      max-width: var(--maxw);
+      margin: 40px auto;
+      padding: 0 var(--space-4);
+    }
+
+    /* Two-column grid: fixed sidebar + fluid main */
+    .grid {
+      display: grid;
+      grid-template-columns: var(--sidebar-w) 1fr; /* left fixed, right flexible */
+      gap: var(--space-5);
+    }
+   
+
+    /* ================================================================
+       ◀️ SIDEBAR (STICKY PROFILE & QUICK INFO)
+    ================================================================= */
+    .sidebar {
+      position:sticky; top: 20px; align-self: start;                  /* stays in view */
+      background: linear-gradient(180deg,
+                    color-mix(in srgb, var(--sidebar) 92%, #0000 8%),  /* subtle top tint */
+                    var(--sidebar));                                   /* base teal */
+      color: var(--sidebar-ink);                                       /* readable on teal */
+      border-radius: var(--radius);
+      overflow: hidden;                                                /* round children */
+      box-shadow: var(--ring);
+    }
+
+    .side-head {
+      padding: var(--space-5) var(--space-5) var(--space-4);
+      display: grid; grid-template-columns: 96px 1fr; gap: var(--space-4);
+      align-items: center;
+    }
+
+    .avatar { width: 96px; height: 100px; border-radius: 50%; overflow: hidden;
+              border: 3px solid rgba(255,255,255,.35); transition: transform 0.7s;}               /* soft ring */
+    .avatar:hover { transform:scale(1.4) ; }    
+    .avatar img { width: 100%; height: 100%; object-fit: cover; object-position:center; }
+
+    .name { margin: 0; font-size: clamp(22px, 4vw, 28px); line-height: 1.2; } /* fluid */
+    .role { margin: .3rem 0 0; opacity: .9; }                                 /* quieter */
+
+    /* ================================================================
+       🕹️ CSS-ONLY THEME TOGGLE
+       A visually-hidden checkbox drives :root:has(#themeSwitch:checked).
+       The label with class .switch is the visible control (the slider).
+    ================================================================= */
+    .toggle-row { display: flex; align-items: center; gap: 10px;
+                  padding: 0 var(--space-5) var(--space-4) var(--space-5); }
+
+    /* “Visually hidden” technique: still focusable by keyboard/screen readers */
+    #themeSwitch {
+      position: absolute; inline-size: 1px; block-size: 1px;
+      overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap;
+    }
+
+    .switch {
+      --h: 28px; --w: 54px;                              /* control height/width */
+      inline-size: var(--w); block-size: var(--h);
+      background: color-mix(in srgb, var(--sidebar-ink) 20%, #0000);   /* faint track */
+      border: 2px solid rgba(255,255,255,.35);
+      border-radius: 999px;
+      position: relative;
+      cursor: pointer;
+      display: inline-block;
+    }
+    .switch::after {
+      content: ""; position: absolute; inset: 2px auto 2px 2px;        /* start on left */
+      width: calc(var(--h) - 8px); border-radius: 50%;
+      background: var(--sidebar-ink);                                  /* knob color */
+      transition: transform .4s ease;                                 /* smooth slide */
+    }
+    /* Move the knob when checked */
+    :root:has(#themeSwitch:checked) .switch::after {
+      transform: translateX(calc(var(--w) - var(--h)));                /* slide to right */
+    }
+
+    .toggle-label { font-size: 14px; opacity: .95; }                   /* label text */
+    .hint { font-size: 12px; opacity: .75; padding: 0 var(--space-5) var(--space-4); }
+
+    .side-body { padding: var(--space-5); display: grid; gap: var(--space-4); }
+
+    .badge {
+      display: inline-block; padding: 4px 10px; border-radius: 999px;  /* pill */
+      background: color-mix(in srgb, var(--sidebar-ink) 15%, #0000);   /* faint fill */
+      border: 1px solid rgba(255,255,255,.35);
+      margin: 0 8px 8px 0; font-size: 12px;
+    }
+
+    .side-card {
+      background: color-mix(in srgb, var(--sidebar-ink) 8%, #0000);    /* subtle panel */
+      border: 1px solid rgba(255,255,255,.25);
+      border-radius: 12px; padding: 14px;
+    }
+
+    /* ================================================================
+       ▶️ MAIN COLUMN (HERO + CARDS + TIMELINES)
+    ================================================================= */
+    .main { display: grid; gap: var(--space-5); }
+
+    .hero {
+      /* first background line is a placeholder; we then override with tokenized card */
+      background: linear-gradient(135deg, #fff8ee, #f0f9ff);           /* (fallback) */
+      background: color-mix(in srgb, var(--card) 90%, #fff0 10%);      /* subtle tint */
+      border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--ring);
+      padding: var(--space-5);
+    }
+    .hero h1 { margin: 0 0 6px; font-size: clamp(28px, 5vw, 40px); }
+    .hero p  { margin: 0; color: var(--muted); }
+
+    /* Three cards → collapse to 2 then 1 across breakpoints */
+    .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-4); }
+    @media (max-width: 1000px) { 
+      .cards { grid-template-columns: repeat(2, 1fr); }  
+              }
+    @media (max-width: 640px)  { .grid { grid-template-columns: 1fr; } .cards {  grid-template-columns: repeat(1, 1fr);} .sidebar {position: static;} }
+
+    .cardy {
+      background: var(--card); border: 1px solid var(--line);
+      border-radius: 14px; padding: 18px; box-shadow: var(--ring);
+    }
+    .cardy h3 {
+      margin: 0 0 8px; font-size: 16px; text-transform: uppercase;
+      letter-spacing: .3px; color: var(--muted);
+    }
+
+    /* Timeline blocks for experience/projects */
+    .timeline {
+      background: var(--card); border: 1px solid var(--line);
+      border-radius: 14px; padding: var(--space-5); box-shadow: var(--ring);
+    }
+    .tl-item {
+      display: grid; grid-template-columns: 1fr auto; gap: 10px;
+      padding: 16px 0; border-bottom: 1px dashed var(--line);
+    }
+    .tl-item:last-child { border-bottom: 0; }
+    .tl-role  { font-weight: 700; }
+    .tl-where { color: var(--muted); }
+    .tl-when  { color: var(--muted); font-size: 14px; }
+    .tl-list  { margin: 8px 0 0 18px; }
+
+    /* Links row & icon sizing (SVG fill inherits currentColor) */
+    .links { display: flex; flex-wrap: wrap; gap: 12px 18px; font-size: 14px; margin-top: 8px; }
+    .icon  { width: 18px; height: 18px; flex: none; }
+
+    /* ================================================================
+       🖨️ PRINT CLEANUP
+       Remove shadows, make sidebar static, hide UI-only toggle bits.
+    ================================================================= */
+    @media print {
+      body { background: #fff; }
+      .wrap { margin: 0; }
+      .sidebar { position: static; box-shadow: none; }
+      .switch, .toggle-label, .hint { display: none; }         /* hide the toggle UI */
+      a { color: #000; text-decoration: none; }
+      .hero, .cardy, .timeline { box-shadow: none; }
+    }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <div class="grid">
+      <!-- ========================= SIDEBAR ========================= -->
+      <aside class="sidebar" aria-label="Sidebar">
+        <div class="side-head">
+          <!-- Real avatar image (replace with your own path) -->
+          <div class="avatar" role="img" aria-label="Profile photo">
+            <img src="images/MyImage.jpg" alt="Your Name portrait" loading="lazy" />
+          </div>
+
+          <!-- Name & headline -->
+          <div>
+            <h2 class="name">YOUR NAME</h2>
+            <p class="role">Front-End Developer • UI Engineer</p>
+          </div>
+        </div>
+
+        <!-- CSS-only theme toggle:
+             The hidden checkbox (#themeSwitch) + label(.switch) drives :has() -->
+        <div class="toggle-row">
+          <input type="checkbox" id="themeSwitch" />
+          <label class="switch" for="themeSwitch" aria-label="Toggle dark or light theme"></label>
+          <span class="toggle-label">Dark Mode</span>
+        </div>
+        <div class="hint">
+          Tip: this switch uses the CSS <code>:has()</code> selector to override variables.
+        </div>
+
+        <div class="side-body">
+         
+
+          <!-- Contact block (SVGs inherit text color via currentColor) -->
+          <div class="side-card">
+            <strong>Contact</strong>
+
+            <div class="links" aria-label="Contact information">
+              <a href="mailto:you@example.com" aria-label="Email">
+                <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+                  <path fill="currentColor" d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2Zm0 4-8 5L4 8V6l8 5 8-5Z"/>
+                </svg>
+                you@example.com
+              </a>
+
+              <span>
+                <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+                  <path fill="currentColor" d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.24 11.7 11.7 0 0 0 3.7.6 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 8a1 1 0 0 1 1-1h3.4a1 1 0 0 1 1 1 11.7 11.7 0 0 0 .6 3.7 1 1 0 0 1-.24 1Z"/>
+                </svg>
+                +962 7X XXX XXXX
+              </span>
+
+
+              <span>
+                <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+                <path fill="currentColor" d="M12 2a7 7 0 0 0-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 0 0-7-7Zm0 9.5a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5Z"/>
+              </svg>
+                Amman - Jordan
+              </span>
+
+
+
+              <a href="https://your-portfolio.example" target="_blank" rel="noopener" aria-label="Website">
+                <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+                  <path fill="currentColor" d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2Zm1 17.9V18h-2v1.9A8 8 0 0 1 4.1 13H6v-2H4.1A8 8 0 0 1 11 4.1V6h2V4.1A8 8 0 0 1 19.9 11H18v2h1.9A8 8 0 0 1 13 19.9Z"/>
+                </svg>
+                your-portfolio.example
+              </a>
+
+              <a href="https://www.linkedin.com/in/your-profile" target="_blank" rel="noopener" aria-label="LinkedIn">
+                <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+                  <path fill="currentColor" d="M4.98 3.5C4.98 4.88 3.86 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM.5 8h4V23h-4V8zm7 0h3.8v2.05h.05c.53-1 1.83-2.05 3.76-2.05 4.02 0 4.77 2.64 4.77 6.08V23h-4v-6.67c0-1.59-.03-3.63-2.21-3.63-2.21 0-2.55 1.73-2.55 3.52V23h-4V8z"/>
+                </svg>
+                linkedin.com/in/your-profile
+              </a>
+
+              <a href="https://github.com/your-username" target="_blank" rel="noopener" aria-label="GitHub">
+                <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+                  <path fill="currentColor" d="M12 .5a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2c-3.3.7-4-1.6-4-1.6-.6-1.4-1.4-1.8-1.4-1.8-1.1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1.1 1.8 2.9 1.3 3.6 1 .1-.8.4-1.3.7-1.6-2.6-.3-5.3-1.3-5.3-5.9 0-1.3.5-2.4 1.2-3.3-.1-.3-.5-1.6.1-3.3 0 0 1-.3 3.4 1.2a11.6 11.6 0 0 1 6.2 0c2.4-1.5 3.4-1.2 3.4-1.2.6 1.7.2 3 .1 3.3.8.9 1.2 2 1.2 3.3 0 4.6-2.7 5.6-5.3 5.9.4.4.7 1 .7 2v2.9c0 .3.2.7.8.6A12 12 0 0 0 12 .5Z"/>
+                </svg>
+                github.com/your-username
+              </a>
+            </div>
+          </div>
+
+           <!-- Languages -->
+          <div class="side-card">
+             <strong>Languages</strong><br>
+             <br>
+            <span class="badge">Arabic (Native)</span>
+            <span class="badge">English (Professional)</span>
+          </div>
+
+          <!-- Skills as quick badges -->
+          <div class="side-card">
+            <strong>Top Skills</strong>
+            <div style="margin-top:8px">
+              <span class="badge">Semantic HTML</span>
+              <span class="badge">Modern CSS</span>
+              <span class="badge">Accessibility</span>
+              <span class="badge">Git & GitHub</span>
+              <span class="badge">Figma</span>
+               <span class="badge">C#</span>
+                <span class="badge">SQL Server</span>
+            </div>
+          </div>
+
+          <div class="side-card">
+            <strong>Hobbies</strong>
+            <div style="margin-top:8px">
+              <span class="badge">Footballl</span>
+              <span class="badge">Swimming</span>
+              <span class="badge">Fitness</span>
+             
+            </div>
+          </div>
+
+        </div>
+      </aside>
+
+      <!-- ========================== MAIN COLUMN ========================== -->
+      <section class="main" aria-label="Main content">
+        <!-- Intro “hero” card -->
+        <header class="hero" aria-labelledby="hero-title">
+          <h1 id="hero-title">Resume</h1>
+          <p>Impact-driven front-end developer specializing in accessible, fast UIs.</p>
+        </header>
+
+        <!-- Quick highlight cards (auto-wrap across breakpoints) -->
+        <div class="cards" aria-label="Highlights">
+          <article class="cardy">
+            <h3>Highlights</h3>
+            <ul class="clean">
+              <li>Shipped 20+ responsive sites</li>
+              <li>Perf budgets & Lighthouse 95+</li>
+              <li>Mentored 5 juniors</li>
+            </ul>
+          </article>
+
+          <article class="cardy">
+            <h3>Tooling</h3>
+            <p>Vite, ESLint, Prettier, Playwright basics, Storybook.</p>
+          </article>
+
+          <article class="cardy">
+            <h3>Focus</h3>
+            <p>Design systems, design tokens, CSS architecture, a11y.</p>
+          </article>
+        </div>
+
+        <!-- Experience timeline (role | where | when) -->
+        <section class="timeline" aria-labelledby="exp-title">
+          <h2 id="exp-title" style="margin:0 0 12px">Experience</h2>
+
+          <div class="tl-item">
+            <div>
+              <div class="tl-role">Senior Front-End Developer</div>
+              <div class="tl-where">Tech Co • Amman</div>
+              <ul class="tl-list">
+                <li>Built component library; reduced CSS by 30% using tokens.</li>
+                <li>Led accessibility drive to AA; created lint rules & docs.</li>
+              </ul>
+            </div>
+            <div class="tl-when">2023 — Present</div>
+          </div>
+
+          <div class="tl-item">
+            <div>
+              <div class="tl-role">Web Designer</div>
+              <div class="tl-where">Creative Studio • Remote</div>
+              <ul class="tl-list">
+                <li>Prototyped 12 marketing sites; built a mini design system.</li>
+                <li>Handed off clean, semantic HTML/CSS to dev teams.</li>
+              </ul>
+            </div>
+            <div class="tl-when">2020 — 2023</div>
+          </div>
+        </section>
+
+        <!-- Projects timeline (same pattern) -->
+        <section class="timeline" aria-labelledby="proj-title">
+          <h2 id="proj-title" style="margin:0 0 12px">Selected Projects</h2>
+
+          <div class="tl-item">
+            <div>
+              <div class="tl-role">Portfolio Website</div>
+              <div class="tl-where">Personal</div>
+              <ul class="tl-list">
+                <li>Static site scoring 95+ on Lighthouse Performance.</li>
+                <li>CI/CD previews on each PR; automated checks.</li>
+              </ul>
+            </div>
+            <div class="tl-when">2024</div>
+          </div>
+
+          <div class="tl-item">
+            <div>
+              <div class="tl-role">Design System Demo</div>
+              <div class="tl-where">Open Source</div>
+              <ul class="tl-list">
+                <li>Token-based theming via CSS custom properties.</li>
+                <li>Documented components; onboarded team in a week.</li>
+              </ul>
+            </div>
+            <div class="tl-when">2023</div>
+          </div>
+        </section>
+
+        <!-- Education, certs, volunteer in compact cards -->
+        <div class="cards" aria-label="Education & Certifications">
+          <article class="cardy">
+            <h3>Education</h3>
+            <p><strong>B.Sc. Computer Science</strong><br/>University Name • 2016 — 2020</p>
+            <ul class="clean">
+              <li>Graduated with Honors</li>
+              <li>Key courses: HCI, Data Structures</li>
+            </ul>
+          </article>
+
+          <article class="cardy">
+            <h3>Certifications</h3>
+            <ul class="clean">
+              <li>Responsive Web Design — freeCodeCamp (2023)</li>
+            </ul>
+          </article>
+
+          <article class="cardy">
+            <h3>Volunteer</h3>
+            <p>Mentor, Local Coding Club (2022—Present). Weekly beginner sessions.</p>
+          </article>
+        </div>
+      </section>
+    </div>
+  </main>
+</body>
+</html>

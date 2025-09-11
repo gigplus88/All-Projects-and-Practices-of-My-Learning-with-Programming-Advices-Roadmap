@@ -1,0 +1,20 @@
+
+
+Open Dynamic_Cursor;
+
+insert into Students(StudentID , Name , Grade) values(23 ,' Saadoun' , 90); -- This row should be adding to Dynamic_Cursor because it is dynamic
+
+Declare  @StudentID int, @Name nvarchar(50), @Grade int;
+
+Fetch Next from Dynamic_Cursor into @StudentID, @Name, @Grade ; 
+
+while @@FETCH_STATUS =0 
+Begin
+	Print 'Student ID: ' + cast(@StudentID as nvarchar(5) )+ ' Student Name: '+  @Name + ' Student Grade: ' +  cast(@Grade as nvarchar(5) ) ;
+
+	Fetch Next from Dynamic_Cursor into @StudentID, @Name, @Grade ; 
+End;
+
+Close Dynamic_Cursor;
+Deallocate Dynamic_Cursor;
+

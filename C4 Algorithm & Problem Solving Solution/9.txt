@@ -1,0 +1,121 @@
+#include <iostream>
+#include <cmath>
+#include <string>
+using namespace std;
+
+
+
+void Readof3Numbers(int &Num1, int &Num2 , int &Num3  )
+{
+   
+    cout << "Please enter your Number 1" <<endl;
+    cin >> Num1;
+
+    cout << "Please enter your Number 2" << endl;
+    cin >> Num2;
+
+    cout << "Please enter your Number 3" << endl;
+    cin >> Num3;
+
+    
+}
+int SummOf3Numbers(int Num1, int Num2 , int Num3)
+{
+
+    
+    return Num1+ Num2+ Num3;
+
+}
+
+void PrintFullName(int Num1, int Num2, int Num3)
+{
+    cout << "The total of summing 3 numbers is: "<< SummOf3Numbers(Num1, Num2, Num3) <<endl;
+    
+
+}
+
+
+
+
+
+
+int main()
+{
+    int  Num1=0, Num2=0, Num3=0, Num=0 , sum=0;
+    Readof3Numbers(Num1, Num2, Num3);
+    PrintFullName(Num1, Num2, Num3);
+        return 0;
+
+   
+
+}
+
+
+
+
+
+
+
+
+
+
+//Method2
+
+
+#include <iostream>
+#include <cmath>
+#include <string>
+using namespace std;
+
+
+
+void Readof3Numbers(int arr[3])
+{
+   
+   
+    cout << "Please enter your Number 1" <<endl;
+    cin >> arr[0];
+
+    cout << "Please enter your Number 2" << endl;
+    cin >> arr[1];
+
+    cout << "Please enter your Number 3" << endl;
+    cin >> arr[2];
+
+    
+}
+int SummOf3Numbers( int arr[3])
+{
+    int sum = 0;
+    for (int i = 0; i <= 2; i++)
+    {
+        sum = sum + arr[i];
+    }
+    
+    return sum;
+
+}
+
+void PrintFullName(int arr[3])
+{
+    cout << "The total of summing 3 numbers is: "<< SummOf3Numbers(arr) << endl;
+    
+}
+
+
+
+
+
+
+int main()
+{
+    int   sum = 0, arr[3] = {};
+    Readof3Numbers( arr);
+    PrintFullName( arr);
+        return 0;
+
+   
+
+}
+
+

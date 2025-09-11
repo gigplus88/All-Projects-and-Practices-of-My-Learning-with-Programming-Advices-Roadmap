@@ -1,0 +1,59 @@
+using System;
+using System.Data;
+using System.Data.SqlClient;
+using static System.Net.Mime.MediaTypeNames;
+using System.Diagnostics;
+using System.Configuration;
+
+
+class Program
+{
+    public static void CheckPersonExists(int PersonID)
+    {
+        try
+        {
+            string connectionString = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+
+                using (SqlCommand command = new SqlCommand("SP_CheckPersonExists", connection))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+
+                    command.Parameters.AddWithValue("@PersonID", (object)PersonID ?? DBNull.Value);
+
+                    SqlParameter returnParameter = new SqlParameter("@ReturnVal", SqlDbType.Int)
+                    {
+                        Direction = ParameterDirection.ReturnValue
+                    };
+
+                    command.Parameters.Add(returnParameter);
+                    command.ExecuteNonQuery();
+
+                    bool personExists = (int)returnParameter.Value == 1;
+
+                    Console.WriteLine($" Person Exist   {personExists}");
+
+                    //connection.Close();
+
+                }
+            }
+
+        }
+        catch (Exception ex)
+        {
+
+            Console.WriteLine($" Person doesn't Exist   {ex.Message}");
+        }
+
+    }
+    static void Main()
+    {
+       
+
+        CheckPersonExists(1);
+        
+    }
+}
+

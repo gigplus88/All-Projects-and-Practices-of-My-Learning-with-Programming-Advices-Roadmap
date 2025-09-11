@@ -1,0 +1,11 @@
+[Serializable]
+public class MyClass
+{
+    // Will be serialized
+    public int SerializedField;
+
+
+    // Will not be serialized
+    [NonSerialized]
+    public int NonSerializedField;
+}

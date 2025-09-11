@@ -1,0 +1,68 @@
+#include <iostream>
+#include <cmath>
+#include <string>
+using namespace std;
+
+struct strTaskDuration { int days, hours, minutes, seconds;  };
+strTaskDuration TaskDuration;
+int ReadPositiveNumbers(string Message)
+{
+    int Number = 0.0;
+
+    do
+    {
+        cout << Message << endl;
+        cin >> Number;
+
+    } while (Number <= 0);
+
+    return Number;
+}
+
+strTaskDuration ReadTaskDuration()
+{
+    TaskDuration.days = ReadPositiveNumbers("Please enter number of days");
+    TaskDuration.hours = ReadPositiveNumbers("Please enter number of hours");
+    TaskDuration.minutes = ReadPositiveNumbers("Please enter number of minutes");
+    TaskDuration.seconds = ReadPositiveNumbers("Please enter number of seconds");
+
+    return TaskDuration;
+}
+
+int CalculateTaskDurationInSeconds(strTaskDuration TaskDuration)
+{
+    int DurationInSeconds = 0;
+
+    DurationInSeconds = TaskDuration.days * 24 * 3600;
+    DurationInSeconds += TaskDuration.hours *  3600;
+    DurationInSeconds += TaskDuration.minutes  * 60;
+    DurationInSeconds += TaskDuration.seconds ;
+
+    return DurationInSeconds;
+    
+    
+}
+
+
+ 
+
+int main()
+{
+   
+
+
+    cout << endl;
+
+    cout << "Task Duration In Seconds is: " << CalculateTaskDurationInSeconds(ReadTaskDuration()) << endl;
+    
+
+
+
+    return 0;
+
+}
+
+
+
+
+

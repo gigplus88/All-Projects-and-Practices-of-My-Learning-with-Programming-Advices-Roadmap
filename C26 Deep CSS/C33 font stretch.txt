@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>font-stretch Examples</title>
+  <style>
+    body {
+      margin: 20px;
+      font-family: "Arial", sans-serif;
+      line-height: 1.4;
+    }
+    .normal {
+      font-stretch:normal;
+      
+    }
+    .condensed {
+      font-stretch: condensed;
+    }
+    .expanded {
+      font-stretch: expanded;
+    }
+    .ultra-condensed {
+      font-stretch: ultra-condensed;
+    }
+    .ultra-expanded {
+      font-stretch: ultra-expanded;
+    }
+    p {
+      margin-bottom: 1em;
+    }
+  </style>
+</head>
+<body>
+  <h1>Demonstrating <code>font-stretch</code></h1>
+
+  <p class="normal">
+    <strong>normal</strong>: The quick brown fox jumps over the lazy dog.
+  </p>
+
+  <p class="condensed">
+    <strong>condensed</strong>: The quick brown fox jumps over the lazy dog.
+  </p>
+
+  <p class="expanded">
+    <strong>expanded</strong>: The quick brown fox jumps over the lazy dog.
+  </p>
+
+  <p class="ultra-condensed">
+    <strong>ultra-condensed</strong>: The quick brown fox jumps over the lazy dog.
+  </p>
+
+  <p class="ultra-expanded">
+    <strong>ultra-expanded</strong>: The quick brown fox jumps over the lazy dog.
+  </p>
+</body>
+</html>

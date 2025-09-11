@@ -1,0 +1,25 @@
+
+
+	 declare @Performance INT;
+	 	 declare @Bonus INT = 10;
+
+
+	set @Performance=81;
+
+    BEGIN TRY
+        IF @Performance < 80
+            THROW 52000, 'Your Performance cannot be less great than 80.', 2;
+
+
+        UPDATE Employees2 SET Salary = @Bonus ;
+    END TRY
+
+
+    -- Start a CATCH block to handle the error
+    BEGIN CATCH
+        SELECT 
+            ERROR_NUMBER() AS ErrorNumber,
+            ERROR_MESSAGE() AS ErrorMessage,
+			ERROR_State() AS ErrorState;
+
+    END CATCH

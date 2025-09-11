@@ -1,0 +1,44 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+
+public enum enValueMode
+{
+    Number = 0,
+    String = 1
+}
+class Program
+{
+
+    static void Main()
+    {
+        enValueMode Value = enValueMode.Number;
+
+        (int, string, double) Person = (2 , "Saad" , 3.5);
+
+
+        Console.WriteLine("ID :" + Person.Item1);
+        Console.WriteLine("Name :" + Person.Item2);
+        Console.WriteLine("Height :" + Person.Item3);
+
+        var Values = GetPersonValue();
+
+        Console.WriteLine("Number: " + Values.Item1);
+        Console.WriteLine("Text: " + Values.Item2);
+
+
+        Console.ReadKey();
+
+    }
+
+    static  (int , string)GetPersonValue()
+    {
+        return ( 1 , "Ayoub" );
+    }
+    static (int, string) GetValue( int intNumber)
+    {
+           
+        return (intNumber, "Ayoub");
+    }
+}

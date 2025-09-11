@@ -1,0 +1,56 @@
+
+
+with DepartmentsSales AS
+(
+    SELECT Department,  sum(Sales) As DepartmentSale
+    FROM Employees6
+    Group By Department
+)
+Select * from DepartmentsSales;
+
+Select * from
+(
+    SELECT Department,  sum(Sales) As DepartmentSale
+    FROM Employees6
+    Group By Department
+)DepartmentsSales;
+
+
+
+
+with SalesStaff AS
+(
+	
+    SELECT EmployeeId, Name, Sales
+    FROM Employees6
+    WHERE Department = 'Sales'
+)
+Select * from SalesStaff;
+
+
+
+
+
+
+
+-- Example
+
+
+With DepartmentSalary As
+(
+	SELECT Department, SUM(Salary) as Salaries
+    FROM Employees2
+	group by Department
+)
+Select * from DepartmentSalary 	order by Salaries desc;
+
+
+
+
+With DepartmentSalary As
+(
+	SELECT Department, Salary , PerformanceRating
+    FROM Employees2 
+	where PerformanceRating > 80
+)
+Select * from DepartmentSalary order by PerformanceRating desc;

@@ -1,0 +1,350 @@
+// With switch case and function in function.
+#include <iostream>
+#include <cmath>
+#include <string>
+using namespace std;
+
+enum enWeekDay { Sun = 1, Mon = 2, Tue = 3, Wed = 4, Thu = 5, Fri = 6, Sat = 7 };
+void ShowDay()
+{
+    cout << "**********************************" << endl;
+    cout << "             Week Days            " << endl;
+    cout << "1: Sunday" << endl;
+    cout << "2: Monday" << endl;
+    cout << "3: Tuesday" << endl;
+    cout << "4: Wednesday" << endl;
+    cout << "5: Thursday" << endl;
+    cout << "6: Friday" << endl;
+    cout << "7: Saturday" << endl;
+    cout << "**********************************" << endl;
+    cout << "Please enter the number of Day?" << endl;
+
+}
+
+enWeekDay ReadNumOfDay()
+{
+    enWeekDay WeekDay;
+    WeekDay = enWeekDay::Sun;
+
+    short int wd;
+    cin >> wd;
+    return  (enWeekDay)wd;
+}
+
+string GetWeekDayName(enWeekDay WeekDay)
+{
+
+    switch (WeekDay)
+    {
+    case enWeekDay::Sun:
+        return "Sunday";
+        break;
+    case enWeekDay::Mon:
+        return "Monday";
+        break;
+    case enWeekDay::Tue:
+        return "Tuesday";
+        break;
+    case enWeekDay::Wed:
+        return "Wednesday";
+        break;
+    case enWeekDay::Thu:
+        return "Thuersday";
+        break;
+    case enWeekDay::Fri:
+        return "Friaday";
+        break;
+    case enWeekDay::Sat:
+        return "Saturday";
+        break;
+
+    }
+}
+int main()
+{
+    
+
+
+    ShowDay();
+    cout <<"Today is: " << GetWeekDayName(ReadNumOfDay());
+
+
+    return 0;
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//Switch case
+#include <iostream>
+#include <cmath>
+#include <string>
+using namespace std;
+
+
+void ReadDay(int&Month)
+{
+    cout << "enter your number of Month please " << endl;
+    cin >> Month;
+
+}
+
+
+void PrintSunday()
+{
+    cout << "Sunday";
+}
+
+void PrintMonday()
+{
+    cout << "Monday";
+}
+void PrintTuesday()
+{
+    cout << "Tuesday";
+}
+
+void PrintWednesday()
+{
+    cout << "Wednesday";
+}
+
+void PrintThursday()
+{
+    cout << "Thursday";
+}
+
+void PrintFriday()
+{
+    cout << "Friday";
+}
+
+void PrintSaturday()
+{
+    cout << "Saturday";
+}
+
+void ForPrintSorry()
+{
+    cout << "Wrong Day";
+
+}
+
+
+
+int main()
+{
+
+    int Month;
+
+    ReadDay(Month);
+
+    switch (Month)
+    {
+    case 1:
+        PrintSunday();
+        break;
+    case 2:
+        PrintMonday();
+        break;
+    case 3:
+        PrintTuesday();
+        break;
+    case 4:
+        PrintWednesday();
+        break;
+    case 5:
+        PrintThursday();
+        break;
+    case 6:
+        PrintFriday();
+        break;
+    case 7:
+        PrintSaturday();
+        break;
+    default:
+        ForPrintSorry();
+        
+
+    }
+
+   
+    return 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// With if else
+#include <iostream>
+#include <cmath>
+#include <string>
+using namespace std;
+
+
+void ReadDay(string &Day)
+{
+    cout << "enter your number of day please " << endl;
+    cin >> Day;
+
+
+}
+
+
+void PrintSunday()
+{
+    cout << "Sunday";
+}
+
+void PrintMonday()
+{
+    cout << "Monday";
+}
+void PrintTuesday()
+{
+    cout << "Tuesday";
+}
+ 
+void PrintWednesday()
+{
+    cout << "Wednesday";
+}
+
+void PrintThursday()
+{
+    cout << "Thursday";
+}
+
+void PrintFriday()
+{
+    cout << "Friday";
+}
+
+void PrintSaturday()
+{
+    cout << "Saturday";
+}
+
+
+
+void ForPrintSorry()
+{
+    cout << "Wrong Day";
+
+}
+
+
+
+int main()
+{
+   
+    string Day;
+
+    ReadDay(Day);
+
+
+    if (Day == "1" )
+    {
+        PrintSunday();
+    }
+
+    else if (Day == "2")
+
+    {
+        PrintMonday();
+
+
+    }
+
+    else if (Day == "3")
+
+    {
+        PrintTuesday();
+
+
+
+    }
+
+    else if (Day == "4")
+
+    {
+        PrintWednesday();
+
+
+    }
+
+    else if (Day == "5")
+
+    {
+        PrintThursday();
+
+
+    }
+
+    else if (Day == "6")
+
+    {
+        PrintFriday();
+
+
+    }
+
+    else if (Day == "7")
+
+    {
+        PrintSaturday();
+
+
+    }
+    else 
+
+    {
+        ForPrintSorry();
+
+    }
+
+
+    return 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,28 @@
+int main()
+{
+    short int Age ;
+    bool DriverLicense ;
+
+    cout << "enter your age please " << endl;
+    cin >> Age ;
+
+    cout << "Have you a Driver License please " << endl;
+    cin >> DriverLicense ;
+
+    if (Age>20 && DriverLicense==true)
+    {
+        cout << "Hired" <<endl ;
+     
+         
+    }
+
+    else
+
+    {
+        cout << "Rejected" << endl;
+
+
+    }
+
+    return 0;
+}

@@ -1,0 +1,8 @@
+
+select Employees.Name , Employees.ManagerID , Employees.Salary , Managers.Name as ManagerName from Employees
+Inner Join Employees as Managers On Employees.ManagerID = Managers.EmployeeID
+;
+
+select Employees.Name , Employees.ManagerID , Employees.Salary , Managers.Name as ManagerName from Employees
+Inner Join Employees as Managers On Employees.ManagerID = Managers.EmployeeID
+;

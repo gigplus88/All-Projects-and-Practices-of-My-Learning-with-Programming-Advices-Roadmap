@@ -1,0 +1,82 @@
+
+
+
+
+
+
+
+CREATE TABLE Persons1 (
+   ID int NOT NULL PRIMARY KEY,
+   LastName varchar(255) NOT NULL,
+   FirstName varchar(255),
+   Age int CHECK (Age >= 18) ,
+   City Varchar(255) Default 'Morrooco'
+
+);
+
+
+
+
+
+
+CREATE TABLE Persons (
+   ID int NOT NULL,
+   LastName varchar(255) NOT NULL,
+   FirstName varchar(255),
+   Age int CHECK (Age>=18)
+);
+
+
+
+
+CREATE TABLE Persons (
+   ID int Primary Key,
+   LastName varchar(255) NOT NULL,
+   FirstName varchar(255),
+   Age int,
+   City varchar(255),
+   PersonID int ,
+   CONSTRAINT CHK_Person CHECK (Age>=18 AND City='Amman')
+);
+
+
+
+CREATE TABLE Orders (
+   OrderID int ,
+   OrderNumber int NOT NULL,
+   Reference int ,   
+   PersonID int,
+   PRIMARY KEY(OrderID),
+   Constraint FK_PersonOrder Foreign Key(PersonID) 
+   References Persons(ID),
+   Constraint UC_Orders Unique(OrderID, Reference));
+
+   drop table Orders;
+
+   
+Alter Table Orders
+Drop Constraint FK_PersonOrder;
+
+
+
+
+
+
+CREATE TABLE Persons (
+   ID int  PRIMARY KEY,
+   LastName varchar(255) NOT NULL,
+   FirstName varchar(255) Unique  Not Null ,
+   Age int CHECK (Age >= 18) ,
+   City Varchar(255) Default 'Morrooco',
+   Constraint CHK_Person CHECK (Age >=20)
+);
+
+Create index idx_LastName
+On Persons(LastName);
+
+Drop index Persons.idx_LastName;
+
+Create index idx_pname
+On Persons(FirstName,LastName);
+
+Drop index Persons.idx_pname;

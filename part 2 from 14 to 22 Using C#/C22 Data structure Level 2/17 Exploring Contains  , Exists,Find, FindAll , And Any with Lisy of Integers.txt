@@ -1,0 +1,90 @@
+using System;
+using System.Data;
+using System.Data.SqlClient;
+using static System.Net.Mime.MediaTypeNames;
+using System.Diagnostics;
+using System.Configuration;
+using System.Collections.Generic;
+using System.Xml.Linq;
+using System.Linq;
+using System.Text.RegularExpressions;
+
+class Person
+{
+    public string Name { get; set; }
+    public int Age { get; set; }
+}
+
+class Program
+{
+  
+    static void Main()
+    {
+       // List initialization
+        List<int> numbers = new List<int> { 44, 22, 55, 666, 9, -6, 345, 11, 3, 3 };
+        numbers.Sort();
+
+        Console.WriteLine("List Contains 7:" + string.Join(", ", numbers.Contains(7)));
+        Console.WriteLine("List has condition n=34:" + string.Join(", ", numbers.Exists( n => n==34)));
+        Console.WriteLine("if List find  item , it return it:" + string.Join(", ", numbers.Find( n => n < 32)));
+        Console.WriteLine("if List find  items , it return these items:" + string.Join(", ", numbers.FindAll( n => n<25)));
+        Console.WriteLine("List Contains 7:" + string.Join(", ", numbers.Any( n => n <2) ));
+
+
+
+
+
+
+
+// Problems to solve
+
+        List<Person> people = new List<Person>
+        {
+            new Person { Name = "Ali", Age = 24 },
+            new Person { Name = "Sara", Age = 32 },
+            new Person { Name = "Youssef", Age = 28 },
+            new Person { Name = "Meryem", Age = 32 },
+            new Person { Name = "Omar", Age = 17 }
+        };
+
+
+        List<string> names = new List<string> ();
+
+        names = people.Select( n => n.Name ).ToList();
+
+
+        Console.WriteLine("Sara Name exist:" + string.Join(", ", names.Contains("Sara")) );
+
+
+        Console.WriteLine("if age < 18 exist:" + string.Join(", ", people.Exists(n => n.Age<18)));
+
+        Person person = people.Find(n => n.Age == 32);
+        if (person != null)
+        {
+            Console.WriteLine("first person has 32 and his name:" + person.Name);
+
+        }
+        else
+        {
+            Console.WriteLine("Person Not Found");
+
+        }
+        Console.WriteLine("First person who has age 32 is: " + people.Find(n => n.Age == 39)?.Name);
+
+        List<Person> people1 = people.FindAll(n => n.Age > 25);
+
+        Console.WriteLine("Person has greate than 25 years:" + string.Join(", ", people1.Select(n=> $"Name: { n.Name} , Age:{n.Age} ") ));
+	
+	Console.WriteLine("Person has great than 32 years:" + string.Join(", ", people.Any( n=> n.Age >= 32) ));
+
+
+        //Console.WriteLine("first person has 32 and his name:" + string.Join(", ", people.Find(n => n.Age ==32 )));
+
+
+
+
+
+        Console.ReadKey(); 
+    }
+}
+

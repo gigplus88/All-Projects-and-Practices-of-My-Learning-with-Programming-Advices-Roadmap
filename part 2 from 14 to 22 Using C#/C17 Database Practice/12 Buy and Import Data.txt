@@ -1,0 +1,27 @@
+
+select count(*) from Car_Details; 
+
+select * from Car_Details; 
+
+Create view FordDetails As 
+select * from Car_Details
+where Make = 'Ford'; 
+
+select count(*) from FordDetails; 
+
+select * from FordDetails; 
+
+
+select Make, Year, Fuel_Type_Name   from FordDetails
+where  Fuel_Type_Name = 'GAS' and NumDoors = '2' and Year >= 2000
+Order By Year; 
+
+Create view MyFord As 
+select Make, Year, Fuel_Type_Name   from FordDetails
+where  Fuel_Type_Name = 'GAS' and NumDoors = '2' and Year >= 2000
+Order By Year; 
+
+select * from MyFord
+Order By Year; 
+
+

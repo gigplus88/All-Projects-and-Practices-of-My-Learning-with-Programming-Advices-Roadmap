@@ -1,0 +1,279 @@
+<!--
+  Code Overview: CSS Styling Images Combined Demo 📷
+  -------------------------------------------------
+  Purpose:
+    • Showcase key image styling techniques in one HTML page:
+      A) Responsive Sizing
+      B) Rounded & Circular Avatars
+      C) Drop-Shadow & Border
+      D) Object-Fit: cover vs. contain
+      E) Filter Effects & Hover Transitions
+      F) Image Galary with all Filters.
+
+  Layout:
+    • One <section> per example, each with heading, description, and demo images.
+    • Flex and grid for neat alignment.
+
+  Use Cases:
+    • Responsive design
+    • User avatars
+    • Card layouts
+    • Image galleries
+    • Interactive hover effects
+
+  Key Properties:
+    • max-width, height, object-fit
+    • border-radius, box-shadow
+    • filter, transform, transition
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>CSS Styling Images Demo</title>
+  <style>
+    /* Reset & Base Styles */
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: Arial, sans-serif;
+      background: #fafafa;
+      color: #333;
+      padding: 2rem;
+      max-width: 1000px;
+      margin: auto;
+      line-height: 1.5;
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    section {
+      margin-bottom: 3rem;
+      background: #fff;
+      padding: 1rem;
+      border-radius: 6px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+    section h2 {
+      margin-bottom: 0.5rem;
+      color: #2c3e50;
+    }
+    .demo {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+    .demo img, .demo .avatar {
+      display: block;
+    }
+    .label {
+      font-size: 0.9rem;
+      color: #555;
+    }
+
+    /* A) Responsive Sizing */
+    .responsive-img {
+      max-width: 100%;
+      height: auto;
+      border: 2px solid #ddd;
+      border-radius: 4px;
+    }
+
+    /* B) Rounded & Circular Avatars */
+    .avatar {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid #3498db;
+    }
+
+    /* C) Drop-Shadow & Border */
+    .card-image {
+      width: 300px;
+      height: 200px;
+      object-fit: cover;
+      border: 4px solid #fff;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px 3px rgba(0,0,0,0.2);
+    }
+
+    /* D) Object-Fit: cover vs. contain */
+    .gallery-item {
+      display: grid;
+      grid-template-columns: repeat(2, 200px);
+      gap: 1rem;
+    }
+    .gallery-item img {
+      width: 200px;
+      height: 150px;
+      background: #eee;
+    }
+    .cover {
+      object-fit: cover;
+    }
+    .contain {
+      object-fit: contain;
+    }
+
+    /* E) Filter Effects & Hover Transitions */
+    .photo {
+      width: 250px;
+      height: 150px;
+      object-fit: cover;
+      border-radius: 6px;
+      transition: filter 0.3s ease, transform 0.3s ease;
+    }
+    .photo:hover {
+      filter: grayscale(20%) brightness(1.3);
+      transform: scale(1.05);
+    }
+
+
+     /* F) Image Filter Grid */
+    .filter-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1rem;
+    }
+    .filter-item {
+      text-align: center;
+    }
+    .filter-item img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 4px;
+      margin-bottom: 0.5rem;
+    }
+    .grayscale    img { filter: grayscale(100%); }
+    .sepia        img { filter: sepia(100%); }
+    .blur         img { filter: blur(3px); }
+    .brightness   img { filter: brightness(150%); }
+    .contrast     img { filter: contrast(200%); }
+    .hue          img { filter: hue-rotate(90deg); }
+    .invert       img { filter: invert(100%); }
+    .saturate     img { filter: saturate(200%); }
+    .shadow       img { filter: drop-shadow(2px 2px 5px rgba(0,0,0,0.5)); }
+    .none         img { filter: none; }
+  </style>
+
+  </style>
+</head>
+<body>
+
+  <h1>CSS Styling Images Demo</h1>
+
+  <!-- A) Responsive Sizing -->
+  <section>
+    <h2>A) Responsive Sizing</h2>
+    <p class="label">An image that scales with its container while preserving aspect ratio.</p>
+    <div class="demo">
+      <img class="responsive-img" src="Images/A1.jpg" alt="Responsive Example">
+    </div>
+  </section>
+
+  <!-- B) Rounded & Circular Avatars -->
+  <section>
+    <h2>B) Rounded & Circular Avatars</h2>
+    <p class="label">Square image cropped into a circle, perfect for user avatars.</p>
+    <div class="demo">
+      <img class="avatar" src="Images/PA Logo.png" alt="Avatar Example">
+    </div>
+  </section>
+
+  <!-- C) Drop-Shadow & Border -->
+  <section>
+    <h2>C) Drop-Shadow & Border</h2>
+    <p class="label">Card-style image with a white border and soft shadow.</p>
+    <div class="demo">
+      <img class="card-image" src="Images/A2.jpg" alt="Card Example">
+    </div>
+  </section>
+
+  <!-- D) Object-Fit: cover vs. contain -->
+  <section>
+    <h2>D) Object-Fit: cover vs. contain</h2>
+    <p class="label">“cover” fills & crops; “contain” shows full image with letterboxing.</p>
+    <div class="demo gallery-item">
+      <div>
+        <img class="cover" src="Images/A2.jpg" alt="Cover">
+        <p class="label">object-fit: cover</p>
+      </div>
+      <div>
+        <img class="contain" src="Images/A2.jpg" alt="Contain">
+        <p class="label">object-fit: contain</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- E) Filter Effects & Hover Transitions -->
+  <section>
+    <h2>E) Filter Effects & Hover Transitions</h2>
+    <p class="label">Hover to apply grayscale and brightness filters, plus a slight zoom.</p>
+    <div class="demo">
+      <img class="photo" src="Images/A3.jpg" alt="Photo Hover">
+    </div>
+  </section>
+
+  <!-- E) Filter Effects & Hover Transitions -->
+  <section>
+    <h2>E) Filter Effects & Hover Transitions</h2>
+    <p class="label">Hover to apply grayscale and brightness filters with zoom.</p>
+    <div class="demo">
+      <img class="photo" src="Images/A1.jpg" alt="Photo Hover">
+    </div>
+  </section>
+
+  <!-- F) Image Filter Grid -->
+  <section>
+    <h2>F) Image Filter Grid</h2>
+    <p class="label">Apply different CSS filters to each image below.</p>
+    <div class="filter-grid">
+      <div class="filter-item none">
+        <img src="Images/A4.jpg" alt="No Filter">
+        <div class="label">none</div>
+      </div>
+      <div class="filter-item grayscale">
+        <img src="Images/A4.jpg" alt="Grayscale">
+        <div class="label">grayscale(100%)</div>
+      </div>
+      <div class="filter-item sepia">
+        <img src="Images/A4.jpg" alt="Sepia">
+        <div class="label">sepia(100%)</div>
+      </div>
+      <div class="filter-item blur">
+        <img src="Images/A4.jpg" alt="Blur">
+        <div class="label">blur(3px)</div>
+      </div>
+      <div class="filter-item brightness">
+        <img src="Images/A4.jpg" alt="Brightness">
+        <div class="label">brightness(150%)</div>
+      </div>
+      <div class="filter-item contrast">
+        <img src="Images/A4.jpg" alt="Contrast">
+        <div class="label">contrast(200%)</div>
+      </div>
+      <div class="filter-item hue">
+        <img src="Images/A4.jpg" alt="Hue Rotate">
+        <div class="label">hue-rotate(90deg)</div>
+      </div>
+      <div class="filter-item invert">
+        <img src="Images/A4.jpg" alt="Invert">
+        <div class="label">invert(100%)</div>
+      </div>
+      <div class="filter-item saturate">
+        <img src="Images/A4.jpg" alt="Saturate">
+        <div class="label">saturate(200%)</div>
+      </div>
+      <div class="filter-item shadow">
+        <img src="Images/A4.jpg" alt="Drop-Shadow">
+        <div class="label">drop-shadow(2px 2px 5px)</div>
+      </div>
+    </div>
+  </section>
+
+</body>
+</html>

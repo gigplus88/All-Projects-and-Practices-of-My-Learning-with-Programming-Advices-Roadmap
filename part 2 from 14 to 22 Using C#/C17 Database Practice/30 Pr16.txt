@@ -1,0 +1,17 @@
+-- Teacher Solution
+
+SELECT        distinct Makes.Make, DriveTypes.DriveTypeName
+FROM            DriveTypes INNER JOIN
+                         VehicleDetails ON DriveTypes.DriveTypeID = VehicleDetails.DriveTypeID INNER JOIN
+                         Makes ON VehicleDetails.MakeID = Makes.MakeID
+Where DriveTypes.DriveTypeName ='FWD'
+
+-- My Solution
+
+select distinct Makes.Make , DriveTypes.DriveTypeName 
+from VehicleDetails
+Inner join Makes On VehicleDetails.MakeID = Makes.MakeID
+Inner Join DriveTypes On VehicleDetails.DriveTypeID = DriveTypes.DriveTypeID
+Where DriveTypes.DriveTypeName = 'FWD' 
+Order By Makes.Make
+;

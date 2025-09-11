@@ -1,0 +1,10 @@
+
+
+select Makes.Make ,sum(VehicleDetails.NumDoors) as TotalNumberOfDoors
+from VehicleDetails
+Inner Join Makes On VehicleDetails.MakeID = Makes.MakeID
+where Makes.Make = 'Ford'
+Group by Makes.Make ;
+
+
+

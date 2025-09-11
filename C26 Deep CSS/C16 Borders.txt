@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>CSS Background Image Example</title>
+  <style>
+    /* Set a background image on the body element */
+  
+   .empty {
+        border-top: solid 20px #ffffff;
+        border-bottom: solid 20px #ffffff;
+        border-right: solid 20px #ffffff;
+        border-left: solid 20px #b33f96;
+        width: 20px;
+        position: relative;
+        left: 50%;
+    }
+    
+ 
+  </style>
+</head>
+<body>
+  
+    <div class="empty">
+
+    </div>
+</body>
+</html>

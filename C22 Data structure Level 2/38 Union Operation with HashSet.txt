@@ -1,0 +1,33 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+
+class Program
+{
+    static void Main()
+    {
+        // Creating and populating a HashSet of strings
+        HashSet<int> Set1 = new HashSet<int> { 1 ,  2, 3  ,1 ,2 };
+        HashSet<int> Set2 = new HashSet<int> { 3, 4, 5 };
+
+
+        Set1.UnionWith(Set2);//Update Set1 to make union element between Set1 and Set2
+        var NewResult = Set1.Union(Set2 );
+
+        foreach (int item in Set1)
+        {
+            Console.WriteLine(item);
+        }
+
+
+        Console.WriteLine("#################################");
+
+        foreach (int item in NewResult)
+        {
+            Console.WriteLine(item);
+        }
+        Console.ReadKey();
+    }
+}
+

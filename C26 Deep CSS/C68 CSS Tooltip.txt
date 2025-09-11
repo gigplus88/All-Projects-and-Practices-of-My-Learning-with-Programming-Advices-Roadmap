@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Basic CSS Tooltip</title>
+  <style>
+   
+   .tooltip {
+      position: relative;
+      display: inline-block;
+      cursor: pointer;
+    }
+    .tooltip .tooltip-text {
+      visibility: hidden;
+      position: absolute;
+      bottom: -150%;        /* place above the element */
+      left: 50%;
+      transform: translateX(-50%);
+      background: #5ddb7d;
+      color: #fff;
+      padding: 0.5rem;
+      border-radius: 4px;
+      white-space: nowrap;
+      font-size: 0.9rem;
+      opacity: 0;
+      transition: opacity 1.5s; 
+      pointer-events: none; /* let mouse events pass through */
+    }
+    .tooltip:hover .tooltip-text {
+      visibility: visible;
+      opacity: 1;
+    }
+
+   .tooltip .tooltip-text::after {
+    content: "";
+    position: absolute;
+    top: -35%;      /* arrow at bottom of tooltip box */
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: 6px;
+    border-style: solid;
+    border-color: transparent transparent #333 transparent;
+    }
+
+  </style>
+</head>
+<body style="font-size: 20px;">
+<br><br><br>
+  <p>
+    Hover over the 
+    <span class="tooltip"> <strong>word</strong> 
+      <span class="tooltip-text">This is a tooltip!</span>
+    </span>
+    to see more info.
+  </p>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>CSS Tooltips Demo</title>
+
+ 
+
+  <style>
+    /* Base page styling */
+    body {
+      font-family: Arial, sans-serif;
+      padding: 2rem;
+    }
+
+    /*  Tooltip wrapper: establishes positioning context */
+    .tooltip {
+      position: relative;       /* Anchor point for absolutely-positioned text */
+      display: inline-block;
+      margin: 1rem;
+      cursor: pointer;
+    }
+
+    /* 💬 Tooltip bubble (initially hidden) */
+    .tooltip .tooltip-text {
+      position: absolute;
+      background: #333;
+      color: #fff;
+      padding: 0.5rem;
+      border-radius: 4px;
+      white-space: nowrap;      /* Prevent line breaks */
+      font-size: 0.9rem;
+
+      /* Hidden state */
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.2s;
+      pointer-events: none;     /* Ignore mouse events while hidden */
+    }
+
+    /* Hover state: reveal bubble */
+    .tooltip:hover .tooltip-text {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    /*  Arrow caret (drawn with borders) */
+    .tooltip .tooltip-text::after {
+      content: "";
+      position: absolute;
+      border-width: 6px;        /* Size of the triangle */
+      border-style: solid;
+    }
+
+    /* ─────── Placement: TOP ─────── */
+    .tooltip.top .tooltip-text {
+      bottom: 125%;             /* Place above wrapper */
+      left: 50%;
+      transform: translateX(-50%); /*translateX() shifts the element along the X-axis.*/
+    }
+    .tooltip.top .tooltip-text::after {
+      top: 100%;                /* Arrow sits under bubble */
+      left: 50%;
+      transform: translateX(-50%);
+      border-color: #333 transparent transparent transparent;
+    }
+
+    /* ─────── Placement: BOTTOM ─────── */
+    .tooltip.bottom .tooltip-text {
+      top: 125%;                /* Place below wrapper */
+      left: 50%;
+      transform: translateX(-50%);
+    }
+    .tooltip.bottom .tooltip-text::after {
+      bottom: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      border-color: transparent transparent #333 transparent;
+    }
+
+    /* ─────── Placement: LEFT ─────── */
+    .tooltip.left .tooltip-text {
+      right: 125%;              /* Place left of wrapper */
+      top: 50%;
+      transform: translateY(-50%); /*translateY() shifts the element along the Y-axis.*/
+    }
+    .tooltip.left .tooltip-text::after {
+      top: 50%;
+      left: 100%;
+      transform: translateY(-50%);
+      border-color: transparent transparent transparent #333;
+    }
+
+    /* ─────── Placement: RIGHT ─────── */
+    .tooltip.right .tooltip-text {
+      left: 125%;               /* Place right of wrapper */
+      top: 50%;
+      transform: translateY(-50%);
+    }
+    .tooltip.right .tooltip-text::after {
+      top: 50%;
+      right: 100%;
+      transform: translateY(-50%);
+      border-color: transparent #333 transparent transparent;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>CSS Tooltips Demo</h1>
+
+  <!-- 🔹 Basic tooltip samples -->
+  <p>
+    <span class="tooltip top">
+      Top
+      <span class="tooltip-text">Tooltip above</span>
+    </span>
+
+    <span class="tooltip bottom">
+      Bottom
+      <span class="tooltip-text">Tooltip below</span>
+    </span>
+
+    <span class="tooltip left">
+      Left
+      <span class="tooltip-text">Tooltip on left</span>
+    </span>
+
+    <span class="tooltip right">
+      Right
+      <span class="tooltip-text">Tooltip on right</span>
+    </span>
+  </p>
+
+  <!-- ♿ Accessible version using ARIA attributes -->
+  <!-- role="tooltip" is an ARIA (Accessible Rich Internet Applications) role that gives semantic meaning -->
+   
+  <p>
+    <button class="tooltip top" aria-describedby="tipA">
+      Accessible
+      <span role="tooltip" id="tipA" class="tooltip-text">
+        ARIA-enhanced tooltip
+      </span>
+    </button>
+  </p>
+
+</body>
+</html>

@@ -1,0 +1,84 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+
+class Program
+{
+    static void Main()
+    {
+        // Creating and initializing the dictionary
+        Dictionary<string, int> fruitBasket = new Dictionary<string, int>
+        {
+            { "Apple", 5 },
+            { "Banana", 2 } ,
+            { "Potato", 7 },
+            { "Tomato", 6 },
+            { "Mango", 8 },
+
+        };
+
+
+        var fruitInfo = fruitBasket.Where(kpv => kpv.Value > 5).Select(kpv => new {kpv.Key, kpv.Value}).OrderByDescending(kpv => kpv.Value);
+
+        
+        foreach (var fruit in fruitInfo)
+        {
+            Console.WriteLine($"Fruit: {fruit.Key} , Quantity: {fruit.Value} ");
+        }
+
+
+        Console.WriteLine("######################################");
+        Console.WriteLine("######################################");
+
+
+        var fruitGreatThanFive = fruitBasket.Where(kpv => kpv.Value > 5) ;
+
+        foreach (var item in fruitGreatThanFive)
+        {
+            Console.WriteLine($"Fruit: {item.Key} , Quantity: {item.Value} ");
+        }
+
+
+        Console.WriteLine("######################################");
+
+        //Order By Asc
+        var OrderfruitByAsc = fruitBasket.OrderBy(kpv => kpv.Value );
+        Console.WriteLine($"Fruit: By Asc ");
+
+        foreach (var item in OrderfruitByAsc)
+        {
+            Console.WriteLine($"Fruit: {item.Key} , Quantity: {item.Value} ");
+        }
+
+
+
+        Console.WriteLine("######################################");
+
+        //Order By Desc
+        var OrderfruitByDesc = fruitBasket.OrderByDescending(kpv => kpv.Value);
+        Console.WriteLine($"Fruit: By Desc ");
+
+        foreach (var item in OrderfruitByDesc)
+        {
+            Console.WriteLine($"Fruit: {item.Key} , Quantity: {item.Value} ");
+        }
+
+        //Aggregate Fun
+        int TotalOfQuantityFruits = fruitBasket.Sum(kpv => kpv.Value);
+        
+        Console.WriteLine($"Fruit Sum : {TotalOfQuantityFruits}");
+        
+
+        Console.WriteLine("######################################");
+
+        //Aggregate Fun
+        double AverageOfFruits = fruitBasket.Average(kpv => kpv.Value);
+        
+        Console.WriteLine($"Fruit Avg : {AverageOfFruits}");
+        
+
+
+        Console.ReadKey();
+    }
+}

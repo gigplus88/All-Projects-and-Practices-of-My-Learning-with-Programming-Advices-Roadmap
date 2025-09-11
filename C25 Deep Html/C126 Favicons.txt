@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" href="Images/Brand Icon.ico"  type="image/x-icon" >
+    <link rel="apple-touch-icon" sizes="180x180" href="images/Apple Brand Icon.png">
+
+    <!-- Android Touch Icon: for Android devices -->
+    <link rel="icon" type="image/png" sizes="192x192" href="images/Apple Brand Icon.png">
+
+    <!-- SVG Favicon: scalable for various display devices -->
+    <link rel="icon" href="images/favicon.svg" type="image/svg+xml">
+
+    <title>Image Map</title>
+</head>
+<body>
+   <h1>Icon  Example</h1>
+
+
+</body>
+</html>

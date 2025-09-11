@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>font-variant & Sub-Properties Examples</title>
+  <style>
+    body {
+      margin: 20px;
+      font-family: Georgia, serif;
+      line-height: 1.5;
+    }
+    p {
+      margin-bottom: 1em;
+    }
+
+    /* Basic font-variant */
+    .normal               { font-variant: normal; }
+    .small-caps           { font-variant: small-caps; }
+
+    /* font-variant-caps */
+    .all-small-caps       { font-variant-caps: all-small-caps; }
+    .petite-caps          { font-variant-caps: petite-caps; }
+    .unicase              { font-variant-caps: unicase; }
+    .titling-caps         { font-variant-caps: titling-caps; }
+
+    /* font-variant-ligatures */
+    .common-ligatures     { font-variant-ligatures: common-ligatures; }
+    .discretionary-lig    { font-variant-ligatures: discretionary-ligatures; }
+    .no-common-ligatures  { font-variant-ligatures: no-common-ligatures; }
+
+    /* font-variant-numeric */
+    .oldstyle-nums        { font-variant-numeric: oldstyle-nums; }
+    .lining-nums          { font-variant-numeric: lining-nums; }
+    .proportional-nums    { font-variant-numeric: proportional-nums; }
+    .tabular-nums         { font-variant-numeric: tabular-nums; }
+
+    /* font-variant-position */
+    .subscript            { font-variant-position: sub; }
+    .superscript          { font-variant-position: super; }
+
+    /* font-variant-east-asian */
+    .traditional-form     { font-variant-east-asian: traditional; }
+    .ruby                 { font-variant-east-asian: ruby; }
+  </style>
+</head>
+<body>
+  <h1>CSS <code>font-variant</code> and Sub-Properties</h1>
+
+  <p class="normal">
+    <strong>normal</strong>: The quick brown fox jumps over the lazy dog.
+  </p>
+
+  <p class="small-caps">
+    <strong>small-caps</strong>: The quick brown fox jumps over the lazy dog.
+  </p>
+
+  <h2><code>font-variant-caps</code> Variants</h2>
+  <p class="all-small-caps">
+    <strong>all-small-caps</strong>: The quick brown fox jumps over the lazy dog.
+  </p>
+  <p class="petite-caps">
+    <strong>petite-caps</strong>: The quick brown fox jumps over the lazy dog.
+  </p>
+  <p class="unicase">
+    <strong>unicase</strong>: The quick brown fox jumps over the lazy dog.
+  </p>
+  <p class="titling-caps">
+    <strong>titling-caps</strong>: The quick brown fox jumps over the lazy dog.
+  </p>
+
+  <h2><code>font-variant-ligatures</code> Variants</h2>
+  <p class="common-ligatures">
+    <strong>common-ligatures</strong>: office official efficient affiliation.
+  </p>
+  <p class="discretionary-lig">
+    <strong>discretionary-ligatures</strong>: fireplace lampstand longhand flyweight.
+  </p>
+  <p class="no-common-ligatures">
+    <strong>no-common-ligatures</strong>: office official efficient affiliation.
+  </p>
+
+  <h2><code>font-variant-numeric</code> Variants</h2>
+  <p class="oldstyle-nums">
+    <strong>oldstyle-nums</strong>: 0123456789 in old-style figures.
+  </p>
+  <p class="lining-nums">
+    <strong>lining-nums</strong>: 0123456789 in lining figures.
+  </p>
+  <p class="proportional-nums">
+    <strong>proportional-nums</strong>: 0123456789 spaced proportionally.
+  </p>
+  <p class="tabular-nums">
+    <strong>tabular-nums</strong>: 0123456789 aligned in fixed-width columns.
+  </p>
+
+  <h2><code>font-variant-position</code></h2>
+  <p class="subscript">
+    H<sub>2</sub>O is water (subscript via CSS).
+  </p>
+  <p class="superscript">
+    E = mc<sup>2</sup> (superscript via CSS).
+  </p>
+
+  <h2><code>font-variant-east-asian</code> Variants</h2>
+  <p class="traditional-form">
+    <strong>traditional</strong>: 漢字 Japanese Kanji in traditional form.
+  </p>
+  <p class="ruby">
+    <strong>ruby</strong>: 漢字 (ruby annotations above characters).
+  </p>
+</body>
+</html>

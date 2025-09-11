@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>vmin & vmax Demo</title>
+  <style>
+    /* 1️⃣ Responsive Typography */
+    h1 {
+      font-size: 5vmax;       /* 5% of the larger viewport dimension */
+      text-align: center;
+      color: #1a237e;
+      margin: 1rem 0;
+    }
+
+    /* 2️⃣ Square Element */
+    .box {
+      width: 20vmin;          /* 20% of the smaller viewport dimension */
+      height: 20vmin;         /* ensures it stays square */
+      background: #c5e1a5;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 1rem auto;
+      font-size: 2vmin;
+      color: #33691e;
+      border: 2px solid #558b2f;
+    }
+
+    /* 3️⃣ Full-Screen Artboard using min() */
+    .artboard {
+      width: min(100vmax, 100vmin);   /* fits within whichever viewport side is smaller */
+      height: min(100vmax, 100vmin);
+      background: #ffccbc;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 2rem auto;
+      border: 4px dashed #bf360c;
+      font-size: 4vmin;
+      text-align: center;
+      color: #bf360c;
+    }
+
+    /* 4️⃣ Circular Avatar */
+    .avatar {
+      width: 15vmin;           /* scales to 15% of smaller viewport side */
+      height: 15vmin;
+      border-radius: 50%;      /* perfect circle */
+      background: url('medium-image.jpg') center/cover no-repeat;
+      margin: 1rem auto;
+      border: 3px solid #ff7043;
+    }
+    footer {
+      text-align: center;
+      padding: 1rem;
+      background-color: #af9e9e;
+      color: #424242;
+      font-size: 1.5vmax;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>vmin & vmax Responsive Demo</h1>
+
+  <div class="box">
+    20vmin × 20vmin
+  </div>
+
+  <div class="artboard">
+    Artboard using<br>min(100vmax,100vmin)
+  </div>
+
+  <div class="avatar"></div>
+
+  <p style="text-align:center; font-size: 2vmax; color: #424242;">
+    Resize the browser to see everything scale!
+  </p>
+
+    <footer>
+        <p>This is a footer</p>
+    </footer>
+
+</body>
+</html>

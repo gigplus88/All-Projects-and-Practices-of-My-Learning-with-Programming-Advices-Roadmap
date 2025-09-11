@@ -1,0 +1,21 @@
+#include <iostream>
+using namespace std;
+
+int main()
+{
+    float Mark1, Mark2 , Mark3;
+    cout << "Enter the Mark 1\n";
+    cin >> Mark1;
+
+    cout << "Enter the Mark 2\n";
+    cin >> Mark2;
+
+    cout << "Enter the Mark 3 \n";
+    cin >> Mark3;
+    
+    float Average = (Mark1 + Mark2 + Mark3)/3;
+
+    cout << "The Average of numbers is: " << Average ;
+
+}
+

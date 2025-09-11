@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Image Centering Examples</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #fafafa;
+      color: #333;
+      padding: 2rem;
+      max-width: 800px;
+      margin: auto;
+      line-height: 1.5;
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    section {
+      background: #fff;
+      border-radius: 6px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+    }
+    section h2 {
+      margin-bottom: 0.5rem;
+      color: #2c3e50;
+    }
+    section p {
+      margin-bottom: 1rem;
+      color: #555;
+    }
+
+    /* Method 1: margin:auto centering */
+    .method1 img {
+      display: block;       /* make it a block-level element */
+      margin-left: auto;    /* auto left margin */
+      margin-right: auto;   /* auto right margin */
+      width: 50%;           /* width less than container */
+      border: 2px solid #ddd;
+      border-radius: 4px;
+    }
+
+    /* Method 2: flexbox centering */
+    .method2 {
+      display: flex;              /* enable flex layout */
+      justify-content: center;/* center children horizontally */
+    }
+    .method2 img {
+      width: 50%;     /* width less than container */
+      border: 2px solid #ddd;
+      border-radius: 4px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Image Centering Examples</h1>
+
+ <h2>Method 1: Center with <code>margin: auto</code></h2>
+   <p>
+      Convert the `< img >` to block and give it left/right auto margins.
+      The image will center itself within its container.
+    </p>
+    <p> Used When: <br> <ul>
+        <li>Quick, minimal markup</li>
+        <li>Works in all browsers (IE9+)</li>
+        <li>No extra containers required</li>
+    </ul>
+
+  <section class="method1">
+    <img src="Images/A2.jpg" alt="Image via margin:auto">
+  </section>
+
+  <h2>Method 2: Center with Flexbox</h2> 
+   <p>
+      Wrap the image in a flex container and use
+      <code>justify-content: center</code> to center it.
+    </p> 
+    <p> Used When: <br> <ul>
+        <li>More versatile if you need vertical centering too</li>
+        <li>Can center multiple items in a row</li>
+        <li>Cleaner when you already use flex for other layout</li>
+    </ul>   
+  <section class="method2">
+    
+    </p>
+    <div class="method2">
+      <img src="Images/A2.jpg" alt="Image via flexbox">
+           
+
+    </div>
+  </section>
+
+</body>
+</html>

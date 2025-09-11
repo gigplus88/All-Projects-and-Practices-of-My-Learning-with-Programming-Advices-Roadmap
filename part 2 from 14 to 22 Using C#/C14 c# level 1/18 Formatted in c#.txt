@@ -1,0 +1,15 @@
+using System;
+namespace Main3
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.WriteLine("I am Ayoub Fellah");
+            Console.WriteLine("{0}{1} " , "Welcome to" , " Fes");
+            Console.WriteLine("My Name is: {0} {1}" , "Ayoub" , "Fellah");
+            Console.WriteLine("Nice to meet you {0}" ,"Saad");
+            Console.ReadKey(); 
+        }
+    }
+}

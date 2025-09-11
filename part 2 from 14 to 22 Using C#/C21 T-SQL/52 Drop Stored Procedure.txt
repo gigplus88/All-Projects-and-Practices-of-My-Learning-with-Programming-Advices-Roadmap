@@ -1,0 +1,8 @@
+-- way 1
+
+-- With Delete Method
+
+
+-- way 2
+
+DROP PROCEDURE SP_DeletePerson;

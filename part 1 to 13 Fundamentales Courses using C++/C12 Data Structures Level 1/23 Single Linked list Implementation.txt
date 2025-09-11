@@ -1,0 +1,55 @@
+
+#include<iostream>
+#include<queue>
+
+using namespace std;
+
+class Node
+{
+public:
+	
+	int Value;
+	Node* next;
+
+
+
+};
+
+
+int main()
+{
+	Node* Head;
+
+	Node* Node1 = NULL;
+	Node* Node2 = NULL;
+	Node* Node3 = NULL;
+
+	Node1 = new Node();
+	Node2 = new Node();
+	Node3 = new Node();
+
+	Node1->Value = 1;
+	Node2->Value = 2;
+	Node3->Value = 3;
+
+	//Connect Nodes
+
+	Node1->next = Node2;
+	Node2->next = Node3;
+	Node3->next = NULL;
+
+	// Print the linked list
+
+	Head = Node1; //Head has Nod1 parameters
+
+	while ( Head != NULL)
+	{
+		cout << Head->Value << endl; // Print the value in Node1 -> Node2 -> Node3
+		Head = Head->next; // Points to adress of Node2
+	}
+
+
+	system("pause>0");
+	return(0);
+
+}

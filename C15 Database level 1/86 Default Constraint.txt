@@ -1,0 +1,46 @@
+
+
+
+
+
+
+
+CREATE TABLE Persons1 (
+   ID int NOT NULL PRIMARY KEY,
+   LastName varchar(255) NOT NULL,
+   FirstName varchar(255),
+   Age int CHECK (Age >= 18) ,
+   City Varchar(255) Default 'Morrooco'
+
+);
+
+Drop Table Persons1;
+
+CREATE TABLE Orders (
+   OrderID int NOT NULL ,
+   OrderNumber int NOT NULL,
+   PRIMARY KEY(OrderID),
+   OrderDate date Default GetDate(), 
+   PersonID int,
+   Constraint FK_PersonOrder Foreign Key(PersonID) 
+   References Persons1(ID)
+   );
+
+   Alter table Persons1
+   ADD Constraint df_City 
+   Default 'Fes' for City ;
+
+   
+   Alter table Persons1
+   ADD Constraint df_City 
+   Default 'Fes' for City ;
+
+      Alter table Persons1
+	  Drop  Constraint df_City;
+
+
+   select * from Persons1 ;
+      select * from Orders ;
+
+
+

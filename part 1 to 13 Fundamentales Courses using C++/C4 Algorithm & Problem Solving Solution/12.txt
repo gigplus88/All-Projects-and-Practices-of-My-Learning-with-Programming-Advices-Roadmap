@@ -1,0 +1,67 @@
+#include <iostream>
+#include <cmath>
+#include <string>
+using namespace std;
+
+
+
+void Readof2Numbers(int&Num1, int& Num2, int arr[2])
+{
+
+    cout << "Please enter your Number 1" << endl;
+    cin >> arr[0];
+
+    cout << "Please enter your Number 2" << endl;
+    cin >> arr[1];
+
+    
+
+
+}
+int TheMax(int Num1, int Num2, int arr[2])
+{
+    /*return max(arr[0], arr[1]);*/
+
+    if (arr[0] >arr[1])
+    {
+        return arr[0];
+
+    }
+
+    else
+    {
+        return arr[1];
+    }
+}
+
+
+
+
+
+void PrintResults(int Num1, int Num2 ,int arr[2])
+{
+    
+    cout << "The Max of " << arr[0] <<" and " <<  arr[1] << " is " << TheMax( Num1,Num2, arr) << endl;
+
+   
+}
+
+
+
+
+
+
+int main()
+{
+    int  Num1, Num2, arr[2] = {};
+    Readof2Numbers(Num1, Num2 , arr);
+    PrintResults(Num1, Num2, arr);
+    return 0;
+
+
+
+}
+
+
+
+

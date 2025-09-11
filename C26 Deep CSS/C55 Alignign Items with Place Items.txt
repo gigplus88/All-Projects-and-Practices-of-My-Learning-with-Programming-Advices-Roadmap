@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Grid Centering Example</title>
+  <style>
+    /* Make the body fill the viewport and remove default margins */
+    html, body {
+      height: 100%;
+      margin: 0;
+    }
+
+    /* Utility class: centers any direct child in both axes */
+    .center {
+      display: grid;
+      place-items: center;    /* shorthand for justify-items + align-items */
+      height: 100%;           /* fill the parent (the viewport) */
+      background: #f0f0f0;
+    }
+
+    /* Just some styling for our centered box */
+    .box {
+      padding: 2rem 3rem;
+      background: #4a90e2;
+      color: white;
+      font-family: sans-serif;
+      font-size: 1.25rem;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="center">
+    <div class="box">
+      I’m perfectly centered! 🎯
+    </div>
+  </div>
+
+</body>
+</html>

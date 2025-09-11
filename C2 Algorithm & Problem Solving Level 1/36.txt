@@ -1,0 +1,125 @@
+
+#include <iostream>
+#include <cmath>
+#include <string>
+using namespace std;
+
+
+void ReadNumbers(float &Number1 ,float &Number2, string &OperationType)
+{
+    cout << "enter Number1 please " << endl;
+    cin >> Number1;
+
+    cout << "enter Number2 please " << endl;
+    cin >> Number2;
+
+    cout << "enter your OperationType please " << endl;
+    cin >> OperationType;
+
+}
+
+
+float ForPrintSumm(float& Number1, float &Number2 )
+{
+   return Number1 + Number2;
+
+}
+
+float ForPrintSubtraction(float& Number1, float& Number2)
+{
+    return Number1 - Number2;
+
+}
+float ForPrintMultiple(float& Number1, float& Number2)
+{
+    return Number1 * Number2;
+
+}
+float ForPrintDivision(float& Number1, float& Number2)
+{
+    return Number1 / Number2;
+
+}
+
+void ForPrintSorry()
+{
+    cout << "Sorry";
+
+}
+
+
+
+int main()
+{
+   
+    float Number1, Number2;
+    string OperationType;
+
+    ReadNumbers(Number1, Number2, OperationType);
+
+
+
+    if (OperationType == "+" )
+    {
+       cout<< ForPrintSumm( Number1,  Number2);
+    
+    }
+
+    else if (OperationType == "-")
+
+    {
+        cout << ForPrintSubtraction(Number1, Number2);
+
+
+    }
+
+    else if (OperationType == "*")
+
+    {
+        cout << ForPrintMultiple(Number1, Number2);
+
+
+
+    }
+
+    else if (OperationType == "/")
+
+    {
+        cout << ForPrintDivision(Number1, Number2);
+
+
+    }
+
+    else 
+
+    {
+        ForPrintSorry();
+
+    }
+
+
+    return 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,23 @@
+#include <iostream>
+#include <cmath>
+#include <string>
+#include <iomanip>
+
+using namespace std;
+
+
+
+int main()
+{
+    cout << "      |                          |       |" << endl;
+    cout << "   ID |            Name          |   Num |" << endl;
+    cout << "      |                          |       |" << endl;
+
+
+    cout << setw(6) << "12343" << "|" << setw(26) << "Ayoub Fellah " << "|" << setw(7)  << "1" << "|" << endl;
+    cout << setw(6) << "12543" << "|" << setw(26) << "Sid zin " << "|" << setw(7) << "2" << "|" << endl;
+    cout << setw(6) << "143" << "|" << setw(26) << "tarik rouijal " << "|" << setw(7) << "3" << "|" << endl;
+
+    return 0;
+}
+

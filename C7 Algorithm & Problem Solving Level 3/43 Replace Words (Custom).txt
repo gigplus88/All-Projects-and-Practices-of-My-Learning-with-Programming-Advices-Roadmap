@@ -1,0 +1,139 @@
+#include <iostream>
+#include <string>
+#include <vector>
+#include <iomanip>
+
+using namespace std;
+
+string ReadString()
+{
+    string  S1;
+    cout << "Please Enter Your String?" << endl;
+    getline(cin, S1);
+
+    return S1;
+}
+
+
+
+
+string LowerLetterOfEachWord(string  YourInput)
+{
+
+    bool isFirstLetter = true;
+    for (short i = 0; i < YourInput.length(); i++)
+    {
+
+        YourInput[i] = tolower(YourInput[i]);
+
+
+    }
+
+    return YourInput;
+
+}
+
+vector<string> SplitString(string  S1, string delim)
+{
+    vector<string> vSplit;
+    string Word;
+    short pos = 0;
+
+
+
+    while ((pos = S1.find(delim)) != std::string::npos)
+    {
+        Word = S1.substr(0, pos);
+
+        if (Word != "")
+        {
+            vSplit.push_back(Word);
+
+        }
+
+        S1.erase(0, pos + delim.length());
+    }
+
+
+
+    if (S1 != "")
+    {
+        vSplit.push_back(S1);
+    }
+
+    return vSplit;
+
+
+}
+
+string JoinString(vector<string> vJoin, string delim)
+{
+    string Word = "";
+
+    for (string& s : vJoin)
+    {
+        Word = Word + s + delim;
+
+    }
+
+    return  Word.substr(0, Word.length() - delim.length());
+}
+
+string ReplaceWordInStringUsingSplit(string  S1, string StringToReplace, string ReplaceTo, bool MatchCase = true)
+{
+    vector<string> vString= SplitString(S1, " ");
+
+    for (string &s : vString)
+    {
+        if (MatchCase )
+        {
+            if (s == StringToReplace)
+            {
+                s = ReplaceTo;
+            }
+        }
+        else
+        {
+            if (LowerLetterOfEachWord(s)== LowerLetterOfEachWord(StringToReplace))
+            {
+                s = ReplaceTo;
+
+            }
+
+        }
+
+
+
+        
+
+    }
+
+    return JoinString( vString,  " ");
+}
+
+int main()
+{
+    vector<string> vSplit;
+
+   
+    string S1 = " Welcome to Fes , Fes is a nice city";
+    string StringToReplace = "fes";
+    string ReplaceTo = "Meknes";
+
+    cout << "\nOriginal string:" << S1;
+    cout << "\nstring after replace with match case:"
+    <<ReplaceWordInStringUsingSplit(S1, StringToReplace, ReplaceTo);
+
+
+    cout << endl;
+
+    cout << "\nstring after replace without match case:"
+    <<ReplaceWordInStringUsingSplit(S1, StringToReplace, ReplaceTo, false);
+
+
+
+    system("pause>0");
+
+    return 0;
+
+}

@@ -1,0 +1,99 @@
+#include <iostream>
+#include <cmath>
+#include <string>
+#include <cstdlib>
+
+using namespace std;
+
+
+int ReadPositiveNumber(string Message)
+{
+    int Number;
+
+    do
+    {
+        cout << Message << endl;
+        cin >> Number;
+
+    } while (Number <= 0);
+
+    return Number;
+}
+
+
+
+int RandomNumber(int From, int To)
+{
+
+    int randNum = rand() % (To - From + 1) + From;
+
+
+    return randNum;
+}
+
+void FillArray(int arr[100], int  arrLength)
+
+{
+
+    for (int i = 0; i < arrLength; i++)
+    {
+        
+             arr[i]=i+1;
+        
+           
+    }
+
+}
+
+void Swap(int &A , int &B)
+{
+    int Temp;
+
+    Temp = A;
+    A = B;
+    B = Temp;
+}
+
+void ShuffleArray(int arrLength , int arr[100])
+{
+    for (int i = 0; i < arrLength; i++)
+    {
+        Swap(arr[RandomNumber(1, arrLength)-1],arr[RandomNumber( 1, arrLength)-1]);
+    }
+    // -1 هنا لأجل أن لا يكون العدد بسبب السوابين 10 مثلا و هي ليست في الأراي
+}
+
+ void PrintArrayElements(int arr[100], int  arrLength)
+
+{
+   for (int i = 0; i < arrLength; i++)
+    {
+       cout << arr[i] << " ";
+    }
+
+  }
+
+
+int main()
+{
+    srand((unsigned)time(NULL));
+    int arr[100] , arrLength , arr2[100] , arrsum[100];
+    
+
+    arrLength = ReadPositiveNumber("Please enter number of elements :");
+
+    FillArray( arr, arrLength);
+
+
+    cout << "Array  element Befor Shuffle:" << endl;
+    PrintArrayElements(arr, arrLength);
+    
+    ShuffleArray(arrLength, arr);
+
+    cout << endl << "Array  element After Shuffle:" << endl;
+    PrintArrayElements(arr, arrLength);
+
+
+    return 0;
+
+}

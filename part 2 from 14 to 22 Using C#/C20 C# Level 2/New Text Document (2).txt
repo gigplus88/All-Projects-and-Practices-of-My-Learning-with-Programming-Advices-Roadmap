@@ -1,0 +1,162 @@
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+using Traffic_Light_Project.Properties;
+
+namespace Traffic_Light_Project
+{
+    public partial class ctrlTrafficLight : UserControl
+    {
+       
+        public enum LightEnum { Red = 0, Orange = 1, Green = 2 }
+        private LightEnum _CurrentLight = LightEnum.Red;
+
+
+        public class TraficLightEventArgs : EventArgs
+        {
+            public LightEnum CurrentLight { get; }
+            public int LightDuration { get; }
+
+            public TraficLightEventArgs(LightEnum CurrentLight, int LightDuration)
+            {
+                this.CurrentLight = CurrentLight;
+                this.LightDuration = LightDuration;
+            }
+        }
+
+        public LightEnum CurrentLight
+        {
+            get
+            {
+                return _CurrentLight;
+            }
+
+            set
+            {
+                _CurrentLight = value;
+
+                switch (_CurrentLight)
+                {
+                    case LightEnum.Red:
+                        pbTrafficLight.Image = Resources.Red;
+                     //lblCountDown.ForeColor = Color.Red;
+                        //  _CurrentCountDownValue = RedTime;
+                        //  lblCountDown.Text = _CurrentCountDownValue.ToString();
+                        break;
+                    case LightEnum.Orange:
+                        pbTrafficLight.Image = Resources.Orange;
+                     //lblCountDown.ForeColor = Color.Orange;
+                        // _CurrentCountDownValue = OrangeTime;
+                        // lblCountDown.Text = _CurrentCountDownValue.ToString();
+                        break;
+                    case LightEnum.Green:
+                        pbTrafficLight.Image = Resources.Green;
+                     // lblCountDown.ForeColor = Color.Green;
+                        // _CurrentCountDownValue = GreenTime;
+                        //  lblCountDown.Text = _CurrentCountDownValue.ToString();
+                        break;
+                    default:
+                     //lblCountDown.ForeColor = Color.Red;
+                        // _CurrentCountDownValue = RedTime;
+                        //  lblCountDown.Text = _CurrentCountDownValue.ToString();
+                        break;
+                }
+
+            }
+
+        }
+
+        private int _RedTime = 10;
+        private int _OrangeTime = 3;
+        private int _GreenTime = 10;
+
+        int OrangeTime
+        {
+            set
+            {
+                _OrangeTime = value;
+
+            }
+            get
+            {
+                return _OrangeTime;
+            }
+        }
+        int RedTime
+        {
+            set
+            {
+                _RedTime = value;
+
+            }
+            get
+            {
+                return _RedTime;
+            }
+        }
+        int GreenTime
+        {
+            set
+            {
+                _GreenTime = value;
+
+            }
+            get 
+            {
+                return _GreenTime;
+            }
+        }
+        public event EventHandler<TraficLightEventArgs> OrangeLightOn;
+        public event EventHandler<TraficLightEventArgs> RedLightOn;
+        public event EventHandler<TraficLightEventArgs> GreenLightOn;
+
+         
+
+
+        private int _CurrentCountDownValue;
+
+        public ctrlTrafficLight()
+        {
+            InitializeComponent();
+        }
+
+        private void ctrlTrafficLight_Load(object sender, EventArgs e)
+        {
+
+        }
+
+         
+        public void ChangeLight()
+        {
+            switch (_CurrentLight)
+            {
+                case LightEnum.Red:
+                    pbTrafficLight.Image = Resources.Red;
+                    //lblCountDown.ForeColor = Color.Red;
+                      _CurrentCountDownValue = _RedTime;
+                    //  lblCountDown.Text = _CurrentCountDownValue.ToString();
+                    break;
+                case LightEnum.Orange:
+                    pbTrafficLight.Image = Resources.Orange;
+                    //lblCountDown.ForeColor = Color.Orange;
+                     _CurrentCountDownValue = OrangeTime;
+                    // lblCountDown.Text = _CurrentCountDownValue.ToString();
+                    break;
+                case LightEnum.Green:
+                    pbTrafficLight.Image = Resources.Green;
+                    // lblCountDown.ForeColor = Color.Green;
+                    // _CurrentCountDownValue = GreenTime;
+                    //  lblCountDown.Text = _CurrentCountDownValue.ToString();
+                    break;
+                default:
+                    //lblCountDown.ForeColor = Color.Red;
+                    // _CurrentCountDownValue = RedTime;
+                    //  lblCountDown.Text = _CurrentCountDownValue.ToString();
+                    break;
+            }
+
+        }
+    }
+}

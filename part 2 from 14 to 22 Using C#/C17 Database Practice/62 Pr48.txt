@@ -1,0 +1,47 @@
+--Teacher Solution
+
+SELECT        Makes.Make, COUNT(*) AS NumberOfModels
+FROM   Makes INNER JOIN
+ MakeModels ON Makes.MakeID = MakeModels.MakeID
+GROUP BY Makes.Make
+having COUNT(*) = (
+select Max(NumberOfModels) as MaxNumberOfModels
+from
+(
+SELECT      MakeID, COUNT(*) AS NumberOfModels
+FROM  MakeModels
+GROUP BY MakeID) R1
+
+)
+
+
+
+-- My First Solution
+
+
+select top 1  Makes.Make ,count(*) as NumberOfModels
+from MakeModels
+Inner Join Makes On MakeModels.MakeID = Makes.MakeID
+Group by Makes.Make 
+Order By NumberOfModels Desc;
+
+
+
+-- My Second Solution
+
+كنت فاعل السطرالخامس قبل الأخير
+Makes.make
+لكن هذا تكرار 
+select   Makes.Make ,count(*) as NumberOfModels
+from MakeModels
+Inner Join Makes On MakeModels.MakeID = Makes.MakeID
+Group by Makes.Make 
+Having count(*)=
+(
+  select  MAX(NumberOfModels) as MaximumOfModels from
+  (
+     select    MakeID ,count(*) as NumberOfModels
+     from MakeModels
+     Group by MakeID 
+  )  R1
+);

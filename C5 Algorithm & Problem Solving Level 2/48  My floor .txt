@@ -1,0 +1,87 @@
+#include <iostream>
+#include <cmath>
+#include <string>
+#include <cstdlib>
+
+using namespace std;
+
+float ReadNumber()
+{
+
+    float Number;
+
+
+
+    cout << "Enter your  float number please" << endl;
+    cin >> Number;
+
+    return Number;
+
+}
+
+
+int GetFractionPart(float Number)
+{
+    return  Number - int(Number) ;
+
+}
+int MyFloorResult(float Number)
+{
+    
+    int IntPart;
+    IntPart = int(Number);
+
+    float FractionPart = GetFractionPart(Number);
+
+    if (FractionPart==0)
+    {
+
+        if (Number > 0)
+        {
+            return IntPart;
+        }
+
+        else
+        {
+            return IntPart;
+        }
+    }
+   
+    else if(FractionPart != 0)
+    {
+
+    
+         if ( Number>0)
+        {
+             return IntPart;
+        }
+    
+         else 
+         {
+             return int(Number) -1;
+         }
+
+    }
+}
+
+     
+
+
+
+
+int main()
+{
+
+    float    Number = ReadNumber();
+    
+    cout << "My Floor Result: " << MyFloorResult( Number) << endl;
+    cout << "C++ Floor Result: " << floor(Number);
+
+   
+
+
+
+
+    return 0;
+
+}

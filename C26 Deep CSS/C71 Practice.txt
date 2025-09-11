@@ -1,0 +1,347 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Transform Practice Activities 🛠️</title>
+  <style>
+    /* 
+      Code Overview: Transform Practice Activities 🛠️
+      -------------------------------------------------
+      Purpose:
+        • Show off various CSS transform and animation techniques:
+          1) Rotating Logo on hover
+          2) 3D Photo Gallery lift effect
+          3) Isometric Grid with skew & scale
+
+      Layout:
+        • Four distinct sections, each demonstrating one effect.
+        • Centered content for clarity and focus.
+
+      Use Cases:
+        • Interactive logo or icons
+        • Immersive 3D galleries
+        • Stylish isometric dashboards or game maps
+
+      Key Properties:
+        • transform: rotate(), translateZ(), skewY(), scale()
+        • transition: for smooth hover effects
+        • perspective + transform-style: for 3D context
+    */
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #f5f5f5;
+      color: #333;
+      padding: 2rem;
+      line-height: 1.5;
+      max-width: 800px;
+      margin: auto;
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    section {
+      margin-bottom: 3rem;
+    }
+    section h2 {
+      margin-bottom: 1rem;
+      color: #444;
+    }
+
+    /* 1) Rotating Logo */
+    .rotate-logo {
+      text-align: center;
+    }
+    .rotate-logo img {
+      width: 150px;
+      transition: transform 0.6s ease;
+    }
+    .rotate-logo img:hover {
+      transform: rotate(360deg);
+    }
+
+   
+    /* 2) 3D Photo Gallery */
+    .gallery-3d {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      perspective: 800px;           /* enable 3D depth */
+    }
+    .gallery-3d img {
+      width: 150px;
+      height: 100px;
+      object-fit: cover;
+      transform: translateZ(0);
+      transition: transform 0.3s ease;
+      transform-style: preserve-3d;
+      border-radius: 4px;
+    }
+    .gallery-3d img:hover {
+      transform: translateZ(40px);  /* lift toward viewer */
+    }
+
+    /* 3) Isometric Grid */
+    .iso-grid {
+      width: max-content;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(4, 60px);
+      grid-gap: 10px;
+      transform: skewY(-15deg) scaleY(0.866); /* isometric projection */
+    }
+    .iso-grid .tile {
+      width: 60px;
+      height: 60px;
+      background: #8e44ad;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 0.9rem;
+      border: 1px solid #fff;
+      border-radius: 4px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+      transform: skewY(-15deg) scaleY(0.866); 
+    }
+    /* Correct the heading inside the skewed grid */
+    .iso-grid h2 {
+      grid-column: span 4;
+      text-align: center;
+      transform: skewY(15deg) scaleY(1.155); /* reverse the container’s transform */
+      margin-bottom: .5rem;
+      color: #444;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Transform Practice Activities 🛠️</h1>
+
+  <section class="rotate-logo">
+    <h2>1) Rotating Logo</h2>
+    <p>Hover over the logo to rotate it a full 360°.</p>
+    <img src="Images/PA Logo.png" alt="Logo">
+  </section>
+
+
+     <h2 style="width:100%; text-align:center;">2) 3D Photo Gallery</h2>
+ 
+    <p style="width:100%; text-align:center; margin-bottom:1rem;">Hover each photo to lift it toward you.</p>
+    
+  <section class="gallery-3d">
+
+    <br> 
+    <img src="Images/A1.jpg" alt="1">
+    <img src="Images/A2.jpg" alt="2">
+    <img src="Images/A3.jpg" alt="3">
+    <img src="Images/A4.jpg" alt="4">
+  </section>
+
+ <br>
+  <h2 style="width:100%; text-align:center;"">3) Isometric Grid</h2>
+  <section>
+    <!-- Place heading inside iso-grid for proper skew compensation -->
+
+    <div class="iso-grid">
+      
+      <div class="tile">1</div>
+      <div class="tile">2</div>
+      <div class="tile">3</div>
+      <div class="tile">4</div>
+      <div class="tile">5</div>
+      <div class="tile">6</div>
+      <div class="tile">7</div>
+      <div class="tile">8</div>
+    </div>
+    <br>
+    <p style="text-align:center; margin-top:1rem;">Elements are skewed and scaled to create an isometric view.</p>
+  </section>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--Teacher Example-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Transform Practice Activities 🛠️</title>
+  <style>
+    /* 
+      Code Overview: Transform Practice Activities 🛠️
+      -------------------------------------------------
+      Purpose:
+        • Show off various CSS transform and animation techniques:
+          1) Rotating Logo on hover
+          2) 3D Photo Gallery lift effect
+          3) Isometric Grid with skew & scale
+
+      Layout:
+        • Four distinct sections, each demonstrating one effect.
+        • Centered content for clarity and focus.
+
+      Use Cases:
+        • Interactive logo or icons
+        • Immersive 3D galleries
+        • Stylish isometric dashboards or game maps
+
+      Key Properties:
+        • transform: rotate(), translateZ(), skewY(), scale()
+        • transition: for smooth hover effects
+        • perspective + transform-style: for 3D context
+    */
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #f5f5f5;
+      color: #333;
+      padding: 2rem;
+      line-height: 1.5;
+      max-width: 800px;
+      margin: auto;
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    section {
+      margin-bottom: 3rem;
+    }
+    section h2 {
+      margin-bottom: 1rem;
+      color: #444;
+    }
+
+    /* 1) Rotating Logo */
+    .rotate-logo {
+      text-align: center;
+    }
+    .rotate-logo img {
+      width: 150px;
+      transition: transform 0.6s ease;
+    }
+    .rotate-logo img:hover {
+      transform: rotate(360deg);
+    }
+
+   
+    /* 2) 3D Photo Gallery */
+    .gallery-3d {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      perspective: 800px;           /* enable 3D depth */
+    }
+    .gallery-3d img {
+      width: 150px;
+      height: 100px;
+      object-fit: cover;
+      transform: translateZ(0);
+      transition: transform 0.3s ease;
+      transform-style: preserve-3d;
+      border-radius: 4px;
+    }
+    .gallery-3d img:hover {
+      transform: translateZ(40px);  /* lift toward viewer */
+    }
+
+    /* 3) Isometric Grid */
+    .iso-grid {
+      width: max-content;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(4, 60px);
+      grid-gap: 10px;
+      transform: skewY(-15deg) scaleY(0.866); /* isometric projection */
+    }
+    .iso-grid .tile {
+      width: 60px;
+      height: 60px;
+      background: #8e44ad;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 0.9rem;
+      border: 1px solid #fff;
+      border-radius: 4px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    }
+    /* Correct the heading inside the skewed grid */
+    .iso-grid h2 {
+      grid-column: span 4;
+      text-align: center;
+      transform: skewY(15deg) scaleY(1.155); /* reverse the container’s transform */
+      margin-bottom: .5rem;
+      color: #444;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Transform Practice Activities 🛠️</h1>
+
+  <section class="rotate-logo">
+    <h2>1) Rotating Logo</h2>
+    <p>Hover over the logo to rotate it a full 360°.</p>
+    <img src="Images/PA Logo.png" alt="Logo">
+  </section>
+
+
+     <h2 style="width:100%; text-align:center;">2) 3D Photo Gallery</h2>
+ 
+    <p style="width:100%; text-align:center; margin-bottom:1rem;">Hover each photo to lift it toward you.</p>
+    
+  <section class="gallery-3d">
+
+    <br> 
+    <img src="Images/A1.jpg" alt="1">
+    <img src="Images/A2.jpg" alt="2">
+    <img src="Images/A3.jpg" alt="3">
+    <img src="Images/A4.jpg" alt="4">
+  </section>
+
+ <br>
+  <h2 style="width:100%; text-align:center;"">3) Isometric Grid</h2>
+  <section>
+    <!-- Place heading inside iso-grid for proper skew compensation -->
+
+    <div class="iso-grid">
+      
+      <div class="tile">1</div>
+      <div class="tile">2</div>
+      <div class="tile">3</div>
+      <div class="tile">4</div>
+      <div class="tile">5</div>
+      <div class="tile">6</div>
+      <div class="tile">7</div>
+      <div class="tile">8</div>
+    </div>
+    <br>
+    <p style="text-align:center; margin-top:1rem;">Elements are skewed and scaled to create an isometric view.</p>
+  </section>
+
+</body>
+</html>

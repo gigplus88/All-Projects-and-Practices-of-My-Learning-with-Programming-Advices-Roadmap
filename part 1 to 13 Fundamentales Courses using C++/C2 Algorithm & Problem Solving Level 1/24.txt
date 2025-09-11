@@ -1,0 +1,43 @@
+#include <iostream>
+#include <cmath>
+#include <string>
+using namespace std;
+
+
+void ReadAge(short int &Age )
+{
+    cout << "enter your Age please " << endl;
+    cin >> Age;
+
+}
+
+
+
+int main()
+{
+   
+    short int Age=0;
+
+
+    ReadAge(Age);
+     
+
+
+    if (Age>= 18 && Age<= 45 )
+    {
+        cout << "Valid Age" << endl;
+
+
+    }
+
+    else
+
+    {
+        cout << "Invalid Age" << endl;
+
+
+    }
+
+    return 0;
+}
+

@@ -1,0 +1,7 @@
+
+select count(*) as NumberOfVehiclesAboveAverageEngineCC from
+(
+select ID,VehicleDetails.Vehicle_Display_Name from VehicleDetails
+where VehicleDetails.Engine_CC > ( select Avg(Engine_CC) as AverageEngineCC from  VehicleDetails) 
+) R1;
+

@@ -1,0 +1,132 @@
+using System;
+using System.Data;
+using System.Data.SqlClient;
+using static System.Net.Mime.MediaTypeNames;
+using System.Diagnostics;
+using System.Configuration;
+using System.Collections.Generic;
+using System.Xml.Linq;
+using System.Linq;
+using System.Text.RegularExpressions;
+
+class Student
+{
+    public string Name { get; set; }
+    public int Grade { get; set; }
+}
+class Product
+{
+    public string Name { get; set; }
+    public string Category { get; set; }
+    public double Price { get; set; }
+}
+class Program
+{
+  
+    
+
+   
+    static void Main()
+    {
+        // List initialization
+        //List<int> numbers = new List<int> { 44, 22, 55, 666, 9, -6, 345, 11, 3, 3 };
+        //numbers.Sort();
+
+        //Console.WriteLine("Sorted in Ascending Order:" + string.Join( ", " , numbers) );
+
+
+        //numbers.Reverse();
+
+        //Console.WriteLine("Sorted in Descending Order:" + string.Join(", ", numbers));
+
+        //Console.WriteLine("Sorted in Ascending Order:" + string.Join(", ", numbers.OrderBy( n => n) ));
+        //Console.WriteLine("Sorted in Descending Order:" + string.Join(", ", numbers.OrderByDescending( n => n)));
+
+
+        ///*#########################################################*/
+
+
+        //List<Student> students = new List<Student>
+        //{
+        //    new Student { Name = "Ayoub" , Grade =10 },
+        //    new Student { Name = "Yassine", Grade = 13 },
+        //    new Student { Name = "Amal", Grade = 17 },
+        //    new Student { Name = "Badre", Grade = 15 },
+        //    new Student { Name = "Zahra", Grade = 11 },
+        //    new Student { Name = "Khalid", Grade = 19 }
+        //};
+
+        //Console.WriteLine("\n");
+        //Console.WriteLine("Students List:\n" + string.Join(" ,", students.Select(n => $"Name: {n.Name } ==> Grade: {n.Grade}\n") ));
+
+
+        //Console.WriteLine("Students List By Name:\n" + string.Join(" ,", students.OrderBy(n => n.Name).
+        //    Select(n => $"Name: {n.Name} ==> Grade: {n.Grade}\n")));
+
+        //Console.WriteLine("Students List By Grade:\n" + string.Join(" ,", students.OrderBy(n => n.Grade).
+        //    Select(n => $"Name: {n.Name} ==> Grade: {n.Grade}\n")));
+
+
+
+        List<Product> products = new List<Product>
+        {
+            new Product { Name = "iPhone", Category = "Phones", Price = 1200 },
+            new Product { Name = "Samsung S21", Category = "Phones", Price = 1100 },
+            new Product { Name = "MacBook", Category = "Laptops", Price = 2000 },
+            new Product { Name = "Dell XPS", Category = "Laptops", Price = 1800 },
+            new Product { Name = "iPad", Category = "Tablets", Price = 900 },
+            new Product { Name = "Galaxy Tab", Category = "Tablets", Price = 850 }
+        };
+
+        Console.WriteLine("\n");
+        Console.WriteLine("Products List:\n" + string.Join(" ,", products.Select( n => $"{n.Name} , {n.Category} ==>  {n.Price}\n")  ));
+
+
+        var result = products.GroupBy(n => n.Category).
+            Select(group =>
+                $"Category: {group.Key} ==>" +
+                string.Join("\n", group
+                    .OrderByDescending(p => p.Price)
+                    .Select(p => $" - {p.Name} ==> {p.Price}").
+                    First()
+                )
+            );
+
+        Console.WriteLine(string.Join("\n\n", result));
+
+
+
+
+        Console.WriteLine("Products List:\n" + 
+            string.Join("\n",
+            products.GroupBy(n => n.Category).
+            Select(group =>
+                $"Category: {group.Key} ==>" +
+                string.Join("\n", group
+                    .OrderByDescending(p => p.Price)
+                    .Select(p => $" - {p.Name} ==> {p.Price}")
+                    .First()
+                )
+            )));
+
+        Console.WriteLine("\n");
+        Console.WriteLine("\n");
+
+        Console.WriteLine("Products List:\n" +
+          string.Join("\n",
+          products.GroupBy(n => n.Category).
+          Select(group =>
+              $"Category: {group.Key} ==>" +
+              string.Join("\n", group
+                  .OrderBy(p => p.Price)
+                  .Select(p => $" - {p.Name} ==> {p.Price}")
+                  .First()
+              )
+          )));
+
+
+
+        Console.ReadKey(); 
+    }
+}
+

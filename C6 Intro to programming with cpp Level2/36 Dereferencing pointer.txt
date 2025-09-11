@@ -1,0 +1,44 @@
+
+#include <iostream>
+#include <cmath>
+#include <string>
+#include <iomanip>
+#include <vector>
+
+using namespace std;
+
+
+int main()
+{
+    int a = 3;
+    
+    cout << a <<endl;
+    cout << & a << endl << endl;
+
+    int* p;
+    p= &a;
+
+    cout << p << endl;
+    cout << *p << endl << endl;
+
+    *p = 20;
+
+    cout << a << endl;
+    cout << *p << endl;
+    cout << p << endl << endl;
+
+    a = 43;
+
+    cout << a << endl;
+    cout << p << endl;
+    cout << *p << endl;
+
+
+
+
+   
+   
+
+    return 0;
+}
+

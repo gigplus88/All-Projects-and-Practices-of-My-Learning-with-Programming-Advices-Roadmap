@@ -1,0 +1,61 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+
+
+
+class Program
+{
+    static void Main()
+    {
+        ArrayList arrayList = new ArrayList { 1, 2, 5, 4, 3, 6, 7, 8, 9, 10 };
+
+
+
+
+        var minValue = arrayList.Cast<int>().Min();
+        var maxValue = arrayList.Cast<int>().Max();
+        var SumValues = arrayList.Cast<int>().Sum();
+        var Average = arrayList.Cast<int>().Average();
+        var Count = arrayList.Cast<int>().Count();
+
+        for (int i = 0; i < arrayList.Count; i++)
+        {
+            Console.Write(arrayList[i].ToString() + " ");
+        }
+
+        Console.WriteLine("\n\nMinimum value in the ArrayList: " + minValue);
+        Console.WriteLine("Maximum value in the ArrayList: " + maxValue);
+        Console.WriteLine("Sum values in the ArrayList: " + SumValues);
+        Console.WriteLine("Average values in the ArrayList: " + Average);
+        Console.WriteLine("Count Items in the ArrayList: " + Count);
+
+        var SortArrayList  = arrayList.Cast<int>().OrderByDescending(x => x);
+
+        foreach (var item in SortArrayList)
+        {
+            Console.WriteLine(item);
+        }
+
+
+        arrayList.Sort();
+        Console.WriteLine("\nArrayList Items After Sorting: ");
+        for (int i = 0; i < arrayList.Count; i++)
+        {
+            Console.Write(arrayList[i].ToString() + " ");
+        }
+
+
+        //IEnumerable<int> Numbers = arrayList.Cast<int>();
+
+        //int minValue = Numbers.Min();
+        //int maxValue = Numbers.Max();
+        //int Sum = Numbers.Sum();
+        //double Average = Numbers.Average();
+        //int Count = Numbers.Count();
+
+        Console.ReadKey();
+
+    }
+}

@@ -1,0 +1,84 @@
+#include <iostream>
+#include <iostream>
+#include <fstream>
+#include <string>
+#include <vector>
+#include <iomanip>
+
+using namespace std;
+
+// Abstract class / Interface /Contract
+class clsMobile
+{
+    virtual void Dial(string PhoneNumber) = 0; // Interface Function
+    virtual void SendSMS(string PhoneNumber ,string Text) = 0;
+    virtual void TackPicture() = 0;
+    virtual int CheckNumberOfRun ()= 0;
+
+
+};
+
+class clsIPhone : public clsMobile
+{
+public:
+    void Dial(string PhoneNumber)
+    {
+
+    }
+
+    void SendSMS(string PhoneNumber, string Text)
+    {
+
+    }
+
+    void TackPicture()
+    {
+
+    }
+
+    int CheckNumberOfRun()
+    {
+        return 1;
+    }
+};
+
+class clsSamsung : public clsMobile
+{
+public:
+    void Dial(string PhoneNumber)
+    {
+
+    }
+
+    void SendSMS(string PhoneNumber, string Text)
+    {
+
+    }
+
+    void TackPicture()
+    {
+
+    }
+
+    int CheckNumberOfRun()
+    {
+        return 6;
+    }
+
+    void AddWidget()
+    {
+        cout << "Widget";
+    }
+};
+
+int main()
+{
+    clsIPhone IPhone;
+    
+    clsSamsung SamsungNote10;
+
+    SamsungNote10.AddWidget();
+
+    system("pause>0");
+    return 0;
+}

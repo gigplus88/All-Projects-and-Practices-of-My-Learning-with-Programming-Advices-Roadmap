@@ -1,0 +1,19 @@
+
+-- Teacher Solution
+
+SELECT        Makes.Make, COUNT(*) AS NumberOfModels
+FROM            Makes INNER JOIN
+                         MakeModels ON Makes.MakeID = MakeModels.MakeID
+GROUP BY Makes.Make
+Order By NumberOfModels Desc
+
+
+
+-- My Solution
+
+
+select  distinct Makes.Make ,count(ModelID) as NumberOfModels
+from MakeModels
+Inner Join Makes On MakeModels.MakeID = Makes.MakeID
+Group by Makes.Make 
+Order By NumberOfModels Desc;

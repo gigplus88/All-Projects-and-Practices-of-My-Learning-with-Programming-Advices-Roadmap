@@ -1,0 +1,60 @@
+#include <iostream>
+#include <string>
+#include <iomanip>
+
+using namespace std;
+
+char ReadCharacter()
+{
+    char  Character;
+    cout << "Please Enter Your Character?" << endl;
+    cin >> Character;
+    
+    return Character;
+}
+
+bool IsCapitalLetter(char  Character)
+{
+    if (isupper(Character))
+    {
+        return true;
+    }
+    
+    return false;
+}
+
+char InvertLetterCase(char  Character)
+{
+    return isupper(Character) ? tolower(Character) : toupper(Character);
+}
+
+
+int main()
+{
+    
+    char  Character =' ';
+
+    Character = ReadCharacter();
+
+    cout << "Char after investing case" << endl;
+
+    Character = InvertLetterCase(Character);
+    cout << Character;
+    // My Large Solution;
+   /* if (IsCapitalLetter( Character))
+    {
+        Character = tolower(Character);
+        cout << Character;
+    }
+
+    else
+    {
+        Character = toupper(Character);
+        cout << Character;
+
+    }*/
+
+    system("pause>0");
+
+    return 0;
+}

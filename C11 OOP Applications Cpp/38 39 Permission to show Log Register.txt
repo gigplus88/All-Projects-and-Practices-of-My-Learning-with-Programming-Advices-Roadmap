@@ -1,0 +1,39 @@
+// Add Permissions to clsUser , 
+
+ enum enPermissions {
+        eAll = -1, pListClients = 1, pAddNewClient = 2, pDeleteClient = 4,
+        pUpdateClients = 8, pFindClient = 16, pTranactions = 32, pManageUsers = 64,
+        pShowLogInRegister = 128
+    };
+
+// Add Permissions to clsLoginRegister, 
+
+howLoginRegisterScreen()
+   
+
+        if (!CheckAccessRights(clsUser::enPermissions::pShowLogInRegister))
+        {
+            return;// this will exit the function and it will not continue
+        }
+
+// Add Permissions to AddNewUser, 
+
+ReadPermissionToSet()
+
+cout << "\nShow Login Register? y/n? ";
+        cin >> Answer;
+        if (Answer == 'y' || Answer == 'Y')
+        {
+            Permissions += clsUser::enPermissions::pShowLogInRegister;
+        }
+ 
+// Add Permissions to ReadPermissionToSet,
+
+ReadPermissionToSet()
+
+cout << "\nShow Login Register? y/n? ";
+        cin >> Answer;
+        if (Answer == 'y' || Answer == 'Y')
+        {
+            Permissions += clsUser::enPermissions::pShowLogInRegister;
+        }

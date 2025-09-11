@@ -1,0 +1,123 @@
+// With While loop
+
+
+
+#include <iostream>
+#include <cmath>
+#include <string>
+using namespace std;
+
+
+void ReadNumber(int& Num)
+{
+    cout << "Enter your number please\n";
+    cin >> Num;
+}
+
+void PrintNumber(int& i, int& Num, int& sum)
+{
+    sum = 0; 
+   /* for (int i = 0; i <= Num; i++)
+    {
+        if ((i) % 2 == 0)
+        {
+            sum = sum + i;
+
+            
+        }
+
+        
+
+
+    }*/
+    i = 1;
+
+    while (i <= Num && i % 2 == 0)
+    {
+        sum = sum + i;
+
+        i++;
+
+    }
+    cout << sum << endl;
+
+    
+}
+
+
+int main()
+{
+    int Num = 0, i = 0, sum = 0;
+
+    ReadNumber(Num);
+    PrintNumber(i, Num, sum);
+
+
+
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+//With for and if
+
+
+#include <iostream>
+#include <cmath>
+#include <string>
+using namespace std;
+
+
+void ReadNumber(int& Num)
+{
+    cout << "Enter your number please\n";
+    cin >> Num;
+}
+
+void PrintNumber(int& i, int& Num, int& sum)
+{
+    sum = 0; 
+    for (int i = 0; i <= Num; i++)
+    {
+        if ((i) % 2 == 0)
+        {
+            sum = sum + i;
+
+            
+        }
+
+        
+
+
+    }
+    cout << sum << endl;
+
+    
+}
+
+
+int main()
+{
+    int Num = 0, i = 0, sum = 0;
+
+    ReadNumber(Num);
+    PrintNumber(i, Num, sum);
+
+}
+

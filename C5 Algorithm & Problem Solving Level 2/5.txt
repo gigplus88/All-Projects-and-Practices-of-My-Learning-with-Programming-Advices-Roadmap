@@ -1,0 +1,59 @@
+#include <iostream>
+#include <cmath>
+#include <string>
+using namespace std;
+
+enum enIsperfectNumber { Perfect = 1, NotPerfect = 2 };
+enIsperfectNumber IsperfectNumber;
+
+float ReadPositiveNumber(string Message)
+{
+    float Number;
+
+    do
+    {
+        cout << Message << endl;
+        cin >> Number;
+
+    } while (Number <= 0);
+
+    return Number;
+}
+
+
+void PrintResult(int Number)
+{
+
+    /*string Number;
+    cout << "Give me your number" << endl;
+    cin >> Number;*/
+
+   
+    /*for (int i = Number.length()-1; i >=0; i--)
+    {
+        cout << Number[i] << endl;
+    }*/
+
+
+    int Remainder = 0;
+  // Write reverse digits each one in its ligne,
+     while (Number>0)
+     {
+         Remainder = Number % 10;
+         Number = Number / 10;
+         cout << Remainder << endl;
+     }
+
+}
+
+
+int main()
+{
+   /* int Number = ReadPositiveNumber("Please enter a positive number");
+    GetPerfectNumbersFrom1ToNumber(Number);*/
+    
+     PrintResult(ReadPositiveNumber("Enter your number please "));
+
+    return 0;
+
+}

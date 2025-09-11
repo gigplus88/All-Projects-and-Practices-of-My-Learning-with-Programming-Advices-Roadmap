@@ -1,0 +1,144 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+
+public class TreeNode<T> 
+{
+    public T Value { get; set; }
+    public List<TreeNode<T>> Children { get; set; }
+
+    public TreeNode(T value)
+    {
+        this.Value = value; 
+        Children = new List<TreeNode<T> >();
+    }
+    public void AddChild(TreeNode<T> Child) 
+    {
+        Children.Add(Child); 
+    }
+
+}
+public class Tree<T>
+{
+    public TreeNode<T> Root { get;private set; }
+
+    public Tree(T RootValue)
+    {
+        Root = new TreeNode<T>(RootValue);
+    }
+   
+}
+public class Person
+{
+    public string Name { get; set; }
+
+    public Person(string name)
+    {
+        Name = name;
+    }
+}
+
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        // Creating the tree
+        var CompanyTree = new Tree<string>("CEO");
+        var Finance = new TreeNode<string>("CFO");
+        var Tech = new TreeNode<string>("CTO");
+        var Marketing = new TreeNode<string>("CMO");
+
+        // Adding departments to the CEO node
+        CompanyTree.Root.AddChild(Finance);
+        CompanyTree.Root.AddChild(Tech);
+        CompanyTree.Root.AddChild(Marketing);
+
+
+        // Adding employees to departments
+        Finance.AddChild(new TreeNode<string>("Accountant"));
+        Tech.AddChild(new TreeNode<string>("Developer"));
+        Tech.AddChild(new TreeNode<string>("Ux Designer"));
+        Marketing.AddChild(new TreeNode<string>("Social Media Manager"));
+
+        // Printing the tree
+        //PrintTree(CompanyTree.Root);
+
+        Console.WriteLine("\n\n");
+
+
+
+
+        // Creating the Family tree
+        var FamilyTree = new Tree<Person>( new Person("Mohammed"));
+       
+        var FatherSon1 = new TreeNode<Person>(new Person("Abdelmalek"));
+        var FatherSon2 = new TreeNode<Person>(new Person("Abdellah"));
+        var SonOfFather = new TreeNode<Person>(new Person("Abdellah"));
+
+        //For Abdelmalek
+        TreeNode<Person> child1 = new TreeNode<Person>(new Person("Ayoub"));
+        TreeNode<Person> child2 = new TreeNode<Person>(new Person("Chaimae"));
+        TreeNode<Person> child3 = new TreeNode<Person>(new Person("Houda"));
+        TreeNode<Person> child4 = new TreeNode<Person>(new Person("Imane"));
+        TreeNode<Person> child5 = new TreeNode<Person>(new Person("Firdaouse"));
+
+        //For Abdellah
+        TreeNode<Person> child6 = new TreeNode<Person>(new Person("Mohammed"));
+        TreeNode<Person> child7 = new TreeNode<Person>(new Person("Amine"));
+        TreeNode<Person> child8 = new TreeNode<Person>(new Person("Rachida"));
+        TreeNode<Person> child9 = new TreeNode<Person>(new Person("Soumya"));
+        TreeNode<Person> child10 = new TreeNode<Person>(new Person("Nezha"));
+        TreeNode<Person> child11 = new TreeNode<Person>(new Person("Fatima"));
+        TreeNode<Person> child12 = new TreeNode<Person>(new Person("Soukina"));
+
+
+        TreeNode<Person> childChild1 = new TreeNode<Person>(new Person("Imrane"));
+        TreeNode<Person> childChild2 = new TreeNode<Person>(new Person("Son2"));
+        TreeNode<Person> childChild3 = new TreeNode<Person>(new Person("Idrrisse"));
+        TreeNode<Person> childChild4 = new TreeNode<Person>(new Person("Alice"));
+        
+        FamilyTree.Root.AddChild(FatherSon1);
+        FamilyTree.Root.AddChild(FatherSon2);
+
+
+
+        FatherSon1.AddChild(child1);
+        FatherSon1.AddChild(child2);
+        FatherSon1.AddChild(child3);
+        FatherSon1.AddChild(child4);
+        FatherSon1.AddChild(child5);
+
+
+        FatherSon2.AddChild(child6);
+        FatherSon2.AddChild(child7);
+        FatherSon2.AddChild(child8);
+        FatherSon2.AddChild(child9);
+        FatherSon2.AddChild(child10);
+        FatherSon2.AddChild(child11);
+        FatherSon2.AddChild(child12);
+
+
+        child6.AddChild(childChild1);
+        child6.AddChild(childChild2);
+        child6.AddChild(childChild3);
+        child6.AddChild(childChild4);
+
+
+
+        PrintTree(FamilyTree.Root);
+
+
+        Console.ReadKey();
+    }
+    public static void PrintTree(TreeNode<Person> node, string indent = "  ")
+    {
+        Console.WriteLine(indent + node.Value.Name);
+        foreach (var child in node.Children)
+        {
+            PrintTree(child, indent + "  ");
+        }
+    }
+
+}

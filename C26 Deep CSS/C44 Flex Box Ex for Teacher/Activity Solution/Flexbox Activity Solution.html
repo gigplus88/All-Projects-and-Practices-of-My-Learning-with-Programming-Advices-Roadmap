@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Practice: Flex Gallery & Responsive Footer</title>
+  <style>
+    /* —— Global Reset —— */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.5;
+      color: #333;
+      padding: 1rem;
+    }
+
+    /* —— 1) Flex Gallery —— */
+    .gallery {
+      display: flex;            /* enable flex layout */
+      flex-wrap: wrap;          /* allow wrapping to new lines */
+      margin: -0.5rem;          /* negate child margins for consistent gaps */
+    }
+    .gallery img {
+      flex: 1 1 calc(33% - 1rem);  /* 3 columns minus total horizontal gap */
+      margin: 0.5rem;              /* gap around each image */
+      max-width: 100%;             /* ensure images don’t overflow */
+      width:10px;
+      height: auto; 
+      display: block;
+    }
+
+    /* —— 2) Responsive Footer —— */
+    .site-footer {
+      display: flex;                 /* flex container */
+      justify-content: space-between;/* spread columns on wide screens */
+      background: #222;
+      color: white;
+      padding: 1rem;
+      margin-top: 2rem;
+    }
+    .site-footer .footer-col {
+      flex: 1;                       /* equal width columns */
+      padding: 0 1rem;
+    }
+    .site-footer h3 {
+      margin-bottom: 0.5rem;
+    }
+
+     @media (max-width: 800px) {
+      .gallery img {
+        flex: 1 1 calc(50% - 1rem);     /* two columns */
+      }
+
+       @media (max-width: 500px) {
+      .gallery img {
+        flex: 1 1 calc(100% - 1rem);     /* two columns */
+      }
+     
+    }
+    /* —— 3) Footer on Narrow Screens —— */
+    @media (max-width: 600px) {
+      .site-footer {
+        flex-direction: column;      /* stack columns vertically */
+        align-items: center;         /* center their contents */
+        text-align: center;
+      }
+      .site-footer .footer-col {
+        padding: 0.5rem 0;
+      }
+    }
+
+    /* —— 4) Experimentation Notes —— */
+    /*
+      • Try changing justify-content in .site-footer to:
+        space-around;   // equal space around columns
+        space-evenly;   // equal space between & at edges
+
+      • Try toggling align-items (in media query or default) between:
+        stretch;        // each column fills the footer’s height
+        flex-start;     // top-aligned
+        flex-end;       // bottom-aligned
+    */
+  </style>
+</head>
+<body>
+
+  <h1>Flexbox Practice</h1>
+
+  <!-- Flex Gallery -->
+  <section>
+    <h2>1) Responsive Flex Gallery</h2>
+    <div class="gallery">
+      <img src="Images/A1.jpg"  alt="Image 1">
+      <img src="Images/A2.jpg"  alt="Image 2">
+      <img src="Images/A3.jpg"  alt="Image 3">
+      <img src="Images/A4.jpg"  alt="Image 4">
+      <img src="Images/A10.jpg"  alt="Image 5">
+      <img src="Images/A11.jpg"  alt="Image 6">
+    </div>
+  </section>
+
+  <!-- Responsive Footer -->
+  <footer class="site-footer">
+    <div class="footer-col">
+      <h3>About</h3>
+      <p>We build modern layouts with CSS Flexbox.</p>
+    </div>
+    <div class="footer-col">
+      <h3>Links</h3>
+      <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="#">Portfolio</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h3>Contact</h3>
+      <p>Email: hello@example.com</p>
+      <p>Phone: +1 (234) 567-890</p>
+    </div>
+  </footer>
+
+</body>
+</html>

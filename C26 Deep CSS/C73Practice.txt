@@ -1,0 +1,691 @@
+<!--
+  Code Overview: CSS Animations Combined Demo 🚀
+  -------------------------------------------------
+  Purpose:
+    • Showcase three foundational CSS animations in one file:
+      1) Bouncing Ball (vertical motion)
+      2) Fading Text (opacity cycles)
+      3) Spinning Loader (continuous rotation)
+      4) Pulsing Button
+
+  Layout:
+    • A single HTML page with three <section> blocks.
+    • Each section contains a heading and the animated element.
+
+  Use Cases:
+    • Bouncing Ball – attention-grabber, loading indicator
+    • Fading Text – pulsing emphasis, alerts
+    • Spinning Loader – progress indicators, background tasks
+    • Pulsing Button 
+
+  Key Properties:
+    • @keyframes – define animation stages
+    • animation-name – links element to @keyframes
+    • animation-duration – sets cycle length
+    • animation-timing-function – controls easing
+    • animation-iteration-count – repeat behavior
+    • animation-direction + fill-mode – control playback direction and final state
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>CSS Animations Combined Demo</title>
+  <style>
+    /* Reset & Base Styles */
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: Arial, sans-serif;
+      background: #fafafa;
+      color: #333;
+      padding: 1rem;
+      margin: 0;
+      line-height: 1.4;
+      position: relative;
+      height: 4000px;
+            overflow: hidden;
+
+    }
+   
+
+    .sidebar{
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 250px;height: 100vh;
+      background-color: #126196;
+      transform: translateX(-99.99%);
+      z-index: 5;
+      transition: transform 0.5s linear;
+      cursor: pointer;
+    }
+     .trigger {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 30px;
+      height: 100%;
+      z-index: 2;               /* Sit above content so it can receive hover */
+      cursor: pointer;
+    }
+    .sidebar:hover {
+      transform: translateX(0px);
+    }
+
+
+    .content{
+      position: absolute;
+      z-index: 0;
+    }
+    /* 4) Pulsing Button */
+    .pulse-btn-container {
+      text-align: center;
+    }
+    .pulse-btn {
+      background: #3498db;
+      color: #fff;
+      border: none;
+      padding: 0.75rem 1.5rem;
+      font-size: 1rem;
+      border-radius: 4px;
+      cursor: pointer;
+      animation: pulse 2s infinite;
+      outline: none;
+    }
+    @keyframes pulse {
+      0%   { transform: scale(1); }
+      50%  { transform: scale(1.1); }
+      75%  { transform: scale(0.9); }
+      100% { transform: scale(1); }
+    }
+
+  </style>
+</head>
+<body>
+  <div class="trigger" title="Hover here to open menu"></div>
+
+  <div class="sidebar">
+    <h2 style="color:#ecf0f1; padding:1rem; margin:0;">Menu</h2>
+    <ul style="list-style:none; padding:1rem; color:#bdc3c7;">
+      <li style="margin-bottom:.5rem;">Home</li>
+      <li style="margin-bottom:.5rem;">About</li>
+      <li>Contact</li>
+    </ul>
+  </div>
+
+   <div class="content">
+    <h1>Sliding Panel Fixed</h1>
+    <p>Move your mouse to the very left edge (over that thin strip) to slide the panel in.</p>
+  </div>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--Practice 2-->
+<!--
+  Code Overview: CSS Animations Combined Demo 🚀
+  -------------------------------------------------
+  Purpose:
+    • Showcase three foundational CSS animations in one file:
+      1) Bouncing Ball (vertical motion)
+      2) Fading Text (opacity cycles)
+      3) Spinning Loader (continuous rotation)
+      4) Pulsing Button
+
+  Layout:
+    • A single HTML page with three <section> blocks.
+    • Each section contains a heading and the animated element.
+
+  Use Cases:
+    • Bouncing Ball – attention-grabber, loading indicator
+    • Fading Text – pulsing emphasis, alerts
+    • Spinning Loader – progress indicators, background tasks
+    • Pulsing Button 
+
+  Key Properties:
+    • @keyframes – define animation stages
+    • animation-name – links element to @keyframes
+    • animation-duration – sets cycle length
+    • animation-timing-function – controls easing
+    • animation-iteration-count – repeat behavior
+    • animation-direction + fill-mode – control playback direction and final state
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>CSS Animations Combined Demo</title>
+  <style>
+    /* Reset & Base Styles */
+    * { box-sizing: border-box; margin:0; padding:0; }
+    body {
+      display: flex;
+      height: 100vh;
+      justify-content: center;
+      align-items: center;
+      background: #ecf0f1;
+      font-family: Arial, sans-serif;
+    }
+   
+    .cycle-btn{
+
+      padding: 1rem 1.8rem;
+      font-size: 1.5rem;
+      background-color: rgb(68, 68, 165);
+      color: white;
+      border: none;
+      border-radius: 10px;
+      text-shadow: none;
+      animation: cycleColors 4s ease  infinite alternate both;
+    }
+
+    
+    @keyframes cycleColors {
+
+
+       0%   { background-color: #e74d3c; }
+      33%  { background-color: #27ae60; }
+      66%  { background-color: #2980b9; }
+      100% { background-color: #e74c3c; }
+    }
+
+  </style>
+</head>
+<body>
+    <button class="cycle-btn">Cycle Colors</button>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+<!--Practice3-->
+<!--
+  Code Overview: CSS Animations Combined Demo 🚀
+  -------------------------------------------------
+  Purpose:
+    • Showcase three foundational CSS animations in one file:
+      1) Bouncing Ball (vertical motion)
+      2) Fading Text (opacity cycles)
+      3) Spinning Loader (continuous rotation)
+      4) Pulsing Button
+
+  Layout:
+    • A single HTML page with three <section> blocks.
+    • Each section contains a heading and the animated element.
+
+  Use Cases:
+    • Bouncing Ball – attention-grabber, loading indicator
+    • Fading Text – pulsing emphasis, alerts
+    • Spinning Loader – progress indicators, background tasks
+    • Pulsing Button 
+
+  Key Properties:
+    • @keyframes – define animation stages
+    • animation-name – links element to @keyframes
+    • animation-duration – sets cycle length
+    • animation-timing-function – controls easing
+    • animation-iteration-count – repeat behavior
+    • animation-direction + fill-mode – control playback direction and final state
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>CSS Animations Combined Demo</title>
+  <style>
+    /* Reset & Base Styles */
+    * { box-sizing: border-box; margin:0; padding:0; }
+    body {
+      display: flex;
+      height: 100vh;
+      justify-content: center;
+      align-items: center;
+      background: #ecf0f1;
+      font-family: Arial, sans-serif;
+    }
+   
+    .icon{
+      font-size:3rem; 
+      border: none;
+      animation: icon 1s  ease-in-out  infinite alternate both;
+    }
+
+    
+    @keyframes icon {
+
+       0%   {transform: rotate(5deg) ; }
+      100%  { transform: rotate(-5deg) ;}
+    }
+
+  </style>
+</head>
+<body>
+  <div class="icon">🔄</div>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+<!--Practice4 with teacher-->
+<!--
+  Code Overview: CSS Animations Combined Demo 🚀
+  -------------------------------------------------
+  Purpose:
+    • Showcase three foundational CSS animations in one file:
+      1) Bouncing Ball (vertical motion)
+      2) Fading Text (opacity cycles)
+      3) Spinning Loader (continuous rotation)
+      4) Pulsing Button
+
+  Layout:
+    • A single HTML page with three <section> blocks.
+    • Each section contains a heading and the animated element.
+
+  Use Cases:
+    • Bouncing Ball – attention-grabber, loading indicator
+    • Fading Text – pulsing emphasis, alerts
+    • Spinning Loader – progress indicators, background tasks
+    • Pulsing Button 
+
+  Key Properties:
+    • @keyframes – define animation stages
+    • animation-name – links element to @keyframes
+    • animation-duration – sets cycle length
+    • animation-timing-function – controls easing
+    • animation-iteration-count – repeat behavior
+    • animation-direction + fill-mode – control playback direction and final state
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>CSS Animations Combined Demo</title>
+  <style>
+    /* Reset & Base Styles */
+     * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.5;
+      background-color: #eee;
+    }
+    main {
+      padding: 6rem 2rem 2rem ;
+    }
+   
+    .section {
+      max-width: 800px;
+      margin: 2rem auto;
+      background: #fff;
+      padding: 1.5rem;
+      border-radius: 4px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    @keyframes slideDown {
+      0% { transform: translateY(-100%); }
+      100% { transform: translateY(0%); }
+    }
+
+    nav{
+      background-color: rgb(44, 44, 139);
+      height: 4rem;
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      animation: slideDown 0.5S linear  1 ;
+    }
+    nav ul{
+      display: flex;
+      justify-content: center;
+      list-style: none;
+      padding: 1rem;
+    }
+    li{
+      margin: 0 1.5rem;
+      position: relative; 
+
+    }
+    nav a {
+      position: relative;
+      color: #ecf0f1;
+      text-decoration: none;
+      font-size: 1rem;
+      padding: 0.25rem 0;
+      transition: color 0.8s ease ;
+    }
+    nav a:hover  {
+      color: #1abc9c;
+      width: 100%;
+    }
+    a::after{
+      content: "";
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 10%;
+      height: 2px;
+      background: #1abc9c;
+      transition: width 0.8s ease ;
+
+    }
+     a:hover::after {
+      width: 100%;
+    }
+
+
+  </style>
+</head>
+<body>
+    <nav>
+    <ul>
+      <li><a href="#">Home</a></li>
+      <li><a href="#">About</a></li>
+      <li><a href="#">Services</a></li>
+      <li><a href="#">Contact</a></li>
+    </ul>
+  </nav>
+
+  <main>
+    <div class="section">
+      <h2>Welcome!</h2>
+      <p>
+        This is a demo of an animated top navigation menu. 
+        On page load, the nav slides down from above. 
+        Hover over each menu item to see the sliding underline effect.
+      </p>
+    </div>
+    <div class="section">
+      <h2>Scroll for More</h2>
+      <p>
+        Even as you scroll, the navigation remains fixed at the top,
+        providing quick access to main sections.
+      </p>
+    </div>
+
+     <div class="section">
+      <h2>Scroll for More</h2>
+      <p>
+        Even as you scroll, the navigation remains fixed at the top,
+        providing quick access to main sections.
+      </p>
+    </div>
+     <div class="section">
+      <h2>Scroll for More</h2>
+      <p>
+        Even as you scroll, the navigation remains fixed at the top,
+        providing quick access to main sections.
+      </p>
+    </div>
+     <div class="section">
+      <h2>Scroll for More</h2>
+      <p>
+        Even as you scroll, the navigation remains fixed at the top,
+        providing quick access to main sections.
+      </p>
+    </div>
+     <div class="section">
+      <h2>Scroll for More</h2>
+      <p>
+        Even as you scroll, the navigation remains fixed at the top,
+        providing quick access to main sections.
+      </p>
+    </div>
+     <div class="section">
+      <h2>Scroll for More</h2>
+      <p>
+        Even as you scroll, the navigation remains fixed at the top,
+        providing quick access to main sections.
+      </p>
+    </div>
+     <div class="section">
+      <h2>Scroll for More</h2>
+      <p>
+        Even as you scroll, the navigation remains fixed at the top,
+        providing quick access to main sections.
+      </p>
+    </div>
+     <div class="section">
+      <h2>Scroll for More</h2>
+      <p>
+        Even as you scroll, the navigation remains fixed at the top,
+        providing quick access to main sections.
+      </p>
+    </div>
+     <div class="section">
+      <h2>Scroll for More</h2>
+      <p>
+        Even as you scroll, the navigation remains fixed at the top,
+        providing quick access to main sections.
+      </p>
+    </div>
+  </main>
+
+</body>
+</html>
+
+
+
+
+
+
+
+<!--Practice4 teacher solution-->
+<!--
+  Code Overview: Top Navigation Menu with Animation
+  -------------------------------------------------
+  Purpose:
+    • Create a responsive top navigation bar that animates into view on page load.
+    • Add a sliding underline effect on menu item hover.
+
+  Layout:
+    • A fixed <nav> at the top of the page containing an unordered list of links.
+    • Main page content below to demonstrate the fixed header.
+
+  Use Cases:
+    • Modern website headers that draw attention.
+    • Animated underlines for interactive feedback on menu items.
+
+  Key Properties & Techniques:
+    • @keyframes slideDown – nav slides in from above.
+    • animation-name / animation-duration / animation-timing-function.
+    • transition on pseudo-element ::after for underline slide.
+    • fixed positioning for persistent header.
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Animated Top Navigation Menu</title>
+  <style>
+    /* Reset & Base */
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.5;
+      background: #f4f4f4;
+    }
+
+    /* 1) Slide-down animation for the nav */
+    @keyframes slideDown {
+      0%   { transform: translateY(-100%); }
+      100% { transform: translateY(0); }
+    }
+
+    /* 2) Top Navigation Bar */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      background: #2c3e50;
+      animation-name: slideDown;
+      animation-duration: 0.5s;
+      animation-timing-function: ease-out;
+      z-index: 1000;
+    }
+    nav ul {
+      display: flex;
+      justify-content: center;
+      list-style: none;
+      padding: 1rem;
+    }
+    nav li {
+      margin: 0 1.5rem;
+      position: relative; /* for underline pseudo-element */
+    }
+    nav a {
+      color: #ecf0f1;
+      text-decoration: none;
+      font-size: 1rem;
+      padding: 0.25rem 0;
+      transition: color 0.3s ease;
+    }
+    nav a:hover {
+      color: #1abc9c;
+    }
+
+    /* 3) Sliding underline effect */
+    nav a::after {
+      content: "";
+      position: absolute;
+      left: 0; bottom: -4px;
+      width: 0; height: 2px;
+      background: #1abc9c;
+      transition: width 0.3s ease;
+    }
+    nav a:hover::after {
+      width: 100%;
+    }
+
+    /* 4) Page content to demonstrate fixed nav */
+    main {
+      padding: 6rem 2rem 2rem; /* top padding to clear fixed nav */
+    }
+    .section {
+      max-width: 800px;
+      margin: 2rem auto;
+      background: #fff;
+      padding: 1.5rem;
+      border-radius: 4px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <ul>
+      <li><a href="#">Home</a></li>
+      <li><a href="#">About</a></li>
+      <li><a href="#">Services</a></li>
+      <li><a href="#">Contact</a></li>
+    </ul>
+  </nav>
+
+  <main>
+    <div class="section">
+      <h2>Welcome!</h2>
+      <p>
+        This is a demo of an animated top navigation menu. 
+        On page load, the nav slides down from above. 
+        Hover over each menu item to see the sliding underline effect.
+      </p>
+    </div>
+    <div class="section">
+      <h2>Scroll for More</h2>
+      <p>
+        Even as you scroll, the navigation remains fixed at the top,
+        providing quick access to main sections.
+      </p>
+    </div>
+
+     <div class="section">
+      <h2>Scroll for More</h2>
+      <p>
+        Even as you scroll, the navigation remains fixed at the top,
+        providing quick access to main sections.
+      </p>
+    </div>
+     <div class="section">
+      <h2>Scroll for More</h2>
+      <p>
+        Even as you scroll, the navigation remains fixed at the top,
+        providing quick access to main sections.
+      </p>
+    </div>
+     <div class="section">
+      <h2>Scroll for More</h2>
+      <p>
+        Even as you scroll, the navigation remains fixed at the top,
+        providing quick access to main sections.
+      </p>
+    </div>
+     <div class="section">
+      <h2>Scroll for More</h2>
+      <p>
+        Even as you scroll, the navigation remains fixed at the top,
+        providing quick access to main sections.
+      </p>
+    </div>
+     <div class="section">
+      <h2>Scroll for More</h2>
+      <p>
+        Even as you scroll, the navigation remains fixed at the top,
+        providing quick access to main sections.
+      </p>
+    </div>
+     <div class="section">
+      <h2>Scroll for More</h2>
+      <p>
+        Even as you scroll, the navigation remains fixed at the top,
+        providing quick access to main sections.
+      </p>
+    </div>
+     <div class="section">
+      <h2>Scroll for More</h2>
+      <p>
+        Even as you scroll, the navigation remains fixed at the top,
+        providing quick access to main sections.
+      </p>
+    </div>
+     <div class="section">
+      <h2>Scroll for More</h2>
+      <p>
+        Even as you scroll, the navigation remains fixed at the top,
+        providing quick access to main sections.
+      </p>
+    </div>
+  </main>
+
+</body>
+</html>
+

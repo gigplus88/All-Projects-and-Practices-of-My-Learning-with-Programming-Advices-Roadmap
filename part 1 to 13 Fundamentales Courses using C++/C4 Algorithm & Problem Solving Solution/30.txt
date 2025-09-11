@@ -1,0 +1,67 @@
+#include <iostream>
+#include <cmath>
+#include <string>
+using namespace std;
+
+
+int ReadPositiveNumber (string Message)
+{
+    int Number;
+   
+    do 
+    {
+        cout << Message << endl;
+        cin >> Number;
+        
+    } while (Number < 0);
+
+        return Number;
+}
+
+int Factorial(int N)
+{
+    int  F = 1;
+    
+    for (int i = N; i >=1; i--)
+    {
+        F = F * i;
+    }
+    return F ;
+
+}
+
+//
+//int ReadUntilAgeBetween(int From, int To)
+//{
+//    int Age=0;
+//    return Age;
+//
+//}
+//
+//
+//void PrintResult(int Age)
+//{
+//
+//    
+//        cout << "Your Age is: " << Age  << endl;
+//
+//
+//}
+//
+
+ 
+
+
+
+
+int main()
+{
+    
+  
+   cout << Factorial(ReadPositiveNumber("Please enter a positive number?")) << endl;
+    return 0;
+
+}
+
+
+

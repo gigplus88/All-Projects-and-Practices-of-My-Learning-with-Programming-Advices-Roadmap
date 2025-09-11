@@ -1,0 +1,100 @@
+#include <iostream>
+#include <string>
+#include <vector>
+#include <iomanip>
+
+using namespace std;
+struct sClient
+{
+    string AccountNum;
+    string PinCode;
+    string Name;
+    string Phone;
+    double AccountBalance;
+
+};
+
+vector<string> SplitString(string  S1, string delim)
+{
+    vector<string> vSplit;
+    string Word;
+    short pos = 0;
+
+
+
+    while ((pos = S1.find(delim)) != std::string::npos)
+    {
+        Word = S1.substr(0, pos);
+
+        if (Word != "")
+        {
+            vSplit.push_back(Word);
+
+
+        }
+
+        S1.erase(0, pos + delim.length());
+    }
+
+
+
+    if (S1 != "")
+    {
+        vSplit.push_back(S1);
+    }
+
+    return vSplit;
+
+
+}
+
+
+
+
+sClient ConverLineToRecord(string  Line, string Seperator)
+    
+{
+    
+     sClient ClientInfo;
+     vector<string> vClientData = SplitString( Line, Seperator); // We are solve the vector vClientData with Split, 
+                                                           // And do this vector in ClientInfo.
+     ClientInfo.AccountNum= vClientData[0];
+     ClientInfo.PinCode = vClientData[1];
+     ClientInfo.Name = vClientData[2];
+     ClientInfo.Phone = vClientData[3];
+     ClientInfo.AccountBalance = stod(vClientData[4]);
+    
+        return ClientInfo;
+    
+}
+
+void PrintClientRecord(sClient ClientInfo)
+{
+
+    cout << " your Account Number:" << ClientInfo.AccountNum << endl;
+    cout << " your PinCode:"        << ClientInfo.PinCode << endl;
+    cout << " your Name:"           << ClientInfo.Name << endl;
+    cout << " your Phone:"          << ClientInfo.Phone << endl;
+    cout << " your AccountBalance:" << ClientInfo.AccountBalance << endl;
+}
+
+
+
+int main()
+{
+    string S1 = "A150#//#1245#//#Ayoub#//#07123432#//#984783";
+
+    //vector<string> vSplit;
+    cout << S1 << endl;
+
+    sClient ClientInfo = ConverLineToRecord(  S1, "#//#");
+
+    cout << "The following is the extracted client record: " << endl << endl;
+    PrintClientRecord(ClientInfo);
+   
+
+    system("pause>0");
+
+    return 0;
+
+}

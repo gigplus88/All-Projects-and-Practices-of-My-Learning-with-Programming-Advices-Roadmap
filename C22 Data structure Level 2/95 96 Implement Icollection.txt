@@ -1,0 +1,220 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+
+public class CustomCollection<T> : ICollection<T>
+{
+    private List<T> items = new List<T>();
+
+    public int Count => items.Count;
+
+    public bool IsReadOnly => false;
+
+    public void Add(T item)
+    {
+        items.Add(item);
+    }
+
+    public void Clear()
+    {
+        items.Clear();
+    }
+
+
+    public bool Contains(T item)
+    {
+        return items.Contains(item);
+    }
+    public void CopyTo(T[] array, int arrayIndex)
+    {
+        items.CopyTo(array, arrayIndex);
+    }
+
+    public bool Remove(T item)
+    {
+        return items.Remove(item);
+    }
+
+
+    public IEnumerator<T> GetEnumerator()
+    {
+        return items.GetEnumerator();
+    }
+
+
+    IEnumerator IEnumerable.GetEnumerator()
+    {
+        return GetEnumerator();
+    }
+
+}
+
+public class CustomCollection2<T> : ICollection<T>
+{
+    private T[] items = new T[5] ;
+
+    private int count = 0; 
+    public int Count => count;
+
+    public bool IsReadOnly => false;
+
+    public void Add(T item)
+    {
+        if (count == items.Length)
+        {
+            Array.Resize(ref items, items.Length + 1);
+        }
+        items[count] = item;
+        count++;
+    }
+
+    public void Clear()
+    {
+        for (int i = 0; i < count; i++)
+        {
+            items[i] = default(T); 
+        }
+        count = 0;
+    }
+
+
+    public bool Contains(T item)
+    {
+        for (int i = 0; i < count; i++)
+        {
+            if (EqualityComparer<T>.Default.Equals(items[i], item))
+                return true;
+        }
+        return false;
+    }
+    public void CopyTo(T[] array, int arrayIndex)
+    {
+        for (int i = 0; i < count; i++)
+        {
+            array[i] = items[i];
+        }
+    }
+
+    public bool Remove(T item)
+    {
+        for (int i = 0; i < items.Length; i++)
+        {
+            if (EqualityComparer<T>.Default.Equals(items[i], item))
+            {
+                for (int j = i; j < count-1 ; j++)
+                {
+                    
+                    items[j] = items[j + 1];
+
+
+                }
+                items[count - 1] = default(T);
+                count--;
+                return true;
+            }
+            
+        }
+        return false;
+
+    }
+
+
+    public IEnumerator<T> GetEnumerator()
+    {
+        for (int i = 0; i < count; i++)
+        {
+            yield return items[i];
+        }
+    }
+
+    IEnumerator IEnumerable.GetEnumerator()
+    {
+        return GetEnumerator();
+    }
+
+}
+class Program
+{
+
+    static void Main()
+    {
+        CustomCollection2<string> newCollection = new CustomCollection2<string>();
+
+        newCollection.Add("Said");
+        newCollection.Add("Rachid");
+        newCollection.Add("Saad");
+        newCollection.Add("Rachad");
+        newCollection.Add("Mounia");
+        newCollection.Add("Maria");
+
+
+        foreach (var item in newCollection)
+        {
+
+            Console.WriteLine(item);
+        }
+
+        newCollection.Remove("Maria");
+
+        Console.WriteLine("#######################");
+
+        foreach (var item in newCollection)
+        {
+
+            Console.WriteLine(item);
+        }
+
+        string[] arr = new string[newCollection.Count];
+
+        newCollection.CopyTo(arr, 0);
+        Console.WriteLine("#######################");
+
+        for (int i = 0; i < arr.Length; i++)
+        {
+            Console.WriteLine(arr[i]);
+
+        }
+        Console.ReadKey();
+
+    }
+
+    /*CustomCollection<string> newCollection = new CustomCollection<string>();
+
+        newCollection.Add("Ayoub");
+        newCollection.Add("Saida");
+        newCollection.Add("Mounia");
+
+        //newCollection.Remove("Saida");
+
+        Console.WriteLine($"Items in cart: {newCollection.Count}");
+
+
+        foreach (var item in newCollection)
+        {
+
+            Console.WriteLine(item);
+        }
+
+        if (newCollection.Contains("Ayoub") )
+        {
+            newCollection.Remove("Ayoub");
+            Console.WriteLine("Ayoub removed successfully");
+        }
+
+
+        string[] array = new string[3];
+
+        newCollection.CopyTo(array, 0);
+
+        Console.WriteLine("Array Items");
+
+        for (int i = 0; i < array.Length; i++)
+        {
+            Console.WriteLine( $"{array[i]} with index = {i}");
+        }
+
+        Console.WriteLine("" );
+*/
+
+}

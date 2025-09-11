@@ -1,0 +1,39 @@
+
+Declare @Counter int =1;
+
+
+while @Counter <=10
+Begin
+		if @Counter =2
+		Begin
+			continue;
+		End
+		Print 'Counter: ' + cast(@Counter as varchar);
+	
+
+		if @Counter =7
+		Begin
+			Break;
+		End
+
+		
+
+		set @Counter = @Counter+1;
+End
+
+
+declare @Counter1 int =0;
+
+
+while @Counter1 <=10
+Begin
+		set @Counter1 = @Counter1+1;
+		if @Counter1 % 2 = 0 
+		Begin
+			continue;
+		End
+		Print 'Counter: ' + cast(@Counter1 as varchar);
+
+End
+
+

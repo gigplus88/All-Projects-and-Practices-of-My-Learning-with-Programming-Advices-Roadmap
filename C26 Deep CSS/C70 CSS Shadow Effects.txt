@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>CSS Shadow Effects Demo</title>
+
+  <!-- ──────────────── Code Overview ────────────────
+       🎯 Purpose: Showcase four common CSS shadow techniques:
+                   • text-shadow           (3-D text glow)
+                   • box-shadow            (card depth, soft or spread)
+                   • inset box-shadow      (pressed-in look)
+                   • filter: drop-shadow   (image elevation)
+       🏗️ Layout:  Grid-based page body → stacked <section> demos.
+                   Flexbox wraps cards inside .card-container.
+       🧰 Use Cases: Design systems, style guides, or tutorials needing
+                     quick visual references for shadow utilities.
+       🔗 Key Properties:
+           • box-shadow: offset-x | offset-y | blur | spread | color | inset
+           • text-shadow: offset-x | offset-y | blur | color
+           • filter: drop-shadow(offset-x offset-y blur color)
+           • transition + transform: smooth hover lift.
+  ─────────────────────────────────────────────────── -->
+  <style>
+    /* 🌐 Global Reset & Base Styling */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: Arial, sans-serif;
+      background: #f0f0f0;
+      padding: 2rem;
+      color: #333;
+      display: grid;
+      row-gap: 2rem;            /* ↕ space between demo sections */
+    }
+
+    /* 📝 Text Shadow Example */
+    h1 {
+      text-align: center;
+      font-size: 2.5rem;
+      /* Subtle glow: 2 px right & down, 4 px blur */
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    }
+
+    /* 🖼️ Card Demo Container */
+    .card-container {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+    }
+
+    /* 📦 Card Base Look */
+    .card {
+      background: #fff;
+      width: 180px;
+      height: 120px;
+      padding: 1rem;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      text-align: center;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    /* 1️⃣ Soft Box Shadow */
+    .card.soft {
+      /* Mild depth (blur 10 px) */
+      box-shadow: 4px 4px 10px rgba(0,0,0,0.2);
+    }
+    .card.soft:hover {
+      /* Lift higher on hover */
+      box-shadow: 6px 6px 20px rgba(0,0,0,0.3);
+      transform: translateY(-5px);
+    }
+
+    /* 2️⃣ Spread Box Shadow */
+    .card.spread {
+      /* Extra 2 px spread gives diffused edge */
+      box-shadow: 2px 2px 5px 2px rgba(0,0,0,0.15);
+    }
+    .card.spread:hover {
+      box-shadow: 2px 2px 5px 5px rgba(0,0,0,0.2);
+      transform: translateY(-5px);
+    }
+
+    /* 3️⃣ Inset Box Shadow */
+    .card.inset {
+      /* Shadow rendered inside the box → “pressed” look */
+      box-shadow: inset 0 0 10px rgba(0,0,0,0.3);
+    }
+    .card.inset:hover {
+      box-shadow: inset 0 0 20px rgba(0,0,0,0.4);
+    }
+
+    /* 4️⃣ Drop-Shadow Filter (Image) */
+    .image-demo {
+      text-align: center;
+    }
+    .image-demo img {
+      width: 400px;
+      border-radius: 8px;
+      /* Elevate image with drop-shadow (similar syntax to box-shadow) */
+      filter: drop-shadow(5px 5px 8px rgba(0,0,0,0.3));
+      transition: filter 0.3s;
+    }
+    .image-demo img:hover {
+      filter: drop-shadow(8px 8px 12px rgba(0,0,0,0.4));
+    }
+  </style>
+</head>
+<body>
+
+  <h1>CSS Shadow Effects 🌑✨</h1>
+
+  <!-- 📦 Box-Shadow Demonstrations -->
+  <section>
+    <h2 style="text-align:center; margin-bottom:1rem;">Box Shadow Examples</h2>
+    <div class="card-container">
+      <div class="card soft">Soft Shadow</div>
+      <div class="card spread">Spread Shadow</div>
+      <div class="card inset">Inset Shadow</div>
+    </div>
+  </section>
+
+  <!-- 📝 Text Shadow Example -->
+  <section style="text-align:center;">
+    <h2>Text Shadow Example</h2>
+    <p style="font-size:1.25rem; text-shadow: 1px 1px 2px rgba(0,0,0,0.3);">
+      Shadows can make text pop!
+    </p>
+  </section>
+
+  <!-- 🖼️ Drop-Shadow Filter Example -->
+  <section class="image-demo">
+    <h2>Drop-Shadow Filter on Image</h2><br>
+    <img src="Images/A2.jpg" alt="Demo Image">
+  </section>
+
+</body>
+</html>

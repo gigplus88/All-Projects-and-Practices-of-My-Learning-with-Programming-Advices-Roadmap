@@ -1,0 +1,24 @@
+
+
+create view ReseignedEmployees as
+Select * from Employees
+where ExitDate is Not Null ;
+
+select * from ReseignedEmployees
+Union 
+select * from ActiveEmployees;
+
+select * from Countries
+Union
+select * from Countries;
+
+
+select * from Countries
+Union All
+select * from Countries;
+
+
+select * from Countries
+Union All
+select * from Departments;
+

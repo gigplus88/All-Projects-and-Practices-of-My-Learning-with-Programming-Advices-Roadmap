@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+        <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap"
+        rel="stylesheet"
+    >
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Audiowide|Sofia|Trirong|Noto+Kufi&display=swap">
+
+    <title>font-variant Examples</title>
+  <style>
+    body {
+      margin: 20px;
+      
+      line-height: 1.5;
+    }
+   
+    h1.a { font-family: "Noto Kufi Arabic", sans-serif; }
+    h1.b { font-family: "Audiowide", sans-serif; }
+    h1.c { font-family: "Sofia", sans-serif; }
+    h1.d { font-family: "Trirong", serif; }
+    h1.e { font-family: "Montserrat", sans-serif; }
+
+  </style>
+</head>
+
+<body>
+  <h1 class="a">بسم الله الرحمن الرحيم   ص و القرءان ذي الذكر</h1>
+  <h1 class="b">Audiowide Font</h1>
+  <h1 class="c">Sofia Font</h1>
+  <h1 class="d">Trirong Font</h1>
+  <h1 class="e">Montserrat Font</h1>
+  
+  <br>
+  ⚠️ <b>Performance Note:</b>    Every additional font weight or family increases load time. Request only the styles you actually use.
+
+</body>
+</html>

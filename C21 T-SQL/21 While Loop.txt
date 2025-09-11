@@ -1,0 +1,21 @@
+Declare @Counter int = 1;
+
+
+ while @Counter <=5
+	Begin 
+		Print 'Your Counter has ' + cast(@Counter as varchar);
+
+		Set @Counter = @Counter+1;
+    End
+
+ 
+ 
+Set @Counter = 5;
+
+Print 'Reverse Counter'
+ while @Counter >=1
+	Begin 
+		Print 'Your Counter has ' + cast(@Counter as varchar);
+
+		Set @Counter = @Counter-1;
+    End

@@ -1,0 +1,42 @@
+select * from dbo.GetTopPerformingStudents(90)
+
+
+
+
+-- Is My one
+Alter Function dbo.GetTopPerformingStudents(@Grade int)
+Returns @Result Table (
+    StudentID INT,
+    Name NVARCHAR(50),
+    Subject NVARCHAR(50),
+    Grade INT)
+As
+Begin
+	Insert into @Result (StudentID ,Name ,Subject ,Grade )
+	select  StudentID, Name, Subject, Grade
+    FROM Students
+	where Grade >= @Grade
+    ORDER BY Grade DESC;
+	Return;
+End
+
+
+
+
+-- For Teacher
+CREATE FUNCTION dbo.GetTopPerformingStudents()
+RETURNS @Result TABLE (
+    StudentID INT,
+    Name NVARCHAR(50),
+    Subject NVARCHAR(50),
+    Grade INT
+)
+AS
+BEGIN
+    INSERT INTO @Result (StudentID, Name, Subject, Grade)
+    SELECT TOP 3 StudentID, Name, Subject, Grade
+    FROM Students
+    ORDER BY Grade DESC;
+
+    RETURN;
+END;

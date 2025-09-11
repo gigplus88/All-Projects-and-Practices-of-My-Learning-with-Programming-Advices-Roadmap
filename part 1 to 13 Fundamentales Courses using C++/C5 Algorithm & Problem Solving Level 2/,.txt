@@ -1,0 +1,4 @@
+sum---->>       3 , 6,
+reverse -------> 7,9, 
+
+check if number reverse is the same of simple number

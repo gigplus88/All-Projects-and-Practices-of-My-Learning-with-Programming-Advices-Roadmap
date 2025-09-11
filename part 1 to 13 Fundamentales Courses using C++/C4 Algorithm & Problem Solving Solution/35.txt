@@ -1,0 +1,70 @@
+#include <iostream>
+#include <cmath>
+#include <string>
+using namespace std;
+
+struct stBankContent {
+    int Pennis, Nickels, Dimes, Quarters, Dollars;
+};
+
+stBankContent ReadstBankContent()
+{
+    stBankContent BankContent;
+
+    cout <<"Please enter a total pennis: ";
+    cin >> BankContent.Pennis;
+
+
+    cout << "Please enter a total Nickels: ";
+    cin >> BankContent.Nickels;
+
+
+    cout << "Please enter a total Dimes: ";
+    cin >> BankContent.Dimes;
+
+
+    cout << "Please enter a total Quarters: ";
+    cin >> BankContent.Quarters;
+
+
+    cout << "Please enter a total Dollars: ";
+    cin >> BankContent.Dollars;
+    return BankContent; 
+}
+
+int CalculatTotalPennies(stBankContent BankContent)
+{
+    int TotalPennies = 0;
+
+    /*TotalPennies = BankContent.Pennis * 1 + BankContent.Nickels * 5 +
+    BankContent.Dimes * 10 + BankContent.Quarters * 25 +
+    BankContent.Dollars * 100;*/
+
+TotalPennies = BankContent.Pennis * 1;
+TotalPennies += BankContent.Nickels * 5;
+TotalPennies += BankContent.Dimes * 10;
+TotalPennies += BankContent.Quarters * 25;
+TotalPennies += BankContent.Dollars * 100;
+    return TotalPennies;
+}
+
+
+
+ 
+
+
+
+
+int main()
+{
+    int TotalPennies = (CalculatTotalPennies(ReadstBankContent()));
+    cout << "Total Pennies is: " << TotalPennies << endl;
+    cout << "Total Dollars is: "<< float(TotalPennies) / 100 << endl;
+
+    
+       
+    return 0;
+
+}
+
+

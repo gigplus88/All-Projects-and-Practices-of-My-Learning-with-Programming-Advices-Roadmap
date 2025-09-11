@@ -1,0 +1,143 @@
+#include <iostream>
+#include <cmath>
+#include <string>
+#include <cstdlib>
+
+using namespace std;
+
+
+enum enPrimeNotPrime { Prime = 1, NotPrime = 2 };
+
+int ReadPositiveNumber(string Message)
+{
+
+    int Number;
+
+    do
+    {
+        cout << Message << endl;
+        cin >> Number;
+
+    } while (Number <= 0);
+
+    return Number;
+}
+
+enPrimeNotPrime CheckPrime(int Number)
+{
+    int M = /*round(Number / 2)*/ Number - 1;
+
+    for (int i = 2; i <= M; i++)
+    {
+        if (Number % i == 0)
+        {
+            return enPrimeNotPrime::NotPrime;
+        }
+
+    }
+
+    return enPrimeNotPrime::Prime;
+}
+
+
+
+int RandomNumber(int From, int To)
+{
+
+    int randNum = rand() % (To - From + 1) + From;
+
+
+    return randNum;
+}
+
+void FillArray(int arr[100], int  &arrLength)
+
+{
+    cout << "Enter number of elements:" << endl;
+    cin >> arrLength;
+
+   
+    for (int i = 0; i < arrLength; i++)
+    {
+        
+            arr[i] = RandomNumber(1, 100);
+
+        
+
+    }
+
+}
+
+
+
+
+void AddArrayElement(int  Number, int arr[100], int& arr2Length)
+
+{
+    arr2Length++;
+    
+    arr[arr2Length - 1] = Number;
+    
+   
+}
+
+
+void CopyPrimeNumbers(int arr[100], int arr2[100], int arrLength, int &arr2Length)
+
+{
+   
+
+    for (int i = 0; i < arrLength; i++)
+    {
+        if (CheckPrime(arr[i]) == enPrimeNotPrime::Prime)
+        {
+
+         AddArrayElement(arr[i], arr2, arr2Length);
+        
+        }
+    }
+
+}
+
+
+
+void PrintArray(int arr[100], int arrLength)
+
+{
+    for (int i = 0; i < arrLength; i++)
+    {
+        cout << arr[i] << " ";
+    }
+    cout << endl;
+}
+
+
+
+
+
+
+int main()
+{
+    srand((unsigned)time(NULL));
+
+    int   arr2[100], arr[100], arrLength = 0, arr2Length = 0;
+
+
+    FillArray(arr, arrLength);
+
+
+    CopyPrimeNumbers(arr, arr2, arrLength, arr2Length);
+
+    cout << endl << "Array elements: ";
+    PrintArray(arr, arrLength);
+
+    cout << endl << "Array elements 2: ";
+    PrintArray(arr2, arr2Length);
+
+
+
+
+    return 0;
+
+}
+

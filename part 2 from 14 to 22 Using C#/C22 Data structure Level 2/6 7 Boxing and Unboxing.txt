@@ -1,0 +1,31 @@
+using System;
+using System.Data;
+using System.Data.SqlClient;
+using static System.Net.Mime.MediaTypeNames;
+using System.Diagnostics;
+using System.Configuration;
+
+
+class Program
+{
+  
+    static void Main()
+    {
+        // Boxing
+
+        int intVar = 12;
+        object objVar = intVar;
+
+
+
+        Console.WriteLine("The intVar value is:" + intVar);
+        Console.WriteLine("The intVar value is:" + objVar);
+
+        // inBoxing
+
+        intVar = (int)objVar;
+        Console.WriteLine("The intVar value is:" + intVar);
+
+    }
+}
+

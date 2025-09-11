@@ -1,0 +1,155 @@
+#include <iostream>
+#include <cmath>
+#include <string>
+#include <cstdlib>
+
+using namespace std;
+
+
+
+
+int ReadPositiveNumber(string Message)
+{
+    int Number;
+
+    do
+    {
+        cout << Message << endl;
+        cin >> Number;
+
+    } while (Number <= 0);
+
+    return Number;
+}
+
+
+
+int RandomNumber(int From, int To)
+{
+
+    int randNum = rand() % (To - From + 1) + From;
+
+
+    return randNum;
+}
+
+
+
+
+
+
+void FillArray(int arr[100], int  arrLength)
+
+{
+
+    for (int i = 0; i < arrLength; i++)
+    {
+        
+             arr[i]= RandomNumber(1, 100);
+       
+    }
+
+}
+
+
+ void PrintArray(int arr[100], int  arrLength)
+
+{
+   for (int i = 0; i < arrLength; i++)
+    {
+       cout << arr[i] << " ";
+    }
+   cout << endl;
+  }
+
+ // My solution
+ // 
+ // 
+ //void ReaserchNumber(int arr[100], int  arrLength)
+ //{
+ //    int  NumberToSearch=0;
+ //    
+
+ //    for (int i = 0; i < arrLength; i++)
+ //    {
+ //        arr[i];
+ //        if ( arr[i] == NumberToSearch)
+ //        {
+ //            cout << "The Number found at position: " << i << endl;
+ //            cout << "The number found its order: " << i + 1 << endl;
+ //            break;
+ //        }
+
+ //        else if (arr[i] != NumberToSearch && i == arrLength-1)
+ //                
+ //        {
+ //         
+ //          cout << "The Number is not found )- " << endl;
+ //        }
+
+ //    }
+ //   
+ //   
+ //    
+
+ //        
+ //}
+
+ short FindNumberPositionInArray(int arr[100], int  arrLength , int NumberToSearch)
+ {
+ 
+     for (int i = 0; i < arrLength; i++)
+     {
+         if (arr[i] == NumberToSearch)
+         {
+             return i;
+         }
+     }
+
+     return 3;
+ }
+
+
+int main()
+{
+    srand((unsigned)time(NULL));
+    int   arrLength   ,arr[100] ,   NumberToSearch;
+    ;
+
+    arrLength = ReadPositiveNumber("Please enter number of elements :");
+
+    FillArray( arr, arrLength);
+
+
+    cout << "Array  elements :" << endl;
+    PrintArray(arr, arrLength);
+
+   
+    NumberToSearch=ReadPositiveNumber("Please enter number of elements :");
+    
+    short NumberPosition = FindNumberPositionInArray(arr, arrLength, NumberToSearch);
+    cout << "Number you are looking for is: " << NumberToSearch << endl;
+    
+    // My Solution
+    //ReaserchNumber( arr,   arrLength);
+
+    if (NumberPosition == 3)
+    {
+        cout << "The Number is not found )- " << endl;
+
+    }
+
+    else
+    {
+        cout << "The Number found at position: " << NumberPosition << endl;
+        cout << "The number found its order: " << NumberPosition + 1 << endl;
+
+    }
+
+    return 0;
+
+}
+
+
+
+

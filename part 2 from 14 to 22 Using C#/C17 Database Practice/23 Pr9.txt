@@ -1,0 +1,5 @@
+
+select VehicleDetails.* , FuelTypes.FuelTypeName  from VehicleDetails
+Inner join FuelTypes 
+On VehicleDetails.FuelTypeID = FuelTypes.FuelTypeID
+Where FuelTypeName = N'GAS';

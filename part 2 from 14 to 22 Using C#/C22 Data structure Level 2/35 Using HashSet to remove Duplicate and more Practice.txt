@@ -1,0 +1,76 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+
+class Program
+{
+    static void Main()
+    {
+        int[] array = new int[] { 1, 2, 2, 3, 4, 4 , 4, 5 };
+
+        var DuplicateElements = array
+            .GroupBy(n  => n)
+            .Where(g => g.Count() ==3 )
+            .Select(g => g.Key);
+
+        
+
+        foreach (int fruit in DuplicateElements)
+        {
+            Console.WriteLine(fruit);
+        }
+
+
+        //Work With array.distinct
+
+
+        //foreach (int fruit in array.Distinct())
+        //{
+        //    Console.WriteLine(fruit);
+        //}
+
+        Console.WriteLine("#########################################");
+
+
+        // Filter unique elements in array with hashset
+        HashSet<int> uniqueNumbers = new HashSet<int>(array);
+
+        
+        foreach (int fruit in uniqueNumbers)
+        {
+            Console.WriteLine(fruit);
+        }
+
+        Console.WriteLine("\nHash Set Item Count after clear = " + uniqueNumbers.Count.ToString());
+
+
+        //this will remove all elements
+        Console.WriteLine("\nHash Set Item Count after clear = " + uniqueNumbers.Count.ToString());
+
+
+
+        //HashSet to Array
+
+        Console.WriteLine("#########################################");
+        Console.WriteLine("Change HashSet to Array");
+
+
+        var NewArray = uniqueNumbers.ToArray();
+        foreach (int item in NewArray)
+        {
+            Console.WriteLine(item);
+        }
+
+        //HashSet to Array
+        Console.WriteLine("#########################################");
+        Console.WriteLine("Change HashSet to Array");
+
+        var NewHashSet = array.ToHashSet();
+        foreach (int item in NewHashSet)
+        {
+            Console.WriteLine(item);
+        }
+        Console.ReadKey();
+    }
+}

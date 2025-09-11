@@ -1,0 +1,68 @@
+using Beak= System.Console;
+using System;
+using System.IO;
+using static System.Math;
+using static System.Console;
+using System.ComponentModel;
+using System.Data.SqlClient;
+using System.Xml.Linq;
+using System.Runtime.Remoting.Messaging;
+
+
+class Program
+{
+    static void Main()
+    {
+        Nullable<int> NullableVar1 = null;
+
+
+        //Short Hand Expression
+
+        int? NullableVar2 = null;
+        NullableVar2 = 3;
+
+        if (NullableVar2.HasValue)
+        {
+            WriteLine("This is The value of NullableVar2 :" + NullableVar2);
+        }
+        else
+        {
+            WriteLine("Sorry No value" + NullableVar2);
+
+        }
+
+        //if NullableVar1 is null its default value is 8
+        int Result = NullableVar1  ?? 8;
+        NullableVar1 = null;
+
+        WriteLine("This is The value of NullableVar1 :" + Result);
+
+
+        //if NullableVar1 is null its default value is 8
+        string StringResult = NullableVar1?.ToString();
+        StringResult = "98";
+
+        WriteLine("This is The value of StringResult :" + (StringResult ?? "null")  ); //If it s null , it writes null , else it gives the value
+
+
+
+        Nullable<double> Info = null;
+        double? Temp = null;
+
+        WriteLine("Give us the Temperature please: ");
+        Temp = Convert.ToDouble( ReadLine());
+
+        Temp = null;
+
+
+        string TempVal = Temp.HasValue ? (" the Temperature is: " + Temp): (" the Temperature is: " + (Temp?? null) ) ;
+
+
+
+        WriteLine(TempVal);
+        
+
+    }
+}
+
+

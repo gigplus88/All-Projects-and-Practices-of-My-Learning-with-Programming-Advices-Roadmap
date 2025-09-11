@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>line-height Examples</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+
+    /* Make each paragraph half the container width */
+    .normal,
+    .unitless,
+    .double-line-height,
+    .px-based,
+    .em-based,
+    .percent ,
+    h1 {
+      width: 60%;
+      margin-bottom: 1.5rem;
+      margin: 4vmin auto;
+    }
+
+    .normal       { line-height: normal;      }
+    .unitless     { line-height: 1.5;         } /* 1.5 × font-size */
+    .double-line-height     { line-height: 2;      /*2vmax*/   } /* 2 × font-size */
+    .px-based     { line-height: 24px;        } /* exact 24px */
+    .em-based     { line-height: 1.5em;       } /* 1.5 × font-size */
+    .percent      { line-height: 150%;        } /* 1.5 × font-size */
+  </style>
+</head>
+<body>
+  <h1>Demonstrating <code>line-height</code> with a Short Story</h1>
+
+  <p class="normal">
+    <strong>normal</strong>: As the sun rose over the sleepy village, Emma packed her bag and set off  
+    down the winding path. Birds sang overhead, and the morning air smelled of dew and wildflowers.  
+    She wondered what adventures the day would bring.
+  </p>
+
+  <p class="unitless">
+    <strong>1.5 (unitless)</strong>: Marcus stepped onto the old wooden bridge, the river roaring  
+    beneath his feet. He paused to admire the dancing reflections of light on water, then continued  
+    his journey toward the distant mountains.
+  </p>
+
+   <p class="double-line-height">
+    <strong>2x (double)</strong>: Marcus stepped onto the old wooden bridge, the river roaring  
+    beneath his feet. He paused to admire the dancing reflections of light on water, then continued  
+    his journey toward the distant mountains.
+  </p>
+
+  <p class="px-based">
+    <strong>24px</strong>: A gentle breeze rustled through the wheat fields as Clara strolled at  
+    dusk. She collected a handful of golden stalks, feeling the soft grain slip through her fingers,  
+    and smiled at the horizon painted in shades of amber.
+  </p>
+
+  <p class="em-based">
+    <strong>1.5em</strong>: Under the ancient oak, Samuel spread out his map and compass, tracing  
+    hidden trails to forgotten ruins. The canopy above filtered the sunlight, creating patterns that  
+    danced across the parchment.
+  </p>
+
+  <p class="percent">
+    <strong>150%</strong>: The lighthouse keeper lit the beacon just as storm clouds gathered on  
+    the horizon. Waves pounded against the cliffside, and the beam of light cut through the mist,  
+    guiding sailors safely home.
+  </p>
+</body>
+</html>

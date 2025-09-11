@@ -1,0 +1,3 @@
+Arrays are bound, you cannot exceed their limits as you do in C++
+the following code will give you error because you tried to exceed the length of the array.
+

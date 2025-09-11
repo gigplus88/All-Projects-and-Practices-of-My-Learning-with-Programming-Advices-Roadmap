@@ -1,0 +1,78 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
+using System.Threading.Tasks;
+
+
+
+class Program
+{
+
+    static void Main()
+    {
+        // Initialize the jagged array with 3 rows
+        int[][] matrix = new int[3][];
+
+
+        // Populate each row with arrays of varying sizes
+        matrix[0] = new int[] { 1, 2, 3 };
+        matrix[1] = new int[] { 4, 5 };
+        matrix[2] = new int[] { 6, 7, 8, 9 };
+
+
+        // Display the matrix
+        for (int row = 0; row < matrix.Length; row++)
+        {
+            Console.Write("Row " + row + ": ");
+            for (int col = 0; col < matrix[row].Length; col++)
+            {
+                Console.Write(matrix[row][col] + " ");
+            }
+            Console.WriteLine();
+
+        }
+
+        // Flatten the jagged array and sum all elements
+        int totalSum = matrix.SelectMany(subJArray => subJArray).Sum();
+        Console.WriteLine("Total Sum: " + totalSum);
+
+        //Max
+        int MaxOfElements = matrix.SelectMany(subJArray => subJArray).Max();
+        Console.WriteLine("Max : " + MaxOfElements);
+
+        //Min
+        int MinOfElements = matrix.SelectMany(subJArray => subJArray).Min();
+        Console.WriteLine("Min : " + MinOfElements);
+
+
+
+        int[] FirstElement = matrix.Select(subJArray => subJArray).FirstOrDefault();
+        Console.WriteLine("First Element in Jagged Array : ");
+
+        foreach (var item in FirstElement)
+        {
+            Console.Write(item + " " );
+
+        }
+
+
+
+        // Filter arrays having more than 3 elements and select their first element
+        var firstElements = matrix.Where(subArray => subArray.Length == 2)
+                                       .SelectMany(subArray => subArray);
+        Console.WriteLine(" Elements has 2 items: ");
+        foreach (var element in firstElements)
+        {
+            Console.Write(element + " ");
+        }
+
+
+
+        Console.ReadKey();
+
+    }
+  
+
+}

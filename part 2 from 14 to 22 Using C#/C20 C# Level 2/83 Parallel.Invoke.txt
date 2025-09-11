@@ -1,0 +1,57 @@
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Net;
+using System.Security.Policy;
+using System.Threading;
+using System.Threading.Tasks;
+
+
+class Program
+{
+ 
+    static void Main()
+    {
+        Parallel.Invoke(
+                   () => Func1()/*Console.WriteLine($"Action 1 on thread {Task.CurrentId}"),*/,
+                   () => Func2() /*Console.WriteLine($"Action 2 on thread {Task.CurrentId}")*/,
+                   () => Func3() /*Console.WriteLine($"Action 3 on thread {Task.CurrentId}")*/
+               );
+
+
+       // Parallel.Invoke(Func1 , Func2, Func3, Func4);
+
+        Console.WriteLine("Done!");
+        Console.ReadKey();
+    }
+
+   
+    static void Func1()
+    {
+        Console.WriteLine("Func 1 Started");
+        Thread.Sleep(1000);
+        Console.WriteLine("Func 1 is Completed");
+
+    }
+    static void Func2()
+    {
+        Console.WriteLine("Func 2 Started");
+        Thread.Sleep(1000);
+        Console.WriteLine("Func 2 is Completed");
+
+    }
+    static void Func3()
+    {
+        Console.WriteLine("Func 3 Started");
+        Thread.Sleep(1000);
+        Console.WriteLine("Func 3 is Completed");
+
+    }
+    static void Func4()
+    {
+        Console.WriteLine("Func 4 Started");
+        Thread.Sleep(1000);
+        Console.WriteLine("Func 4 is Completed");
+
+    }
+}

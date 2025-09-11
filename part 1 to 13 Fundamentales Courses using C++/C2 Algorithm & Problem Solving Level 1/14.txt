@@ -1,0 +1,39 @@
+
+
+#include <iostream>
+using namespace std;
+#include <cmath>
+#include <string>
+
+ void PrintNumbers( )
+{
+     int Num1 = 0, Num2 = 0 , Num3 = 0;
+
+     cout << "Print Your first Number please : " << endl;
+     cin >> Num1;
+
+
+     cout << "Print Your first Number please : " << endl;
+     cin >> Num2;
+
+     cout << Num1 << endl;
+     cout << Num2 << endl;
+     
+     Num3 = Num1;
+     Num1 = Num2;
+     Num2 = Num3;
+
+     cout << Num1 << endl;
+     cout << Num2 << endl;
+}
+
+
+int main()
+{
+    short int Num1=0, Num2=0, Num3=0;
+
+     PrintNumbers();
+
+    return 0;
+
+}

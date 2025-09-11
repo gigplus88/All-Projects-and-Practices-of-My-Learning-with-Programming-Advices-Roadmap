@@ -1,0 +1,4 @@
+
+ select  VehicleDetails.* , Bodies.BodyName from VehicleDetails
+ Inner Join Bodies On Bodies.BodyID = VehicleDetails.BodyID
+ where   (Bodies.BodyName = 'Sport Utility')  and (VehicleDetails.Year > 2020);

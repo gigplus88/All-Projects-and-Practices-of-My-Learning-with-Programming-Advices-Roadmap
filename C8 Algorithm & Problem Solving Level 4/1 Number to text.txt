@@ -1,0 +1,119 @@
+#include <iostream>
+#include <fstream>
+#include <string>
+#include <vector>
+#include <iomanip>
+
+using namespace std;
+
+short ReadNumber()
+{
+    int Number;
+
+    cout << "Enter a Number";
+    cin >> Number;
+
+    return Number;
+}
+
+string NumberToText( int Number)
+{
+    if (Number == 0)
+    {
+        return "";
+    }
+
+    if (Number >= 1 && Number <= 19)
+    {
+        string arr[] = { "", "One","two","three" ,"four" ,"five" ,"six" ,"seven" ,"eight" ,"nine" ,"ten" ,
+            "eleven" ,"twelve" ,"thirteen" ,"forteen" ,"fifteen" ,"sixteen" ,"seventeen" ,"eighteen" ,"nineteen" };
+
+        return arr[Number] + " ";
+        
+    }
+
+    if (Number >= 20 && Number <= 99)
+    {
+        string arr[] = { "" , "", "twenty","thirty","forty" ,"fifty" ,"sixty" ,"seventy" ,"seventy" ,"eighty" ,"ninety" 
+           };
+
+        return arr[Number/10] + " " + NumberToText( Number % 10);
+
+    }
+
+    if (Number >= 100 && Number <= 199)
+    {
+       
+
+        return "One hundred" + NumberToText(Number % 100);
+
+    }
+
+    if (Number >= 200 && Number <= 999)
+    {
+        string arr[] = { "One hundred"
+        };
+
+        return arr[Number/100] + "hundreds " + NumberToText(Number % 100);
+
+    }
+
+
+    if (Number >= 1000 && Number <= 1999)
+    {
+
+
+        return "One thousand" + NumberToText(Number % 1000);
+
+    }
+
+    if (Number >= 2000 && Number <= 999999)
+    {
+        
+
+        NumberToText(Number / 1000) + "thousands " + NumberToText(Number % 1000);
+
+    }
+
+    if (Number >= 1000000 && Number <= 199999)
+    {
+
+
+        return "One million" + NumberToText(Number % 1000000);
+
+    }
+
+    if (Number >= 2000000 && Number <= 999999999)
+    {
+
+
+        NumberToText(Number / 1000000) + "millions " + NumberToText(Number % 1000000);
+
+    }
+
+
+    if (Number >= 1000000000 && Number <= 1999999999)
+    {
+
+
+        return "One billion" + NumberToText(Number % 1000000000);
+    }
+
+    else
+    {
+        NumberToText(Number / 1000000000) + "billions " + NumberToText(Number % 1000000000);
+    }
+
+    
+    
+}
+
+int main()
+
+{
+    int Number= ReadNumber();
+    cout << NumberToText( Number);
+
+    system("pause>0");
+    return 0;
+}

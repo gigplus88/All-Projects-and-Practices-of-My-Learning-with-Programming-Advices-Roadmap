@@ -1,0 +1,17 @@
+
+--Teacher Solution
+
+select Makes.Make ,sum(VehicleDetails.NumDoors) as TotalNumberOfDoors
+from VehicleDetails
+Inner Join Makes On VehicleDetails.MakeID = Makes.MakeID
+Group by Makes.Make 
+Order By TotalNumberOfDoors Desc;
+
+
+
+
+select Makes.Make ,sum(VehicleDetails.Engine_Liter_Display) as TotalNumberOfDoors
+from VehicleDetails
+Inner Join Makes On VehicleDetails.MakeID = Makes.MakeID
+Group by Makes.Make 
+Order By TotalNumberOfDoors Desc;

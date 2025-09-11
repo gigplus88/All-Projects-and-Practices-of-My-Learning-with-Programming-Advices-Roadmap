@@ -1,0 +1,44 @@
+#include <iostream>
+#include <cmath>
+#include <string>
+using namespace std;
+
+
+float ReadNumber( string Message)
+{
+    float Number = 0.0; 
+
+    cout <<Message ;
+    cin >> Number;
+    return Number;
+}
+
+
+float SummNumbers()
+{
+    int sum = 0, i = 1 ,Number=0 ;
+    
+    do
+    {
+         ReadNumber("Please enter your  number " + to_string(i) + " :");
+
+            if (Number == -99)
+            {
+                break;
+            }
+        sum += Number;
+        i++;
+    } while (Number != -99);
+
+    return sum;
+}
+ 
+
+int main()
+{
+   
+
+    cout << "Your result is: " << SummNumbers();
+    return 0;
+
+}

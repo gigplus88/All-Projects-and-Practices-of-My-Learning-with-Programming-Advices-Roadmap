@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Viewport Units Example</title>
+  <style>
+    .vw-box {
+      width: 100vw;          /* 100% of viewport width */
+      height: 20vh;          /* 20% of viewport height */
+      background: #c5cae9;
+      border: 2px solid #4527a0;
+      text-align: center;
+      line-height: 20vh;
+      margin-bottom: 20px;
+      
+    }
+ 
+    .vw-box2 {
+      width: 50vw;          /* 100% of viewport width */
+      height: 20vh;          /* 20% of viewport height */
+      background: #c5cae9;
+      border: 2px solid #4527a0;
+      text-align: center;
+      line-height: 20vh;
+      margin-bottom: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="vw-box">100vw × 20vh</div>
+  <div class="vw-box2">50vw × 20vh</div>
+</body>
+</html>

@@ -1,0 +1,67 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+
+public class Person : IComparable<Person>
+{
+    public string Name { get; set; }
+    public int Age { get; set; }
+    public int MonthlyPrice { get; set; }
+
+
+
+    // Implementing the CompareTo method for Person class
+    public int CompareTo(Person other)
+    {
+        // If other is not a valid object reference, this instance is greater.
+        if (other == null) return 1;
+
+
+        // Use the Age property to determine the order of Person instances.
+        return this.MonthlyPrice.CompareTo(other.MonthlyPrice);
+    }
+
+
+    // Constructor for easier initialization
+    public Person(string name, int age , int monthlyPrice)
+    {
+        Name = name;
+        Age = age;
+        MonthlyPrice = monthlyPrice;
+    }
+
+
+    // Override ToString to make output easier to read
+    public override string ToString()
+    {
+        return $"{Name}, {Age} years old , Price: {MonthlyPrice}";
+    }
+}
+
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        // Creating a list of Person instances
+        List<Person> people = new List<Person>
+        {
+            new Person("John", 30 ,2000),
+            new Person("Jane", 25, 2030),
+            new Person("Doe", 28, 1000),
+        };
+
+
+        // Sorting the list using IComparable implementation
+        var DescendingSort = people.OrderByDescending(p => p.MonthlyPrice);
+
+        // Printing the sorted list
+        Console.WriteLine("People sorted by MonthlyPrice:");
+        foreach (Person person in DescendingSort)
+        {
+            Console.WriteLine(person.ToString());
+        }
+        Console.ReadKey();
+    }
+}

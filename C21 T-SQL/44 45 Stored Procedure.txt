@@ -1,0 +1,36 @@
+USE [C21_DB1]
+GO
+
+-- Metod 1
+
+DECLARE	@return_value int,
+		@NewPersonID int
+
+EXEC	@return_value = [dbo].[SP_AddNewPerson]
+		@FirstName = N'Saad',
+		@LastName = N'Sami',
+		@Email = N'Saad@email.com',
+		@NewPersonID = @NewPersonID OUTPUT
+
+SELECT	@NewPersonID as N'@NewPersonID'
+
+SELECT	'Return Value' = @return_value
+
+GO
+
+
+
+-- Metod 2
+Declare @PersonID int;
+
+Exec SP_AddNewPerson
+	@FirstName = 'Salma',
+		@LastName = 'Sami',
+		@Email = 'Salim@email.com',
+		@NewPersonID = @PersonID output;
+
+
+		select @PersonID as NewPersonID;
+
+
+		select * from People

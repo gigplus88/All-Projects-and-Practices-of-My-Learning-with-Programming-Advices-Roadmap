@@ -1,0 +1,36 @@
+
+#include <iostream>
+using namespace std;
+#include <cmath>
+#include <string>
+
+ float CircleAreaAlongTheCircumference( float l , float Area )
+{
+     const float PI = 3.14;
+     Area = pow(l, 2) / (4 * PI);
+     return Area;
+
+}
+
+
+
+
+
+
+ int main()
+ {
+     float l;
+     cout << "Enter the l :";
+     cin >> l;
+     const float PI = 3.14;
+     float  Area = pow(l, 2) / (4 * PI);
+
+     cout << "The Area of the circle is: " << Area << CircleAreaAlongTheCircumference(l,Area) << endl;
+
+     cout << "The Area of the circle with floor is: " << floor(CircleAreaAlongTheCircumference(l, Area));
+
+
+
+     return 0;
+
+ }

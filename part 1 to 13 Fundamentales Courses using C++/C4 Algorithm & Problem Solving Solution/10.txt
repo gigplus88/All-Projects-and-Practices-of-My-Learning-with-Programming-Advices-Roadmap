@@ -1,0 +1,65 @@
+#include <iostream>
+#include <cmath>
+#include <string>
+using namespace std;
+
+
+
+void Readof3Numbers(int& Mark1, int& Mark2, int& Mark3)
+{
+
+    cout << "Please enter your Number 1" << endl;
+    cin >>  Mark1;
+
+    cout << "Please enter your Number 2" << endl;
+    cin >> Mark2;
+
+    cout << "Please enter your Number 3" << endl;
+    cin >> Mark3;
+
+
+}
+int SummOf3Marks(int Mark1, int Mark2, int Mark3)
+{
+
+
+    return Mark1 + Mark2 + Mark3;
+
+}
+
+float CalculateAverage(int Mark1, int Mark2, int Mark3)
+{
+    return float(SummOf3Marks( Mark1, Mark2, Mark3)) /2;
+}
+void PrintResults(int Mark1, int Mark2, int Mark3)
+{
+    cout << "The Average is: " << CalculateAverage(Mark1, Mark2,  Mark3) << endl;
+
+
+}
+
+
+
+
+
+
+int main()
+{
+    int Mark1, Mark2, Mark3;
+
+    Readof3Numbers(Mark1, Mark2, Mark3);
+    PrintResults(Mark1, Mark2, Mark3);
+
+
+    return 0;
+
+
+
+}
+
+
+
+
+
+
+

@@ -1,0 +1,50 @@
+#include <iostream>
+#include <string>
+#include <iomanip>
+
+using namespace std;
+
+string ReadString()
+{
+    string  S1;
+    cout << "Please Enter Your String?" << endl;
+    getline(cin, S1);
+    
+    return S1;
+}
+
+string LowerFirstLetterOfEachWord(string  YourInput)
+{
+    
+    bool isFirstLetter = true  ;
+    for (short i = 0; i < YourInput.length(); i++) 
+    {
+        if (YourInput[i] != ' ' && isFirstLetter)
+        {
+            YourInput[i] = tolower(YourInput[i]) ;
+        }
+
+        isFirstLetter = (YourInput[i] == ' '? true : false);  
+
+    }
+        
+    return YourInput;
+   
+}
+
+
+int main()
+{
+    
+    string  S1 = ReadString();
+
+    cout << endl << "String After Conversion " << endl;
+    
+    S1= LowerFirstLetterOfEachWord(S1); // we are convers S1 From lower to upper 
+
+    cout << S1;
+
+    system("pause>0");
+
+    return 0;
+}

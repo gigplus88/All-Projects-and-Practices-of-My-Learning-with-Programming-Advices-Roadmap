@@ -1,0 +1,39 @@
+
+
+#include <iostream>
+using namespace std;
+
+int main()
+{
+    float pennies=0.0;
+    
+    cout << "Give me a number of pennies : ";
+    cin >> pennies;
+    
+    float
+        Nickels = 5 * pennies,
+        Dimes = 10 * pennies,
+        Quarters = 25 * pennies,
+        Dollars = 100 * pennies,
+        result1 = pennies + Nickels + Dimes + Quarters + Dollars,
+        result2 = result1 / 100;
+    cout << "Give me a number of Nickels : ";
+    cin >> Nickels;
+
+    cout << "Give me a number of Dimes : ";
+    cin >> Dimes;
+
+    cout << "Give me a number of Quarters : ";
+    cin >> Quarters;
+
+    cout << "Give me a number of Dollars : ";
+    cin >> Dollars;
+
+    cout << "The number of pennies is : " << result1 << " Pennies" << "\n";
+    cout << "The number of Dollars is : " << result2 << " Dollars" << "\n";
+
+    
+    return 0 ;
+
+}
+

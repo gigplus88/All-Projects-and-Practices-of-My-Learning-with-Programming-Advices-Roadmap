@@ -1,0 +1,45 @@
+
+
+select A=5*4 , B=10/3; 
+
+select A=5*4 , B=10/3 from Employees; 
+select  ID , FirstName , A = MonthlySalary/2 from Employees; 
+
+
+select ID , FirstName + ' ' + LastName as FullName from Employees;
+
+select ID , FullName = FirstName + ' ' + LastName  from Employees;
+
+select ID , FullName = FirstName + ' ' + LastName , YearlySalary = MonthlySalary*12 from Employees;
+
+select ID , FirstName , YearlySalary = MonthlySalary*12 , BonusAmount = MonthlySalary * BonusPerc from Employees;
+
+-- For Top 3 Old Employees	With top MonthlySalary Between them
+select Distinct top 3 ID , FullName = FirstName + ' ' + LastName , Gendor , DateOfBirth ,  Age = DATEDIFF(year,DateOfBirth,GETDATE()) ,
+CountryID , DepartmentID, YearsOfWork = DATEDIFF(year,HireDate,GETDATE()) , HireDate , MonthlySalary , 
+YearlySalary = MonthlySalary*12 , MonthlyTax = MonthlySalary * 0.17 , YearlyTax = MonthlySalary * 0.17 * 12 , BonusPerc ,
+ BonusAmount = MonthlySalary * BonusPerc from Employees where MonthlySalary > 200 
+Order By YearsOfWork Desc, MonthlySalary Desc;
+
+
+-- Info Of 4 Smallest Salary iBettween Employees
+select Distinct  ID , FullName = FirstName + ' ' + LastName , Gendor , DateOfBirth ,  Age = DATEDIFF(year,DateOfBirth,GETDATE()) ,
+CountryID , DepartmentID, YearsOfWork = DATEDIFF(year,HireDate,GETDATE()) , HireDate , MonthlySalary , 
+YearlySalary = MonthlySalary*12 , MonthlyTax = MonthlySalary * 0.17 , YearlyTax = MonthlySalary * 0.17 * 12 , BonusPerc ,
+ BonusAmount = MonthlySalary * BonusPerc 
+ from Employees 
+ Where MonthlySalary in (Select Distinct top 4 MonthlySalary from Employees Order By MonthlySalary Desc)
+Order By YearsOfWork Desc, MonthlySalary Desc, Age , FullName;
+
+
+
+
+
+
+
+select * from Employees;
+
+select Today = GETDATE();
+
+
+

@@ -1,0 +1,22 @@
+
+#include<iostream>
+#include"clsString.h"
+
+using namespace std;
+
+
+
+
+int main()
+{
+	clsString String1;
+	clsString String2("Ayoub Fellah");
+
+    String1.SetValue("Saad");
+	
+	
+
+	system("pause>0");
+	return(0);
+
+}

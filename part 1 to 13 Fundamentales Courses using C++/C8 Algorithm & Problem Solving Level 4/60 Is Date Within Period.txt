@@ -1,0 +1,159 @@
+#include <iostream>
+#include <fstream>
+#include <string>
+#include <vector>
+#include <iomanip>
+#include <ctime>
+
+#pragma warning (disable : 4996)
+
+using namespace std;
+
+struct sDate {
+
+    short Year, Month, Day;
+};
+short ReadYear()
+{
+    int Year;
+
+    cout << "Enter a year: ";
+    cin >> Year;
+    cout << "\n\n";
+    return Year;
+}
+
+short ReadMonth()
+{
+    int Month;
+
+    cout << "Enter a Month: ";
+    cin >> Month;
+
+    return Month;
+}
+
+short ReadDay()
+{
+    int Day;
+
+    cout << "Enter a day: ";
+    cin >> Day;
+
+    return Day;
+}
+
+
+
+
+bool CheckIslessDate(sDate Date1, sDate Date2)
+{
+    return (Date1.Year < Date2.Year) ? true : ((Date1.Year == Date2.Year) ? (Date1.Month < Date2.Month) ? true : (Date1.Month == Date2.Month ? Date1.Day < Date2.Day : false) : false);
+}
+
+
+
+
+bool CheckAreEqualDate(sDate Date1, sDate Date2)
+{
+    return (Date1.Year == Date2.Year) ? ((Date1.Month == Date2.Month) ? ((Date1.Day == Date2.Day) ? true : false) : false) : false;
+
+}
+
+
+bool IsDate1AfterDate2(sDate Date1, sDate Date2)
+{
+    return !CheckIslessDate(Date1, Date2) && !CheckAreEqualDate( Date1,  Date2);
+
+}
+
+struct stPeriod {
+
+    sDate StartDate;
+    sDate EndDate;
+
+};
+
+sDate ReadFullDate()
+{
+    sDate Date;
+    Date.Day = ReadDay();
+    Date.Month = ReadMonth();
+    Date.Year = ReadYear();
+
+    return Date;
+}
+
+stPeriod ReadPeriod()
+{
+    stPeriod Period;
+    cout << "Enter Start Date:\n\n";
+    Period.StartDate = ReadFullDate();
+
+    cout << "Enter End Date:\n\n";
+    Period.EndDate = ReadFullDate();
+
+    return Period;
+}
+
+enum enCompareDate { Date1Before = -1 , Date1EqualDate2 = 0 , Date1After= 1};
+
+enCompareDate ComparDates(sDate Date1, sDate Date2) // Enum can give me number results;
+{
+    if (CheckIslessDate(Date1, Date2))
+    {
+        return enCompareDate::Date1Before;
+    }
+
+    else if (CheckAreEqualDate(Date1, Date2))
+    {
+        return enCompareDate::Date1EqualDate2;
+
+    }
+
+    /*else
+    {
+        return enCompareDate::Date1After;
+    }*/
+
+    // It is Faster
+    return enCompareDate::Date1After;
+
+}
+
+bool IsWithinPeriod(stPeriod Period1 , sDate Date)
+{
+    // My Solution
+    //return (CheckIslessDate(Period1.StartDate, Date) && IsDate1AfterDate2(Period1.EndDate, Date)) || (CheckAreEqualDate(Date, Period1.StartDate) || CheckAreEqualDate(Date, Period1.EndDate));
+    
+    return !(ComparDates(Date, Period1.StartDate) == enCompareDate::Date1Before
+        || ComparDates(Date, Period1.EndDate) == enCompareDate::Date1After);
+
+}
+
+
+int main()
+
+{
+    cout << "Enter Period 1:" << endl;
+    stPeriod Period1 = ReadPeriod();
+
+
+
+    cout << "Enter Date to Check:" << endl;
+    sDate Date = ReadFullDate();
+
+    if (IsWithinPeriod( Period1,  Date))
+    {
+        cout << "Yes , Date is within Period" << endl;
+    }
+    else
+    {
+        cout << "No , Date is not within Period" << endl;
+
+    }
+   
+
+    system("pause>0");
+    return 0;
+}

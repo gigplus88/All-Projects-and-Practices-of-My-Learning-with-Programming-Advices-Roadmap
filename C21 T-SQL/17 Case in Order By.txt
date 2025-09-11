@@ -1,0 +1,7 @@
+SELECT Name, Salary
+FROM Employees
+ORDER BY 
+    CASE 
+        WHEN Salary > 50000 THEN 1
+        ELSE 2
+    END;

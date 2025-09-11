@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <title>Image Ex</title>
+    </head>
+    <body >
+        <h1>Image Example</h1>
+
+        <p>Examle of Lost Image:</p>
+    
+    <img src="koko.jpg" alt="Not Image find" title="Koko image">
+
+    <img src="Images/Logo.png" alt="Learn the right way!"  width="50" height="50" title="Your Logo">
+        <br>
+    <br>
+    <br>
+
+    <img src="Images/Logo.png" alt="Learn the right way!"  style="width: 25%; height: auto;" title="Your Logo">
+    <br>
+    <img src="Images/Logo.png" alt="Learn the right way!"   width="200" height="200" title="Your Logo">
+    <br>
+    <img src="Images/Logo.png" alt="Learn the right way!"  style="width: 25%; height: auto;" title="Your Logo">
+    <br>
+    <br>
+    <br>
+
+    <img src="Images/Logo.png" alt="Learn the right way!" loading="lazy" style="width: 25%; height: auto;" title="Your Logo">
+
+    <br>
+
+    <p>Diving Image</p>
+    <img src="Images/Diving.jpg" alt="Learn the right way!"loading="lazy"  width="100" height="50" title="Diving">
+    <br>
+
+    <img src="Images/Diving.jpg" alt="Learn the right way!"loading="lazy"  style="width: 45%; height: auto;" title="Diving">
+
+        <br>
+            <img src="Images/Diving.jpg" alt="Learn the right way!" loading="lazy" style="width: 45%; height: auto;" title="Diving">
+
+
+
+            <br>
+            <br>
+            <br>
+            <br>
+
+
+
+
+
+    <img src="Images/Diving.jpg" alt="Learn the right way!"  width="100" height="50" title="Diving">
+
+
+
+
+
+
+
+        
+
+    </body>
+</html>

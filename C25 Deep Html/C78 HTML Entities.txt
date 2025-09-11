@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rel Attribute Example</title>
+</head>
+<body>
+   <h1>HTML Entities, Emojis, and Math Symbols</h1>
+    <p>This document demonstrates various HTML entities, emojis, and math symbols:</p>
+
+     <!-- Display <b> tag -->
+     <p><strong>Display html tag as it is:</strong> b tag = &lt;b &gt; <br>.</p>
+
+
+    <!-- Common HTML Entities -->
+    <p><strong>Common HTML Entities:</strong> Less than (&lt;), Greater than (&gt;), Ampersand (&amp;), Non-breaking Space (&nbsp;&nbsp;&nbsp;&nbsp;),
+         Copyright (&copy;), Registered Trademark (&trade;), Euro Sign (&euro;).</p>
+
+    <!-- Mathematical Symbols -->
+    <p><strong>Mathematical Symbols:</strong> Plus/Minus (±), Multiplication (times) (×), Division (obelus) (÷), Square Root (√), Pi (π), Integral (∫), Almost Equal to (≈).</p>
+
+    <!-- Emojis -->
+    <p><strong>Emojis:</strong> Smiley Face (😀), Thinking Face (🤔), Heart (❤️), Star (⭐).</p>
+
+    <!-- Arrows -->
+    <p><strong>Arrows:</strong> Right Arrow (→), Left Arrow (←), Up Arrow (↑), Down Arrow (↓).</p>
+</body>
+</html>

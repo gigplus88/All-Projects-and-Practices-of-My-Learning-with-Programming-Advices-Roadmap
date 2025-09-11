@@ -1,0 +1,30 @@
+
+
+ -- Join between 2 tables
+
+SELECT Employees.ID, Employees.FirstName, Employees.LastName, Departments.Name as DepName
+FROM     Departments INNER JOIN Employees 
+ON Departments.ID = Employees.DepartmentID
+				  Where Departments.Name = 'IT';
+				  
+ -- Join between 3 tables
+
+ 
+SELECT Employees.ID, Employees.FirstName, Employees.LastName, Departments.Name, Countries.Name AS Expr1
+FROM     Employees INNER JOIN
+                  Departments ON Employees.DepartmentID = Departments.ID INNER JOIN
+                  Countries ON Employees.CountryID = Countries.ID;
+
+SELECT Employees.ID, Employees.FirstName, Employees.LastName, Departments.Name, Countries.Name AS Expr1
+FROM     Employees INNER JOIN
+                  Departments ON Employees.DepartmentID = Departments.ID INNER JOIN
+                  Countries ON Employees.CountryID = Countries.ID
+				  Where Countries.Name = 'UK' ;
+
+
+
+
+				  select * from Employees;
+				  select * from Departments;
+				  select * from Countries;
+

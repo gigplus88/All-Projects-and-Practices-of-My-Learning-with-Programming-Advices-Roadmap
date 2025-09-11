@@ -1,0 +1,212 @@
+// My Example
+
+using System;
+using System.IO;
+using System.Net;
+using System.Security.Cryptography;
+using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
+
+class Program
+{
+    public class BlockEventArgs : EventArgs
+    {
+
+        public string Site { get; }
+        public string CodeToBlock { get; }
+
+
+        public BlockEventArgs(string Site, string CodeToBlock)
+        {
+            this.Site = Site;
+            this.CodeToBlock = CodeToBlock;
+        }
+
+    }
+    public delegate void BlockEventHandler(object sender, BlockEventArgs e);
+    public static event BlockEventHandler BlockEvent;
+
+
+    
+    static async Task Main()
+    {
+
+        BlockEvent += OnCallbackReceived;
+
+
+        Console.WriteLine("Starting tasks...");
+
+        // Start the first task to download and print content length from CNN
+        Task task1 = DownloadAndPrintAsync("https://www.cnn.com", BlockEvent);
+        Console.WriteLine("Task 1 started...");
+
+        //Start the second task to download and print content length from Amazon
+        Task task2 = DownloadAndPrintAsync("https://www.amazon.com", BlockEvent);
+        Console.WriteLine("Task 2 started...");
+
+        // Start the third task to download and print content length from ProgrammingAdvices
+        Task task3 = DownloadAndPrintAsync("https://www.ProgrammingAdvices.com" , BlockEvent);
+        Console.WriteLine("Task 3 started...\n");
+
+        // Wait for all tasks to complete
+        await Task.WhenAll(task1, task2, task3);
+
+        //Print a message indicating that all tasks have finished execution
+        Console.WriteLine("\nDone, all tasks finished execution.");
+        Console.ReadKey();
+    }
+
+
+
+    static async Task DownloadAndPrintAsync(string url, BlockEventHandler BlockEvent)
+    {
+
+        string content;
+
+        // Using statement ensures that the WebClient is disposed of properly
+        using (WebClient client = new WebClient())
+        {
+            // Simulate some work by adding a delay
+            await Task.Delay(100);
+
+            // Download the content of the web page asynchronously
+            content = await client.DownloadStringTaskAsync(url);
+        }
+
+        // Print the URL and the length of the downloaded content
+        Console.WriteLine($"{url}: {content.Length} characters downloaded");
+
+        BlockEventArgs blockEventArgs = new BlockEventArgs(url, "B14n290");
+        BlockEvent?.Invoke(null, blockEventArgs);
+
+    }
+    static string Encrypt(string plainText, string key)
+    {
+        using (Aes aesAlg = Aes.Create())
+        {
+            // Set the key and IV for AES encryption
+            aesAlg.Key = Encoding.UTF8.GetBytes(key);
+            aesAlg.IV = new byte[aesAlg.BlockSize / 8];
+
+
+            // Create an encryptor
+            ICryptoTransform encryptor = aesAlg.CreateEncryptor(aesAlg.Key, aesAlg.IV);
+
+
+            // Encrypt the data
+            using (var msEncrypt = new System.IO.MemoryStream())
+            {
+                using (var csEncrypt = new CryptoStream(msEncrypt, encryptor, CryptoStreamMode.Write))
+                using (var swEncrypt = new System.IO.StreamWriter(csEncrypt))
+                {
+                    swEncrypt.Write(plainText);
+                }
+
+
+                // Return the encrypted data as a Base64-encoded string
+                return Convert.ToBase64String(msEncrypt.ToArray());
+            }
+        }
+    }
+
+    static public void OnCallbackReceived(object sender, BlockEventArgs e)
+    {
+        Console.WriteLine($"You are two Parameters After throwing your CallBackEvent {e.Site} and {e.CodeToBlock}");
+
+        string key = "1234567890123456";
+        string encryptedCode = Encrypt( e.CodeToBlock , key);
+
+        Console.WriteLine($"Your Code is Encrypted, Successfully");
+
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//MyTeacher Example
+
+using System;
+using System.Threading.Tasks;
+
+// Custom event arguments class
+public class CustomEventArgs : EventArgs
+{
+    public int Parameter1 { get; }
+    public string Parameter2 { get; }
+
+    public CustomEventArgs(int param1, string param2)
+    {
+        Parameter1 = param1;
+        Parameter2 = param2;
+    }
+}
+
+class Program
+{
+    // Define a delegate for the callback
+    public delegate void CallbackEventHandler(object sender, CustomEventArgs e);
+
+    // Define an event based on the delegate
+    public static event CallbackEventHandler CallbackEvent;
+
+    static async Task Main()
+    {
+        // Subscribe to the event
+        CallbackEvent += OnCallbackReceived;
+
+        // Create and run a Task for the asynchronous operation, passing CallbackEvent as a parameter
+        Task performTask = PerformAsyncOperation(CallbackEvent);
+
+        // Do some other work while waiting for the task to complete
+        Console.WriteLine("Doing some other work...");
+
+        // Wait for the task to complete
+        await performTask;
+
+        Console.WriteLine("Done!");
+        Console.ReadKey();
+    }
+
+    static async Task PerformAsyncOperation(CallbackEventHandler callback)
+    {
+        // Simulate an asynchronous operation
+        await Task.Delay(2000);
+
+        // Create event arguments with two parameters
+        CustomEventArgs eventArgs = new CustomEventArgs(42, "Hello from event");
+
+        // Check if the callback event is not null before invoking
+        callback?.Invoke(null, eventArgs);
+    }
+
+    // Event handler for the CallbackEvent
+    static void OnCallbackReceived(object sender, CustomEventArgs e)
+    {
+        Console.WriteLine($"Event received: Parameter 1 - {e.Parameter1}, Parameter 2 - {e.Parameter2}");
+    }
+}
+
+
+
+

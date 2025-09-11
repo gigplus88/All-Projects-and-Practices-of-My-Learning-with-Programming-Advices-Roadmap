@@ -1,0 +1,104 @@
+using System;
+using System.Linq;
+using System.Data;
+
+namespace ConsoleAppDataTable
+{
+    public class Example
+    {
+        public static void Main(string[] args)
+        {
+
+            DataTable Employee = new DataTable();
+
+            Employee.Columns.Add("ID", typeof(int));
+            Employee.Columns.Add("Name", typeof(string));
+            Employee.Columns.Add("Country", typeof(string));
+            Employee.Columns.Add("Salary", typeof(Double));
+            Employee.Columns.Add("Date", typeof(DateTime));
+
+            DataColumn[] PrimaryKeyColumn = new DataColumn[1];
+            PrimaryKeyColumn[0] = Employee.Columns["ID"]; // Is decide what is the column whiche has Primary key
+            Employee.PrimaryKey = PrimaryKeyColumn;
+
+
+            Employee.Rows.Add(1, "Ayoub Fellah", "Morocco", 2000, DateTime.Now);
+            Employee.Rows.Add(2, "Saad Bihi", "Morocco", 5000, DateTime.Now);
+            Employee.Rows.Add(3, "Ayoub Rochdi", "Lebnano", 1000, DateTime.Now);
+            Employee.Rows.Add(4, "Zaid smikss", "Ksa", 2000, DateTime.Now);
+            Employee.Rows.Add(5, "Rachad Fellah", "Morocco", 8000, DateTime.Now);
+            Employee.Rows.Add(6, "Zoubir laroui", "Tunisie", 9000, DateTime.Now);
+
+
+            foreach (DataRow Row in Employee.Rows)
+            {
+                Console.WriteLine($"ID : {Row["ID"]} \t Name : {Row["Name"]} \t Country : {Row["Country"]}  \t Salary : {Row["Salary"]}  \t Date : {Row["Date"]} ");
+                //Console.WriteLine("ID : {0} \t Name : {1} \t Country : {2}  \t Salary : {3}  \t Date : {4}", Row[0], Row[1],Row[2],Row[3],Row[4]);
+            }
+
+            Console.WriteLine("\n");
+
+
+
+
+
+            // Display all records in view
+
+            
+            DataView EmployeeDatView1 = Employee.DefaultView;
+
+            for (int i = 0; i < EmployeeDatView1.Count; i++)
+            {
+            //    Console.WriteLine("{0} , {1} , {2} ,{3} , {4} " , EmployeeDatView[i][0] , EmployeeDatView[i][1] , 
+            //        EmployeeDatView[i][2] , EmployeeDatView[i][3]);
+
+                Console.WriteLine($"ID :{EmployeeDatView1[i][0]} \t Name : {EmployeeDatView1[i][1]} \t Country : {EmployeeDatView1[i][2]} " +
+                    $"\t Salary : {EmployeeDatView1[i][3]} \t Date :  {EmployeeDatView1[i][4]} ");
+            }
+
+
+
+
+
+
+            // By Filtering
+            Console.WriteLine("\n");
+            Console.WriteLine("Dataview after filtering country to Lebnano or Ksa");
+
+
+            EmployeeDatView1.RowFilter = "Country = 'Lebnano' or Country = 'Ksa' ";
+
+            for (int i = 0; i < EmployeeDatView1.Count; i++)
+            {
+                 Console.WriteLine("{0} , {1} , {2} ,{3} , {4} " , EmployeeDatView1[i][0] , EmployeeDatView1[i][1] , 
+                     EmployeeDatView1[i][2] , EmployeeDatView1[i][3] , EmployeeDatView1[i][4]);
+
+                //Console.WriteLine($"ID :{EmployeeDatView1[i][0]} \t Name : {EmployeeDatView1[i][1]} \t Country : {EmployeeDatView1[i][2]} " +
+                  //  $"\t Salary : {EmployeeDatView1[i][3]} \t Date :  {EmployeeDatView1[i][4]} ");
+            }
+
+
+
+            // By Sorting
+            Console.WriteLine("\n");
+            Console.WriteLine("Dataview after Sorting by Name");
+
+
+            EmployeeDatView1.Sort = "Name desc";
+            EmployeeDatView1.Sort = "ID desc";
+
+
+            for (int i = 0; i < EmployeeDatView1.Count; i++)
+            {
+                Console.WriteLine("{0} , {1} , {2} ,{3} , {4} ", EmployeeDatView1[i][0], EmployeeDatView1[i][1],
+                    EmployeeDatView1[i][2], EmployeeDatView1[i][3], EmployeeDatView1[i][4]);
+
+                //Console.WriteLine($"ID :{EmployeeDatView1[i][0]} \t Name : {EmployeeDatView1[i][1]} \t Country : {EmployeeDatView1[i][2]} " +
+                //  $"\t Salary : {EmployeeDatView1[i][3]} \t Date :  {EmployeeDatView1[i][4]} ");
+            }
+
+           
+            Console.ReadKey();
+        }
+    }
+}

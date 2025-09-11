@@ -1,0 +1,8 @@
+
+select VehicleDetails.Vehicle_Display_Name from VehicleDetails
+where Engine_CC = ( select Min(Engine_CC) as MinEngineCC from  VehicleDetails);
+
+
+
+select VehicleDetails.Vehicle_Display_Name from VehicleDetails
+where Engine_CC in ( select Min(Engine_CC) as MinEngineCC from  VehicleDetails);

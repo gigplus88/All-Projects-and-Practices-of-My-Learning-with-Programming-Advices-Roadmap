@@ -1,0 +1,10 @@
+
+SELECT 
+    StudentID, 
+    Name, 
+    Subject,
+	Grade ,
+    Sum(Grade) OVER (Partition by Subject ORDER BY Grade DESC) SubjectTotalGrade,
+	Avg(Grade) OVER (Partition by Subject ORDER BY Grade DESC) SubjectTotalGrade 
+FROM 
+    Students;

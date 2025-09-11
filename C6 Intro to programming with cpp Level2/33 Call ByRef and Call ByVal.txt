@@ -1,0 +1,30 @@
+#include <cmath>
+#include <string>
+#include <iomanip>
+#include <vector>
+
+using namespace std;
+
+
+void Function1(int &x)
+{
+    x++;
+    cout << &x;
+}
+
+
+
+int main()
+{
+    int a = 3;
+
+    Function1(a);
+
+    cout << endl << &a;
+    cout << " a after using Function1 is:" << a;
+    
+   
+
+    return 0;
+}
+

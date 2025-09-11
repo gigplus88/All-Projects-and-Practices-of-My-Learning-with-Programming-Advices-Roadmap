@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>CSS Units Showcase</title>
+  <style>
+    .example1 {
+      font-family: Arial, sans-serif;
+      font-size: 3rem;
+    }
+
+    .example2 {
+      font-family: 'Times New Roman', Times, serif;
+      font-size: 2em;
+    }
+
+    .example3{
+        font-family:'Courier New', Courier, monospace , system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
+         'Oxygen', 'Ubuntu', 'Cantarell', 'Open Sans', 'Helvetica Neue', sans-serif;
+        font-size: 1.5em;
+        background-color: #f0f0f0;
+        padding: 10px;
+    }
+    .example4 {
+      font-family: cursive;
+      font-size: 1.2em;
+      color: #6a5acd;
+    }
+  </style>
+</head>
+<body>
+
+  
+  <h1>font-family Demonstrations</h1>
+
+  <h2>1. Single-word Name</h2>
+  <p class="example1">
+    This paragraph uses <code>font-family: Arial, sans-serif;</code> — a common web-safe single-word font with a generic fallback.
+  </p>
+
+  <h2>2. Multi-word Name</h2>
+  <p class="example2">
+    This text uses <code>font-family: "Times New Roman", Times, serif;</code> — a multi-word font name in quotes, followed by fallbacks.
+  </p>
+
+  <h2>3. Monospace Code</h2>
+  <pre class="example3">
+    function helloWorld() {
+    console.log("Monospace font stack!");
+    }
+  </pre>
+
+  <h2>4. Cursive Style</h2>
+  <p class="example4">
+    <code>font-family: cursive;</code> applies a decorative cursive style defined by the browser or OS.
+  </p>
+
+  <h2>5. System UI Stack</h2>
+  <p class="example5">
+    System-UI fonts use the platform’s native interface font for a more integrated look across devices.
+  </p>
+
+</body>
+</html>
+
+

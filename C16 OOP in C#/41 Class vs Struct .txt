@@ -1,0 +1,51 @@
+using System;
+namespace CsharpStruct
+{
+
+    // defining class
+    class Employee
+    {
+        public string name;
+
+    }
+
+    // defining struct
+    struct employee
+    {
+        public string name;
+
+    }
+
+   
+    class Program
+    {
+        static void Main(string[] args)
+        {
+
+           // A class is a reference type whereas a struct is a value type.For example,
+
+
+
+            Employee emp1 = new Employee();
+            emp1.name = "John";
+
+            // assign emp1 to emp2
+            Employee emp2 = emp1;
+            emp2.name = "Mohammed";
+            Console.WriteLine("Employee1 name: " + emp1.name);
+
+
+            // For Struct
+            employee emps1 = new employee();
+            emps1.name = "Mohammed";
+
+
+            // assign emp1 to emp2
+            employee emps2 = emps1;
+            emps2.name = "Ali";
+            Console.WriteLine("Employee1 name: " + emps1.name);
+
+            Console.ReadLine();
+        }
+    }
+}

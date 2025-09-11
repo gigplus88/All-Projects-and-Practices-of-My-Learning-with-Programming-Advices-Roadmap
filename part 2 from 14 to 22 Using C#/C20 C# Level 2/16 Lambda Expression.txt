@@ -1,0 +1,169 @@
+using System;
+
+class Program
+{
+    static Func<int , float> Square = x => x + x;
+
+   
+    static void Main()
+    {
+       
+
+        float result2 = Square(4);
+        Console.WriteLine(result2);
+
+    }
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+// For Action Delegate (Procedure Anonymos and Parmetrize Anonymos)
+
+using System;
+
+class Program
+{
+    static Action ParameterLessAction = () => {
+        Console.WriteLine("This is your Parametrize delegate");
+    };
+    static Action<int> ParameterLessAction2 = (x) =>
+    {
+        Console.WriteLine($"This is your Parametrize delegate with parameter : {x}");
+    };
+    static Action<string, int> ParameterLessAction3 = ( message, x) =>
+    {
+        Console.WriteLine(message + "," + x);
+    };
+
+    static void Main()
+    {
+        //Method1
+
+        ParameterLessAction();
+        ParameterLessAction2(4);
+        ParameterLessAction3("This is your Parametrize delegate with two parameter: string and ", 6);
+
+
+
+        //Method2
+
+
+    }
+    static void ActionWithoutParameter()
+    {
+        Console.WriteLine("This is your Parametrize delegate");
+    }
+    static void ParameterlessMethod(int x)
+    {
+        Console.WriteLine($"This is your Parametrize delegate with parameter : {x}");
+    }
+
+    static void ActionWithMultipleParameters(string message, int x)
+    {
+        Console.WriteLine(message + "," + x);
+    }
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Lambda Exp with Func Delegate
+using System;
+
+class Program
+{
+    public  delegate int Operation(int x, int y);
+
+    public static int Add(int x, int y)
+    {
+        return x + y;
+    }
+
+    public static int Substr(int x, int y)
+    {
+        return x - y;
+    }
+
+    public static int Mul(int x, int y)
+    {
+        return x * y;
+    }
+
+    //public static void ResultUI(int x, int y, Operation Op, string OpType)
+    //{
+    //    Console.WriteLine($"The Result Of {OpType} {x} and {y} is {Op(x, y)}");
+    //}
+
+    public static void ResultUI(int x, int y, Func<int, int, int> Operation, string OpType)
+    {
+        Console.WriteLine($"The Result Of {OpType} {x} and {y} is {Operation(x, y)}");
+    }
+    static void Main()
+    {
+        //Simple Method
+
+        //Operation AddOp = Add;
+        //Operation SubOp = Substr;
+        //Operation MultbOp = Mul;
+
+
+
+
+
+        // Method with Simple Delegate
+
+        //Operation AddOp = (x,y) => (x+y);
+        //Operation SubOp = (x, y) => (x - y);
+        //Operation MultbOp = (x, y) => (x * y);
+
+
+
+
+
+
+        // Method 2 with Function Delegate
+
+        Func<int , int ,int> AddOp = (x, y) => x + y;
+        Func<int, int, int> SubOp = (x, y) => x - y;
+        Func<int, int, int> MultbOp = (x, y) => x * y;
+
+
+        ResultUI(3, 2, AddOp, "Add");
+        ResultUI(3, 2, SubOp, "Substract");
+        ResultUI(3, 2, MultbOp, "Mul");
+
+
+
+
+
+    }
+    
+
+}
+
+

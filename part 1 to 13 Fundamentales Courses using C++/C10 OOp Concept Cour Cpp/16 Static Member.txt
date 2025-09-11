@@ -1,0 +1,57 @@
+  #include <iostream>
+#include <iostream>
+#include <fstream>
+#include <string>
+#include <vector>
+#include <iomanip>
+
+using namespace std;
+
+
+class clsB
+{
+   
+public:
+
+    int Var = 0;
+    static  int Counter ;
+
+    clsB()
+    {
+        Counter++;
+    }
+   
+    void PrintResult()
+    {
+        cout << "\nThe Variable has :" << Var;
+        cout << "\nThe counter has:" << Counter << "\n";
+    }
+
+};
+
+int clsB::Counter = 0; // Initialisation for Static variable "Counter" for All Class;
+
+int main()
+
+{
+    clsB B1, B2, B3;
+
+    B1.Var = 2;
+    B2.Var = 4;
+    B3.Var = 3;
+
+    B1.PrintResult();
+    B2.PrintResult();
+    B3.PrintResult();
+
+    B1.Counter = 4989; // To improve that Counter is Static;
+
+    cout << "After Changing the value of Static Variable(Counter) in B3 Object , We are this Changing in All Objects" << endl;
+     
+    B1.PrintResult();
+    B2.PrintResult();
+    B3.PrintResult();
+
+    system("pause>0");
+    return 0;
+}

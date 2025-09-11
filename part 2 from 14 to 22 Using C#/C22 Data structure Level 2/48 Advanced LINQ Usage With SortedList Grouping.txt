@@ -1,0 +1,43 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+
+class Program
+{
+    static void Main()
+    {
+        // Initialize a SortedList of int keys and string values with fruit names
+        SortedList<int, string> sortedList = new SortedList<int, string>()
+        {
+            { 1, "Apple" },
+            { 2, "Banana" },
+            { 3, "Cherry" },
+            { 4, "Date" },
+            { 5, "Grape" },
+            { 6, "Fig" },
+            { 7, "Elderberry" },
+            { 8, "Camel" }
+
+        };
+
+
+
+
+        // Grouping fruits by the length of their names
+        Console.WriteLine("Grouping fruits by the length of their names:");
+
+        var Group = sortedList.GroupBy(x => x.Value.Length).OrderByDescending(x => x.Key);
+        var Group2 = sortedList.GroupBy(x => x.Value).OrderByDescending(x => x.Key);
+
+        //var Group2 = sortedList.GroupBy(x => x.Value).OrderBy(x => x.Key);
+
+
+
+        var groups = sortedList.GroupBy(kvp => kvp.Value.Length);
+        foreach (var group in Group)
+        {
+            Console.WriteLine($"Name Length {group.Key}: {string.Join(", ", group.Select(kvp => kvp.Value))}");
+        }
+    }
+}

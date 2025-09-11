@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>CSS Padding Practice Activity</title>
+  <style>
+  * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+     body {
+      font-family: Arial, sans-serif;
+      line-height: 1.5;
+      padding: 1rem;
+      height: 3000px;
+    }
+
+    .container {
+      background-color: antiquewhite;
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      justify-content: space-around;
+      align-items:center;
+      padding: 1rem;
+      gap: 1rem;
+    }
+    .box {
+      background-color: lightblue;
+      width: 200px;
+      font-size: 2rem;
+      flex: 1 1 calc(33% );
+      flex: 1;
+      color: white;
+      border: 2px solid black;
+      border-radius: 8px;
+      text-align: center;
+    }
+
+    .site-footer {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;   /* spread columns */
+      background: #333;
+      color: white;
+    }
+    .footer-col {
+      flex: 1;                           /* each column shares available space */
+      padding: 0 1rem;  
+                /* horizontal padding */
+    }
+    .footer-col h3 {
+      margin-bottom: 0.5rem;
+    }
+    .footer-col p, .footer-col ul {
+      margin-bottom: 0.5rem;
+    }
+    .footer-col ul {
+      list-style: none;                 /* remove bullets */
+    }
+    .footer-col li {
+      margin-bottom: 0.25rem;
+    }
+
+
+       @media (max-width: 1900px) {
+      .box {
+        flex: 1 1 calc(33% - 1rem);
+      }
+       .footer-col {
+        flex: 1 1 calc(33% - 1rem);
+      }
+      .site-footer {
+        flex-direction: row;         /* vertical stack */
+        text-align: center;             /* center text */
+      }
+    }
+
+
+     @media (max-width: 1200px) {
+      .box {
+        flex: 1 1 calc(50% - 1rem);
+      }
+      .footer-col {
+        flex: 1 1 calc(50% - 1rem);
+      }
+      .site-footer {
+        flex-direction: row;         /* vertical stack */
+        text-align: center;             /* center text */
+      }
+    }
+  
+
+     @media (max-width: 900px) {
+      .box {
+        flex: 1 1 calc(100% );
+      }
+      .footer-col {
+        flex: 1 1 calc(100% );
+      }
+      .site-footer {
+        flex-direction: column;         /* vertical stack */
+        text-align: center;             /* center text */
+      }
+    }
+
+   
+    
+    
+  </style>
+
+
+</head>
+<body>
+   <h1>Practice FlexBox Solution</h1>
+   <div class="container">
+    <div class="box">1</div>
+    <div class="box">2</div>
+    <div class="box">3</div>
+    <div class="box">4</div>
+    <div class="box">5</div>
+    <div class="box">6</div>
+    <div class="box">7</div>  
+    <div class="box">8</div>
+    <div class="box">9</div>
+   </div>
+  
+  <footer class="site-footer">
+    <div class="footer-col">
+      <h3>About Us</h3>
+      <p>We build responsive layouts using Flexbox.</p>
+    </div>
+    <div class="footer-col">
+      <h3>Quick Links</h3>
+      <ul>
+        <li><a href="#">Privacy Policy</a></li>
+        <li><a href="#">Terms of Service</a></li>
+        <li><a href="#">FAQ</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h3>Contact</h3>
+      <p>Email: info@example.com</p>
+      <p>Phone: +123 456 7890</p>
+    </div>
+  </footer>
+
+
+  <script>
+    
+  </script>
+
+</body>
+</html>

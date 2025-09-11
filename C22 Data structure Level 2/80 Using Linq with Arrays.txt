@@ -1,0 +1,42 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
+using System.Threading.Tasks;
+
+
+
+class Program
+{
+
+    static void Main()
+    {
+        int[] numbers = { 1, 2, 3,39 ,0 , -2 , 77 ,  4, 5 };
+
+        var EvenNumbers = numbers.Where(x => x % 2 == 0);
+
+
+
+        foreach (var item in EvenNumbers)
+        {
+            Console.WriteLine(item);
+        }
+        Console.WriteLine();
+        var SortWithLinq = numbers.OrderByDescending(x=> x );
+
+
+        foreach (var item in SortWithLinq)
+        {
+            Console.WriteLine(item);
+        }
+
+
+
+
+        Console.ReadKey();
+
+    }
+
+
+}

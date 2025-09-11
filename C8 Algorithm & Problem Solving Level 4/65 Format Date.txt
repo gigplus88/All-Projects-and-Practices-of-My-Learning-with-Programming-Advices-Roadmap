@@ -1,0 +1,152 @@
+#include <iostream>
+#include <fstream>
+#include <string>
+#include <vector>
+#include <iomanip>
+#include <ctime>
+#include <cmath>
+
+
+#pragma warning (disable : 4996)
+
+using namespace std;
+
+struct sDate {
+
+    int Year, Month, Day;
+};
+string ReadDateString()
+{
+    string DateString;
+
+    cout << "Please enter Date dd/mm/yyyy?";
+    getline(cin  >>ws, DateString);
+    cout << "\n\n";
+    return DateString;
+}
+
+short ReadYear()
+{
+    int Year;
+
+    cout << "Enter a Year: ";
+    cin >> Year;
+
+    return Year;
+}
+
+short ReadMonth()
+{
+    int Month;
+
+    cout << "Enter a Month: ";
+    cin >> Month;
+
+    return Month;
+}
+
+short ReadDay()
+{
+    int Day;
+
+    cout << "Enter a day: ";
+    cin >> Day;
+
+    return Day;
+}
+
+
+vector<string> SplitString(string  S1, string delim)
+{
+    vector<string> vSplit;
+    string Word;
+    short pos = 0;
+
+
+
+    while ((pos = S1.find(delim)) != std::string::npos)
+    {
+        Word = S1.substr(0, pos);
+
+        if (Word != "")
+        {
+            vSplit.push_back(Word);
+
+
+        }
+
+        S1.erase(0, pos + delim.length());
+    }
+
+
+
+    if (S1 != "")
+    {
+        vSplit.push_back(S1);
+    }
+
+    return vSplit;
+
+
+}
+
+
+sDate PrintDateToStruct(  string DateString)
+{
+    sDate Date;
+
+    // My Solution
+    //Date = ConvertLineToRecord(DateString, "/"); 
+
+    vector<string> vWord = SplitString(DateString, "/"); 
+    Date.Day =stoi(vWord[0]);
+    Date.Month = stoi(vWord[1]);
+    Date.Year = stoi(vWord[2]);
+
+
+    return Date;
+}
+string ReplaceWordsInString(string S1, string WordToReplace, string NewWord)
+{
+    short  pos = S1.find(WordToReplace);
+
+    while (pos != std::string::npos)
+    {
+        S1 = S1.replace(pos, WordToReplace.length(), NewWord);
+        pos = S1.find(WordToReplace); //   find the next
+
+    }
+    return S1;
+
+}
+
+string FormatingDate(sDate Date  , string DateFormat = "dd/mm/yyyy")
+{
+    string FormatedDateString = "";
+    FormatedDateString = ReplaceWordsInString(DateFormat, "dd", to_string(Date.Day));
+    FormatedDateString = ReplaceWordsInString(FormatedDateString, "mm", to_string(Date.Month));
+    FormatedDateString = ReplaceWordsInString(FormatedDateString, "yyyy", to_string(Date.Year));
+
+    return FormatedDateString;
+
+}
+
+int main()
+
+{
+
+    string DateString = ReadDateString();
+
+    sDate Date = PrintDateToStruct( DateString);
+
+    cout << FormatingDate( Date)<<"\n";
+    cout << FormatingDate(Date,"yyyy/dd/mm") << "\n";
+    cout << FormatingDate(Date, "mm/dd/yyyy") << "\n";
+    cout << FormatingDate(Date,"mm-dd-yyyy") << "\n";
+    cout << FormatingDate(Date,"dd-mm-yyyy") << "\n";
+    cout << FormatingDate(Date, "Your Day: dd ,  Your Month: mm ,Your Year: yyyy") << "\n";
+
+
+    system("pause>0");
+    return 0;
+}

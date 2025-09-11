@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Elegant CV – Scroll-Snap + Donut Skills (No JS)</title>
+
+  <!--
+  🧑‍🏫 STUDENT PROJECT #4 — WHAT YOU'LL PRACTICE
+  • Scroll-snapping whole sections with pure CSS (no JS).
+  • Highlighting the active section using anchor targets (:target).
+  • Building circular “donut” meters with conic-gradients.
+  • Accessible, native accordions (details/summary).
+  • Subtle “glass” cards + hover lift.
+  • Auto dark mode via prefers-color-scheme and motion-reduction.
+  -->
+
+  <style>
+    /* ================================================================
+       🎨 THEME TOKENS (design variables)
+       - Centralized “tokens” for colors, spacing, radii, shadows, etc.
+       - Components reference these so the whole theme is easy to tweak.
+    ================================================================ */
+    :root {
+      /* Color system */
+      --bg: #f6f8fb;           /* page background */
+      --ink: #0f172a;          /* main text color */
+      --muted: #64748b;        /* secondary text */
+      --card: #ffffff;         /* card background */
+      --line: #e5e7f0;         /* hairline borders */
+      --accentA: #7c3aed;      /* violet accent */
+      --accentB: #14b8a6;      /* teal accent */
+      --sidebar-ink : #7c3aed;
+      /* Shape & elevation */
+      --radius: 18px;          /* large rounded corners */
+      --shadow: 4px 12px 28px rgba(2,6,23,.08); /* soft card shadow */
+
+      /* Spacing scale */
+      --space-1: 6px; --space-2: 10px; --space-3: 14px;
+      --space-4: 20px; --space-5: 28px; --space-6: 40px;
+
+      /* Layout */
+      --maxw: 1100px;          /* readable line length */
+    }
+
+    :root:has(#themeSwitch:checked) {
+      --bg:          #0b1220;
+      --sidebar:     #075e5e;
+      --sidebar-ink: #c9f3f5;
+      --card:        #0f172a;
+      --ink:         #e5e7eb;
+      --muted:       #9aa3b2;
+      --accent:      #fb923c;
+      --line:        #1f2a44;
+      --ring:        none; /* avoid glow on dark */
+    }
+
+
+    /* 🌓 Auto dark mode (JS-free): swap tokens if user prefers dark */
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg:   #0b1220;
+        --ink:  #e5e7eb;
+        --muted:#9aa3b2;
+        --card: #0f172a;
+        --line: #1f2a44;
+        --shadow: none;        /* reduce glow on dark surfaces */
+      }
+    }
+
+    /* ================================================================
+       🧱 BASE / RESET
+    ================================================================ */
+    *,*::before,*::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }             /* smooth anchor jumps */
+    body {
+      margin: 0;
+      font: 16px/1.6 system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color: var(--ink);
+      background: var(--bg);
+    }
+    img { max-width: 100%; display: block; }     /* responsive images */
+    a {                                           /* brandy link tone */
+      color: color-mix(in srgb, var(--accentA) 70%, var(--accentB) 30%);
+      text-decoration: none;
+    }
+    a:hover { text-decoration: underline; }
+
+    /* small helpers */
+    .muted { color: var(--muted); }
+    .clean { margin: 10px 0 0 18px; }            /* neat list spacing */
+
+    /* ================================================================
+       🔷 HERO BAR (persistent header; not part of snapping area)
+    ================================================================ */
+    .hero {
+      
+      position: relative;
+      /* soft diagonal tint + card surface */
+      background:
+        linear-gradient(
+          135deg,
+          color-mix(in srgb, var(--accentA) 30%, #0000),
+          color-mix(in srgb, var(--accentB) 12%, #0000)
+        ),
+        var(--card);
+      border-bottom: 1px solid var(--line);
+    }
+
+
+
+
+    /*For toggle*/
+
+    .toggle-row { display: flex; align-items: center; gap: 10px;
+                  padding: 0 var(--space-5) var(--space-4) var(--space-5); 
+                  position: absolute; inset: -120px -12px 2px auto;}
+
+    /* “Visually hidden” technique: still focusable by keyboard/screen readers */
+    #themeSwitch {
+      position: absolute; inline-size: 1px; block-size: 1px;
+      overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap;
+    }
+
+    .switch {
+      --h: 28px; --w: 54px;                              /* control height/width */
+      inline-size: var(--w); block-size: var(--h);
+      background: color-mix(in srgb, var(--sidebar-ink) 20%, #0000);   /* faint track */
+      border: 2px solid rgba(15, 7, 7, 0.35);
+      border-radius: 999px;
+      position: relative;
+      cursor: pointer;
+      display: inline-block;
+    }
+    .switch::after {
+      content: ""; position: absolute; inset: 2px auto 2px 2px;        /* start on left */
+      width: calc(var(--h) - 8px); border-radius: 50%;
+      background: var(--sidebar-ink);                                  /* knob color */
+      transition: transform .4s ease;                                 /* smooth slide */
+    }
+    /* Move the knob when checked */
+    :root:has(#themeSwitch:checked) .switch::after {
+      transform: translateX(calc(var(--w) - var(--h)));                /* slide to right */
+    }
+
+
+
+    /*For footer*/
+    footer{
+       background:
+        linear-gradient(
+          135deg,
+          color-mix(in srgb, var(--accentA) 30%, #0000),
+          color-mix(in srgb, var(--accentB) 12%, #0000)
+        ),
+        var(--card);
+        display: grid;
+        align-items: center;
+        text-align: center;
+        height: 10vh;
+    }
+    .hero-inner {
+      max-width: var(--maxw);
+      margin: 0 auto;
+      padding: var(--space-5) var(--space-4);
+      display: grid;
+      grid-template-columns: 120px 1fr;          /* avatar | title */
+      gap: var(--space-4);
+      align-items: center;
+    }
+    @media (max-width: 720px) {
+      .hero-inner { grid-template-columns: 1fr; text-align: center; }
+      .avatar{justify-self: center;}
+    }
+
+    .avatar {
+      width: 120px; height: 120px;
+      border-radius: 50%; overflow: hidden; position: relative;
+      box-shadow: 0 10px 30px rgba(0,0,0,.12);   /* subtle lift */
+      transition: transform 0.5s;
+    }
+    .avatar:hover{
+      transform: scale(1.2);
+    }
+    /* 🧵 Fancy circular ring:
+       - Create a conic color band around the image
+       - Punch a hole with a radial mask so the center remains transparent */
+    .avatar::after {
+      content: "";
+      position: absolute; inset: -4px;           /* extend a bit outside */
+      border-radius: inherit;
+      background: conic-gradient(from 180deg, var(--accentA), var(--accentB), var(--accentA));
+      -webkit-mask: radial-gradient(circle at center, transparent 58px, #000 59px);
+              mask: radial-gradient(circle at center, transparent 58px, #000 59px);
+    }
+    .avatar img { width: 100%; height: 100%; object-fit: cover; object-position: center; border-radius: 50%; }
+
+    .title h1 { margin: 0; font-size: clamp(30px, 6vw, 44px); line-height: 1.1; }
+    .title p  { margin: 6px 0 0; font-size: 18px; }
+
+    /* Mobile inline section nav (pills) */
+    .hero-nav { margin-top: 10px; display:none; gap: 14px; }
+    @media (max-width: 1200px) {
+      .hero-nav { display: flex; justify-content: center; flex-wrap: wrap; }
+    }
+    .pill {
+      display: inline-block; padding: 6px 12px;
+      border: 1px solid var(--line); border-radius: 999px; background: var(--card);
+    }
+
+    /* ================================================================
+       🧭 SIDE DOT NAV (large screens)
+       - Absolute page-level nav that highlights the current section.
+       - Highlighting uses :target on the section + attribute match.
+    ================================================================ */
+    .dotnav {
+      position: fixed; left: 20px; top: 50%;
+      transform: translateY(-50%);
+      display: grid; gap: 10px;
+    }
+    @media (max-width: 1200px) { .dotnav { display: none; } }
+
+    .dotnav a {
+      width: 12px; height: 12px; border-radius: 50%;
+      background: color-mix(in srgb, var(--muted) 50%, #0000);
+      border: 1px solid var(--line);
+      display: block;
+    }
+    /* ⭐ Mark the active dot when its section is the URL target.
+       Note: .dotnav is placed AFTER the sections so general-sibling (~) works. */
+    #about:target      ~ .dotnav a[href="#about"],
+    #skills:target     ~ .dotnav a[href="#skills"],
+    #experience:target ~ .dotnav a[href="#experience"],
+    #projects:target   ~ .dotnav a[href="#projects"],
+    #education:target  ~ .dotnav a[href="#education"] {
+      background: linear-gradient(90deg, var(--accentA), var(--accentB));
+      outline: 2px solid color-mix(in srgb, var(--accentA) 40%, var(--accentB) 60%);
+      outline-offset: 2px;
+    }
+
+    /* ================================================================
+       📜 SCROLL-SNAP LAYOUT
+       - The main container is a vertical scroller with “page-like” snaps.
+       - Each section aligns to the start edge on scroll.
+    ================================================================ */
+    .snap {
+      scroll-snap-type: y proximity;             /* try to snap vertically near edges */
+      overflow-y: auto;                          /* independent scrolling area */
+      max-height: calc(100svh - 170px);          /* viewport minus the hero height */
+      /* soft background accents behind sections */
+      background:
+        radial-gradient(900px 400px at 110% -50%, color-mix(in srgb, var(--accentA) 8%, #0000), transparent),
+        radial-gradient(800px 400px at -10% 120%, color-mix(in srgb, var(--accentB) 8%, #0000), transparent);
+    }
+    .snap section { scroll-snap-align: start; }  /* snap each section to top */
+
+    /* Section container + card shell */
+    .section { max-width: var(--maxw); margin: 0 auto; padding: var(--space-6) var(--space-4); }
+    .card {
+      background: var(--card); border: 1px solid var(--line);
+      border-radius: var(--radius); box-shadow: var(--shadow);
+      padding: var(--space-5); 
+      display: grid;
+      
+    }
+    .section h2   { margin: 0 0 12px; font-size: clamp(22px, 3.5vw, 30px); }
+    .section .lead{ font-size: 18px; color: var(--muted); margin: 6px 0 0; }
+
+    /* ================================================================
+       🍩 DONUT SKILL METERS — Pure CSS
+       - Set the value with inline style="--val: 80"
+       - conic-gradient fills a slice proportional to --val%
+    ================================================================ */
+    .skills {
+      display: grid; grid-template-columns: repeat(4, 1fr); justify-items: center;
+      gap: var(--space-4); 
+    }
+    
+
+    @media (max-width: 900px) { .skills { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 520px) { .skills { grid-template-columns: 1fr; } }
+
+    .donut {
+     
+      --size: 120px;                /* circle size */
+      --track: #e5e7f0;             /* unfilled ring color */
+      --val: 75;                     /* default percent if none provided */
+      width: var(--size);
+      aspect-ratio: 1 / 1;           /* perfect square → circle via border-radius */
+      border-radius: 50%;
+      /* Filled slice up to --val%, then track color */
+      background: conic-gradient(
+        color-mix(in srgb, var(--accentA) 60%, var(--accentB) 40%) calc(var(--val) * 1%),
+        var(--track) 0
+      );
+      display: grid; place-items: center; margin-inline: auto; position: relative; justify-items: center;
+    }
+    .donut::after {
+      /* Inner “hole”: smaller circle that sits on top to create a ring */
+      content: "";
+      width: calc(var(--size) - 24px);
+      aspect-ratio: 1 / 1;
+      border-radius: 50%;
+      background: var(--card);
+      border: 1px solid var(--line);
+    }
+    .skills p{
+      text-align: center;
+    }
+    .donut > span {
+      /* Numeric label sits above the hole */
+      position: absolute; font-weight: 700;
+    }
+
+    /* ================================================================
+       🧰 DETAILS/SUMMARY ACCORDIONS — Native & accessible
+    ================================================================ */
+    details {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 14px 16px;
+      box-shadow: var(--shadow);
+    }
+    details + details { margin-top: 12px; }
+    summary { cursor: pointer; list-style: none; font-weight: 700; }
+    summary::-webkit-details-marker { display: none; } /* hide default marker */
+    details[open] {
+      /* visible focus ring when expanded */
+      outline: 2px solid color-mix(in srgb, var(--accentA) 30%, var(--accentB) 70%);
+      outline-offset: 2px;
+    }
+    .when {
+      color: var(--muted); font-size: 14px; margin-left: 8px; font-weight: 500;
+    }
+
+    /* ================================================================
+       🧊 PROJECT CARDS — Glass blur + hover lift
+    ================================================================ */
+    .projects {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-4);
+    }
+    @media (max-width: 1000px) { .projects { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 620px)  { .projects { grid-template-columns: 1fr; } }
+
+    .proj {
+      position: relative; padding: 18px; border-radius: 16px;
+      border: 1px solid var(--line);
+      /* translucent layered background + subtle blur */
+      background: linear-gradient(
+        to bottom right,
+        color-mix(in srgb, var(--card) 85%, #fff0),
+        color-mix(in srgb, var(--card) 92%, #fff0)
+      );
+      backdrop-filter: saturate(1.1) blur(6px);
+      box-shadow: var(--shadow);
+      transition: transform .2s ease, box-shadow .2s ease; /* smooth lift */
+    }
+    .proj:hover { transform: translateY(4px); box-shadow: 0 16px 30px rgba(2,6,23,.12); }
+    .proj h3 { 
+              margin: 0 0 6px;
+              font-size: 16px;
+              text-transform: uppercase; 
+              letter-spacing: .3px; color: var(--muted); 
+              color: #7a46be;
+            }
+
+    /* ================================================================
+       ♿ REDUCED MOTION — Respect user preference
+    ================================================================ */
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }            /* remove smooth scroll */
+      .proj, .donut { transition: none; }        /* disable animations */
+    }
+
+    /* ================================================================
+       🖨️ PRINT — Clean PDF export
+    ================================================================ */
+    @media print {
+      .dotnav { display: none; }                 /* hide floating nav */
+      .snap { overflow: visible; max-height: none; } /* print all sections */
+      .proj:hover { transform: none; box-shadow: none; }
+      a { color: #000; text-decoration: none; }
+      .card { box-shadow: none; }
+    }
+    li{
+      list-style:decimal;
+    }
+  </style>
+</head>
+<body>
+  <!-- ================================ HERO (always visible; not snapped) ================================ -->
+  <header class="hero" aria-label="Intro">
+    <div class="hero-inner">
+      <div class="avatar" role="img" aria-label="Profile photo">
+        <!-- 🔁 Replace with your actual image file -->
+        <img src="images/MyImage.jpg" alt="Your Name portrait" loading="lazy" />
+      </div>
+
+      <div class="title">
+        <h1>Ayoub Fellah</h1>
+        <p class="muted">Front-End Developer • UI Engineer • Design Systems</p>
+     
+        <!-- 📍 Mobile-friendly inline nav jumps to the snapped sections -->
+        <nav class="hero-nav" aria-label="Sections">
+          <a class="pill" href="#about">About</a>
+          <a class="pill" href="#skills">Skills</a>
+          <a class="pill" href="#experience">Experience</a>
+          <a class="pill" href="#projects">Projects</a>
+          <a class="pill" href="#education">Education</a>
+        </nav>
+      </div>
+    </div>
+
+     <div class="toggle-row">
+        <span class="toggle-label">Dark Mode</span>
+        <input type="checkbox" id="themeSwitch" />
+        <label class="switch" for="themeSwitch" aria-label="Toggle dark or light theme"></label>
+        
+      </div>
+  </header>
+
+  <!-- ================================ SCROLL-SNAP CONTAINER ================================ -->
+  <main class="snap" aria-label="Scrollable resume">
+    <!--
+      🔗 Each section has an ID so anchor links can target it.
+      ⭐ The side dot nav sits AFTER these sections so the CSS
+         “#section:target ~ .dotnav a[href='#section']” can highlight the right dot.
+    -->
+
+    <!-- ▸ ABOUT -->
+    <section id="about" class="section">
+      <article class="card" aria-labelledby="about-title">
+        <h2 id="about-title">About</h2>
+        <p class="lead">
+          Impact-driven builder of fast, accessible UIs. I care about
+          design tokens, clean semantics, and performance budgets.
+        </p>
+        <ul class="clean">
+          <li><strong>Location:</strong> Amman, Jordan</li>
+          <li><strong>Languages:</strong> Arabic (Native), English (Professional)</li>
+          <li><strong>Contact:</strong> you@example.com • github.com/your-username</li>
+        </ul>
+      </article>
+    </section>
+
+    <!-- ▸ SKILLS (donut meters use --val for percentage) -->
+    <section id="skills" class="section">
+      <article class="card" aria-labelledby="skills-title">
+        <h2 id="skills-title">Skills</h2>
+        <p class="muted">
+          CSS donuts below are pure CSS (<code>conic-gradient</code>). Set values with <code>--val</code>.
+        </p>
+
+        <div class="skills" role="list">
+          
+          <div role="listitem" class="skill">
+            <div class="donut" style="--val: 92"><span>92%</span></div>
+            <p><strong>Semantic HTML</strong><br><span class="muted">Landmarks, a11y, structure</span></p>
+          </div>
+
+        
+          <div role="listitem" class="skill">
+            <div class="donut" style="--val: 88"><span>88%</span></div>
+            <p><strong>Modern CSS</strong><br><span class="muted">Grid, Flex, custom props</span></p>
+          </div>
+
+          <div role="listitem" class="skill">
+            <div class="donut" style="--val: 76"><span>76%</span></div>
+            <p><strong>Accessibility</strong><br><span class="muted">WCAG, keyboard, color</span></p>
+          </div>
+
+          <div role="listitem" class="skill">
+            <div class="donut" style="--val: 80"><span>80%</span></div>
+            <p><strong>Tooling</strong><br><span class="muted">Git, GitHub, DevTools</span></p>
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <!-- ▸ EXPERIENCE (native accordion) -->
+    <section id="experience" class="section">
+      <article class="card" aria-labelledby="exp-title">
+        <h2 id="exp-title">Experience</h2>
+
+        <!-- details/summary are keyboard & screen-reader friendly by default -->
+        <details>
+          <summary>
+            Senior Front-End Developer <span class="when">• Tech Co • 2023—Present</span>
+          </summary>
+          <ul class="clean muted">
+            <li>Owned component library; cut CSS by 30% via design tokens.</li>
+            <li>Shipped a11y improvements to WCAG 2.1 AA with audits and docs.</li>
+          </ul>
+        </details>
+
+        <details>
+          <summary>
+            Web Designer <span class="when">• Creative Studio • 2020—2023</span>
+          </summary>
+          <ul class="clean muted">
+            <li>Prototyped 12 marketing sites; established shared styles.</li>
+            <li>Delivered semantic handoffs; boosted dev velocity.</li>
+          </ul>
+        </details>
+      </article>
+    </section>
+
+    <!-- ▸ PROJECTS (glass cards + hover lift) -->
+    <section id="projects" class="section">
+      <article class="card" aria-labelledby="proj-title">
+        <h2 id="proj-title">Selected Projects</h2>
+
+        <div class="projects">
+          <a class="proj" href="#" aria-label="Portfolio Website">
+            <h3>Portfolio Website</h3>
+            <p class="muted">Static site, Lighthouse 95+, optimized images & fonts.</p>
+          </a>
+
+          <a class="proj" href="#" aria-label="Design System Demo">
+            <h3>Design System Demo</h3>
+            <p class="muted">Token-based theming; documented components.</p>
+          </a>
+
+          <a class="proj" href="#" aria-label="Perf Budgets Kit">
+            <h3>Perf Budgets Kit</h3>
+            <p class="muted">Starter budgets and checklists to keep sites fast.</p>
+          </a>
+
+           <a class="proj" href="#" aria-label="Perf Budgets Kit">
+            <h3>Bank Application</h3>
+            <p class="muted">Desktop App to manage the main instructions.</p>
+          </a>
+        </div>
+      </article>
+    </section>
+
+    <!-- ▸ EDUCATION -->
+    <section id="education" class="section">
+      <article class="card" aria-labelledby="edu-title">
+        <h2 id="edu-title">Education</h2>
+        <p>
+          <strong>B.Sc. in Computer Science</strong><br/>
+          University Name • 2016—2020
+        </p>
+        <ul class="clean muted">
+          <li>Graduated with Honors</li>
+          <li>Key courses: HCI, Data Structures, Databases</li>
+        </ul>
+      </article>
+    </section>
+
+    <!-- 🧭 The sticky dot nav must be a sibling AFTER the sections
+         so the :target ~ .dotnav highlighting selectors can match. -->
+    <nav class="dotnav" aria-label="Quick section nav">
+      <a href="#about" title="About"></a>
+      <a href="#skills" title="Skills"></a>
+      <a href="#experience" title="Experience"></a>
+      <a href="#projects" title="Projects"></a>
+      <a href="#education" title="Education"></a>
+    </nav>
+  </main>
+
+  <footer>
+    By Ayoub Fellah
+  </footer>
+</body>
+</html>

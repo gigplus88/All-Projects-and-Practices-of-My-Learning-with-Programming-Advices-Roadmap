@@ -1,0 +1,37 @@
+
+
+
+
+select * from Employees;
+
+select ID , FirstName 
+from Employees
+where FirstName Like 'b%';
+
+select ID , FirstName 
+from Employees
+where FirstName Like '%c';
+
+
+select ID , FirstName 
+from Employees
+where FirstName Like '%c' or FirstName Like '%n';
+
+select ID , FirstName 
+from Employees
+where FirstName Like 'a%a';
+
+select ID , FirstName 
+from Employees
+where FirstName Like '%tell%';
+
+
+select ID , FirstName 
+from Employees
+where FirstName Like '__a%';
+
+select ID , FirstName 
+from Employees
+where FirstName Like 'a__%';
+
+

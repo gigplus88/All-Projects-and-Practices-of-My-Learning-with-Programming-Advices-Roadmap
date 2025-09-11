@@ -1,0 +1,56 @@
+#include <iostream>
+#include <cmath>
+#include <string>
+using namespace std;
+
+
+
+void Readof2Numbers(int &Num1, int &Num2)
+{
+
+    cout << "Please enter your Number 1" << endl;
+    cin >> Num1;
+
+    cout << "Please enter your Number 2" << endl;
+    cin >> Num2;
+
+}
+
+void PrintNumbers(int Num1, int Num2)
+{
+    cout << "The Number 1 is: " << Num1 << endl;
+    cout << "The Number 2 is: " << Num2 << endl << endl;
+
+}
+
+void Swap(int &Num1, int &Num2)
+{
+    int Reserve = Num1;
+    Num1 = Num2;
+    Num2 = Reserve;
+
+}
+ 
+
+void PrintNumbersAfter(int Num1, int Num2)
+{
+    cout << "The Number 1 is: " << Num1 << endl;
+    cout << "The Number 2 is: " << Num2 << endl;
+
+}
+
+
+
+int main()
+{
+    int  Num1=0, Num2=0, Reserve;
+    
+    Readof2Numbers( Num1,  Num2);
+    PrintNumbers( Num1,  Num2);
+    Swap( Num1, Num2);
+    PrintNumbersAfter(Num1, Num2);
+
+    return 0;
+
+}
+

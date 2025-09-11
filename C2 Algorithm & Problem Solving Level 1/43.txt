@@ -1,0 +1,90 @@
+#include <iostream>
+using namespace std;
+#include <cmath>
+#include <string>
+
+
+ 
+short int TaskDurationInSeconds(short int  seconds, short int Secondtoday)
+{
+
+    cout << " Give me The seconds of your task: ";
+    cin >> seconds;
+
+    Secondtoday = floor(seconds / (24 * 3600));
+    
+    return  Secondtoday;
+
+}
+
+short int TaskDurationInSeconds(short int reserve1, short int SecondtoHours, short int  seconds )
+{
+    reserve1 = seconds % (24 * 3600);
+    SecondtoHours = floor(reserve1 / (3600));
+   
+
+    return  SecondtoHours;
+
+}
+
+short int TaskDurationInSeconds(short int reserve2, short int SecondtoMinutes ,short int reserve1 )
+{
+    reserve2 = reserve1 % (3600);
+    SecondtoMinutes = floor(reserve2 / 60);
+
+
+    return  SecondtoMinutes;
+
+}
+
+short int TaskDurationInSeconds(short int reserve3, short int Second, short int reserve2)
+{
+    reserve3 = reserve2 % 60;
+    Second = reserve3;
+
+
+    return  Second;
+
+}
+
+
+
+ int main()
+ {
+     short int  seconds;
+
+
+
+
+     cout << " Give me The seconds of your task: ";
+     cin >> seconds;
+
+
+
+     short int
+         Secondtoday = floor(seconds / (24 * 3600)),
+         reserve1 = seconds % (24 * 3600),
+
+         SecondtoHours = floor(reserve1 / (3600)),
+         reserve2 = reserve1 % (3600),
+
+         SecondtoMinutes = floor(reserve2 / 60),
+         reserve3 = reserve2 % 60,
+
+         Second = reserve3;
+     cout << TaskDurationInSeconds( seconds, Secondtoday) << ":" << TaskDurationInSeconds( reserve1,  SecondtoHours, seconds) << ":" << TaskDurationInSeconds( reserve2,  SecondtoMinutes, reserve1) <<":" << TaskDurationInSeconds( reserve3,  Second,  reserve2);
+         
+
+     return 0;
+
+ }
+
+
+
+
+
+
+
+                                        with problem in mod
+
+

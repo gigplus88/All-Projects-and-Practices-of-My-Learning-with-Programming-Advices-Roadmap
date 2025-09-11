@@ -1,0 +1,119 @@
+#include <iostream>
+#include <string>
+#include <iomanip>
+
+using namespace std;
+
+
+
+void PrintMatrix1(int arr[3][3], short Rows, short Cols)
+{
+    for (int i = 0; i < Rows; i++)
+    {
+        for (int j = 0; j < Cols; j++)
+        {
+            printf(" %0*d  ", 2, arr[i][j]);
+            //cout << setw(3) << arr[i][j] << "\t";
+        }
+        cout << endl;
+    }
+
+}
+
+short CountNumberInMatrix(int Matrix1[3][3], short Rows, short Cols, short NumberToCount)
+{
+    short Counter = 0;
+    for (int i = 0; i < Rows; i++)
+    {
+        for (int j = 0; j < Cols; j++)
+        {
+            if (Matrix1[i][j] == NumberToCount)
+            {
+                Counter++;
+            }
+
+        }
+
+    }
+
+    return Counter;
+}
+
+bool IsSparseMatrix(int Matrix1[3][3], short Rows, short Cols)
+{
+    // My Solution
+   /* short CounterofZero = 0 , CounterofNotZero=0;
+    for (int i = 0; i < Rows; i++)
+    {
+        for (int j = 0; j < Cols; j++)
+        {
+            if (Matrix1[i][j] == 0)
+            {
+                CounterofZero ++;
+            }
+            
+            else if (Matrix1[i][j] != 0)
+            {
+                CounterofNotZero ++;
+            }
+        }
+        
+    }
+
+    if (CounterofZero > CounterofNotZero)
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }*/
+
+    short MatrixSize = Rows * Cols;
+
+    return (CountNumberInMatrix(Matrix1, 3, 3, 0) > (MatrixSize / 2));
+   
+}
+
+
+
+int main()
+{
+    srand((unsigned)time(NULL));
+
+    int Matrix1[3][3]= 
+    { {0,2,5},
+      {0,0,1},
+      {5,0,0}
+    };
+    short NumberToCount = 0;
+
+   
+
+    cout << "Matrix1 :" << endl;
+    PrintMatrix1(Matrix1, 3, 3);
+
+    if (IsSparseMatrix( Matrix1, 3, 3))
+    {
+        cout << "Yes: It is Sparse" << endl;
+    }
+
+    else
+    {
+        cout << "No: It is not Sparse";
+    }
+   
+
+
+   
+
+   
+
+
+   
+  
+    system("pause>0");
+
+
+    return 0;
+}

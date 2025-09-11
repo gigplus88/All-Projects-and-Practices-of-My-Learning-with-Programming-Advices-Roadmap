@@ -1,0 +1,183 @@
+#include <iostream>
+#include <fstream>
+#include <string>
+#include <vector>
+#include <iomanip>
+
+using namespace std;
+
+short ReadYear()
+{
+    int Year;
+
+    cout << "Enter a year: ";
+    cin >> Year;
+
+    return Year;
+}
+
+short ReadMonth()
+{
+    int Month;
+
+    cout << "Enter a Month: ";
+    cin >> Month;
+
+    return Month;
+}
+
+short ReadDay()
+{
+    int Day;
+
+    cout << "Enter a day: ";
+    cin >> Day;
+
+    return Day;
+}
+
+bool IsLeapYear(short Year)
+{
+    bool Num;
+
+    return (Year % 400 == 0) || ((Year % 100 != 0) && (Year % 4 == 0));
+
+
+
+
+}
+
+short DayOrder(short Year , short Month , short Day)
+{
+    short a, y, m;
+    a = (14 - Month) / 12;
+    y = Year - a;
+    m = Month + (12 * a) - 2;
+    short d = (Day + y + (y / 4) - (y / 100) + (y / 400) + ((31 * m) / 12)) % 7;
+
+    return d;
+
+   
+}
+
+string DayName(short Days0fWeekOrder)
+{
+    string arrDayNames[] = { "Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", };
+
+    return arrDayNames[Days0fWeekOrder];
+}
+
+string MonthName(short Months0fWeekOrder)
+{
+    string arrMonthsNames[] = { "Jun", "Feb", "Mar", "Apr", "Mai", "Jun", "Jul", "Aug","Sep","Oct","Nov","Dec", };
+
+    return arrMonthsNames[Months0fWeekOrder-1];
+}
+
+short MonthToDays(short Year, short Month)
+{
+
+    if (Month < 1 || Month> 12)
+    {
+        return 0;
+    }
+
+    short NumberOfDays[12] = { 31 , 28 , 31 , 30 , 31 ,30 , 31 , 31 , 31 , 30 , 31 , 30 };
+    return  (Month == 2) ? IsLeapYear(Year) ? 29 : 28 : NumberOfDays[Month - 1];
+
+}
+
+
+
+short NumberOfDayformFirstDayOfyearToDayShowing(short Year, short Month, short Day)
+{
+    short DayOrderFromFirstDay = 0;
+    for (short i = 1; i <= Month-1; i++)
+    {
+        
+        DayOrderFromFirstDay += MonthToDays( Year,  i);
+    }
+
+    return DayOrderFromFirstDay + Day;
+
+}
+
+
+//My Solution
+
+//void DateOfbeginingDayInYear(short Year, short Month, short Day)
+//
+//{
+//    short Monthdate=(NumberOfDayformFirstDayOfyearToDayShowing(Year, Month, Day) /30)+1;
+//     
+//
+//     MonthToDays(Year, Monthdate); // Number Of Day In This Month
+//
+//
+//     short DayOrderFromFirstDayinYear = 0;
+//     for (short i = 1; i <= Monthdate-1; i++)
+//     {
+//         DayOrderFromFirstDayinYear += MonthToDays(Year, i);
+//     }
+//
+//     short  Daydate = NumberOfDayformFirstDayOfyearToDayShowing(Year, Month, Day) - DayOrderFromFirstDayinYear; //    الحاصل :هو طرح عدد الأيام من أول يوم في السنة إلى اليوم المختار ، و عدد الأيام من أول يوم في السنة إلا قبل الشهر الذي أنا به
+//     short NumberOfDayformFirstDayOfyearToDay = NumberOfDayformFirstDayOfyearToDayShowing(Year, Month, Day);
+//     cout << "Date for [" << NumberOfDayformFirstDayOfyearToDay << "] is : " << Daydate << "/" << Monthdate << "/" << Year;
+//   
+//}
+
+struct sDate {
+
+    int Year, Month, Day;
+};
+ 
+sDate GetDateFromDayOrderInYear(short DateOrderInYear ,short Year  )
+{
+    sDate Date;
+    short RemainingDays = DateOrderInYear;
+    short MonthDays = 0;
+
+    Date.Year = Year;
+    Date.Month = 1;
+
+    while (true)
+    {
+        MonthDays = MonthToDays(Year, Date.Month);
+        if (RemainingDays > MonthDays)
+        {
+            RemainingDays -= MonthDays;
+            Date.Month++;
+        }
+
+        else
+        {
+            Date.Day= RemainingDays ;
+            break;
+        }
+    }
+
+     return Date;
+}
+
+int main()
+
+{
+    short Day = ReadDay();
+    short Month = ReadMonth();
+    short Year= ReadYear();
+    short DateOrderInYear = NumberOfDayformFirstDayOfyearToDayShowing(Year, Month, Day);
+    cout << "Number of Days from the bigining of the year is: " << NumberOfDayformFirstDayOfyearToDayShowing(Year, Month, Day) << endl;
+
+
+    sDate Date;
+
+    Date = GetDateFromDayOrderInYear( DateOrderInYear,  Year);
+
+    cout << "Date for [" << DateOrderInYear << "] is : ";
+    cout << Date.Day << "/" << Date.Month << "/" << Date.Year << endl;
+
+    //DateOfbeginingDayInYear( Year,  Month,  Day);
+
+    system("pause>0");
+    return 0;
+}

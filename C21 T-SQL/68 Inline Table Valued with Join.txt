@@ -1,0 +1,5 @@
+
+select s.StudentID , s.Name As StudentName  , s.Grade , t.Name As TeacherName
+From  dbo.GetStudentInfoBySubject('Math') s 
+inner join Teachers t
+On s.Subject = t.Subject;

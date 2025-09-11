@@ -1,0 +1,64 @@
+using System;
+using System.Data;
+using System.Data.SqlClient;
+using static System.Net.Mime.MediaTypeNames;
+using System.Diagnostics;
+using System.Configuration;
+using System.Collections.Generic;
+using System.Xml.Linq;
+using System.Linq;
+
+class Product
+{
+    public string Name { get; set; }
+    public double Price { get; set; }
+}
+
+class Program
+{
+  
+    
+
+  
+    static void Main()
+    {
+        // List initialization
+        List<int> numbers = new List<int> {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+
+       
+        Console.WriteLine("Even:" + string.Join( ", " , numbers.Where( n => n%2 == 0 )) );
+        Console.WriteLine("Odd:" + string.Join(", ", numbers.Where(n => n % 2 != 0) ));
+        Console.WriteLine("Secondary number:" + string.Join(", ", numbers.Where((n, index) =>  index % 2 == 1)));
+        Console.WriteLine("Number between 0 and 5:" + string.Join(", ", numbers.Where(n => n > 0 && n < 6  ) ));
+        Console.WriteLine("Number equal 0 and 4:" + string.Join(", ", numbers.Where(n => n == 0 ||  n == 4 )) );
+
+
+        List<string> names = new List<string> { "Ali", "Sara", "Ahmed", "Omar", "Amina" };
+
+        Console.WriteLine("Words Begin by A:" + string.Join(", ", names.Where( n => n.StartsWith("A")  )));
+
+
+        List<Product> products = new List<Product>
+        {
+            new Product { Name = "Laptop", Price = 1200 },
+            new Product { Name = "Mouse", Price = 50 },
+            new Product { Name = "Keyboard", Price = 80 },
+            new Product { Name = "Monitor", Price = 300 }
+        };
+
+        Console.WriteLine("Products its Price great than 100:" + string.Join(", ",
+            products.Where(n => n.Price > 100).
+            Select(n => $"{n.Name } ({n.Price} MAD)" )));
+
+
+        List<string> names1 = new List<string> { "Ali", "Youssef", "Omar", "Fatima", "Lina" };
+        Console.WriteLine("Words :" + string.Join(", ", names1.Where(n => n.Length > 4)));
+
+
+
+        Console.WriteLine("\n");
+
+        
+    }
+}
+

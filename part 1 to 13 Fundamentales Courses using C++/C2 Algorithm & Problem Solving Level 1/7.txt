@@ -1,0 +1,16 @@
+
+#include <iostream>
+using namespace std;
+
+int main()
+{
+    short int Number1=0, Number2=0;
+    cout << "Enter your number\n";
+    cin >> Number1;
+    float result1 = Number1 / 2;
+    cout << " Half of " << Number1 << " is " << result1 << "\n";
+    cout << "Enter your number\n" ;
+    cin >> Number2;
+    float  result2 = Number2 / 2;
+    cout << " Half of " << Number2 << " is " << result2;
+}

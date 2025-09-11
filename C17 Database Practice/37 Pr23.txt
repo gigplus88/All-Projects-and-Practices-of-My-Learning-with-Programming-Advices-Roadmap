@@ -1,0 +1,21 @@
+--Teacher Solution
+
+SELECT    distinct    VehicleDetails.MakeID, Makes.Make, SubModelName
+FROM            VehicleDetails INNER JOIN
+                         SubModels ON VehicleDetails.SubModelID = SubModels.SubModelID INNER JOIN
+                         Makes ON VehicleDetails.MakeID = Makes.MakeID
+	
+	where SubModelName='Elite'
+
+
+
+-- My solution
+
+
+select distinct VehicleDetails.MakeID , Makes.Make ,SubModels.SubModelName
+from VehicleDetails
+Inner join Makes On VehicleDetails.MakeID = Makes.MakeID
+Inner Join SubModels On VehicleDetails.SubModelID = SubModels.SubModelID
+where SubModels.SubModelName = 'Elite'
+Order By  Make asc ;
+

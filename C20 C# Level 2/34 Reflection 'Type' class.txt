@@ -1,0 +1,42 @@
+
+using System;
+using System.Diagnostics;
+using System.IO;
+using System.Runtime.Serialization.Json;
+
+
+[MyCustom("This is a class attribute")]
+class MyClass
+{
+    [MyCustom("This is a method attribute")]
+    public void MyMethod()
+    {
+        Console.WriteLine("This is MyMethod");
+    }
+}
+
+
+
+
+class Program
+{
+    static void Main()
+    {
+        Type myType = typeof(MyClass);// Save MyClass Info at myType
+
+        Console.WriteLine(myType.Name);
+        Console.WriteLine(myType.IsClass);
+        Console.WriteLine(myType.GetElementType());
+
+
+        Type myType1 = typeof(string);
+
+        Console.WriteLine("String Information");
+        Console.WriteLine(myType1.Name);
+        Console.WriteLine(myType1.FullName);
+        Console.WriteLine(myType1.IsClass);
+
+
+        Console.ReadLine();
+    }
+}

@@ -1,0 +1,41 @@
+ (Interpolated Strings)،يستخدم قوالب السلاسل النصية المترابطة
+  C# وهي ميزة متاحة في
+  بدءًا من الإصدار 6.0. هذه الطريقة تسهل دمج القيم المتغيرة داخل سلسلة نصية بشكل أكثر وضوحًا وبساطة.
+ 
+الشرح:
+$:
+
+علامة الدولار "$" تُخبر المترجم بأن هذه السلسلة النصية هي سلسلة مترابطة، مما يعني أنك تستطيع تضمين القيم المتغيرة داخلها باستخدام {}.
+
+
+
+//ProgrammingAdvices.com
+//Mohammed Abu-Hadhoud
+
+using System;
+
+namespace Main
+    {
+        internal class Program
+        {
+
+        static void Main(string[] args)
+            {
+
+            //  String Interpolation
+
+            string firstName = "Mohammed";
+            string lastName = "Abu-Hadhoud";
+            string code = "107";
+
+            //You shold use $ to $ to identify an interpolated string 
+            string fullName = $"Mr. {firstName} {lastName}, Code: {code}";
+
+            Console.WriteLine(fullName);
+
+            Console.ReadKey();
+
+            }
+        }
+    }
+

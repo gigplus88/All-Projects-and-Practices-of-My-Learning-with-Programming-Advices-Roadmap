@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Preventing Margin Collapse</title>
+  <style>
+    .no-collapse {
+      background-color: #fff3e0;
+      padding: 20px; /* Padding prevents margin collapse with child elements */
+      border: 1px solid #ff9800;
+    }
+    .no-collapse p {
+      background-color: #ffe0b2;
+      margin: 30px 20px;
+      padding: 10px;
+      border: 1px solid #fb8c00;
+    }
+  </style>
+</head>
+<body>
+  <h1>Preventing Margin Collapse</h1>
+  <div class="no-collapse">
+    <p>This paragraph is inside a padded container. The container’s padding prevents the child margins from collapsing with the container’s margins.</p>
+    <p>This is another paragraph inside the same container with full margins intact.</p>
+  </div>
+</body>
+</html>

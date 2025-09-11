@@ -1,0 +1,11 @@
+
+   DECLARE @input NVARCHAR(50) = ' or 1=1';
+
+
+DECLARE @SQL NVARCHAR(MAX);
+
+
+SET @SQL =  ' SELECT * FROM Students WHERE studentID = 1 ';
+
+Set @SQL = @SQL + @input;
+EXECUTE(@SQL);

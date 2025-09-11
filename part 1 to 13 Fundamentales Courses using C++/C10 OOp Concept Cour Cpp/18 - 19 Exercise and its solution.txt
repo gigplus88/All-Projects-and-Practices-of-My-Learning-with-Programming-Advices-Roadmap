@@ -1,0 +1,136 @@
+#include <iostream>
+#include <iostream>
+#include <fstream>
+#include <string>
+#include <vector>
+#include <iomanip>
+
+using namespace std;
+
+
+class clsPerson
+{
+private:
+    int _ID = 10;
+    string _FirstName ;
+    string _LastName;
+    string _FullName;
+    string _Email;
+    string _Phone;
+public:
+
+    /*clsPerson(int I, string Fi, string L, string Fu, string E, string P) : _ID(I), _FirstName(Fi), _LastName(L), _FullName(Fu), _Email(E), _Phone(P)
+    {
+        cout << "I am constructor" << endl;
+    }*/
+
+    clsPerson(int ID, string FirstName, string LastName, string FullName, string Email, string Phone)
+    {
+        _ID = ID;
+        _FirstName = FirstName;
+        _LastName = LastName;
+        _FullName = FullName;
+        _Email = Email;
+        _Phone = Phone;
+        cout << "I am constructor" << endl;
+    }
+
+    int GetID() // Read Only
+    {
+        return _ID;
+    }
+    void SetFirstName(string FirstName)
+    {
+        _FirstName = FirstName;
+    }
+
+    string GetFirstName()
+    {
+        return _FirstName;
+    }
+
+    void SetLastName(string LastName)
+    {
+        _LastName = LastName;
+    }
+
+    string GetLastName()
+    {
+        return _LastName;
+    }
+
+    /*void SetFullName(string FullName)
+    {
+        _FullName = FullName;
+    }
+
+    string GetFullName()
+    {
+        return _FullName;
+    }*/
+
+    string GetFullName()
+    {
+        return _FirstName + "" + _LastName;
+    }
+
+    void SetEmail(string Email)
+    {
+        _Email = Email;
+    }
+
+    string GetEmail()
+    {
+        return _Email;
+    }
+
+    void SetPhone(string Phone)
+    {
+        _Phone = Phone;
+    }
+
+    string GetPhone()
+    {
+        return _Phone;
+    }
+
+    void SendEmail(string Subject , string Body)
+    {
+        cout << "The following message sent successfully to email: " << _Email /*GetEmail()*/ << endl;
+        cout << "Subject: " << Subject << endl;
+        cout << "Body   : " << Body << endl;
+    }
+
+    void SendSMS( string TextMessage)
+    {
+        cout << "The following message sent successfully to Phone: " << _Phone /*GetPhone()*/ << endl;
+        cout << "Body   : " << TextMessage << endl;
+    }
+
+    void PrintInfo()
+    {
+        cout << "Info:";
+        cout << "\n---------------------------\n\n";
+        cout << "ID        :" << _ID << endl;
+        cout << "FirstName :" << _FirstName << endl;
+        cout << "LastName  :" << _LastName << endl;
+        cout << "Full Name :" << _FullName << endl;
+        cout << "Email     :" << _Email << endl;
+        cout << "Phone     :" << _Phone << endl;
+        cout << "\n\n---------------------------\n";
+
+    }
+};
+
+
+int main()
+
+{
+    clsPerson Person1(10, "Ayoub", "Fellah", "Ayoub Fellah", "ayoubfellah@gmail.com", "0714710674");
+    Person1.PrintInfo();
+
+    Person1.SendEmail("Men", "How are you?");
+    Person1.SendSMS("How are you?");
+    system("pause>0");
+    return 0;
+}

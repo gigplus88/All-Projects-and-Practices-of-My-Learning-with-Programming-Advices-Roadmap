@@ -1,0 +1,52 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
+using System.Threading.Tasks;
+
+
+
+class Program
+{
+
+    static void Main()
+    {
+        var people = new[]
+         {
+            new { Name = "Bob", Age = 25 , isActive = true},
+            new { Name = "Charlie", Age = 35 , isActive = false},
+            new { Name = "Diana", Age = 30 , isActive = true},
+            new { Name = "Ethan", Age = 25 , isActive = false},
+            new { Name = "Alice", Age = 30 , isActive = true }
+        };
+
+        var GroupByAge = people.GroupBy(p => p.Age).
+                                Select( group => new {Age =  group.Key , People = group.OrderBy(p => p.Name)
+                                .Select(p => p)  } ); //.OrderBy( p => p.Name)
+
+
+
+        foreach (var group in GroupByAge)
+        {
+            Console.WriteLine("Age Group: " + group.Age);
+
+            foreach (var Person in group.People)
+            {
+                Console.WriteLine($"- { Person.Name} , isActive: {Person.isActive}");
+
+            }
+        }
+
+
+        Console.WriteLine();
+
+
+
+
+        Console.ReadKey();
+
+    }
+
+
+}

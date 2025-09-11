@@ -1,0 +1,23 @@
+#include <iostream>
+using namespace std;
+
+int main()
+{
+    float   CashPaid=0.0 , TotalBill=0.0;
+   
+    cout << " Give me de TotalBill: ";
+    cin >> TotalBill;
+
+    cout << " Give me de  CashPaid: ";
+    cin >> CashPaid;
+
+
+    float remainder = CashPaid -TotalBill ;
+
+    cout << "The remainder is: " << remainder;
+    
+   
+    
+    return 0 ;
+
+}

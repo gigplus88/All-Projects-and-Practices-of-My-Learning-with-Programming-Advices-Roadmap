@@ -1,0 +1,284 @@
+#include <iostream>
+#include <fstream>
+#include <string>
+#include <vector>
+#include <iomanip>
+#include <ctime>
+
+#pragma warning (disable : 4996)
+
+using namespace std;
+
+short ReadYear()
+{
+    int Year;
+
+    cout << "Enter a year: ";
+    cin >> Year;
+    cout << "\n\n";
+    return Year;
+}
+
+short ReadMonth()
+{
+    int Month;
+
+    cout << "Enter a Month: ";
+    cin >> Month;
+
+    return Month;
+}
+
+short ReadDay()
+{
+    int Day;
+
+    cout << "Enter a day: ";
+    cin >> Day;
+
+    return Day;
+}
+
+short ReadDaysToAdd()
+{
+    short DaysToAdd;
+
+    cout << "How many days to add ?";
+    cin >> DaysToAdd;
+
+    return DaysToAdd;
+}
+
+bool IsLeapYear(short Year)
+{
+    bool Num;
+
+    return (Year % 400 == 0) || ((Year % 100 != 0) && (Year % 4 == 0));
+
+
+}
+
+short MonthToDays(short Year, short Month)
+{
+
+    if (Month < 1 || Month> 12)
+    {
+        return 0;
+    }
+
+    short NumberOfDays[12] = { 31 , 28 , 31 , 30 , 31 ,30 , 31 , 31 , 30 , 31 , 30 , 31 };
+    return  (Month == 2) ? IsLeapYear(Year) ? 29 : 28 : NumberOfDays[Month - 1];
+
+}
+
+
+struct sDate {
+
+    short Year, Month, Day;
+};
+
+bool CheckIsLastDayInMonth(sDate Date)
+{
+
+    return  (Date.Day == MonthToDays(Date.Year, Date.Month));
+}
+
+bool CheckIsLastMonthInYear(sDate Date)
+{
+
+    return  (Date.Month == 12) ? true : false;
+}
+
+bool CheckIslessDate(sDate Date1, sDate Date2)
+{
+    return (Date1.Year < Date2.Year) ? true : ((Date1.Year == Date2.Year) ? (Date1.Month < Date2.Month) ? true : (Date1.Month == Date2.Month ? Date1.Day < Date2.Day : false) : false);
+}
+
+sDate ReadFullDate()
+{
+    sDate Date;
+    Date.Day = ReadDay();
+    Date.Month = ReadMonth();
+    Date.Year = ReadYear();
+
+    return Date;
+}
+
+
+short DayOrder(short Year, short Month, short Day)
+{
+    short a, y, m;
+    a = (14 - Month) / 12;
+    y = Year - a;
+    m = Month + (12 * a) - 2;
+    short d = (Day + y + (y / 4) - (y / 100) + (y / 400) + ((31 * m) / 12)) % 7;
+
+    return d;
+
+}
+
+short DayOrder(sDate Date)
+{
+    return DayOrder(Date.Year, Date.Month, Date.Day);
+
+}
+
+string DayName(short Days0fWeekOrder)
+{
+    string arrDayNames[] = { "Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", };
+
+    return arrDayNames[Days0fWeekOrder];
+}
+
+string PrintNameOfToday(sDate Date)
+{
+    string Day;
+    Day = DayName(DayOrder(Date.Year, Date.Month, Date.Day));
+    return Day;
+}
+
+
+
+void SwapDates(sDate& Date1, sDate& Date2)
+{
+    sDate TempDate;
+
+    TempDate.Day = Date1.Day;
+    TempDate.Month = Date1.Month;
+    TempDate.Year = Date1.Year;
+
+    Date1.Day = Date2.Day;
+    Date1.Month = Date2.Month;
+    Date1.Year = Date2.Year;
+
+    Date2.Day = TempDate.Day;
+    Date2.Month = TempDate.Month;
+    Date2.Year = TempDate.Year;
+
+}
+
+sDate IncreaseDateByOneDay(sDate Date)
+{
+    if (CheckIsLastDayInMonth(Date))
+    {
+        if (CheckIsLastMonthInYear(Date))
+        {
+            Date.Month = 1;
+            Date.Day = 1;
+            Date.Year++;
+        }
+
+        else
+        {
+            Date.Day = 1;
+            Date.Month++;
+        }
+    }
+
+    else
+    {
+        Date.Day++;
+    }
+
+    return Date;
+}
+int DifferenceDays(sDate Date1, sDate Date2, bool includeEndDay = false)
+{
+    int Days = 0;
+    short SwapFlagValue = 1;
+
+    if (!CheckIslessDate(Date1, Date2))
+    {
+        SwapDates(Date1, Date2);
+        SwapFlagValue = -1;
+    }
+    while (CheckIslessDate(Date1, Date2))
+    {
+        Days++;
+        Date1 = IncreaseDateByOneDay(Date1);
+    }
+
+    return includeEndDay ? ++Days * SwapFlagValue : Days * SwapFlagValue;
+
+
+
+}
+
+short YearToDays(short Year)
+{
+
+    return IsLeapYear(Year) ? 366 : 365;
+
+
+}
+
+bool IsItWeekend(sDate Date)
+{
+
+    short DayIndex = DayOrder(Date);
+    return (DayIndex == 6 || DayIndex == 0);
+
+}
+bool IsItBusinessDay(sDate Date)
+{
+    return !IsItWeekend(Date); // To when I want change week end day , I update day in week end and I not update it in Business day 
+
+    /*short DayIndex = DayOrder(Date);
+    return (DayIndex < 6 && DayIndex > 0);*/
+}
+sDate IncreaseDateByXDays(sDate Date, short DaysAdded)
+{
+    short DaysCounter = 0;
+
+    for (short i = 1; i <= DaysAdded; i++)
+    {
+        if (IsItBusinessDay(Date))
+        {
+            DaysCounter++ ;
+            Date = IncreaseDateByOneDay(Date);
+
+        }
+
+    }
+
+    return Date;
+}
+
+sDate ActualVacationDays(sDate DateFrom ,short VacationDays)
+{
+   
+    short CounterWeekend = 0;
+    while (IsItWeekend( DateFrom))
+    {
+        
+        DateFrom = IncreaseDateByOneDay(DateFrom);
+
+    }
+
+    for (short i = 1; i <= VacationDays + CounterWeekend; i++)
+    {
+        if (IsItWeekend(DateFrom))
+            CounterWeekend++ ;
+        DateFrom = IncreaseDateByOneDay(DateFrom);
+
+    }
+   
+    return DateFrom;
+}
+int main()
+
+{
+    cout << "Vacation Start:" << endl;
+    sDate DateFrom = ReadFullDate();
+
+    short VacationDays =0;
+    cout << "Enter Vacation Days?" ;
+    cin >> VacationDays;
+
+    sDate DateTo = ActualVacationDays( DateFrom ,VacationDays);
+    cout << "Return Date: " << DayName(DayOrder(DateTo)) << " , " << DateTo.Day << "/" << DateTo.Month << "/" << DateTo.Year << endl;
+    
+
+    system("pause>0");
+    return 0;
+}

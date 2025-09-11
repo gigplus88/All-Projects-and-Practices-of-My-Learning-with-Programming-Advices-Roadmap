@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Grid Centering Example</title>
+  <style>
+    /* Make the body fill the viewport and remove default margins */
+    html, body {
+      height: 100%;
+      margin: 0;
+    }
+
+    /* Utility class: centers any direct child in both axes */
+    .center {
+      display: grid;
+      place-items: center;    /* shorthand for justify-items + align-items */
+      height: 100%;           /* fill the parent (the viewport) */
+      background: #f0f0f0;
+    }
+
+    /* Just some styling for our centered box */
+    .box {
+      padding: 2rem 3rem;
+      background: #4a90e2;
+      color: white;
+      font-family: sans-serif;
+      font-size: 1.25rem;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+    .container {
+      display: flex;
+      place-content: center end;
+
+      width:  1500px;          /* full viewport height */
+      background: #f0f0f0;
+    }
+    .center-box {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr); /* 2 columns of equal width */
+      gap: 1rem; /* space between the boxes */
+      padding: 1rem;
+      place-items: center end;
+      place-content: center end;
+      height: 800px;
+      width: 900px;
+    }
+    .box1, .box2, .box3, .box4 {
+      padding: 1rem;
+      background: #7ed321;
+      color: white;
+      font-family: sans-serif;
+      font-size: 1.25rem;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+    .box1 
+    { 
+      place-self: center;
+    }
+    .box2 
+    { 
+      place-self: start end;
+    }
+    .box3 
+    { 
+      place-self: stretch start;
+    }
+    .box4 
+    { 
+      place-self: end stretch;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="center">
+    <div class="box">
+      I’m perfectly centered! 🎯
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="center-box">
+    <div class="box1">
+      I’m box1! 🎯
+    </div>
+
+    <div class="box2">
+      I’m box2! 🎯
+    </div>
+    
+    <div class="box3">
+      I’m box3! 🎯
+    </div>
+    
+    <div class="box4">
+      I’m box4! 🎯
+    </div>
+  </div>
+  </div>
+  
+
+</body>
+</html>

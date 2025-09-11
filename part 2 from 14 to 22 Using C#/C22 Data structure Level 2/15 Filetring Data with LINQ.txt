@@ -1,0 +1,34 @@
+using System;
+using System.Data;
+using System.Data.SqlClient;
+using static System.Net.Mime.MediaTypeNames;
+using System.Diagnostics;
+using System.Configuration;
+using System.Collections.Generic;
+using System.Xml.Linq;
+using System.Linq;
+
+
+class Program
+{
+   
+    static void Main()
+    {
+        // List initialization
+        List<int> numbers = new List<int> {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+
+       
+        Console.WriteLine("Even:" + string.Join( ", " , numbers.Where( n => n%2 == 0 )) );
+        Console.WriteLine("Odd:" + string.Join(", ", numbers.Where(n => n % 2 != 0) ));
+        Console.WriteLine("Secondary number:" + string.Join(", ", numbers.Where((n, index) =>  index % 2 == 1)));
+        Console.WriteLine("Number between 0 and 5:" + string.Join(", ", numbers.Where(n => n > 0 && n < 6  ) ));
+        Console.WriteLine("Number equal 0 and 4:" + string.Join(", ", numbers.Where(n => n == 0 ||  n == 4 )) );
+
+
+
+        Console.WriteLine("\n");
+
+        
+    }
+}
+

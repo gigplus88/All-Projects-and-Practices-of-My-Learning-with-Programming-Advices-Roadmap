@@ -1,0 +1,28 @@
+int main()
+{
+    short int Mark;
+
+    cout << "enter your Mark please " << endl;
+    cin >> Mark;
+
+    
+
+    if (Mark >= 50 )
+    {
+        cout << "Pass" << endl;
+
+
+    }
+
+    else
+
+    {
+        cout << "Failed" << endl;
+
+
+    }
+
+    return 0;
+}
+
+

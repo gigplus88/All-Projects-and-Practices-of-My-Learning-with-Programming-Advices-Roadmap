@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Simple Dark Mode Toggle</title>
+<style>
+  /* Light mode variables */
+  :root {
+    --bg-color: white;
+    --text-color: black;
+  }
+
+  /* Dark mode variables */
+  body.light {
+    --bg-color: #ffffff;
+    --text-color: rgb(31, 3, 3);
+  }
+  body.dark {
+    --bg-color: #121212;
+    --text-color: white;
+  }
+    body.rose {
+    --bg-color: #f373f3;
+    --text-color: rgb(27, 15, 15);
+  }
+
+  body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-family: Arial, sans-serif;
+    text-align: center;
+    padding-top: 50px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+
+  button {
+    background-color: var(--text-color);
+    color: var(--bg-color);
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 1rem;
+  }
+</style>
+</head>
+<body>
+
+<h1>Dark Mode Toggle</h1>
+<button id="toggleBtn">Switch to Dark Mode</button>
+<button id="toggleBtnRose">Switch to Rose Mode</button>
+
+
+<script>
+  const btn = document.getElementById('toggleBtn');
+  const Rosebtn = document.getElementById('toggleBtnRose');
+
+  const body = document.body;
+
+  btn.addEventListener('click', () => {
+    body.classList.toggle('dark');
+
+    if (body.classList.contains('dark')) {
+      btn.textContent = 'Switch to Light Mode';
+    } else {
+      btn.textContent = 'Switch to Dark Mode';
+    }
+  });
+
+
+  Rosebtn.addEventListener('click', () => {
+    body.classList.toggle('rose');
+
+    if (body.classList.contains('rose')) {
+      Rosebtn.textContent = 'Switch to Light Mode';
+    } else {
+      body.classList.toggle('light');
+      Rosebtn.textContent = 'Switch to Rose Mode';
+    }
+  });
+</script>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>CSS Variables – Font & Spacing Example</title>
+<style>
+  /* 1️⃣ Declare variables in :root for font and spacing */
+  :root {
+    --main-font-size: 18px;
+    --heading-font-size: 28px;
+    --section-padding: 20px;
+  }
+
+  body {
+    font-family: Arial, sans-serif;
+    font-size: var(--main-font-size);
+    margin: 0;
+    padding: 0;
+    background: #f7f7f7;
+  }
+
+  h1 {
+    font-size: var(--heading-font-size);
+    text-align: center;
+    margin: var(--section-padding) 0;
+  }
+
+  section {
+    background: white;
+    margin: var(--section-padding);
+    padding: var(--section-padding);
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  }
+
+  button {
+    display: block;
+    margin: var(--section-padding) auto;
+    padding: 8px 16px;
+    font-size: var(--main-font-size);
+    cursor: pointer;
+  }
+</style>
+</head>
+<body>
+
+<h1>Resizable Layout with CSS Variables</h1>
+
+<section>
+  <p>This layout uses CSS variables for font sizes and spacing.</p>
+  <p>Change them with JavaScript and see everything update instantly.</p>
+</section>
+
+<button id="increase">Increase Size</button>
+<button id="decrease">Decrease Size</button>
+
+<script>
+  const root = document.documentElement;
+
+  document.getElementById('increase').addEventListener('click', () => {
+    // Get current values
+    let mainFont = parseInt(getComputedStyle(root).getPropertyValue('--main-font-size'));
+    let headingFont = parseInt(getComputedStyle(root).getPropertyValue('--heading-font-size'));
+    let padding = parseInt(getComputedStyle(root).getPropertyValue('--section-padding'));
+
+    // Increase each by 2px
+    root.style.setProperty('--main-font-size', Math.min(mainFont + 2 , 25) + 'px');
+    root.style.setProperty('--heading-font-size',Math.min(headingFont + 2 , 35)  + 'px');
+    root.style.setProperty('--section-padding',Math.min(padding + 2 , 26) + 'px');
+  });
+
+  document.getElementById('decrease').addEventListener('click', () => {
+    let mainFont = parseInt(getComputedStyle(root).getPropertyValue('--main-font-size'));
+    let headingFont = parseInt(getComputedStyle(root).getPropertyValue('--heading-font-size'));
+    let padding = parseInt(getComputedStyle(root).getPropertyValue('--section-padding'));
+
+    // Decrease each by 2px
+    root.style.setProperty('--main-font-size', Math.max(mainFont - 2, 10) + 'px');
+    root.style.setProperty('--heading-font-size', Math.max(headingFont - 2, 14) + 'px');
+    root.style.setProperty('--section-padding', Math.max(padding - 4, 8) + 'px');
+  });
+</script>
+
+</body>
+</html>

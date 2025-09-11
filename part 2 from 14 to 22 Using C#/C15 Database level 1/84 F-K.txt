@@ -1,0 +1,58 @@
+
+CREATE TABLE Persons (
+   ID int NOT NULL PRIMARY KEY,
+   LastName varchar(255) NOT NULL,
+   FirstName varchar(255),
+   Age int
+);
+
+
+Alter table Books
+Add Constraint Pk_Books Primary Key(ID,Name);
+
+
+Alter table Books
+Drop Constraint Pk_Books;
+
+
+Alter table Books
+Add Constraint Pk_Books Primary Key(ID);
+
+
+
+CREATE TABLE Orders (
+   OrderID int NOT NULL ,
+   OrderNumber int NOT NULL,
+   PRIMARY KEY(OrderID),
+   PersonID int,
+   Constraint FK_PersonOrder Foreign Key(PersonID) 
+   References Persons(ID));
+
+
+Alter Table Orders
+Add Foreign Key(PersonID)
+References Persons(ID);
+
+
+Alter Table Orders
+Add Constraint Fk_OrderPerson Foreign Key(PersonID)
+References Persons(ID);
+
+
+Alter Table Orders
+Drop Constraint  Fk_OrderPerson;
+
+
+Alter Table Orders
+Drop Constraint  FK_PersonOrder;
+
+
+
+
+
+
+
+
+
+
+

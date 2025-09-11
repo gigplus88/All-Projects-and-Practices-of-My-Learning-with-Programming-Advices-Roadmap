@@ -1,0 +1,28 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+
+
+
+class Program
+{
+    static void Main()
+    {
+        ArrayList arrayList = new ArrayList { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+
+
+        var EvenNumber = arrayList.Cast<int>().Where(x =>  x % 2 == 0 && x>2);
+
+        foreach (var item in EvenNumber)
+        {
+            Console.WriteLine($"{item}");
+        }
+
+        Console.WriteLine($"array List Count is': {arrayList.Count}");
+
+
+        Console.ReadKey();
+
+    }
+}

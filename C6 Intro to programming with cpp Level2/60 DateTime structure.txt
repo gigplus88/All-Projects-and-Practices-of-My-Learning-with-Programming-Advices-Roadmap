@@ -1,0 +1,29 @@
+#include <iostream>
+#include <vector>
+#include <string>
+#include <fstream>
+#include <ctime>
+#pragma warning (disable : 4996)
+
+using namespace std;
+
+
+int main()
+{
+    time_t t = time(0); // time(0) give us our time in seconds;
+
+    tm* now = localtime(&t);
+    cout << "Year" << now->tm_year + 1900 << endl;
+    cout << "Month" << now->tm_mon + 1 << endl;
+    cout << "Day" << now->tm_wday << endl;
+    cout << "Hour" << now->tm_hour <<  endl;
+    cout << "Min" << now->tm_min << endl;
+    cout << "Second" << now->tm_sec << endl;
+    cout << "Week Day since sunday" << now->tm_wday << endl;
+    cout << "Year Day" << now->tm_yday << endl; // how day have 1/1
+    cout << "Hours Of Day" << now->tm_isdst << endl; // hours of daylight
+
+    cout << "We are in :" << now->tm_year + 1900;
+    
+    return 0;
+}

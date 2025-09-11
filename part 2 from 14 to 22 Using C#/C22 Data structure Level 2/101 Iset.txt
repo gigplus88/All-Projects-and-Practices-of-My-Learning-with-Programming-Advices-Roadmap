@@ -1,0 +1,198 @@
+using System; 
+using System.Collections;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Dynamic;
+using System.Linq;
+using System.Reflection;
+using System.Xml;
+
+
+
+
+public class SimpleISet<T> : ISet<T>
+{
+    private List<T> _items = new List<T>();
+
+    IEnumerator IEnumerable.GetEnumerator() => _items.GetEnumerator();
+    public IEnumerator<T> GetEnumerator() => _items.GetEnumerator();
+    public T this[int index]
+    {
+        set => _items[index] = value;
+
+        get => _items[index];
+    }
+    public int Count => _items.Count;
+    public bool IsReadOnly => false;
+    public bool Add(T item)
+    {
+        if (!_items.Contains(item))
+        {
+            _items.Add(item);
+            return true;
+        }
+        return false;
+    }
+    void ICollection<T>.Add(T item) => Add(item);
+    public void Clear() => _items.Clear();
+    public bool Contains(T item) => _items.Contains(item);
+    public void CopyTo(T[] newArray, int arrayIndex) => _items.CopyTo(newArray, arrayIndex);
+    public void RemoveAt(int index) => _items.RemoveAt(index);
+    public bool Remove(T item) => _items.Remove(item);
+    public int IndexOf(T item) => _items.IndexOf(item);
+    public void Insert(int index, T item) => _items.Insert(index, item);
+    public void UnionWith(IEnumerable<T> other)
+    {
+        foreach (var item in other)
+        {
+            if (!_items.Contains(item))
+            {
+                _items.Add(item);
+            }
+
+        }
+    }
+    public void IntersectWith(IEnumerable<T> other)
+    {
+        var set = new HashSet<T>(other);
+        _items = _items.Where(item => set.Contains(item)).ToList();
+    }
+    public void ExceptWith(IEnumerable<T> other)
+    {
+        var toRemove = new HashSet<T>(other);
+
+        _items = _items.Where(x => !toRemove.Contains(x)).ToList();
+    }
+    public bool SetEquals(IEnumerable<T> other)
+    {
+        var set1 = new HashSet<T>(_items);
+        var set2 = new HashSet<T>(other);
+
+        return set1.SetEquals(set2);
+    }
+    public bool Overlaps(IEnumerable<T> other)
+    {
+        var set1 = new HashSet<T>(_items);
+        var set2 = new HashSet<T>(other);
+
+        return set1.Overlaps(set2);
+    }
+    public void SymmetricExceptWith(IEnumerable<T> other)
+    {
+        var set = new HashSet<T>(other);
+        var result = new List<T>();
+
+        foreach (var item in _items)
+        {
+            if (!set.Contains(item))
+                result.Add(item);
+        }
+
+        foreach (var item in set)
+        {
+            if (!_items.Contains(item))
+                result.Add(item);
+        }
+        _items = result;
+
+    }
+    public bool IsSubsetOf(IEnumerable<T> other)
+    {
+        var set = new HashSet<T>(_items);
+
+        return set.IsSubsetOf(other);
+    }
+    public bool IsProperSubsetOf(IEnumerable<T> other)
+    {
+        var set = new HashSet<T>(_items);
+
+        return set.IsProperSubsetOf(other);
+    }
+    public bool IsProperSupersetOf(IEnumerable<T> other)
+    {
+        return new HashSet<T>(_items).IsProperSupersetOf(other);
+    }
+    public bool IsSupersetOf(IEnumerable<T> other)
+    {
+        var set = new HashSet<T>(_items);
+
+        return set.IsSupersetOf(other);
+    }
+}
+class Program
+{
+
+    static void Main()
+    {
+        SimpleISet<int > mySet = new SimpleISet<int>();
+        mySet.Add(1 );
+        mySet.Add(2);
+        mySet.Add(3);
+        mySet.Add(4);
+        mySet.Add(5);
+
+        // Updating an element by key
+        mySet[2] = 9;
+        Console.WriteLine($"Updated element 2: {mySet[2]}");
+
+
+        //Check if is Exist
+        int ElementToRemove = 1;
+        if (mySet.Contains(ElementToRemove) )
+        {
+            //Remove Item
+            mySet.Remove(ElementToRemove);
+            Console.WriteLine("Element ToRemove is Removed Successfully");
+        }
+
+        //Accessing Item
+        Console.WriteLine("The  Second Item is:" + mySet[1]);
+
+        //Iteration  of myDic
+        foreach (var item in mySet)
+        {
+            Console.WriteLine($"Value : {item}");
+        }
+
+        // Display the dictionary after removal
+        Console.WriteLine("\nSet Before removing all elements:");
+        foreach (var item in mySet)
+        {
+            Console.WriteLine($"Value : {item}");
+        }
+
+        //mySet.Clear();
+
+
+        //foreach (var item in mySet)
+        //{
+        //    Console.WriteLine($"Value : {item}");
+        //}
+
+        HashSet<int> hash = new HashSet<int> { 1 , 3 ,7 ,9 };
+       
+
+        bool IsEqual = mySet.SetEquals(hash);
+        Console.WriteLine($"hash is equal mySet : {IsEqual}");
+
+        bool IsOverlaps = mySet.Overlaps(hash);
+        Console.WriteLine($"hash is overlaps with mySet : {IsOverlaps}");
+
+        //mySet.IntersectWith(hash);
+
+       
+        mySet.ExceptWith(hash);
+
+        foreach (var item in mySet)
+        {
+            Console.WriteLine($"Value : {item}");
+        }
+
+
+        Console.ReadKey();
+
+    }
+
+ 
+
+}

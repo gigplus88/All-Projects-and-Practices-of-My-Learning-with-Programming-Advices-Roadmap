@@ -1,0 +1,55 @@
+
+#include <iostream>
+#include <cmath>
+#include <string>
+using namespace std;
+
+
+void ReadATMBalancecode(short int &ATMBalanceCode)
+{
+    cout << "enter your ATM PIN code please " << endl;
+    cin >> ATMBalanceCode;
+
+}
+
+void PrintUSERBalance()
+{
+    cout << "Your Balance Is: 7500" << endl;
+
+}
+
+void PrintWrongPassword()
+{
+    cout << "Wrong Password" << endl;
+
+}
+
+
+
+int main()
+{
+   
+    short int ATMBalanceCode =0;
+
+    ReadATMBalancecode(ATMBalanceCode);
+    
+
+    if (ATMBalanceCode == 1234)
+    {
+        PrintUSERBalance();
+
+    }
+
+    else
+
+    {
+        PrintWrongPassword();
+
+    }
+
+    return 0;
+}
+
+
+
+

@@ -1,0 +1,27 @@
+#include <iostream>
+#include <cmath>
+#include <string>
+#include <iomanip>
+#include <vector>
+
+using namespace std;
+
+
+
+int main()
+{
+    vector <int> numbers{ 1,2,3,5 };
+
+
+	try
+	{
+		cout << numbers.at(7);
+
+	}
+	catch (...)
+	{
+		cout << "Out Of Pound";
+	}
+    return 0;
+}
+

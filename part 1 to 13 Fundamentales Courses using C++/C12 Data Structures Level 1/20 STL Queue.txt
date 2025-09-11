@@ -1,0 +1,44 @@
+
+#include<iostream>
+#include<queue>
+
+using namespace std;
+
+int main()
+{
+	queue <int> MyQueue;
+	
+	MyQueue.push(10);
+	MyQueue.push(20);
+	MyQueue.push(30);
+	MyQueue.push(40);
+	MyQueue.push(50);
+
+
+	
+
+	cout << "Count = " << MyQueue.size() << endl;
+	cout << "Front = " << MyQueue.front() << endl;
+	cout << "Back = " << MyQueue.back() << endl;
+
+
+
+
+	cout << "Numbers  of MyQueue are: " << endl;
+
+	while (!MyQueue.empty())
+	{
+		cout << MyQueue.front() << endl; // Print The top element
+
+		MyQueue.pop(); // Pop for top element from stack
+	}
+
+
+
+
+
+
+	system("pause>0");
+	return(0);
+
+}

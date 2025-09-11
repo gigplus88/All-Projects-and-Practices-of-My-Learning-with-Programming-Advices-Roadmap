@@ -1,0 +1,32 @@
+#include <iostream>
+#include <cmath>
+#include <string>
+#include <fstream>
+
+
+using namespace std;
+
+
+
+int main()
+{
+    fstream MyFirstFile;
+    MyFirstFile.open("MyFirstFile.txt ", ios::out); //Write Mode
+
+    if (MyFirstFile.is_open())
+    {
+        MyFirstFile << "Ayoub\n";
+        MyFirstFile << " Yes ,This is the second line\n";
+        MyFirstFile << " Yes ,This is the third line\n";
+
+        MyFirstFile.close();
+
+    }
+
+
+    
+
+
+    return 0;
+}
+

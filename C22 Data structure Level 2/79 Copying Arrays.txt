@@ -1,0 +1,36 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
+using System.Threading.Tasks;
+
+
+
+class Program
+{
+
+    static void Main()
+    {
+        // Original array
+        int[] original = { 1, 2, 3, 4, 5 };
+
+
+        // Array to hold the copy
+        int[] copy = new int[5];
+
+        Console.WriteLine(copy.Length);
+
+        Array.Copy( original ,copy , original.Length);
+
+
+        // Displaying the copied array
+        Console.WriteLine( string.Join("," , copy) );
+
+
+        Console.ReadKey();
+
+    }
+
+
+}

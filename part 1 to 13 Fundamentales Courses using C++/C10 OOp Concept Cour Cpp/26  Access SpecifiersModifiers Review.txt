@@ -1,0 +1,63 @@
+#include <iostream>
+#include <iostream>
+#include <fstream>
+#include <string>
+#include <vector>
+#include <iomanip>
+
+using namespace std;
+
+class clsA
+{
+private:
+
+     int _Var1;
+     void Func1()
+     {
+         cout << "Function 1" << endl;
+     }
+
+protected:
+
+    int Var2;
+    void Func2()
+    {
+        cout << "Function 2" << endl;
+    }
+
+public:
+
+    int Var3;
+    void Func3()
+    {
+        cout << "Function 3" << endl;
+    }
+
+};
+
+class clsB : public clsA
+{
+public:
+
+    void Func1()
+    {
+     clsA::Func2();
+   
+    }
+    
+
+
+};
+
+
+int main()
+
+{
+    clsB B1;
+
+    B1.Func1();
+        
+
+    system("pause>0");
+    return 0;
+}

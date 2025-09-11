@@ -1,0 +1,105 @@
+
+#include <iostream>
+#include <cmath>
+#include <string>
+using namespace std;
+
+
+void ReadNumber(int& Num, int &M)
+{
+    cout << "Enter your number please\n";
+    cin >> Num;
+
+    cout << "Enter your M number please\n";
+    cin >> M;
+}
+
+void PrintNumber(int& i, int& Num, int& M, int &p)
+{
+    
+   
+    
+    p = 1;
+
+        for (int i = 1; i <= M; i++)
+        {
+            if (i<=M)
+            {
+                p = p * Num;
+
+            }
+            
+
+
+        }
+        cout << p;
+    
+   
+    
+}
+
+
+int main()
+{
+    int Num = 0, i = 0, M = 0 , p=0;
+
+    ReadNumber(Num,M);
+    PrintNumber(i, Num, M , p);
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#include <iostream>
+using namespace std;
+#include <cmath>
+#include <string>
+
+ float PowerTheNumberPowerM( float Number , float M , float result)
+{
+     
+     return result = pow(Number, M) ;
+
+}
+ 
+ 
+
+
+
+
+
+ int main()
+ {
+     float Number = 0.0, M = 0.0;
+     cout << "Enter the Number :";
+     cin >> Number;
+
+     cout << "Enter the M :";
+     cin >> M;
+
+     float result = pow(Number, M);
+     cout << " The result is: " << PowerTheNumberPowerM(Number, M, result);
+
+
+
+
+     return 0;
+
+ }
+

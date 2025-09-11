@@ -1,0 +1,66 @@
+
+using System;
+using System.Collections.Generic;
+using System.Net.Http;
+using System.Net.Http.Json;
+using System.Text.Json.Serialization;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace StudentApiClient
+{
+    class Program
+    {
+        static readonly HttpClient httpClient = new HttpClient();
+
+        static async Task Main(string[] args)
+        {
+            httpClient.BaseAddress = new Uri("http://localhost:5039/api/Students/AverageGrade"); 
+
+            await GetStudentInfoById(4);
+            await GetStudentInfoById(1); 
+            await GetStudentInfoById(20); 
+        }
+
+        static async Task GetStudentInfoById(int id)
+        {
+            try
+            {
+                Console.WriteLine("\n_____________________________");
+                Console.WriteLine("\nFetching student with id...\n");
+                var response = await httpClient.GetAsync($"{id}");
+
+                if (response.IsSuccessStatusCode)
+                {
+                    //var studentById = await httpClient.GetFromJsonAsync<Student>($"{id}");
+
+                    var studentById = await response.Content.ReadFromJsonAsync<Student>();
+                    if (studentById != null)
+                    {
+                        Console.WriteLine($"Student id={id} info are : {studentById.Id} , Name: {studentById.Name} ,Age:  {studentById.Age} ,Grade: {studentById.Grade}");
+                    }
+                }
+                else if (response.StatusCode == System.Net.HttpStatusCode.BadRequest)
+                {
+                    Console.WriteLine($"Bad Request: Not accepted ID {id}");
+                }
+                else if (response.StatusCode == System.Net.HttpStatusCode.NotFound)
+                {
+                    Console.WriteLine($"Not Found: Student with ID {id} not found.");
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"An error occurred: {ex.Message}");
+            }
+        }
+    }
+    public class Student
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public int Age { get; set; }
+        public int Grade { get; set; }
+    }
+}

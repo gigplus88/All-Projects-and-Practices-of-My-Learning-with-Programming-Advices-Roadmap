@@ -1,0 +1,71 @@
+#include <iostream>
+#include <cmath>
+#include <string>
+using namespace std;
+struct stTasksDuration { int days, hours, minutes, seconds; };
+stTasksDuration TasksDuration;
+
+int ReadPositiveNumbers(string Message)
+{
+    int Number = 0;
+
+    do
+    {
+        cout << Message << endl;
+        cin >> Number;
+
+    } while (Number <= 0);
+
+    return Number;
+}
+stTasksDuration SecondToTaskDuration ( int TaskInSeconds)
+{
+
+    const int SecondsPerDay = 24 * 3600;
+    const int SecondsPerHours = 3600;
+    const int SecondsPerMinutes =  60;
+    
+
+    TasksDuration.days = floor (TaskInSeconds / SecondsPerDay);
+    int remainde1 = TaskInSeconds % SecondsPerDay;
+
+    TasksDuration.hours = floor(remainde1 / SecondsPerHours);
+    int remainde2 = remainde1 % SecondsPerHours;
+
+    TasksDuration.minutes = floor(remainde2 / SecondsPerMinutes);
+    int remainde3 = remainde2 % SecondsPerMinutes;
+
+    TasksDuration.seconds = remainde3;
+
+    return TasksDuration;
+}
+
+void PrintTaskDurationDetails(stTasksDuration TaskDuration)
+{
+    
+    cout << TasksDuration.days << ":" << TasksDuration.hours << ":" << TasksDuration.minutes << ":" << TasksDuration.seconds ;
+
+
+    
+}
+
+
+ 
+
+int main()
+{
+    int TaskInSeconds = ReadPositiveNumbers("Please enetr your seconds");
+
+
+    cout << "Task Duration In Seconds is: "; 
+    
+    PrintTaskDurationDetails(SecondToTaskDuration(TaskInSeconds)) ;
+    
+
+
+
+    return 0;
+
+}
+
+

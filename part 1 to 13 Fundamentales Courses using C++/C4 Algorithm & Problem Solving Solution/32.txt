@@ -1,0 +1,71 @@
+#include <iostream>
+#include <cmath>
+#include <string>
+using namespace std;
+
+
+int ReadeNumber ()
+{
+    int Number;
+   
+    cout << "Please enter your number: " <<endl;
+    cin >> Number;
+
+   
+    return Number;
+}
+
+int ReadePower()
+{
+    int M;
+
+   
+
+    cout << "Please enter your power: " << endl;
+    cin >> M;
+
+    return M;
+}
+
+int PowerOfM(int Number , int M)
+{
+  
+    if (M==0)
+    {
+        return 1;
+    }
+    
+    else
+    {
+       int  p = 1;
+
+        for (int i = 1; i <= M; i++)
+        {
+            p = p * Number;
+
+        }
+        return p;
+    }
+
+}
+
+
+ 
+
+
+
+
+int main()
+{
+    
+  
+   cout << PowerOfM(ReadePower(),ReadeNumber()) << endl;
+
+    
+       
+    return 0;
+
+}
+
+
+

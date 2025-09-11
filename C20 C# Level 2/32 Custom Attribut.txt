@@ -1,0 +1,44 @@
+
+using System;
+using System.Diagnostics;
+using System.IO;
+using System.Runtime.Serialization.Json;
+
+
+[AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = true)]
+public class MyCustomAttribute : Attribute
+{
+    public string Description { get; }
+
+
+    public MyCustomAttribute(string description)
+    {
+        Description = description;
+    }
+}
+
+
+[MyCustom("This is a class attribute")]
+class MyClass
+{
+    [MyCustom("This is a method attribute")]
+    public void MyMethod()
+    {
+        Console.WriteLine("This is MyMethod");
+    }
+}
+
+
+
+
+class Program
+{
+    static void Main()
+    {
+        MyClass myClass = new MyClass();
+
+        myClass.MyMethod();
+
+        Console.ReadLine();
+    }
+}

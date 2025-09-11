@@ -1,0 +1,85 @@
+#include <iostream>
+#include <string>
+#include <iomanip>
+
+using namespace std;
+
+// هدفه في هذا البرنامج هو
+// جعل أول كلمة من الكتابة في السطر الأول ثم مسحها
+// ثم كتابة الكلمة الأخرى و جعلها في سطر لوحده
+// وهكذا إلى آخر كلمة من الجملة
+
+
+string ReadString()
+{
+    string  S1;
+    cout << "Please Enter Your String?" << endl;
+    getline(cin, S1);
+
+    return S1;
+}
+
+void PrintEachWordInString(string  S1)
+{
+    string delim = " ";
+    short posi = 0;
+    cout << "Your String words are:" << endl << endl;
+    string sWord;
+
+    while ((posi = S1.find(delim)) != std::string::npos)
+    {
+        sWord = S1.substr(0, posi); // Store the word
+        if (sWord != "")
+        {
+            cout << sWord << endl;
+
+        }
+
+        S1.erase(0, posi + delim.length()); // delim.length() لأن الفراغ بعد الكلمة قد يكون في أكثر من خانة
+    }
+    if (S1 != "")
+    {
+        cout << S1 << endl; // It print last word of the string
+    }
+
+
+
+}
+
+
+// My Solution
+void PrintEachWordInString1(string  S1)
+{
+    for (short i = 0; i < S1.length(); i++)
+    {
+        if (S1[i] != ' ')
+        {
+            cout << S1[i] ;
+        }
+
+        if (S1[i] == ' ')
+        {
+            cout << endl;
+            continue;
+        }
+       
+    }
+
+
+}
+
+
+
+
+
+
+int main()
+{
+   
+    PrintEachWordInString(ReadString());
+
+
+    system("pause>0");
+
+    return 0;
+}

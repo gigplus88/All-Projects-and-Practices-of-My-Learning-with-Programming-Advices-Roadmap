@@ -1,0 +1,232 @@
+using System;
+using System.Linq;
+using System.Data;
+
+namespace ConsoleAppDataTable
+{
+    public class Example
+    {
+        public static void Main(string[] args)
+        {
+
+            DataTable Employee = new DataTable();
+
+            // Columns
+            Employee.Columns.Add("ID", typeof(int));
+            Employee.Columns.Add("Name", typeof(string));
+            Employee.Columns.Add("Country" , typeof(string));
+            Employee.Columns.Add("Salary" , typeof(Double));
+            Employee.Columns.Add("Date" , typeof(DateTime));
+
+            // Rows
+
+            Employee.Rows.Add(1 , "Ayoub Fellah" , "Morocco" , 2000 , DateTime.Now);
+            Employee.Rows.Add(2, "Saad Bihi", "Morocco", 5000, DateTime.Now);
+            Employee.Rows.Add(3, "Ayoub Rochdi", "Lebnano", 1000, DateTime.Now);
+            Employee.Rows.Add(4, "Zaid smikss", "Ksa", 2000, DateTime.Now);
+            Employee.Rows.Add(5, "Rachad Fellah", "Morocco", 8000, DateTime.Now);
+            Employee.Rows.Add(6, "Zoubir laroui", "Tunisie", 9000, DateTime.Now);
+
+            foreach (DataRow Row in Employee.Rows)
+            {
+                Console.WriteLine($"ID : {Row["ID"]} \t Name : {Row["Name"]} \t Country : {Row["Country"]}  \t Salary : {Row["Salary"]}  \t Date : {Row["Date"]} ");
+                //Console.WriteLine("ID : {0} \t Name : {1} \t Country : {2}  \t Salary : {3}  \t Date : {4}", Row[0], Row[1],Row[2],Row[3],Row[4]);
+            }
+
+            int EmployeesCount = 0;
+            double TotalSalaries = 0;
+            double AverageSalaries = 0;
+            double MinSalaries = 0;
+            double MaxSalaries = 0;
+
+            EmployeesCount = Employee.Rows.Count;
+            TotalSalaries =Convert.ToDouble( Employee.Compute("SUM(Salary)", string.Empty));
+            AverageSalaries =Convert.ToDouble(Employee.Compute("AVG(Salary)", string.Empty));
+            MinSalaries =Convert.ToDouble(Employee.Compute("MIN(Salary)", string.Empty));
+            MaxSalaries =Convert.ToDouble(Employee.Compute("MAX(Salary)", string.Empty));
+
+            Console.WriteLine("Count Of Employees :" + EmployeesCount);
+            Console.WriteLine("Total Of Salaries :" + TotalSalaries);
+            Console.WriteLine("Average Of Salaries :" + AverageSalaries);
+            Console.WriteLine("Min Of Employees Salary :" + MinSalaries);
+            Console.WriteLine("Max Of Employees Salary:" + MaxSalaries);
+
+            int EmployeesCounts =Convert.ToInt16( Employee.Compute("Count(ID)", string.Empty));
+            Console.WriteLine("Count Of Employees :" + EmployeesCounts);
+
+
+            //DataColumn travel = new DataColumn("travel", typeof(string));
+            //travel.AllowDBNull = false;
+            //Employee.Columns.Add(travel);
+
+
+
+
+
+
+
+
+            // Filter Country = Morocco
+            Console.WriteLine("Filter Morrocco Employees ");
+            DataRow[] MoroccoRows = Employee.Select("Country = 'Morocco' "); // Enter in MoroccoRows all rows which are Country = 'Morocco'
+            Console.WriteLine("\n");
+
+            foreach (DataRow Row in MoroccoRows)
+            {
+                Console.WriteLine($"ID : {Row["ID"]} \t Name : {Row["Name"]} \t Country : {Row["Country"]}  \t Salary : {Row["Salary"]}  \t Date : {Row["Date"]} ");
+                //Console.WriteLine("ID : {0} \t Name : {1} \t Country : {2}  \t Salary : {3}  \t Date : {4}", Row[0], Row[1],Row[2],Row[3],Row[4]);
+            }
+
+            EmployeesCount = MoroccoRows.Count();
+            TotalSalaries =Convert.ToDouble(Employee.Compute("SUM(Salary)", "Country = 'Morocco' "));
+            AverageSalaries =Convert.ToDouble(Employee.Compute("AVG(Salary)", "Country = 'Morocco' "));
+            MinSalaries =Convert.ToDouble(Employee.Compute("MIN(Salary)", "Country = 'Morocco' "));
+            MaxSalaries =Convert.ToDouble(Employee.Compute("MAX(Salary)", "Country = 'Morocco' "));
+
+            Console.WriteLine("Count Of Employees :" + EmployeesCount);
+            Console.WriteLine("Total Of Salaries :" + TotalSalaries);
+            Console.WriteLine("Average Of Salaries :" + AverageSalaries);
+            Console.WriteLine("Min Of Employees Salary :" + MinSalaries);
+            Console.WriteLine("Max Of Employees Salary:" + MaxSalaries);
+
+
+
+
+
+
+
+            // Filter Country = Morocco and Ksa
+            Console.WriteLine("Filter Morrocco or Ksa Employees ");
+            DataRow[] MoroccoAndKsaRows = Employee.Select("Country = 'Morocco' or Country = 'Ksa' "); // Enter in MoroccoAndKsaRows all rows which are Country = 'Morocco'
+            Console.WriteLine("\n");
+
+            foreach (DataRow Row in MoroccoAndKsaRows)
+            {
+                Console.WriteLine($"ID : {Row["ID"]} \t Name : {Row["Name"]} \t Country : {Row["Country"]}  \t Salary : {Row["Salary"]}  \t Date : {Row["Date"]} ");
+                //Console.WriteLine("ID : {0} \t Name : {1} \t Country : {2}  \t Salary : {3}  \t Date : {4}", Row[0], Row[1],Row[2],Row[3],Row[4]);
+            }
+
+            EmployeesCount = MoroccoAndKsaRows.Count();
+            TotalSalaries =Convert.ToDouble(Employee.Compute("SUM(Salary)", "Country = 'Morocco' or Country = 'Ksa'"));
+            AverageSalaries =Convert.ToDouble(Employee.Compute("AVG(Salary)", "Country = 'Morocco' or Country = 'Ksa'"));
+            MinSalaries =Convert.ToDouble(Employee.Compute("MIN(Salary)", "Country = 'Morocco' or Country = 'Ksa'"));
+            MaxSalaries =Convert.ToDouble(Employee.Compute("MAX(Salary)", "Country = 'Morocco' or Country = 'Ksa'"));
+
+            Console.WriteLine("Count Of Employees :" + EmployeesCount);
+            Console.WriteLine("Total Of Salaries :" + TotalSalaries);
+            Console.WriteLine("Average Of Salaries :" + AverageSalaries);
+            Console.WriteLine("Min Of Employees Salary :" + MinSalaries);
+            Console.WriteLine("Max Of Employees Salary:" + MaxSalaries);
+
+
+
+
+
+
+
+
+            // Filter ID = 1
+            Console.WriteLine("Filter ID = 1 for Employees ");
+            DataRow[] IDEqualRow = Employee.Select("ID = 1 "); // Enter in MoroccoAndKsaRows all rows which are Country = 'Morocco'
+            Console.WriteLine("\n");
+
+            foreach (DataRow Row in IDEqualRow)
+            {
+                Console.WriteLine($"ID : {Row["ID"]} \t Name : {Row["Name"]} \t Country : {Row["Country"]}  \t Salary : {Row["Salary"]}  \t Date : {Row["Date"]} ");
+                //Console.WriteLine("ID : {0} \t Name : {1} \t Country : {2}  \t Salary : {3}  \t Date : {4}", Row[0], Row[1],Row[2],Row[3],Row[4]);
+            }
+
+            EmployeesCount = IDEqualRow.Count();
+            TotalSalaries =Convert.ToDouble(Employee.Compute("SUM(Salary)", "ID = 1"));
+            AverageSalaries =Convert.ToDouble(Employee.Compute("AVG(Salary)", "ID = 1"));
+            MinSalaries =Convert.ToDouble(Employee.Compute("MIN(Salary)", "ID = 1"));
+            MaxSalaries =Convert.ToDouble(Employee.Compute("MAX(Salary)", "ID = 1"));
+
+            Console.WriteLine("Count Of Employees :" + EmployeesCount);
+            Console.WriteLine("Total Of Salaries :" + TotalSalaries);
+            Console.WriteLine("Average Of Salaries :" + AverageSalaries);
+            Console.WriteLine("Min Of Employees Salary :" + MinSalaries);
+            Console.WriteLine("Max Of Employees Salary:" + MaxSalaries);
+
+
+
+
+
+            //Sorting by ID
+            Console.WriteLine("\n");
+            Console.WriteLine("Sorting Result by ID desc ");
+            Employee.DefaultView.Sort ="ID desc";
+            Employee = Employee.DefaultView.ToTable();
+            foreach (DataRow Row in Employee.Rows)
+            {
+                Console.WriteLine($"ID : {Row["ID"]} \t Name : {Row["Name"]} \t Country : {Row["Country"]}  \t Salary : {Row["Salary"]}  \t Date : {Row["Date"]} ");
+                //Console.WriteLine("ID : {0} \t Name : {1} \t Country : {2}  \t Salary : {3}  \t Date : {4}", Row[0], Row[1],Row[2],Row[3],Row[4]);
+            }
+
+            Console.WriteLine("\n");
+            Console.WriteLine("Sorting Result by Name asc ");
+            Employee.DefaultView.Sort ="Name asc";
+            Employee = Employee.DefaultView.ToTable();
+
+            foreach (DataRow Row in Employee.Rows)
+            {
+                Console.WriteLine($"ID : {Row["ID"]} \t Name : {Row["Name"]} \t Country : {Row["Country"]}  \t Salary : {Row["Salary"]}  \t Date : {Row["Date"]} ");
+                //Console.WriteLine("ID : {0} \t Name : {1} \t Country : {2}  \t Salary : {3}  \t Date : {4}", Row[0], Row[1],Row[2],Row[3],Row[4]);
+            }
+
+
+
+            // Delete row
+            DataRow[] RowForDelete = Employee.Select("ID = 4");
+            Console.WriteLine("\n");
+            foreach (var row in RowForDelete)
+            {
+                row.Delete();
+            }
+            //foreach (DataRow[] row in RowForDelete)
+            //{
+            //    row.Delete();
+            //}
+
+            // Employee.AcceptChanges();
+            foreach (DataRow Row in Employee.Rows)
+            {
+                Console.WriteLine($"ID : {Row["ID"]} \t Name : {Row["Name"]} \t Country : {Row["Country"]}  \t Salary : {Row["Salary"]}  \t Date : {Row["Date"]} ");
+                //Console.WriteLine("ID : {0} \t Name : {1} \t Country : {2}  \t Salary : {3}  \t Date : {4}", Row[0], Row[1],Row[2],Row[3],Row[4]);
+            }
+
+
+
+
+            //Update row
+            DataRow[] RowForUpdate = Employee.Select("ID = 3");
+            Console.WriteLine("\n");
+            foreach (var row in RowForUpdate)
+            {
+                row["Name"] = "Saad Bennis";
+                row["Salary"] = 7000;
+                row["Country"] = "Algerie";
+            }
+
+            foreach (DataRow Row in Employee.Rows)
+            {
+                Console.WriteLine($"ID : {Row["ID"]} \t Name : {Row["Name"]} \t Country : {Row["Country"]}  \t Salary : {Row["Salary"]}  \t Date : {Row["Date"]} ");
+                //Console.WriteLine("ID : {0} \t Name : {1} \t Country : {2}  \t Salary : {3}  \t Date : {4}", Row[0], Row[1],Row[2],Row[3],Row[4]);
+            }
+
+
+
+
+            //Clear all Data
+
+            Employee.Clear();
+            foreach (DataRow Row in Employee.Rows)
+            {
+                Console.WriteLine($"ID : {Row["ID"]} \t Name : {Row["Name"]} \t Country : {Row["Country"]}  \t Salary : {Row["Salary"]}  \t Date : {Row["Date"]}  ");
+                //Console.WriteLine("ID : {0} \t Name : {1} \t Country : {2}  \t Salary : {3}  \t Date : {4}", Row[0], Row[1],Row[2],Row[3],Row[4]);
+            }
+
+
+        }
+    }
+}

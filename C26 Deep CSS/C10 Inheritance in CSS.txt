@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+
+    .container {
+        color: red;
+        background-color: beige;
+        padding: 20px;
+        margin: 10px auto ;
+        border: 2px solid black;
+        font-family: Arial, sans-serif;
+        width: 80% ;
+    }
+
+    p {
+      color: blue;               
+      font-size: 16px;          
+      margin: 10px 0;            
+    }
+    
+   
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>CSS Inheritance Practice Activity</h1>
+    <p style="color: blueviolet;"> 
+        Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+        Velit officia inventore laborum sint vitae ducimus!
+    </p>
+  </div>
+</body>
+</html>

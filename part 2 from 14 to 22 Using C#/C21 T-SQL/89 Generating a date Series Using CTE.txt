@@ -1,0 +1,61 @@
+
+DECLARE @StartDate DATE = '2023-01-01'; -- Start of the date range
+DECLARE @EndDate DATE = '2023-01-31';   -- End of the date range
+
+with DateSeries AS (
+	
+	select @StartDate As DateValue
+
+	Union All
+
+	select DateADD(day , 1 , DateValue) 
+	From DateSeries
+	where DateValue < @EndDate
+)
+Select DateValue from DateSeries;
+
+
+
+
+-- Reverse
+
+
+
+DECLARE @StartDate DATE = '2023-01-01'; -- Start of the date range
+DECLARE @EndDate DATE = '2023-01-31';   -- End of the date range
+
+with DateSeries AS (
+	
+	select @EndDate As DateValue
+
+	Union All
+
+	select DateADD( Day , -1 , DateValue) 
+	From DateSeries
+	where DateValue > @StartDate
+)
+Select DateValue from DateSeries;
+
+
+
+
+
+
+
+-- from GETDATE() to '2025-06-01'
+
+
+DECLARE @EndDate Date = '2025-06-01';
+DECLARE @StartDate Date = GETDATE();
+
+with DateSeries AS (
+	
+	select @StartDate As DateValue
+
+	Union All
+
+	select DateADD( Day , 1 , DateValue) 
+	From DateSeries
+	where DateValue < @EndDate
+)
+Select DateValue from DateSeries;

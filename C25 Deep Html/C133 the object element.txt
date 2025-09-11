@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comprehensive Embed Elements Example</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 20px;
+        }
+        object {
+            border: 1px solid #ccc; /* Adds a light grey border around the embed element */
+            margin-bottom: 20px; /* Spacing between each embed element */
+            display: block; /* Ensures embed elements do not inline and take the full specified dimensions */
+        }
+    </style>
+</head>
+<body>
+   
+         <h1>Demonstration of the HTML &lt;object&gt; Element</h1>
+
+    <object data="Images/medium-image.jpg" type="Image/jpg">
+        <p>To Upload this image click  <a href="Images/medium-image.jpg">here</a>.</p>
+    </object>
+
+    <br>
+    <br>
+
+    <object data="Computer.html" type="text/html" width="1000" height="500" style="border: solid 2px red;">
+        <p>To Upload this Page click  <a href="Computer.html">here</a>.</p>
+    </object>
+
+
+    <!-- Embedding a PDF Document -->
+    <h2>Embedded PDF Document</h2>
+    <object data="Fes , Sais (1).pdf" type="application/pdf" width="600" height="500">
+        <p>Your browser does not support this object. <a href="assets/Test.pdf">Download the PDF</a> to view it.</p>
+    </object>
+
+     <!-- Embedding an SVG Image -->
+    <h2>Embedded SVG Image</h2>
+    <object data="Images/Brand icon.svg" type="image/svg+xml" >
+        <p>Your browser does not support this object. Here is a <a href="assets/AJ_Digital_Camera.svg">link to the image</a> instead.</p>
+    </object>
+
+    <!-- Embedding a Video File -->
+    <h2>Embedded Video File</h2>
+    <object data="videos/Funny.mp4" type="video/mp4">
+        <p>Your browser does not support this object. Here is a <a href="assets/Funny.mp4">link to the video</a> instead.</p>
+    </object>
+
+    <p>This page showcases different uses of the &lt;object&gt; element to embed various types of content within a web page. Each example provides fallback content for browsers that do not support the `< object >` tag.</p>
+
+</body>
+
+
+</html>

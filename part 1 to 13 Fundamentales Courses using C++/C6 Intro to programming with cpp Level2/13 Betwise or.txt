@@ -1,0 +1,19 @@
+#include <iostream>
+#include "MyLibrary.h"
+#include "MyInputLibrary.h"
+
+using namespace std;
+
+
+
+
+
+
+
+int main()
+{
+    cout << "Result: " << (12 | 29);
+    cout << endl;
+    return 0;
+
+}

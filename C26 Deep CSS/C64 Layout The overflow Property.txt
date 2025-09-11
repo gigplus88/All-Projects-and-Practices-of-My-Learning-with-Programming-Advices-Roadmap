@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>CSS Overflow Example</title>
+  <style>
+    .container {
+      width: 200px;
+      height: 80px;
+      margin: 20px;
+      padding: 10px;
+      border: 2px solid #333;
+      font-family: sans-serif;
+      font-size: 16px;
+      background: #f9f9f9;
+    }
+    .visible   { overflow: visible; background: #eaf6fb; }
+    .hidden    { overflow: hidden; background: #fde9e9; } 
+    .scroll    { overflow: scroll; background: #e9fbe9; }
+    .auto      { overflow: auto; background: #faf6e9;}
+    .clip      { overflow: clip; background: #ece9fa;}
+    h2 {
+      font-size: 1.1em;
+      margin-top: 35px;
+      margin-bottom: 5px;
+    }
+  </style>
+</head>
+<body>
+  <h1>CSS <code>overflow</code> Property Examples</h1>
+
+  <h2>overflow: visible (default)</h2>
+  <div class="container visible">
+    This is some long content that will overflow outside
+     the box. The overflow is <b>visible</b> 
+     so you can see it extending beyond the container!
+     jjjjjkkofkpofjkpokfjkf
+  </div>
+
+  <h2>overflow: hidden</h2>
+  <div class="container hidden">
+    This is some long content that will overflow outside the box. The overflow is <b>hidden</b> and you will only see what fits in the box.
+  </div>
+
+  <h2>overflow: scroll</h2>
+  <div class="container scroll">
+    This is some long content that will overflow
+     outside the box. Overflow is <b>scroll</b>,
+      so scrollbars are always visible, 
+      even if you don't need them.
+       jdjklkldjkdjdjdjjdfkf fkjkfjkff fpofkpof
+       <pre> jdkj okdpok pokpokdopkkdpo pokkpokf p^kpokod pokokmof pokpokf po</pre>
+  </div>
+
+  <h2>overflow: auto</h2>
+  <div class="container auto">
+    This is some long content that will overflow 
+    outside the box. Overflow is <b>auto</b>:
+     scrollbars appear only when needed.
+  </div>
+
+  <h2>overflow: clip</h2>
+  <div class="container clip">
+    This is some long content that will overflow outside the box. Overflow is <b>clip</b>: content is simply cut off, with no scrollbars and no visible overflow.
+  </div>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>CSS Overflow and Truncation Examples</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 30px;
+    }
+    h2 {
+      font-size: 1.1em;
+      margin-top: 36px;
+      margin-bottom: 6px;
+    }
+    .demo-row {
+      margin-bottom: 18px;
+    }
+    .container {
+      width: 260px;
+      margin: 8px 0 14px 0px;
+      padding: 10px;
+      border: 2px solid #333;
+      background: #f8f8f8;
+      font-size: 16px;
+    }
+    /* No Truncation (shows all text, may wrap) */
+    .no-truncation {
+      white-space:normal;
+      overflow: visible;
+      background: #eaf6fb;
+    }
+    /* Single-Line Ellipsis */
+    .single-line-ellipsis {
+      white-space:nowrap;
+      text-overflow:ellipsis;
+      overflow: hidden;
+      background: #fde9e9;
+    }
+    /* Multi-Line Clamp: Show up to 3 lines, then ellipsis */
+    .multi-line-clamp {
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient:vertical ;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      background: #e9fbe9;
+      height: 3.9em; /* 3 lines x line-height (1.3em) */
+      line-height: 1.3em;
+    }
+    /* Clipped (hidden overflow, no scroll, no ellipsis) */
+    .clipped {
+      overflow: hidden;
+      white-space: nowrap;
+      background: #ece9fa;
+    }
+    /* Tooltip Example */
+    .tooltip {
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      background: #faf6e9;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <h1>Text Overflow and Truncation Techniques</h1>
+
+  <h2>No Truncation (default, text wraps & all is visible)</h2>
+  <div class="container no-truncation">
+    This is a very long sentence intended to demonstrate how no truncation occurs and the text simply wraps naturally onto multiple lines as needed in the container.
+  </div>
+
+  <h2>Single-Line Ellipsis</h2>
+  <div class="container single-line-ellipsis">
+    This is a very long single line of text that will not fit the container, so it ends with an ellipsis.
+  </div>
+
+  <h2>Multi-Line Clamp (max 3 lines, then ellipsis)</h2>
+  <div class="container multi-line-clamp">
+    This is multi-line text that will be clamped to just three lines. If there is more content than fits, you'll see an ellipsis at the end of the third line, indicating there is more hidden content.
+    Here is some additional text to make sure this shows up!
+  </div>
+
+  <h2>Clipped vs Escaped Tooltip</h2>
+  <div class="container clipped" style="margin-bottom:6px;">
+    This is clipped text with <b>no ellipsis</b> or scroll, just hidden overflow.
+  </div>
+  <div class="container tooltip" title="This is escaped with a tooltip: the full content is visible on hover.">
+    This is escaped with ellipsis, but the full content is shown in a tooltip on hover.
+  </div>
+  <small>Hover over the tooltip box to see the entire text in a browser tooltip.</small>
+</body>
+</html>

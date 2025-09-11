@@ -1,0 +1,11 @@
+
+select Department ,  count(*) as EmployeeNum  from Employees2 group by Department;
+
+select Department ,  sum(salary) as EmployeeNum  from Employees2 group by Department;
+
+SELECT Department, AVG(PerformanceRating) AS AvgPerformanceRating
+FROM Employees2
+GROUP BY Department;
+
+select Department ,  min(salary) as MinSalary  from Employees2 group by Department;
+select Department ,  max(salary) as MinSalary  from Employees2 group by Department;

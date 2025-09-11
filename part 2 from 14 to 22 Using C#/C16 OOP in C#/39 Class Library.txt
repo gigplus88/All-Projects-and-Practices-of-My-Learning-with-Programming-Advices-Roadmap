@@ -1,0 +1,78 @@
+
+
+using System;
+
+namespace MyFirstClassLibrary
+{
+    public class clsMyMath
+    {
+        public int Sum(int x, int y)
+        {
+            return x + y;
+        }
+
+        public int Sum(int x, int y, int z)
+        {
+            return x + y + z;
+        }
+
+        internal void PrintResult()
+        {
+            Console.WriteLine("I use Internal Method to write this message");
+        }
+
+        public void MySolution()
+        {
+            PrintResult();
+        }
+
+        public void MyInternalClass()
+        {
+            clsMyInternalClass MyInternalClass = new clsMyInternalClass();
+            MyInternalClass.PrintInternal();
+        }
+
+    }
+
+    internal class clsMyInternalClass
+    {
+        public void PrintInternal()
+        {
+            Console.WriteLine("My Internal Class");
+        }
+    }
+}
+
+
+
+
+
+
+
+
+
+
+// Main
+using System;
+using MyFirstClassLibrary;
+internal class Program
+{
+    static void Main(string[] args)
+    {
+       Console.WriteLine(" fdfd");
+
+       clsMyMath myMath1 = new clsMyMath();
+
+        Console.WriteLine(myMath1.Sum(20,30));
+
+        myMath1.MySolution();
+        myMath1.MyInternalClass();
+
+        //clsMyInternalClass MyInternalClass = new clsMyInternalClass();
+
+
+        Console.ReadKey();
+
+    }
+}
+

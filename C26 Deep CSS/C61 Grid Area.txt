@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Grid Areas Example</title>
+  <style>
+    /* Reset */
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: Arial, sans-serif; }
+
+    /* 1️⃣ Grid Container */
+    .container {
+      display: grid;
+      grid-template-areas: 
+        "header  header"
+        "sidebar main"
+        "footer  footer";
+      grid-template-rows:    80px 1fr 80px;
+      grid-template-columns: 200px 1fr;
+      gap: 10px;
+      min-height: 100vh;
+      background-color: #DAF5FF;
+      padding: 10px;
+    }
+
+    /* 2️⃣ Grid Items (match names used above) */
+    .header {
+      grid-area: header;
+      background-color: #89375F;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+    }
+
+    .sidebar {
+      grid-area: sidebar;
+      background-color: #E8A0BF;
+      padding: 1rem;
+      color: #333;
+    }
+
+    .main {
+      grid-area: main;
+      background-color: #BA90C6;
+      padding: 1rem;
+      color: #fff;
+      /* No need for grid-row-start / grid-row-end when using areas */
+    }
+
+    .footer {
+      grid-area: footer;
+      background-color: #C0DBEA;
+      color: #333;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Optional: Responsive tweak – swap sidebar and footer positions on small screens */
+    @media (max-width: 600px) {
+      .container {
+        grid-template-areas:
+          "header  header"
+          "sidebar sidebar"
+          "main    main"
+          "footer  footer";
+        grid-template-rows: 70px auto 1fr 70px;
+        grid-template-columns: 1fr;
+      }
+       .sidebar ul{
+      display:flex;
+      flex-direction: row;
+    }
+    .sidebar{
+      padding: 0.4rem;
+    }
+      ul {
+        list-style: none;
+        padding: 0;
+      }
+      ul li{
+        margin-left: 20px;
+        border: 2px solid #fff;
+        padding: 5px;
+        border-radius: 8px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <header class="header">Header</header>
+    <aside  class="sidebar">
+      <ul>
+        <li>Navigation Link 1</li>
+        <li>Navigation Link 2</li>
+        <li>Navigation Link 3</li>
+      </ul>
+    </aside>
+    <main class="main">
+      <h1>Main Content</h1>
+      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nihil, vitae!</p>
+      <p>Resize the browser to see the responsive change in the grid areas.</p>
+    </main>
+    <footer class="footer">Footer © 2025</footer>
+  </div>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Grid Areas Example 2</title>
+  <style>
+    .layout {
+      display: grid;
+      
+      grid-template-areas:
+        "header header header"
+        "sidebar content ads"
+        "footer footer footer";
+      grid-template-columns: 200px 1fr 150px;
+      grid-template-rows: auto 1fr auto;
+      gap: 1rem;
+      height: 100vh;
+      padding: 1rem;
+    }
+   
+    header  { grid-area: header; background:#369; color:white; padding:1rem; }
+    .sidebar{ grid-area: sidebar; background:#9cf; padding:1rem; }
+    .content{ grid-area: content; background:#fc9; padding:1rem; overflow:auto; }
+    .ads    { grid-area: ads; background:#f99; padding:1rem; }
+    footer  { grid-area: footer; background:#636; color:white; padding:1rem; }
+    @media screen {
+      .layout {
+      display: grid;
+      
+      grid-template-areas:
+        "header header"
+        "sidebar sidebar"
+        "content ads"
+        "footer footer ";
+      grid-template-columns: 1fr 150px;
+      grid-template-rows: auto auto 1fr auto;
+      gap: 1rem;
+      height: 100vh;
+      padding: 1rem;
+    }
+      
+    }
+</style>
+</head>
+<body>
+  <div class="layout">
+    <header>Header</header>
+    <aside class="sidebar">Sidebar</aside>
+    <main class="content"><p>Main content scrolls if needed.</p></main>
+    <aside class="ads">Ads</aside>
+    <footer>Footer</footer>
+  </div>
+</body>
+</html>

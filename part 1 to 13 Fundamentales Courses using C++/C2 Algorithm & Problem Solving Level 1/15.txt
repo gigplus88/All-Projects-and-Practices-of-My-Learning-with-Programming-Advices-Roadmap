@@ -1,0 +1,37 @@
+
+#include <iostream>
+using namespace std;
+#include <cmath>
+#include <string>
+
+ float RectangleArea( float a, float b , float Area)
+{
+      Area = a * b;
+     return Area;
+
+}
+
+
+
+
+
+
+int main()
+{
+    float a = 0.0, b = 0.0;
+    cout << "Enter the a :";
+    cin >> a;
+
+    cout << "Enter the b : ";
+    cin >> b;
+    float Area = a * b;
+
+    cout << "The Area is: " << RectangleArea(a, b, Area);
+    
+
+
+    return 0;
+
+}
+
+

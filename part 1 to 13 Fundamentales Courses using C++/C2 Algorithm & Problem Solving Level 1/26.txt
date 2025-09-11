@@ -1,0 +1,87 @@
+// While loop
+
+#include <iostream>
+#include <cmath>
+#include <string>
+using namespace std;
+
+
+void ReadNumber(float& Num)
+{
+    cout << "Enter your number please\n";
+    cin >> Num;
+}
+
+
+void PrintNumber(float& i, float& Num)
+{
+    i = 1;
+    while (i<=Num)
+    {
+        
+        cout << i << endl;
+        i++;
+    }
+
+}
+
+
+
+
+int main()
+{
+    float Num = 0.0, i = 0.0;
+
+    ReadNumber(Num);
+    PrintNumber(i, Num);
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//for loop
+#include <iostream>
+#include <cmath>
+#include <string>
+using namespace std;
+
+
+void ReadNumber(float &Num)
+{
+    cout << "Enter your number please\n";
+    cin >> Num;
+}
+ 
+void PrintNumber(float &i , float &Num)
+{
+    for(float i=1; i<=Num ; i++ )
+    {
+        cout << i <<endl;
+    }
+    
+
+}
+
+
+int main()
+{
+    float Num=0.0 , i=0.0;
+     
+   ReadNumber(Num);
+   PrintNumber(i, Num);
+
+}
+

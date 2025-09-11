@@ -1,0 +1,40 @@
+
+-- Teacher Solution
+ SELECT
+VehicleDetails.Vehicle_Display_Name,
+NumDoors,
+CASE
+WHEN VehicleDetails.NumDoors=0 THEN 'Zero Doors'
+WHEN VehicleDetails.NumDoors=1 THEN 'One Doors'
+WHEN VehicleDetails.NumDoors=2 THEN 'Two Doors'
+WHEN VehicleDetails.NumDoors=3 THEN 'Three Doors'
+WHEN VehicleDetails.NumDoors=4 THEN 'Four Doors'
+WHEN VehicleDetails.NumDoors=5 THEN 'Five Doors'
+WHEN VehicleDetails.NumDoors=6 THEN 'Six Doors'
+WHEN VehicleDetails.NumDoors=8 THEN 'Eight Doors'
+WHEN VehicleDetails.NumDoors is Null THEN 'Not Set'
+ELSE 'Unknown'
+END AS DoorDescription
+FROM VehicleDetails ;
+ 
+
+-- My Solution
+ select  VehicleDetails.Vehicle_Display_Name , VehicleDetails.NumDoors , 
+ DoorDescriptions =
+ case 
+  when VehicleDetails.NumDoors is Null then  'No Set'
+  when VehicleDetails.NumDoors is Not Null  then
+     
+	(case
+      when VehicleDetails.NumDoors = 0 then 'Zero Doors'
+      when VehicleDetails.NumDoors = 2 then 'Two Doors'
+      when VehicleDetails.NumDoors = 3 then 'Three Doors'
+      when VehicleDetails.NumDoors = 4 then 'Four Doors'
+      when VehicleDetails.NumDoors = 5 then 'Five Doors'
+	  when VehicleDetails.NumDoors = 6 then 'Six Doors'
+	  when VehicleDetails.NumDoors = 8 then 'Eight Doors'
+     end)
+  else 'UnKnown'
+ end
+ from VehicleDetails;
+

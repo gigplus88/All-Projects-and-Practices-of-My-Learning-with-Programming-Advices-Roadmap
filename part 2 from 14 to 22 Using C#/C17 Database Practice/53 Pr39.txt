@@ -1,0 +1,9 @@
+
+
+-- My Solution
+select distinct top 3  VehicleDetails.Engine_CC from VehicleDetails
+Order By Engine_CC desc;
+
+-- Teacher Solution
+Select  distinct top 3 Engine_CC from VehicleDetails
+	Order By Engine_CC Desc

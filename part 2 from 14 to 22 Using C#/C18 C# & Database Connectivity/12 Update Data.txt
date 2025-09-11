@@ -1,0 +1,94 @@
+using System;
+using System.Data;
+using System.Net;
+using System.Data.SqlClient;
+using System.ComponentModel;
+using System.Security.Policy;
+
+public class Program
+{
+    static string connectionString = "Server=.;Database=Contacts; User Id=sa;Password=123456;"; // Replace with your actual connection string
+
+    public struct StContact
+    {
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string Email { get; set; }
+        public string Phone { get; set; }
+        public string Address { get; set; }
+        public int CountryID { get; set; }
+    }
+    
+    static void UpdateContact(int ContactID , StContact NewContact)
+    {
+        SqlConnection connection = new SqlConnection(connectionString);
+
+        string Quer = @"UPDATE Contacts
+                       SET FirstName = @FirstName,LastName = @LastName,Email = @Email ,Phone = @Phone
+                       ,Address = @Address ,CountryID = @CountryID
+                       WHERE ContactID = @ContactID ;";
+
+        SqlCommand command = new SqlCommand(Quer , connection);
+
+        command.Parameters.AddWithValue("@ContactID", ContactID);
+        command.Parameters.AddWithValue("@FirstName", NewContact.FirstName);
+        command.Parameters.AddWithValue("@LastName", NewContact.LastName);
+        command.Parameters.AddWithValue("@Email", NewContact.Email);
+        command.Parameters.AddWithValue("@Phone", NewContact.Phone);
+        command.Parameters.AddWithValue("@Address", NewContact.Address);
+        command.Parameters.AddWithValue("@CountryID", NewContact.CountryID);
+
+        try
+        {
+            connection.Open();
+
+            int RowAffected = command.ExecuteNonQuery();
+
+            if (RowAffected>0)
+            {
+                Console.WriteLine($"Row is Updated Succesfully");
+            }
+
+            else
+            {
+                Console.WriteLine($"Row is not Updated Succesfully ");
+            }
+
+            connection.Close();
+        }
+
+        catch(Exception ex)
+        {
+            Console.WriteLine("Error: " + ex.Message);
+        }
+
+    }
+    
+
+    
+    
+
+
+    public static void Main()
+    {
+        //PrintAllContacts();
+
+        StContact Contact = new StContact()
+        {
+            FirstName ="Zaid" ,
+            LastName = "Ibrahimi",
+            Email = "Lail@gmail.com",
+            Phone = "0734234523",
+            Address = "Meknes b14 ",
+            CountryID = 1
+        };
+
+        UpdateContact(1, Contact);
+
+
+        Console.ReadKey();
+    }
+
+}
+
+

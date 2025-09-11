@@ -1,0 +1,48 @@
+
+#include <iostream>
+using namespace std;
+#include <cmath>
+#include <string>
+
+ float PowerOf2( float Num)
+{
+     
+     return pow(Num, 2); ;
+
+}
+ 
+ float PowerOf3(float Num)
+ {
+
+     return pow(Num, 3); ;
+
+ }
+
+ float PowerOf4(float Num)
+ {
+
+     return pow(Num, 4); ;
+
+ }
+
+
+
+
+
+ int main()
+ {
+     float Num;
+     cout << "Enter the Num :";
+     cin >> Num;
+
+
+
+     cout << "The power of two to Num is: " << PowerOf2(Num) << endl;
+     cout << "The power of three to Num is: " << PowerOf3(Num) << endl;
+     cout << "The power of four to Num is: " << PowerOf4(Num) << endl;
+
+
+     return 0;
+
+ }
+

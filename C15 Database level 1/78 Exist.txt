@@ -1,0 +1,26 @@
+
+
+Select * from Customers
+Where Exists
+(Select Name from Customers
+Where CustomerID = 285);
+
+Select Name from Customers
+Where CustomerID = 285;
+
+select * from Customers C1
+Where Exists
+(Select * from Orders 
+Where CustomerID = C1.CustomerID);
+
+
+select * from Customers C1
+Where Exists
+(Select top 1 * from Orders 
+Where CustomerID = C1.CustomerID);
+
+
+select * from Customers C1
+Where Exists
+(Select top 1 R ='Y' from Orders 
+Where CustomerID = C1.CustomerID);

@@ -1,0 +1,15 @@
+
+select (cast (TotalWithNoSpecifiedDoors as float) / cast(TotalOfVehicls as float)) * 100 as Perc  from
+(
+select distinct  count(*) as TotalWithNoSpecifiedDoors , (select count(*) from VehicleDetails) as TotalOfVehicls
+from VehicleDetails
+where NumDoors is Null )R1  ;
+
+
+
+
+-- Teacher Solution
+select (
+cast((select count(*) from VehicleDetails as TotalWithNoSpecifiedDoors where NumDoors is Null)  as float)  / 
+cast((select count(*) from VehicleDetails ) as float) 
+)  as Perc;

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Pixels Example</title>
+  <style>
+    .pixel-box {
+      /* Styles for the element with the class "pixel-box" */
+
+      width: 300px;
+      /* Sets the width of the box to 300 pixels */
+
+      height: 150px;
+
+      background: lightgray;
+
+      border: 2px solid #333;
+
+      margin: 20px auto;
+
+      text-align: center;
+
+      line-height: 150px;
+
+      font-size: 16px;
+    }
+
+    .cm-box {
+      /* Styles for the element with the class "pixel-box" */
+
+      width: 30cm;
+      /* Sets the width of the box to 300 pixels */
+
+      height: 10cm;
+
+      background: rgb(230, 74, 74);
+
+      border: 2px solid #333;
+
+      margin: 20px auto;
+
+      text-align: center;
+
+      line-height: 150px;
+
+      font-size: 16px;
+    }
+  
+
+    body , .body {
+      font-size: 10px;  
+    }
+    
+    .child1 {
+      font-size: 1.5em; 
+    } 
+    .child2 {
+      font-size: 1.2em; 
+    }  
+    .child3 {
+      font-size: 3em; 
+    }
+
+     
+    .child4 {
+      font-size: 1.5rem; 
+    } 
+    .child5 {
+      font-size: 1.2rem; 
+    }  
+    .child6 {
+      font-size: 3rem; 
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Starts the body section where the content appears -->
+<div class="body">
+    <p>This is body </p>
+    <div class="child1">
+        <p>This is child 1</p>
+        <div class="child2">
+            <p>This is child 2</p>
+            <div class="child3">
+                <p>This is child 3</p>
+            </div>
+
+    <p>This is body </p>
+    <div class="child4">
+        <p>This is child 4</p>
+        <div class="child5">
+            <p>This is child 5</p>
+            <div class="child6">
+                <p>This is child 6</p>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

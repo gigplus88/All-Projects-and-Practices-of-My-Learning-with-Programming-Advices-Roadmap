@@ -1,0 +1,73 @@
+Chat gpt
+
+1. Declaring a Struct Variable Without new
+When you declare a variable of a struct type without using the new keyword,
+ the variable is not fully initialized. Structs are value types in C#, 
+and they do not need to be explicitly initialized using new. 
+However, if you don't use new, the struct's fields are not automatically initialized to their 
+default values (unlike class instances, which are reference types and are initialized to null).
+
+
+struct Point
+{
+    public int X;
+    public int Y;
+}
+
+Point p; // Declared but not fully initialized
+// p.X and p.Y are not initialized yet and accessing them will cause a compile-time error
+
+
+Point p = new Point(); // Fully initialized with default values
+// p.X and p.Y are initialized to 0
+
+
+
+//ProgrammingAdvices.com
+//Mohammed Abu-Hadhoud
+
+using System;
+
+namespace Main
+    {
+        internal class Program
+        {
+
+
+        struct stStudent
+        {
+            public string FirstName;
+            public string LastName;
+        }
+
+        static void Main(string[] args)
+            {
+            
+            //A struct object can be created with or without the new operator,
+            //same as primitive type variables.
+
+            stStudent Student ;
+            stStudent Student2 = new stStudent();
+
+
+            Student.FirstName = "Mohammed";
+            Student.LastName = "Abu-Hadhoud";
+
+   
+            Console.WriteLine(Student.FirstName);   
+            Console.WriteLine(Student.LastName);
+
+            
+            Student2.FirstName = "Ali";
+            Student2.LastName = "Ahmed";
+
+
+            Console.WriteLine(Student2.FirstName);
+            Console.WriteLine(Student2.LastName);
+
+            Console.ReadKey();
+
+            }
+        }
+    }
+

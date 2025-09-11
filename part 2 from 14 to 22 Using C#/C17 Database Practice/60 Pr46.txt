@@ -1,0 +1,8 @@
+
+select  top 3 Makes.Make ,count(ModelID) as NumberOfModels
+from MakeModels
+Inner Join Makes On MakeModels.MakeID = Makes.MakeID
+Group by Makes.Make 
+Order By NumberOfModels Desc;
+
+

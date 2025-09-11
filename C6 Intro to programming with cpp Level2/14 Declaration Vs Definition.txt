@@ -1,0 +1,22 @@
+#include <iostream>
+#include "MyLibrary.h"
+#include "MyInputLibrary.h"
+
+using namespace std;
+
+
+void add(int, int);
+
+int main()
+{
+    add( 3, 9);
+
+    return 0;
+
+}
+
+
+void add(int a, int b)
+{
+    cout << (a + b);
+}

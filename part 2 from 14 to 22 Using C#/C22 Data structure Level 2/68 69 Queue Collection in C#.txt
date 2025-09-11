@@ -1,0 +1,72 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
+using System.Threading.Tasks;
+
+
+
+class Program
+{
+
+    static void Main()
+    {
+
+        Queue<int> queue = new Queue<int>();
+
+        for (int i = 1; i < 7; i++)
+        {
+            queue.Enqueue(i);
+        }
+
+        Console.WriteLine("queue count Items:" + queue.Count);
+
+        foreach (var item in queue)
+        {
+            Console.WriteLine(item);
+        }
+
+        queue.Dequeue(); // Remove Last Element 5
+
+        Console.WriteLine("Queue after dequeue first element");
+
+        foreach (var item in queue)
+        {
+            Console.WriteLine(item);
+        }
+
+        Console.WriteLine(queue.Contains(4));
+
+        // Checking if the queue is empty
+        if (queue.Count == 0)
+        {
+            Console.WriteLine("queue is empty.");
+        }
+        else
+        {
+            Console.WriteLine("first element: " + queue.Peek());
+        }
+
+        Console.WriteLine("Give us your element to remove");
+        int ElementToRemove = Convert.ToInt32(Console.ReadLine());
+
+        if (queue.Contains(ElementToRemove) && ElementToRemove == queue.Peek())
+        {
+            queue.Dequeue();
+        }
+        else
+        {
+            Console.WriteLine($"Element  {ElementToRemove} to remove is not the first ");
+        }
+
+        queue.Clear();
+
+        Console.WriteLine($"Queue  is clear ");
+
+        Console.ReadKey();
+
+    }
+
+
+}

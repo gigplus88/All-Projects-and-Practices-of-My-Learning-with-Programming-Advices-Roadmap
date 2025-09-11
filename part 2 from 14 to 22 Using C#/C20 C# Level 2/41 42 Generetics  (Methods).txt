@@ -1,0 +1,55 @@
+using System;
+using static System.Console;
+public class Utility
+{
+    public Utility()
+    {
+
+    }
+    public static T Swap<T>(ref T first, ref T second)
+    {
+        T temp = first;
+        first = second;
+        second = temp;
+        return temp;
+    }
+}
+
+
+
+
+class Program
+{
+    static void Main()
+    {
+        int a = 2, b = 10;
+
+
+        // Usage with int
+        WriteLine($"a and b before swaping are: a = {a} , b = {b}");
+
+
+        int result = Utility.Swap(ref a , ref b);
+
+        WriteLine($"a and b before swaping are: a = {a} , b = {b}");
+
+
+
+        bool c = true, d = false;
+
+        // Usage with bool
+
+        WriteLine($"c and d before swaping are: c = {Convert.ToBoolean( c)} , d = {Convert.ToBoolean(d)}");
+
+
+         Utility.Swap(ref c, ref d);
+
+        WriteLine($"c and d after swaping are: c = {Convert.ToBoolean(c)} , d = {Convert.ToBoolean(d)}");
+
+
+
+        Console.ReadKey();
+
+
+    }
+}

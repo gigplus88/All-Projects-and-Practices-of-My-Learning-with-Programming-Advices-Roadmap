@@ -1,0 +1,58 @@
+#include <iostream>
+#include <cmath>
+#include <string>
+#include <fstream>
+
+using namespace std;
+
+
+void AddToFile(sClient ClientInfo, string delim)
+{
+    fstream FileClients;
+    FileClients.open("FileClients.txt ", ios::out | ios::app); //Write Mode
+
+    if (FileClients.is_open())
+    {
+        FileClients << ConvertRecordToLine( ClientInfo,  delim) <<"\n";
+       
+
+        FileClients.close();
+
+    }
+}
+
+
+
+
+
+
+
+
+void PrintFileContent(string FileName)
+{
+    fstream MyFile;
+    MyFile.open(FileName, ios::in);
+
+    if (MyFile.is_open())
+    {
+        string Line;
+
+        while (getline(MyFile, Line));
+        {
+            cout << Line <<endl;
+        }
+
+        MyFile.close();
+    }
+
+
+}
+
+
+int main()
+{
+    PrintFileContent("MyFirstFile.txt");
+
+
+    return 0;
+}

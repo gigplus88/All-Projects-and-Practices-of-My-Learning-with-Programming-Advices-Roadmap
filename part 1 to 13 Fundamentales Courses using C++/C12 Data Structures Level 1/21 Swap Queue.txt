@@ -1,0 +1,61 @@
+
+#include<iostream>
+#include<queue>
+
+using namespace std;
+
+int main()
+{
+	queue <int> MyQueue1;
+	queue <int> MyQueue2;
+
+	
+	MyQueue1.push(10);
+	MyQueue1.push(20);
+	MyQueue1.push(30);
+	MyQueue1.push(40);
+	MyQueue1.push(50);
+
+
+	MyQueue2.push(60);
+	MyQueue2.push(70);
+	MyQueue2.push(80);
+	MyQueue2.push(90);
+	MyQueue2.push(100);
+
+	MyQueue1.swap(MyQueue2);
+	
+
+
+
+
+
+
+	cout << "Numbers  of MyQueue1 are: " << endl;
+
+	while (!MyQueue1.empty())
+	{
+		cout << MyQueue1.front() << endl; // Print The top element
+
+		MyQueue1.pop(); // Pop for top element from stack
+	}
+
+
+	cout << "Numbers  of MyQueue2 are: " << endl;
+
+	while (!MyQueue2.empty())
+	{
+		cout << MyQueue2.front() << endl; // Print The top element
+
+		MyQueue2.pop(); // Pop for top element from stack
+	}
+
+
+
+
+
+
+	system("pause>0");
+	return(0);
+
+}

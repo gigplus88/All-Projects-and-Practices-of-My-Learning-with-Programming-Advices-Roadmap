@@ -1,0 +1,73 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
+using System.Threading.Tasks;
+
+
+
+class Program
+{
+
+    static void Main()
+    {
+
+        BitArray bits1 = new BitArray(new[] { true, false, true, true, false } );
+        BitArray bits2= new BitArray(new[] { true, true, true, false, false });
+
+
+        BitArray bitsAnd = new BitArray(bits1);
+
+        bitsAnd.And(bits2);
+        
+        Console.WriteLine($"The bitsAnd between bits1 and bits2 is:");
+
+        Console.WriteLine(BitArrayToString( bits1 ) );
+        Console.WriteLine(BitArrayToString(bits2));
+        Console.WriteLine(BitArrayToString(bitsAnd ) );
+
+
+        Console.WriteLine("###################################3");
+
+        BitArray bitsOr = new BitArray(bits2);
+
+        bitsOr.Or(bits1);
+
+        Console.WriteLine($"The bitsOr between bits1 and bits2 is:");
+
+        Console.WriteLine(BitArrayToString(bits1));
+        Console.WriteLine(BitArrayToString(bits2));
+        Console.WriteLine(BitArrayToString(bitsOr));
+
+        Console.WriteLine("###################################3");
+
+        BitArray bitsXOr = new BitArray(bits2);
+
+        bitsXOr.Xor(bits1);
+
+        Console.WriteLine($"The bitsXOR between bits1 and bits2 is:");
+
+        Console.WriteLine(BitArrayToString(bits1));
+        Console.WriteLine(BitArrayToString(bits2));
+        Console.WriteLine(BitArrayToString(bitsXOr));
+
+
+
+        Console.ReadKey();
+
+    }
+    static string BitArrayToString(BitArray bitArray)
+    {
+        char[] chars = new char[bitArray.Length];
+
+        for (int i = 0; i < bitArray.Length; i++)
+        {
+            chars[i] = bitArray[i] ? '1' : '0';
+        }
+
+        return new string(chars);
+    }
+
+
+}

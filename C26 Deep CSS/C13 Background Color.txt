@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+
+        header {
+            color: rgb(0, 128, 0);
+            text-align: center;
+            margin-top: 20px;
+            background-color:hsl(140, 80%, 83%);
+
+        }
+
+        header h1 {
+            color: rgb(13, 0, 128);
+            text-align: center;
+            font-size: 2em;
+            background-color:hsl(335, 100%, 79%);
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: hsl(195, 8%, 10%);
+            color: rgb(0, 0, 0);
+            margin: 0;
+            padding: 20px;
+        }
+        .section1, .section2, .section3 {
+            margin: 10px;
+            padding: 15px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            background-color: hsl(200, 100%, 90%);
+        }
+
+        p::first-line {
+        background-color: hsl(140, 58%, 70%);               
+        font-size: 16px;  
+        font-weight: strong;        
+        margin: 10px 0;            
+        }
+        
+        code {
+            display: block;
+            background-color: #f30;
+            padding: 10px;
+            border-radius: 5px;
+            font-family: 'Courier New', Courier, monospace;
+            margin-top: 20px;
+        }
+        .hsl {
+            color: hsl(240, 100%, 50%);
+            background-color: hsl(140, 52%, 82%);
+            padding: 15px;
+            border-radius: 10px;
+            font-family: 'Courier New', Courier, monospace;
+            margin-top: 20px;
+        }   
+        table {
+            width: 50%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            color: aliceblue;
+            border: 1px solid hsl(200, 100%, 90%);
+        }
+
+        table th, table td {
+            border: 1px solid hsl(200, 100%, 90%);
+            padding: 8px;
+            text-align: left;
+        }
+         table th {
+            
+            text-align: center;
+            background-color: hsl(200, 100%, 70%);
+            color: hsl(0, 0%, 100%);
+        }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Lorem ipsum dolor, sit amet consectetur.
+    </h1>
+  </header>
+
+  <section>
+    <div class="section1">
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+           Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+        <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+        <code>console.log('Hello, World!');</code>
+        <div class="hsl">This is a div with HSL colors!</div>
+    </div>  
+  </section>
+
+  <section>
+    <div  class="section2">
+        <p>Curabitur pretium tincidunt lacus. Nulla gravida orci a odio. Nullam varius, turpis et commodo pharetra, est eros bibendum elit, nec luctus magna felis sollicitudin.</p>
+        <p>Phasellus ultrices nulla quis nibh. Quisque a lectus. Donec consectetuer ligula vulputate sem tristique cursus.</p>
+        <code>document.querySelector('h1').textContent = 'Updated Title';</code>
+        <div class="hsl">Another div with HSL colors!</div>
+    </div>  
+  </section>
+
+   <section>
+    <div  class="section3">
+        <p>Curabitur pretium tincidunt lacus. Nulla gravida orci a odio. Nullam varius, turpis et commodo pharetra, est eros bibendum elit, nec luctus magna felis sollicitudin.</p>
+        <p>Phasellus ultrices nulla quis nibh. Quisque a lectus. Donec consectetuer ligula vulputate sem tristique cursus.</p>
+        <code>document.querySelector('h1').textContent = 'Updated Title';</code>
+        <div class="hsl">Another div with HSL colors!</div>
+    </div>  
+  </section>
+
+   <section>
+    <h2>Tables</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Header 1</th>
+          <th>Header 2</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Cell 1</td>
+          <td>Cell 2</td>
+        </tr>
+        <tr>
+          <td>Cell 3</td>
+          <td>Cell 4</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+</body>
+</html>

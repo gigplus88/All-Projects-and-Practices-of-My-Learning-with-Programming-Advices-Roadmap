@@ -1,0 +1,31 @@
+
+
+
+
+
+Select ID , FirstName , MonthlySalary from Employees
+Where DepartmentID in(1)
+Order By FirstName;
+
+Select ID , FirstName , MonthlySalary from Employees
+Where DepartmentID in(1)
+Order By MonthlySalary Desc ;
+
+Select ID , FirstName , MonthlySalary from Employees
+Where DepartmentID in(1)
+Order By  FirstName Asc,  MonthlySalary Desc ;
+
+
+Select ID , FirstName , MonthlySalary, DateOfBirth from Employees
+Where DepartmentID in(1)
+Order By  DateOfBirth asc , MonthlySalary Asc;
+
+Select ID , FirstName , MonthlySalary from Employees
+Where DepartmentID in(1)
+Order By FirstName , MonthlySalary  ;
+
+
+
+
+
+

@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        p{
+            color: blue;
+        }
+        #special {
+            color: orange;
+        }
+        .important {
+            color: green;
+        }
+        p#special.important {
+            color: red;
+        }
+        /* Inline styles have the highest specificity */
+        p[style] {
+            color: hotpink;
+   }
+        </style>
+    <title>Document</title>
+</head>
+<body>
+        <!-- This paragraph has n element selector, an ID, a class, and an inline style -->
+  <p id="special" class="important" style="color: red;">
+    This text will be red because inline styles win the contest!
+  </p>
+
+  <!-- This paragraph has an element selector, an ID, a class -->
+  <p id="special" class="important" >
+    This text will be orange because ID slector win the contest!
+  </p>
+
+  <!-- This paragraph has element selector and  a class selector -->
+  <p  class="important" style="width: auto;">
+    This text will be green because class slector win the contest!
+  </p>
+
+  <!-- This paragraph has only element selectore -->
+  <p>
+    This text will be blue because element slector has lowest specificity and no other specificity compete with it.
+  </p>
+</body>
+</html>
+
+<!-- What is Specificity?
+- Definition: Specificity is a system used by browsers to decide which CSS rule should be applied if multiple rules target the same element.
+
+-How It Works: CSS rules are ranked by specificity in the following order (from highest to lowest):
+
+1- Inline styles (e.g., <p style="color: red;">)
+2- IDs (e.g., #header)
+3- Classes, attributes, and pseudo-classes (e.g., .highlight, [type="text"], :hover)
+4- Elements and pseudo-elements (e.g., p, h1, ::first-line)
+
+- Imagine specificity as a contest 🏆 where the rule with the highest specificity takes home the styling prize! -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+    p {
+      color: blue;               /* Base text color is blue */
+      font-size: 16px;           /* Base font size is 16px */
+      margin: 10px 0;            /* Vertical spacing for paragraphs */
+    }
+    
+    /* Class Selector: Applies to elements with class "custom" */
+    .custom {
+      color: green;              /* Changes text color to green */
+      font-size: 18px;  
+      background-color: aqua;         /* Increases font size to 18px */
+    }
+    
+    /* ID Selector: Applies to element with id "special" */
+    #special {
+      color: purple;             /* Sets text color to purple */
+      font-size: 20px;           /* Sets font size to 20px */
+    }
+    
+    /* Additional Element Rule to demonstrate order of appearance */
+    p {
+        border: 1px solid black; /* Adds a black border around all paragraphs */
+    }
+  </style>
+</head>
+<body>
+  <h1>CSS Specificity Practice Activity</h1>
+  <p id="special" class="custom" style="color: red; font-size: 22px;">
+    This paragraph is styled using multiple CSS rules:
+    <br>
+    - The element selector (<code>p</code>) sets the base color to blue and font size to 16px.
+    <br>
+    - The class selector (<code>.custom</code>) changes the color to green and font size to 18px.
+    <br>
+    - The ID selector (<code>#special</code>) sets the color to purple and font size to 20px.
+    <br>
+    - Finally, the inline style overrides everything, setting the color to red and font size to 22px.
+  </p>
+</body>
+</html>
+
+<!-- What is Specificity?
+- Definition: Specificity is a system used by browsers to decide which CSS rule should be applied if multiple rules target the same element.
+
+-How It Works: CSS rules are ranked by specificity in the following order (from highest to lowest):
+
+1- Inline styles (e.g., <p style="color: red;">)
+2- IDs (e.g., #header)
+3- Classes, attributes, and pseudo-classes (e.g., .highlight, [type="text"], :hover)
+4- Elements and pseudo-elements (e.g., p, h1, ::first-line)
+
+- Imagine specificity as a contest 🏆 where the rule with the highest specificity takes home the styling prize! -->

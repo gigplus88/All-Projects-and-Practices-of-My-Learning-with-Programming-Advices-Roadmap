@@ -1,0 +1,84 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+
+
+class Program
+{
+    static void Main()
+    {
+        SortedSet<int> set1 = new SortedSet<int>() { 1, 2, 3, 4, 5 };
+        SortedSet<int> set2 = new SortedSet<int>() { 3, 4, 5, 6, 7 };
+
+        Console.WriteLine("Set1 :" + string.Join( "," , set1) );
+        Console.WriteLine("Set2 :" + string.Join(",", set2));
+
+        // Union
+        SortedSet<int> unionSet = new SortedSet<int>(set1);
+        unionSet.UnionWith(set2);
+
+
+        Console.WriteLine("\nUnion:");
+        foreach (int item in unionSet)
+        {
+            Console.Write(item + " ");
+        }
+        Console.WriteLine();
+
+
+
+        //Intersection
+        SortedSet<int> IntersectionSet = new SortedSet<int>(set1);
+
+        IntersectionSet.IntersectWith(set2);
+
+        Console.WriteLine("\nIntersectionSet:");
+        foreach (int item in IntersectionSet)
+        {
+            Console.Write(item + " ");
+        }
+        Console.WriteLine();
+
+
+        //Intersection
+        SortedSet<int> DifferenceSet = new SortedSet<int>(set1);
+
+        DifferenceSet.ExceptWith(set2);
+
+        Console.WriteLine("\nDifferenceSet:");
+        foreach (int item in DifferenceSet)
+        {
+            Console.Write(item + " ");
+        }
+        Console.WriteLine();
+
+
+        //Subset
+
+        if (set1.IsSubsetOf(set2) )
+        {
+            Console.WriteLine("set1 is subset of set2");
+        }
+        else
+        {
+            Console.WriteLine("No set1 is not subset of set2");
+        }
+
+
+
+        if (set1.IsSupersetOf(set2))
+        {
+            Console.WriteLine("set1 is superset of set2");
+        }
+        else
+        {
+            Console.WriteLine("No set1 is not superset of set2");
+        }
+        Console.WriteLine();
+
+
+
+
+    }
+}

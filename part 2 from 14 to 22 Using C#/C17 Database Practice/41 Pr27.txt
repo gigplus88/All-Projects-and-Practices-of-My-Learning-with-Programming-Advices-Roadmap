@@ -1,0 +1,5 @@
+
+
+ select  VehicleDetails.* , Bodies.BodyName from VehicleDetails
+ Inner Join Bodies On Bodies.BodyID = VehicleDetails.BodyID
+ where   Bodies.BodyName in ('Coupe', 'Hatchback' , 'Sedan');

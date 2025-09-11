@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css ">
+    <style>
+       input[type= text] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+input:hover {
+    border-color: #66afe9;
+}
+
+p::first-letter {
+    font-size: 2em;
+    color: #333;
+}
+
+[title] {
+    border: solid 1px #ccc  ;
+    padding: 5px;
+    border-radius: 4px;
+    background-color: #f9f9f9;
+    color: #2c3e50;
+    width: 50% ;
+}
+[title]:hover {
+    border-color:  #9088fc  ;
+   
+}
+
+h2 + p {
+    margin-left:  5px;
+    text-align: center;
+    width: 50%;
+    background-color: #66afe9;
+   
+}
+
+
+div >  p {
+    
+    background-color: #dac050;
+   
+}
+        </style>
+    <title>Document</title>
+</head>
+<body>
+    <h1>Ayoub fellah</h1>
+    <div>
+        <p>Lorem ipsum dolor sit amet consectetur.</p>
+        <p>Lorem ipsum dolor sit amet consectetur.</p>
+        <p>Lorem ipsum dolor sit amet consectetur.</p>
+
+    </div>
+    <h2>Ayoub fellah</h2>
+        <p>Lorem ipsum dolor sit amet consectetur.</p>
+    
+
+    <h1 title="This is Main Title">Ayoub fellah</h1>
+    <div>
+        <input type="text" placeholder="Enter your name"  >
+    </div>
+
+
+    <table>
+        <thead>
+            <th>Name</th>
+            <th>Gmail</th>
+            <th>Phone</th>
+        </thead>
+
+        <tbody>
+            <tr>
+                <td>Ayoub</td>
+                <td>ayoub@gmail.com</td>
+                <td>0714710674</td>
+            </tr>
+            <tr>
+                <td>Ayoub</td>
+                <td>ayoub@gmail.com</td>
+                <td>0714710674</td>
+            </tr>
+            <tr>
+                <td>Ayoub</td>
+                <td>ayoub@gmail.com</td>
+                <td>0714710674</td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>

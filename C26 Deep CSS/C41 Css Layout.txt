@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>CSS Padding Practice Activity</title>
+  <style>
+  * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+     body {
+      font-family: Arial, sans-serif;
+      line-height: 1.5;
+      padding: 1rem;
+      height: 3000px;
+    }
+    h1 {
+      margin-bottom: 1rem;
+      text-align: center;
+    }
+
+    /*
+    section {
+      margin-bottom: 2rem;
+      padding: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    .static {
+       position: static;   
+      background-color: #b5ffe6;
+      padding: 1rem;
+    }
+    .relative{
+      position: relative;
+      background-color: #e0f7fa;
+      top: 25px;
+      left: 10px;
+      padding: 1rem;
+    }
+
+    .parent {
+      position: relative;
+      background-color: #fff3e0;
+      padding: 1rem;
+      margin-bottom: 1rem;
+    }
+    .absolute {
+      position: absolute;
+      top: 0px;
+      right: 10px;
+      background-color: #f8e8b9;
+    }
+   
+
+    .fixed {
+      position:fixed;      
+      top: 10px;
+      right: 30%;
+      background: #d0ffd0;
+      padding: 0.5rem;
+      border: 1px solid #090;
+      z-index: 10;
+    }
+
+  
+     .sticky {
+      position: sticky;      
+      top: 0;                
+      background: #fff0d0;
+      padding: 0.5rem;
+      border-bottom: 1px solid #cc0;
+    }
+     .filler {
+      height: 800px;
+      background: linear-gradient(to bottom, transparent, rgba(0,0,0,0.05));
+    }*/
+
+    .sticky {
+      position: sticky;
+      top: 10px;
+      width: 100%;
+
+      background-color: #b6ffc6;
+      padding: 10px;
+      border: solid 2px #4caf50;
+      border-radius: 6px;
+      z-index: 1000;
+    }
+    .box1 {
+      width: 100%;
+      background-color: #ddebf7;
+      border: 2px solid #8b877f;
+      border-radius: 10px;
+      padding: 20px;
+      margin: 50px auto;
+      height:200px;
+      position: relative;
+
+    }
+ 
+    .box3 {
+      width: 100%;
+      background-color: #ddebf7;
+      border: 2px solid #8b877f;
+      border-radius: 10px;
+      padding: 20px;
+      margin: 50px auto;
+      height:auto;
+      position: relative;
+
+    }
+
+
+    .box1 p {
+      font-size: 16px;
+      color: #333;
+      background-color: rgb(255, 190, 111);
+      position: absolute;
+      left: 30px;
+      bottom: -20px;
+      width: fit-content;
+      padding: 5Px;
+      height: 100px;
+      text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;  
+    }
+
+    .box2{
+      width: 100%;
+      background-color: #ddebf7;
+      border: 2px solid #8b877f;
+      border-radius: 10px;
+      padding: 20px;
+      margin: 50px auto;
+      height: auto;
+      padding: 20px;
+    }
+    .box2 p {
+      font-size: 16px;
+      color: #333;
+      background-color: rgb(243, 218, 187);
+      position: relative;
+      width: 100%;
+      padding: 15px;
+      height: 150px;
+      margin: 10px;
+    }
+
+    .box2 p span {
+      position: absolute;
+      top: 0;
+      right: 0;
+      background-color: rgba(255, 121, 121, 0.5);
+      padding: 10px;
+    }
+
+    
+    
+    button {
+      position: fixed;
+      bottom: 0px;
+      right: 0px;
+      padding: 10px 20px;
+      background-color: #4caf50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .filter {
+      height: 800px;
+      background-color: rgba(255, 255, 255, 0.8);
+      backdrop-filter: blur(5px);
+      margin-top: 20px;
+    }
+  </style>
+
+
+</head>
+<body>
+   <!--
+  <h1>CSS <code>position</code> Property Demo</h1>
+
+  <section>
+    <h2>1) Static</h2>
+    <p class="static">
+      This paragraph is <strong>static</strong> (the default). It follows normal document flow.
+    </p>
+  </section>
+
+  <section>
+    <h2>2) Relative</h2>
+    <p class="relative">
+      This paragraph is <strong>relative</strong>. It’s offset from its normal position by top/left.
+    </p>
+  </section>
+
+  <section>
+    <h2>3) Absolute</h2>
+    <div class="parent">
+      <p>This container is <strong>relative</strong> positioned.</p>
+      <p class="absolute">
+        This paragraph is <strong>absolute</strong> positioned at bottom-right of its parent.
+      </p>
+    </div>
+  </section>
+
+  <section>
+    <h2>4) Fixed</h2>
+    <p class="fixed">
+      This box is <strong>fixed</strong> to the top-right corner of the viewport, even on scroll.
+    </p>
+    <p>Scroll down to see it remain in place.</p>
+  </section>
+
+  <section>
+    <h2>5) Sticky</h2>
+    <p class="sticky">
+      This header is <strong>sticky</strong>. It behaves like relative until you scroll past it, then sticks to the top.
+    </p>
+    <div class="filler">
+      Scroll through this area to watch the sticky element in action.
+    </div>
+   
+  </section>
+-->
+  <header class="sticky">
+    <h1>CSS Sticky Header</h1>
+  </header>
+  <div class="box1">
+    <h3>1)Shift it</h3>
+    <p> 
+      Shifted Box
+    </p>
+  </div>
+   <div class="box2">
+    <h3>2)Overlay</h3>
+    <p> 
+      This is the relative container.
+      <span>Overlay box</span>
+    </p>
+  </div>
+  
+  <div class="box3">
+    <h3>3)Scroll Below</h3>
+    <p>
+        Scroll down to watch the header stick to the top of the viewport.
+    </p>
+    <div class="filter"></div>
+    <button>Chat</button>
+  </div>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--Teacher solution-->
+	<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Position Practice Activity</title>
+  <style>
+    /* —— Reset & Base Styles —— */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.5;
+      padding: 1rem;
+    }
+    h1, h2 {
+      margin-bottom: 1rem;
+    }
+    .section {
+      margin-bottom: 2rem;
+      padding: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    /* —— 1) Shift It —— */
+    .shift-box {
+      position: relative;  /* remains in flow */
+      top: 30px;           /* moves down 30px */
+      left: 30px;          /* moves right 30px */
+      width: 100px;
+      height: 100px;
+      background: #8fa;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-weight: bold;
+    }
+
+    /* —— 2) Overlay —— */
+    .overlay-container {
+      position: relative;  /* parent for absolute child */
+      background: #eef;
+      padding: 1rem;
+      height: 150px;
+    }
+    .overlay-child {
+      position: absolute;  /* removed from flow */
+      top: 0;              
+      right: 0;            
+      background: #c88;
+      color: #fff;
+      padding: 0.5rem;
+    }
+
+    /* —— 3) Sticky Header —— */
+    .sticky-header {
+      position: sticky;
+      top: 0;
+      background: #333;
+      color: #fff;
+      padding: 1rem;
+      z-index: 10;        /* stay above other content */
+    }
+    .filler {
+      height: 800px;
+      background: linear-gradient(to bottom, #fff, #ddd);
+      margin-top: 1rem;
+    }
+
+    /* —— 4) Fixed Badge —— */
+    .chat-badge {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: #28a;
+      color: #fff;
+      padding: 0.75rem 1rem;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Sticky Header -->
+  <header class="sticky-header">
+    <h1>My Sticky Header</h1>
+  </header>
+
+  <!-- Shift It Section -->
+  <section class="section">
+    <h2>1) Shift It</h2>
+    <div class="shift-box">Shifted Box</div>
+  </section>
+
+  <!-- Overlay Section -->
+  <section class="section">
+    <h2>2) Overlay</h2>
+    <div class="overlay-container">
+      <p>This is the relative container.</p>
+      <div class="overlay-child">Overlay Box</div>
+    </div>
+  </section>
+
+  <!-- Scroll to see sticky header in action -->
+  <section class="section">
+    <h2>3) Scroll Below</h2>
+    <p>Scroll down to watch the header stick to the top of the viewport.</p>
+    <div class="filler"></div>
+  </section>
+
+  <!-- Fixed Chat Badge -->
+  <button class="chat-badge">Chat</button>
+
+</body>
+</html>

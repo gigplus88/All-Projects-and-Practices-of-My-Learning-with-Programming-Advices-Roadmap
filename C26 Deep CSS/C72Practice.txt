@@ -1,0 +1,254 @@
+<!--My little solution -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>CSS Transitions – Combined Demo</title>
+  <style>
+
+    .btn{
+      display: flex;
+      justify-content: center;
+    }
+    button{
+      
+      padding: 1rem;
+      border: none;
+      background-color: rgb(245, 252, 180);
+      border-radius: 8px;
+      box-shadow: 2px 2px 4px rgba(194, 193, 193, 0.3) ;
+      transition: box-shadow 0.5s ease-in-out 0.4s , 
+      transform 0.5s ease-in-out 0.4s;
+    }
+    button:hover{
+      box-shadow: 6px 6px 20px rgba(22, 22, 22, 0.3) ;
+      transform: translate(5px , 5px);
+    }
+
+    .hover-link {
+      font-size: 2rem;
+      margin-top: 5Px;
+      display: inline-block;
+    }
+    .hover-link a {
+      position: relative;
+      text-decoration: none;
+    }
+     .hover-link  a::after{
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -4px;
+      width: 0%;
+      height: 2px;
+      background: black;
+      transition: width 0.6s ease-in-out;      
+    }
+
+    .hover-link  a:hover::after{
+      width: 100%;
+    }
+
+    .gallery{
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      gap: 1rem;
+
+    }
+    .gallery img{
+      width: 150px;height: 150px;
+      border: solid 2px red ;
+      border-radius: 8px;
+      object-fit: cover;
+      transition: transform 0.5s ease-in-out 0.5s , filter  0.3s ease ;
+    }
+     .gallery img:hover{
+      transform: scale(1.1);
+      filter: brightness(1.1);
+    }
+
+  </style>
+</head>
+<body>
+
+  <h1>CSS Transitions – Combined Demo</h1>
+
+  <!-- 1️⃣ Width Expansion -->
+  <section>
+    <div class="btn">
+          <button >Button Animation</button>
+    </div>
+  </section>
+
+  <section class="hover-link">
+    <a href="gooogle.com">Google</a>
+  </section>
+
+    <section>
+    <h2>4) Image Gallery Hover</h2>
+    <div class="gallery">
+      <img src="Images/A1.jpg" alt="1">
+      <img src="Images/A2.jpg" alt="2">
+      <img src="Images/A3.jpg" alt="3">
+      <img src="Images/A4.jpg" alt="4">
+    </div>
+  </section>
+
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--Teacher Solution-->
+<!--
+  Code Overview: Practice Activities – Transitions & Transforms 🛠️
+  ---------------------------------------------------------------
+  Purpose:
+    • Demonstrate key CSS animation/transition techniques through hands-on exercises:
+      1) Button Fade: animate box-shadow on hover
+      2) Underlined Links: slide-in underline using width animation
+      3) Image Gallery Hover: smooth thumbnail effects combining transform & filter
+
+  Layout:
+    • three distinct <section> blocks, each with a heading and its demo element(s).
+
+  Use Cases:
+    • Visual feedback on buttons
+    • Interactive link underlines
+    • Engaging image hover effects
+
+  Key Properties:
+    • transition: box-shadow, width, opacity, transform, filter
+    • transform: scale()
+    • filter: brightness()
+    • ::after pseudo-element for underline
+    • opacity for fade effects
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Practice Activities – CSS Transitions & Transforms</title>
+  <style>
+    /* Reset */
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: Arial, sans-serif;
+      background: #f0f0f0;
+      color: #333;
+      padding: 2rem;
+      max-width: 800px;
+      margin: auto;
+      line-height: 1.4;
+    }
+    h1 { text-align: center; margin-bottom: 2rem; }
+    section { margin-bottom: 3rem; }
+    h2 { margin-bottom: 1rem; color: #444; }
+
+    /* ========== 1) Button Fade ========== */
+    .btn-fade button {
+      background: #3498db;
+      color: #fff;
+      border: none;
+      padding: 0.75rem 1.5rem;
+      font-size: 1rem;
+      border-radius: 4px;
+      cursor: pointer;
+      box-shadow: 0 0 0 rgba(0,0,0,0);
+      transition: box-shadow 0.4s ease;
+    }
+    .btn-fade button:hover {
+      box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+    }
+
+    /* ========== 2) Underlined Links ========== */
+    .underline-links a {
+      position: relative;
+      color: #e74c3c;
+      text-decoration: none;
+    }
+    .underline-links a::after {
+      content: "";
+      position: absolute;
+      left: 0; bottom: -2px;
+      width: 0; height: 2px;
+      background: #e74c3c;
+      transition: width 0.3s ease;
+    }
+    .underline-links a:hover::after {
+      width: 100%;
+    }
+
+  
+
+    /* ========== 3) Image Gallery Hover ========== */
+    .gallery {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .gallery img {
+      width: 150px;
+      height: 100px;
+      object-fit: cover;
+      border-radius: 4px;
+      transition: transform 0.3s ease, filter 0.3s ease;
+    }
+    .gallery img:hover {
+      transform: scale(1.05);
+      filter: brightness(1.2);
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Practice Activities – CSS Transitions & Transforms</h1>
+
+  <!-- 1) Button Fade -->
+  <section class="btn-fade">
+    <h2>1) Button Fade</h2>
+    <button>Hover Me</button>
+  </section>
+
+  <!-- 2) Underlined Links -->
+  <section class="underline-links">
+    <h2>2) Underlined Links</h2>
+    <p>Hover over the link below:</p>
+    <a href="#">Animated Underline Link</a>
+  </section>
+
+ 
+
+  <!-- 3) Image Gallery Hover -->
+  <section>
+    <h2>4) Image Gallery Hover</h2>
+    <div class="gallery">
+      <img src="Images/A1.jpg" alt="1">
+      <img src="Images/A2.jpg" alt="2">
+      <img src="Images/A3.jpg" alt="3">
+      <img src="Images/A4.jpg" alt="4">
+    </div>
+  </section>
+
+  
+
+</body>
+</html>
+
+
+

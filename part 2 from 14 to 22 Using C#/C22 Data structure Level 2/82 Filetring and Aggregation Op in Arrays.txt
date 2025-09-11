@@ -1,0 +1,47 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
+using System.Threading.Tasks;
+
+
+
+class Program
+{
+
+    static void Main()
+    {
+        // Array of numbers
+        int[] numbers = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+
+
+        var evenNumbers = numbers.Where(n => n % 2 == 0);
+
+        var SumEvenNumbers = evenNumbers.Sum();
+        var AverageNumbers = numbers.Average();
+        var MinOfNumbers = numbers.Min();
+        var MaxOfNumbers = numbers.Max();
+
+
+        foreach (var num in evenNumbers)
+        {
+            Console.Write(num + " ");
+        }
+        Console.WriteLine($"\nSum of Even Numbers: {SumEvenNumbers}");
+        Console.WriteLine($"Average of  Numbers: {AverageNumbers}");
+        Console.WriteLine($"Min of  Numbers: {MinOfNumbers}");
+        Console.WriteLine($"Max of  Numbers: {MaxOfNumbers}");
+
+
+        Console.WriteLine();
+
+
+
+
+        Console.ReadKey();
+
+    }
+
+
+}

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>CSS Math Functions </title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    padding: 20px;
+  }
+  h2 {
+    margin-top: 30px;
+  }
+  .box {
+    padding: 10px;
+    color: white;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  /* 1) calc() - box width = 100% minus 50px */
+  .calc-box {
+    background: #0077cc;
+    width: calc(100% - 50px);
+  }
+
+  /* 2) min() - height = smaller of 20vw or 150px */
+  .min-box {
+    background: #00aa55;
+    height: min(20vw, 150px);
+  }
+
+  /* 3) max() - height = larger of 100px or 10vw */
+  .max-box {
+    background: #cc6600;
+    height: max(100px, 10vw);
+  }
+
+  /* 4) clamp() - font-size between 16px and 32px, preferred 5vw */
+  .clamp-box {
+    background: #aa33aa;
+    font-size: clamp(16px, 5vw, 32px);
+    padding: 20px;
+  }
+</style>
+</head>
+<body>
+
+<h1>CSS Math Functions –  Demo</h1>
+
+<h2>1) calc()</h2>
+<div class="box calc-box">
+  Width = calc(100% - 50px)
+</div>
+
+<h2>2) min()</h2>
+<div class="box min-box">
+  Height = min(20vw, 150px)
+</div>
+
+<h2>3) max()</h2>
+<div class="box max-box">
+  Height = max(100px, 10vw)
+</div>
+
+<h2>4) clamp()</h2>
+<div class="box clamp-box">
+  Font size = clamp(16px, 5vw, 32px)
+</div>
+
+</body>
+</html>

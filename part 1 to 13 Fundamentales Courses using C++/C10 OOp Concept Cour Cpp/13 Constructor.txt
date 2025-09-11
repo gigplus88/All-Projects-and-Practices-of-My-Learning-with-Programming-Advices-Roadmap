@@ -1,0 +1,101 @@
+#include <iostream>
+#include <iostream>
+#include <fstream>
+#include <string>
+#include <vector>
+#include <iomanip>
+
+using namespace std;
+
+
+class clsAddress
+{
+private:
+    string _Address1 = "";
+    string _Address2 = "";
+    int _ZipCode = 0;
+    int _PoBox = 0;
+
+
+public:
+    clsAddress(string Address1 , string Address2 , int ZipCode , int PoBox)
+    {
+        _Address1 = Address1;
+        _Address2 = Address2;
+        _ZipCode = ZipCode;
+        _PoBox = PoBox;
+    }
+
+
+
+// Initialisation list
+ clsPerson(string j) : FullName(j)
+ {
+     cout << "Hi Im Constructor\n";
+     
+ }
+////
+
+
+
+    void SetAddress1(string Address1)
+    {
+        _Address1 = Address1;
+    }
+
+    string GetAddress1()
+    {
+        return _Address1;
+    }
+
+    void SetAddress2(string Address2)
+    {
+        _Address2 = Address2;
+    }
+
+    string GetAddress2()
+    {
+        return _Address2;
+    }
+
+    void SetPoBox(int PoBox)
+    {
+        _PoBox = PoBox;
+    }
+
+    int GetPoBox()
+    {
+        return _PoBox;
+    }
+
+    int SetZipCode(int ZipCode)
+    {
+        _ZipCode = ZipCode;
+    }
+
+    int GetZipCode()
+    {
+        return _ZipCode;
+    }
+
+
+    void Print()
+    {
+        cout << "Address 1:" << _Address1 << endl;
+        cout << "Address 2:" << _Address2 << endl;
+        cout << "ZipCode  :" << _ZipCode << endl;
+        cout << "PoBox    :" << _PoBox << endl;
+
+    }
+
+};
+
+int main()
+
+{
+    clsAddress Address1("Fes B14" , "N 19" , 23443 , 30080);
+
+    Address1.Print();
+    system("pause>0");
+    return 0;
+}

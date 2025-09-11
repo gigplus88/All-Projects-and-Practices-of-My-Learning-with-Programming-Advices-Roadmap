@@ -1,0 +1,98 @@
+using System;
+using System.Linq;
+using System.Data;
+
+namespace ConsoleAppDataTable
+{
+    public class Example
+    {
+        public static void Main(string[] args)
+        {
+
+            DataTable Employee = new DataTable();
+
+            //// Columns
+
+            //Employee.Columns.Add("ID", typeof(int));
+            //Employee.Columns.Add("Name", typeof(string));
+            //Employee.Columns.Add("Country" , typeof(string));
+            //Employee.Columns.Add("Salary" , typeof(Double));
+            //Employee.Columns.Add("Date" , typeof(DateTime));
+
+            DataColumn dtColumn = new DataColumn(); // He should give us method to generate with as Constraints and feautures as I want
+
+            dtColumn.DataType = typeof(int);
+            dtColumn.ColumnName = "ID";
+            dtColumn.AutoIncrement = true;
+            dtColumn.AutoIncrementSeed = 1;
+            dtColumn.AutoIncrementStep = 1;
+            dtColumn.ReadOnly = true;
+            dtColumn.Unique = true;
+            Employee.Columns.Add(dtColumn);
+
+
+            dtColumn = new DataColumn();
+            dtColumn.DataType = typeof(string);
+            dtColumn.ColumnName = "Name";
+            dtColumn.ReadOnly = false;
+            dtColumn.DefaultValue = "Zaid";
+            dtColumn.AllowDBNull = false;
+            dtColumn.Caption = "Your Name";
+            dtColumn.Unique = true;
+            Employee.Columns.Add(dtColumn);
+
+
+            dtColumn = new DataColumn();
+            dtColumn.DataType = typeof(string);
+            dtColumn.ColumnName = "Country";
+            dtColumn.ReadOnly = false;
+            dtColumn.DefaultValue = "Morocco";
+            dtColumn.AllowDBNull = false;
+            dtColumn.Unique = false;
+            Employee.Columns.Add(dtColumn);
+
+
+
+
+            dtColumn = new DataColumn();
+            dtColumn.DataType = typeof(double);
+            dtColumn.ColumnName = "Salary";
+            dtColumn.DefaultValue = 2000;
+            dtColumn.AllowDBNull = false;
+            dtColumn.Unique = false;
+            Employee.Columns.Add(dtColumn);
+
+
+
+            dtColumn = new DataColumn();
+            dtColumn.DataType = typeof(DateTime);
+            dtColumn.ColumnName = "Date";
+            dtColumn.DefaultValue = DateTime.Now;
+            dtColumn.AllowDBNull = true;
+            dtColumn.Unique = false;
+            Employee.Columns.Add(dtColumn);
+
+
+            DataColumn[] PrimaryKeyColumn = new DataColumn[1];
+            PrimaryKeyColumn[0] = Employee.Columns["ID"]; // Is decide what is the column whiche has Primary key
+            Employee.PrimaryKey = PrimaryKeyColumn;
+
+
+            Employee.Rows.Add(null, "Ayoub Fellah", "Morocco", 2000, DateTime.Now);
+            Employee.Rows.Add(null, "Saad Bihi", "Morocco", 5000, DateTime.Now);
+            Employee.Rows.Add(null, "Ayoub Rochdi", "Lebnano", 1000, DateTime.Now);
+            Employee.Rows.Add(null, "Zaid smikss", "Ksa", 2000, DateTime.Now);
+            Employee.Rows.Add(null, "Rachad Fellah", "Morocco", 8000, DateTime.Now);
+            Employee.Rows.Add(null, "Zoubir laroui", "Tunisie", 9000, DateTime.Now);
+
+
+            foreach (DataRow Row in Employee.Rows)
+            {
+                Console.WriteLine($"ID : {Row["ID"]} \t Name : {Row["Name"]} \t Country : {Row["Country"]}  \t Salary : {Row["Salary"]}  \t Date : {Row["Date"]} ");
+                //Console.WriteLine("ID : {0} \t Name : {1} \t Country : {2}  \t Salary : {3}  \t Date : {4}", Row[0], Row[1],Row[2],Row[3],Row[4]);
+            }
+
+            
+        }
+    }
+}

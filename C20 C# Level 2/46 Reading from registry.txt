@@ -1,0 +1,32 @@
+using Microsoft.Win32;
+using System;
+
+
+class Program
+{
+    static void Main()
+    {
+        // Specify the Registry key and path
+        string keyPath = @"HKEY_CURRENT_USER\SOFTWARE\YourSoftware";
+        string valueName = "YourValueName";
+        string valueData = "YourValueData for testing Registry";
+
+
+        try
+        {
+            
+            object RegistryFolder =  Registry.GetValue(keyPath, valueName, null) as string;
+
+            if (RegistryFolder != null)
+            {
+                Console.WriteLine($"the Value of {valueName} is :{RegistryFolder}.");
+
+            }
+
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"An error occurred: {ex.Message}");
+        }
+    }
+}

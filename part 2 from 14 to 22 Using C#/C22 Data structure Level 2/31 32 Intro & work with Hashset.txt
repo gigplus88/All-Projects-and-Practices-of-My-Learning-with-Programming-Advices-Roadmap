@@ -1,0 +1,52 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+
+class Program
+{
+    static void Main()
+    {
+        HashSet<int> lists = new HashSet<int>();
+
+        lists.Add(1);
+        lists.Add(2);
+        lists.Add(3);
+
+
+        //This will not be added
+        lists.Add(1);
+        lists.Add(1);
+        lists.Add(1);
+
+
+
+        foreach (int list in lists)
+        {
+            Console.WriteLine(list);
+        }
+
+
+        string[] Names = new string[] { "Ahmad Nor", "Ahmad Taher", "Ali Fahad", "Nor Mohammad", "Gamal Husain", "Khalid Taher", "Musa Nory",
+            "Fahad", "Sultan Ahmad", "Khadija Mohammad", "Nawal Ismail" };
+
+
+
+        HashSet<string> Winners = new HashSet<string>();
+
+        Random random = new Random();
+
+        while (Winners.Count() <5)
+        {
+            Winners.Add(Names[random.Next(0 , Names.Length-1 ) ] ); 
+        }
+        Console.WriteLine("The Winners are:");
+
+        foreach (string list in Winners)
+        {
+            Console.WriteLine(list);
+        }
+
+        Console.ReadKey();
+    }
+}

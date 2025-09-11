@@ -1,0 +1,56 @@
+
+#include<iostream>
+#include<stack>
+
+using namespace std;
+
+int main()
+{
+	stack <int> MyStack1;
+	stack <int> MyStack2;
+
+
+	MyStack1.push(10);
+	MyStack1.push(20);
+	MyStack1.push(30);
+	MyStack1.push(40);
+	MyStack1.push(50);
+
+
+	MyStack2.push(60);
+	MyStack2.push(70);
+	MyStack2.push(80);
+	MyStack2.push(90);
+	MyStack2.push(100);
+
+	cout << "Count = " << MyStack1.size() << endl;
+
+	MyStack1.swap(MyStack2);
+
+
+	cout << "Numbers  of Stack 1 are: " << endl;
+
+	while (!MyStack1.empty())
+	{
+		cout << MyStack1.top() << endl; // Print The top element
+
+		MyStack1.pop(); // Pop for top element from stack
+	}
+
+	cout << "Numbers  of Stack 2 are: " << endl;
+
+	while (!MyStack2.empty())
+	{
+		cout << MyStack2.top() << endl; // Print The top element
+
+		MyStack2.pop(); // Pop for top element from stack
+	}
+
+
+
+
+
+	system("pause>0");
+	return(0);
+
+}

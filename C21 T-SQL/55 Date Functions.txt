@@ -1,0 +1,15 @@
+
+SELECT GETDATE();
+SELECT SYSDATETIME();
+SELECT DateAdd(month , 5 , GETDATE());
+SELECT DateDiff(year , '2024-01-03' , GETDATE());
+SELECT DatePart(day, GETDATE());
+SELECT DateName(MONTH, GETDATE());
+
+SELECT Day(GETDATE());
+SELECT Month(GETDATE());
+SELECT Year(GETDATE());
+
+SELECT convert(nvarchar ,  GETDATE() , 103);
+SELECT cast( GETDATE() as date);
+SELECT Day(EOMONTH( GETDATE()));

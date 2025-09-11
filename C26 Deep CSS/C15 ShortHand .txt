@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>CSS Background Image Example</title>
+  <style>
+    /* Set a background image on the body element */
+    .Main {
+        background: #435c3d url("Image2.jpg") no-repeat  fixed center/cover ; /* Fixed background */
+     
+        color: white;
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+    }
+    
+        .info {
+        background: #435c3d url("Image.jpg") repeat-x  scroll top/cover  ; /* Fixed background */
+     
+        color: white;
+        padding: 10px;
+        align-items: center;
+        text-align: center;
+    }
+    .MainTitle {
+        font-size: 3em;
+        margin: 0;
+        background-color: rgba(0, 0, 0, 0.5);
+        margin: 10px;
+        padding: 10px;
+        border: solid 2px #fff;
+        border-radius: 10px;
+    }
+   
+  </style>
+</head>
+<body>
+   <div class="Main">
+        <h1 class="MainTitle">Welcome to Our Website <br>
+            <small>Experience the power of CSS background shorthand!</small>
+        </h1>
+    </div>
+
+    <div class="info">
+        <h2>About Our Design</h2>
+        <p>
+            The background shorthand property helps us combine multiple background styles into one concise declaration.
+            This makes our CSS cleaner and our designs more dynamic.
+        </p>
+    </div>
+</body>
+</html>

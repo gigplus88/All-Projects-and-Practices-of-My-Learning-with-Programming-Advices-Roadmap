@@ -1,0 +1,93 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
+
+
+
+class Program
+{
+    static void Main()
+    {
+
+        ObservableCollection<string> Store = new ObservableCollection<string>();
+
+        Store.CollectionChanged += Manage_Store;
+
+        Store.Add("Banana");
+        Store.Add("Apple");
+        Store.Add("Strawbery");
+        Store.Add("Potato");
+
+
+        foreach (var name in Store)
+        {
+            Console.WriteLine(name);
+        }
+
+        Store.RemoveAt(0); // Refuse Product
+        Store.Insert( 1 , "Ayoub"); // Add Other Product  
+        Store[2] = "Replaced Item"; // Change Product
+        Store.Move(0, 3); // Move action
+
+        Console.ReadKey();
+
+    }
+    // CollectionChanged Event Handler
+    static void Manage_Store(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+    {
+        Console.WriteLine("\nCollection Changed:");
+
+
+        // Handling Collection Changes
+        switch (e.Action)
+        {
+            case System.Collections.Specialized.NotifyCollectionChangedAction.Add:
+                Console.WriteLine("Added:");
+                foreach (var newItem in e.NewItems)
+                {
+                    Console.WriteLine("- " + newItem);
+                }
+                break;
+
+
+            case System.Collections.Specialized.NotifyCollectionChangedAction.Remove:
+                Console.WriteLine("Removed:");
+                foreach (var oldItem in e.OldItems)
+                {
+                    Console.WriteLine("- " + oldItem);
+                }
+                break;
+
+
+            case System.Collections.Specialized.NotifyCollectionChangedAction.Replace:
+                Console.WriteLine("Replaced:");
+                foreach (var oldItem in e.OldItems)
+                {
+                    Console.WriteLine("- " + oldItem);
+                }
+                Console.WriteLine("With:");
+                foreach (var newItem in e.NewItems)
+                {
+                    Console.WriteLine("- " + newItem);
+                }
+                break;
+
+
+            case System.Collections.Specialized.NotifyCollectionChangedAction.Move:
+                Console.WriteLine("Moved:");
+                foreach (var oldItem in e.OldItems)
+                {
+                    foreach (var NewItem in e.NewItems)
+                    {
+                        Console.WriteLine("- " + oldItem);
+                        Console.WriteLine($"- From  {oldItem} to  {NewItem}");
+                    }
+                   
+
+                }
+                break;
+        }
+    }
+}

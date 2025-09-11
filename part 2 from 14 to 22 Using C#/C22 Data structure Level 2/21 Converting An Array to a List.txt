@@ -1,0 +1,31 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+
+
+class Program
+{
+    static void Main()
+    {
+        int[] numbersArray = new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 }; 
+
+        List<int> numbers = new List<int> (numbersArray );
+
+
+        Console.WriteLine( "Array Length is:" + numbersArray.Length);
+
+        Console.WriteLine("List Length is:" +  numbers.Count);
+        Console.WriteLine("Items of numbers List are :" + string.Join( "," , numbers));
+
+
+        List<int> numbersList = numbersArray.ToList();
+        Console.WriteLine("Array Length is:" + numbersArray.Length);
+
+        Console.WriteLine("List Length is:" + numbersList.Count);
+        Console.WriteLine("Items of numbers List are :" + string.Join(",", numbersList));
+
+
+        Console.ReadKey();
+    }
+}

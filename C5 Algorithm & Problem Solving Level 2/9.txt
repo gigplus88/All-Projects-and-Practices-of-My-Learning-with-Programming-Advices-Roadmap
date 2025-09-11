@@ -1,0 +1,74 @@
+#include <iostream>
+#include <cmath>
+#include <string>
+using namespace std;
+
+enum enIsperfectNumber { Perfect = 1, NotPerfect = 2 };
+enIsperfectNumber IsperfectNumber;
+
+int ReadPositiveNumber(string Message)
+{
+    int Number;
+
+    do
+    {
+        cout << Message << endl;
+        cin >> Number;
+
+    } while (Number <= 0);
+
+    return Number;
+}
+
+
+
+
+int GetNumberOfDigit( int Number , int Digit)
+{
+   
+    int Remainder = 0 , FreqCount =0 ;
+  
+    while (Number>0)
+    {
+        Remainder = Number % 10;
+        if (Remainder == Digit)
+        {
+            FreqCount = FreqCount + 1;
+        }
+        
+        Number = Number / 10;
+
+    }
+    return  FreqCount;
+}
+
+void PrintAllDigits(int Number)
+{
+    short  DigitFrequency = 0;
+    
+        for (short i = 0; i <=9; i++)
+        {
+            DigitFrequency = GetNumberOfDigit(Number, i);
+
+            if (DigitFrequency >0)
+            {
+                cout << "Digit " << i << " Frequency is "
+                    << DigitFrequency << " Time(s)." << endl;
+            }
+
+        }
+        
+       
+}
+
+int main()
+{
+    int Number = ReadPositiveNumber("Enter your number please ");
+    
+    PrintAllDigits(Number);
+
+ 
+    return 0;
+
+}
+

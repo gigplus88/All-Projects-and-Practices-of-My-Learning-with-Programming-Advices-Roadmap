@@ -1,0 +1,96 @@
+using System;
+using System.Linq;
+using System.Data;
+
+namespace ConsoleAppDataTable
+{
+    public class Example
+    {
+        public static void Main(string[] args)
+        {
+
+            DataTable Employee = new DataTable("Employees DataTable");
+            //Employee.TableName = "Employees DataTable";
+
+            Employee.Columns.Add("ID", typeof(int));
+            Employee.Columns.Add("Name", typeof(string));
+            Employee.Columns.Add("Country", typeof(string));
+            Employee.Columns.Add("Salary", typeof(Double));
+            Employee.Columns.Add("Date", typeof(DateTime));
+
+            DataColumn[] PrimaryKeyColumn = new DataColumn[1];
+            PrimaryKeyColumn[0] = Employee.Columns["ID"]; // Is decide what is the column whiche has Primary key
+            Employee.PrimaryKey = PrimaryKeyColumn;
+
+
+            Employee.Rows.Add(1, "Ayoub Fellah", "Morocco", 2000, DateTime.Now);
+            Employee.Rows.Add(2, "Saad Bihi", "Morocco", 5000, DateTime.Now);
+            Employee.Rows.Add(3, "Ayoub Rochdi", "Lebnano", 1000, DateTime.Now);
+            Employee.Rows.Add(4, "Zaid smikss", "Ksa", 2000, DateTime.Now);
+            Employee.Rows.Add(5, "Rachad Fellah", "Morocco", 8000, DateTime.Now);
+            Employee.Rows.Add(6, "Zoubir laroui", "Tunisie", 9000, DateTime.Now);
+
+
+            foreach (DataRow Row in Employee.Rows)
+            {
+                Console.WriteLine($"ID : {Row["ID"]} \t Name : {Row["Name"]} \t Country : {Row["Country"]}  \t Salary : {Row["Salary"]}  \t Date : {Row["Date"]} ");
+                //Console.WriteLine("ID : {0} \t Name : {1} \t Country : {2}  \t Salary : {3}  \t Date : {4}", Row[0], Row[1],Row[2],Row[3],Row[4]);
+            }
+
+            Console.WriteLine("\n");
+            Console.WriteLine("Departments List:");
+
+
+
+            //Dataset
+            DataTable Departement = new DataTable("Departement Data");
+            Departement.TableName = "Departement Data";
+
+            Departement.Columns.Add("DepartmentID", typeof(int));
+            Departement.Columns.Add("Name", typeof(string));
+            
+            DataColumn[] PrimaryKeyDepatment = new DataColumn[1];
+            PrimaryKeyDepatment[0] = Departement.Columns["DepartmentID"]; // Is decide what is the column whiche has Primary key
+            Departement.PrimaryKey = PrimaryKeyDepatment;
+
+
+            Departement.Rows.Add(1, "Marketing");
+            Departement.Rows.Add(2, "IT ");
+            Departement.Rows.Add(3, "HR");
+
+            foreach (DataRow Row in Departement.Rows)
+            {
+                Console.WriteLine($"DepartmentID : {Row["DepartmentID"]} \t Name : {Row["Name"]} ");
+                //Console.WriteLine("ID : {0} \t Name : {1} );
+            }
+
+
+
+            //Create Tables with Dataset
+            Console.WriteLine("\n");
+            Console.WriteLine("Employees List:");
+
+
+            DataSet dataset1 = new DataSet();
+
+            dataset1.Tables.Add(Employee);
+            dataset1.Tables.Add(Departement);
+
+            foreach (DataRow Row in dataset1.Tables["Employees DataTable"].Rows)
+            {
+                Console.WriteLine($"ID : {Row["ID"]} \t Name : {Row["Name"]} \t Country : {Row["Country"]}  \t Salary : {Row["Salary"]}  \t Date : {Row["Date"]} ");
+                //Console.WriteLine("ID : {0} \t Name : {1} );
+            }
+
+            Console.WriteLine("\n");
+
+            foreach (DataRow Row in dataset1.Tables["Departement Data"].Rows)
+            {
+                Console.WriteLine($"DepartmentID : {Row["DepartmentID"]} \t Name : {Row["Name"]} ");
+                //Console.WriteLine("ID : {0} \t Name : {1} );
+            }
+
+            Console.ReadKey();
+        }
+    }
+}

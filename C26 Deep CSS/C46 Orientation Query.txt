@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Orientation Query Demo</title>
+  <style>
+    body {
+      margin: 0; padding: 2rem;
+      transition: background 0.3s;
+    }
+    /* Default: landscape or desktop */
+    body {
+      background: lightblue;
+    }
+    /* Portrait on mobile/tablet */
+    @media screen and (orientation: portrait) {
+      body {
+        background: lightcoral;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>Rotate Your Device</h1>
+  <p>Background becomes <strong>lightcoral</strong> in portrait, <strong>lightblue</strong> otherwise.</p>
+</body>
+</html>

@@ -1,0 +1,263 @@
+#include <iostream>
+#include <iostream>
+#include <fstream>
+#include <string>
+#include <vector>
+#include <iomanip>
+
+using namespace std;
+
+
+class clsPerson
+{
+private:
+    int _ID = 10;
+    string _FirstName;
+    string _LastName;
+    string _FullName;
+    string _Email;
+    string _Phone;
+    
+
+
+public:
+
+    /*clsEmployee(int I, string Fi, string L, string Fu, string E, string P) : _ID(I), _FirstName(Fi), _LastName(L), _FullName(Fu), _Email(E), _Phone(P)
+    {
+        cout << "I am constructor" << endl;
+    }*/
+
+    // Default Constructor
+   
+
+    clsPerson(int ID, string FirstName, string LastName ,string Email, string Phone )
+    {
+        _ID = ID;
+        _FirstName = FirstName;
+        _LastName = LastName;
+        _Email = Email;
+        _Phone = Phone;
+        cout << "I am constructor" << endl;
+    }
+
+    int GetID() // Read Only
+    {
+        return _ID;
+    }
+    void SetFirstName(string FirstName)
+    {
+        _FirstName = FirstName;
+    }
+
+    string GetFirstName()
+    {
+        return _FirstName;
+    }
+
+    void SetLastName(string LastName)
+    {
+        _LastName = LastName;
+    }
+
+    string GetLastName()
+    {
+        return _LastName;
+    }
+
+    /*void SetFullName(string FullName)
+    {
+        _FullName = FullName;
+    }
+
+    string GetFullName()
+    {
+        return _FullName;
+    }*/
+
+    string GetFullName()
+    {
+        return _FirstName + "" + _LastName;
+    }
+
+  
+    void SetEmail(string Email)
+    {
+        _Email = Email;
+    }
+
+    string GetEmail()
+    {
+        return _Email;
+    }
+
+    void SetPhone(string Phone)
+    {
+        _Phone = Phone;
+    }
+
+    string GetPhone()
+    {
+        return _Phone;
+    }
+
+   
+    void SendEmail(string Subject, string Body)
+    {
+        cout << "The following message sent successfully to email: " << _Email /*GetEmail()*/ << endl;
+        cout << "Subject: " << Subject << endl;
+        cout << "Body   : " << Body << endl;
+    }
+
+    void SendSMS(string TextMessage)
+    {
+        cout << "The following message sent successfully to Phone: " << _Phone /*GetPhone()*/ << endl;
+        cout << "Body   : " << TextMessage << endl;
+    }
+
+    void PrintInfo()
+    {
+        cout << "Info:";
+        cout << "\n---------------------------\n\n";
+        cout << "ID             :" << _ID << endl;
+        cout << "FirstName      :" << _FirstName << endl;
+        cout << "LastName       :" << _LastName << endl;
+        cout << "Full Name      :" << _FullName << endl;
+        cout << "Email          :" << _Email << endl;
+        cout << "Phone          :" << _Phone << endl;
+
+        cout << "\n\n---------------------------\n";
+
+    }
+};
+
+// Inheritance concepts;
+class clsEmployee : public clsPerson
+{
+private:
+    string _Title;
+    float _Salary = 0;
+    string _Department;
+
+public:
+
+    clsEmployee(int ID, string FirstName, string LastName,  string Email, string Phone , string Title , float Salary , string Department)
+         :clsPerson(ID,  FirstName,  LastName,  Email,  Phone)
+    {
+        _Title = Title;
+        _Salary = Salary;
+        _Department = Department;
+    }
+
+    void SetTitle(string Title)
+    {
+        _Title = Title;
+    }
+
+    string GetTitle()
+    {
+        return _Title;
+    }
+
+    void SetSalary(float Salary)
+    {
+        _Salary = Salary;
+    }
+
+    float GetSalary()
+    {
+        return _Salary;
+    }
+
+    void SetDepartment(string Department)
+    {
+        _Department = Department;
+    }
+
+    string GetDepartment()
+    {
+        return _Department;
+    }
+
+    void PrintInfo()
+    {
+        cout << "Info:";
+        cout << "\n---------------------------\n\n";
+        cout << "ID             :" << GetID() << endl;
+        cout << "FirstName      :" << GetFirstName() << endl;
+        cout << "LastName       :" << GetLastName() << endl;
+        cout << "Full Name      :" << GetFullName() << endl;
+        cout << "Email          :" << GetEmail() << endl;
+        cout << "Phone          :" << GetPhone() << endl;
+        cout << "Salary         :" << _Salary << endl;
+        cout << "Department     :" << _Department << endl;
+        cout << "Title          :" << _Title << endl;
+        cout << "\n\n---------------------------\n";
+
+
+    }
+
+};
+
+class clsProgrammer :public  clsEmployee
+{
+private:
+    string _MainProgrammingLanguage;
+
+public:
+
+    clsProgrammer(int ID, string FirstName, string LastName, string Email, string Phone, string Title, float Salary, string Department , string MainProgrammingLanguage)
+        : clsEmployee(ID, FirstName, LastName, Email, Phone , Title, Salary, Department ) //     clsEmployee،الخاص ب ،constructor ،استدعاء
+    {
+         _MainProgrammingLanguage = MainProgrammingLanguage;
+    }
+
+    void SetMainProgrammingLanguage( string MainProgrammingLanguage)
+    {
+        _MainProgrammingLanguage = MainProgrammingLanguage;
+    }
+
+    string GetMainProgrammingLanguage()
+    {
+        return _MainProgrammingLanguage;
+    }
+
+    void PrintInfo()
+    {
+        cout << "Info:";
+        cout << "\n---------------------------\n\n";
+        cout << "ID                       :" << GetID() << endl;
+        cout << "FirstName                :" << GetFirstName() << endl;
+        cout << "LastName                 :" << GetLastName() << endl;
+        cout << "Full Name                :" << GetFullName() << endl;
+        cout << "Email                    :" << GetEmail() << endl;
+        cout << "Phone                    :" << GetPhone() << endl;
+        cout << "Salary                   :" << GetSalary() << endl;
+        cout << "Department               :" << GetDepartment() << endl;
+        cout << "Title                    :" << GetTitle() << endl;
+        cout << "Main Programming Language:" << _MainProgrammingLanguage << endl;
+        cout << "\n\n---------------------------\n";
+
+
+    }
+
+};
+
+
+int main()
+
+{
+    
+
+    clsProgrammer Programmer1(10, "Ayoub", "Fellah", "ayoub@gmail.com", "0712343", "CEO", 5000, "Development", "C++");
+    Programmer1.PrintInfo();
+
+
+
+   /* clsEmployee Employee(10, "Ayoub", "Fellah", "Ayoub Fellah", "Development", "ayoubfellah@gmail.com", "0714710674" , 4000 , "B");
+    Employee.PrintInfo();
+
+    Employee.SendEmail("Men", "How are you?");
+    Employee.SendSMS("How are you?");*/
+    system("pause>0");
+    return 0;
+}

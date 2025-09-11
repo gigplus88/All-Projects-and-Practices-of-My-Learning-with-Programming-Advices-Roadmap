@@ -1,0 +1,23 @@
+
+select distinct Makes.Make , DriveTypes.DriveTypeName ,count(*) as TotalVehicleWithDriveTypeName 
+from VehicleDetails
+Inner join Makes On VehicleDetails.MakeID = Makes.MakeID
+Inner Join DriveTypes On VehicleDetails.DriveTypeID = DriveTypes.DriveTypeID
+Group By DriveTypes.DriveTypeName , Makes.Make
+Having count(*) > 10000
+Order By DriveTypeName desc , Make asc ;
+
+
+-- Without Having
+
+select * from(
+select distinct Makes.Make , DriveTypes.DriveTypeName ,count(*) as TotalVehicleWithDriveTypeName 
+from VehicleDetails
+Inner join Makes On VehicleDetails.MakeID = Makes.MakeID
+Inner Join DriveTypes On VehicleDetails.DriveTypeID = DriveTypes.DriveTypeID
+Group By DriveTypes.DriveTypeName , Makes.Make
+
+) R1
+where R1.TotalVehicleWithDriveTypeName > 10000
+Order By R1.DriveTypeName desc , R1.Make asc ;
+

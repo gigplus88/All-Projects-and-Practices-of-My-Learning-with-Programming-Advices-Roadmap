@@ -1,0 +1,82 @@
+using System;
+using System.Collections.Generic;
+
+public class MinHeap
+{
+    private List<int> heap = new List<int>();
+
+    // Insert new element
+    public void Insert(int value)
+    {
+        heap.Add(value);
+        HeapifyUp(heap.Count - 1);
+    }
+
+    // Restore MinHeap property upwards
+    private void HeapifyUp(int index)
+    {
+        while (index > 0)
+        {
+            int parentIndex = (index - 1) / 2;
+
+            // If current >= parent, stop
+            if (heap[index].CompareTo(heap[parentIndex]) >= 0) break;
+
+            // Swap with parent
+            (heap[index], heap[parentIndex]) = (heap[parentIndex], heap[index]);
+
+            index = parentIndex;
+        }
+    }
+    public int Peek()
+    {
+        if (heap.Count ==0)
+        {
+            throw new InvalidOperationException("Heap is empty");
+        }
+        return heap[0];
+          // return heap.Count == 0 ? throw new InvalidOperationException("Heap is empty"): heap[0];
+
+    }
+
+    // Display heap elements
+    public void DisplayHeap()
+    {
+        Console.WriteLine("\nHeap Elements: ");
+        foreach (int value in heap)
+        {
+            Console.Write(value + "  ");
+        }
+        Console.WriteLine();
+    }
+}
+
+public class Program
+{
+    public static void Main()
+    {
+        MinHeap minHeap = new MinHeap();
+
+        Console.WriteLine("Inserting elements into the Min-Heap...\n");
+        minHeap.Insert(10);
+        minHeap.Insert(4);
+        minHeap.Insert(15);
+        minHeap.Insert(2);
+        minHeap.Insert(8);
+
+        // Display the heap after insertion
+        minHeap.DisplayHeap();
+
+
+        Console.WriteLine("The min element in heap is: " + minHeap.Peek());
+
+        // Example of tuple swap
+        int x = 9, y = 3;
+        (x, y) = (y, x);
+
+        Console.WriteLine("The value of x is: " + x);
+        Console.WriteLine("The value of y is: " + y);
+
+        Console.ReadKey();
+    }
+}

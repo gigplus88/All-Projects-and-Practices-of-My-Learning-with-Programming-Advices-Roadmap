@@ -1,0 +1,196 @@
+using System;
+using System.Data;
+using System.Net;
+using System.Data.SqlClient;
+using System.ComponentModel;
+using System.Security.Policy;
+
+public class Program
+{
+    static string connectionString = "Server=.;Database=Contacts; User Id=sa;Password=123456;"; // Replace with your actual connection string
+
+    public struct StContact
+    {
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string Email { get; set; }
+        public string Phone { get; set; }
+        public string Address { get; set; }
+        public int CountryID { get; set; }
+    }
+    
+    class clsContact
+    {
+        public string FirstName{ get; set; }
+        public string LastName { get; set; }
+        public string Email { get; set; }
+        public string Phone { get; set; }
+        public string Address { get; set; }
+        public int CountryID { get; set; }
+        public clsContact(string FirstName , string LastName, string Email , string Phone , string Address , int CountryID)
+        {
+            this.FirstName = FirstName;
+            this.LastName = LastName;
+            this.Email = Email;
+            this.Phone = Phone;
+            this.Address = Address;
+            this.CountryID = CountryID;
+        }
+    }
+    static void AddNewContact(StContact NewContact)
+    {
+        SqlConnection connection = new SqlConnection(connectionString);
+
+        string Query = "INSERT INTO Contacts(FirstName ,LastName,Email ,Phone ,Address,CountryID) VALUES " +
+            "(@FirstName ,@LastName,@Email ,@Phone ,@Address,@CountryID)";
+
+        SqlCommand command = new SqlCommand(Query , connection);
+
+        command.Parameters.AddWithValue("@FirstName", NewContact.FirstName);
+        command.Parameters.AddWithValue("@LastName", NewContact.LastName);
+        command.Parameters.AddWithValue("@Email", NewContact.Email);
+        command.Parameters.AddWithValue("@Phone", NewContact.Phone);
+        command.Parameters.AddWithValue("@Address", NewContact.Address);
+        command.Parameters.AddWithValue("@CountryID", NewContact.CountryID);
+
+        try
+        {
+            connection.Open();
+
+            int rowsAffect = command.ExecuteNonQuery();
+
+            if (rowsAffect>0)
+            {
+                Console.WriteLine("Record inserted succesfully");
+            }
+
+            else
+            {
+                Console.WriteLine("Record no inserted succesfully");
+            }
+
+            connection.Close();
+        }
+
+        catch(Exception ex)
+        {
+            Console.WriteLine("Error: " + ex.Message);
+        }
+
+    }
+    static void AddNewContactWithClass(clsContact contact1)
+    {
+
+        SqlConnection connection = new SqlConnection(connectionString);
+
+        string Quer = "INSERT INTO Contacts(FirstName ,LastName,Email ,Phone ,Address,CountryID) VALUES " +
+            "(@FirstName ,@LastName,@Email ,@Phone ,@Address,@CountryID)";
+
+        SqlCommand command = new SqlCommand(Quer, connection);
+
+        command.Parameters.AddWithValue("@FirstName", contact1.FirstName);
+        command.Parameters.AddWithValue("@LastName", contact1.LastName);
+        command.Parameters.AddWithValue("@Email", contact1.Email);
+        command.Parameters.AddWithValue("@Phone", contact1.Phone);
+        command.Parameters.AddWithValue("@Address", contact1.Address);
+        command.Parameters.AddWithValue("@CountryID", contact1.CountryID);
+
+        try
+        {
+            connection.Open();
+
+            int rowsAffect = command.ExecuteNonQuery();
+
+            if (rowsAffect>0)
+            {
+                Console.WriteLine("Record inserted succesfully");
+            }
+
+            else
+            {
+                Console.WriteLine("Record no inserted succesfully");
+            }
+
+            connection.Close();
+        }
+
+        catch (Exception ex)
+        {
+            Console.WriteLine("Error: " + ex.Message);
+        }
+
+    }
+    static void PrintAllContacts()
+    {
+        SqlConnection connection = new SqlConnection(connectionString);
+
+        string query = "SELECT * FROM Contacts";
+
+        SqlCommand command = new SqlCommand(query, connection);
+
+        try
+        {
+            connection.Open();
+
+            SqlDataReader reader = command.ExecuteReader();
+
+            while (reader.Read())
+            {
+                int contactID = (int)reader["ContactID"];
+                string firstName = (string)reader["FirstName"];
+                string lastName = (string)reader["LastName"];
+                string email = (string)reader["Email"];
+                string phone = (string)reader["Phone"];
+                string address = (string)reader["Address"];
+                int countryID = (int)reader["CountryID"];
+
+                Console.WriteLine($"Contact ID: {contactID}");
+                Console.WriteLine($"Name: {firstName} {lastName}");
+                Console.WriteLine($"Email: {email}");
+                Console.WriteLine($"Phone: {phone}");
+                Console.WriteLine($"Address: {address}");
+                Console.WriteLine($"Country ID: {countryID}");
+                Console.WriteLine();
+            }
+
+            reader.Close();
+            connection.Close();
+
+        }
+
+
+        catch (Exception ex)
+        {
+            Console.WriteLine("Error: " + ex.Message);
+        }
+    }
+    
+    
+
+
+    public static void Main()
+    {
+        //PrintAllContacts();
+
+        StContact Contact = new StContact()
+        {
+            FirstName ="Ayoub" ,
+            LastName = "Fellah",
+            Email = "ayoubff@gmail.com",
+            Phone = "094848934",
+            Address = "FES b14 ",
+            CountryID = 1
+        };
+
+        //clsContact contact = new clsContact("saad", "sahir", "saad@gmail.com", "065434234", "temara milano", 2);
+
+        //AddNewContactWithClass(contact );
+
+        AddNewContact(Contact);
+
+        Console.ReadKey();
+    }
+
+}
+
+

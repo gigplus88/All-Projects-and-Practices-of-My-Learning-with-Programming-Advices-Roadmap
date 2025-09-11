@@ -1,0 +1,113 @@
+#include <iostream>
+#include <cmath>
+#include <string>
+#include <cstdlib>
+
+using namespace std;
+ 
+enum enCharType{SmallLetter=1 , CapitallLetter=2 , SpetialCharacter=3 , Digit=4};
+
+
+
+int ReadPositiveNumber(string Message)
+{
+    int Number;
+
+    do
+    {
+        cout << Message << endl;
+        cin >> Number;
+
+    } while (Number <= 0);
+
+    return Number;
+}
+
+int RandomNumber(int From, int To)
+{
+
+    int randNum = rand() % (To - From + 1) + From;
+
+
+    return randNum;
+}
+
+
+
+
+void ReadArray(int arr[100], int  &arrLength)
+{
+    
+    
+    for (int i = 0; i <  arrLength; i++)
+    {
+        
+        arr[i]= RandomNumber(1, 100);
+        
+    }
+
+   
+   
+}
+
+
+void PrintArrayElements(int arr[100],  int  arrLength)
+
+{
+    
+    cout << "Array Elements:";
+    for (int i = 0; i < arrLength  ; i++)
+    {
+        cout << arr[i] <<" ";
+
+    }
+
+}
+
+int PrintMinRandom(int arr[100], int  arrLength)
+{
+    int min = 0;
+    min = arr[0];
+    
+    for (int i = 0; i < arrLength; i++)
+    {
+
+       /* if ( min > arr[i])
+        {
+            min = arr[i];
+        }*/
+
+        if (arr[i] < min)
+        {
+            min = arr[i];
+        }
+        
+   
+    }
+    return min;
+    
+}
+int main()
+{
+    srand((unsigned)time(NULL));
+    int arr[100] , arrLength;
+    enCharType CharType = {};
+
+    
+    
+     
+    arrLength = ReadPositiveNumber("Please enter number of elements :");
+
+    ReadArray( arr,  arrLength);
+
+    
+    PrintArrayElements( arr, arrLength) ;
+
+    cout << endl <<  "Min number is: " << PrintMinRandom(arr, arrLength);
+
+    
+
+    return 0;
+
+}
+

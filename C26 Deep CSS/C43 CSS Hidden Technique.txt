@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>CSS Padding Practice Activity</title>
+  <style>
+  * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+     body {
+      font-family: Arial, sans-serif;
+      line-height: 1.5;
+      padding: 1rem;
+      height: 3000px;
+    }
+
+    section {
+      margin-bottom: 2rem;
+    }
+
+    
+
+    #nav-list {
+      list-style: none;
+      padding: 10px;
+      border-radius: 4px;
+      
+    }
+    #nav-list li {
+      display: inline-block;
+      margin-right: 1rem;
+      padding: 5px;
+    }
+
+    #nav-list li:hover {
+      cursor: pointer;
+      background-color: rgb(188, 188, 252) ;
+      border: 2px solid rgb(103, 103, 253);
+      border-radius: 8px;
+    }
+  
+    #toggle-menu {
+      margin-bottom: 0.5rem;
+      padding: 0.5rem 1rem;
+      background-color: #9cf89f;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      color: black;
+    }
+     .step button {
+      margin-top: 1rem;
+      padding: 0.5rem 1rem;
+    }
+   
+  </style>
+
+
+</head>
+<body>
+   <h1>Practice Activities Solution</h1>
+
+  <!-- 1) Menu Toggler -->
+  <section>
+    <h2>1) Menu Toggler</h2>
+    <button id="toggle-menu">Toggle Menu Items</button>
+    <nav>
+      <ul id="nav-list">
+        <li>Home</li>
+        <li>About</li>
+        <li>Services</li>
+        <li>Contact</li>
+      </ul>
+    </nav>
+  </section>
+
+
+
+  <!-- 2) Form Stepper -->
+  <section>
+    <h2>2) Form Stepper</h2>
+    <form id="step-form">
+      <div class="step">
+        <p><strong>Step 1:</strong> Enter your name</p>
+        <input type="text" placeholder="Name">
+        <br>
+        <button type="button" class="next">Next</button>
+      </div>
+      <div class="step">
+        <p><strong>Step 2:</strong> Enter your email</p>
+        <input type="email" placeholder="Email">
+        <br>
+        <button type="button" class="prev">Previous</button>
+
+        <button type="button" class="next">Next</button>
+      </div>
+      <div class="step">
+        <p><strong>Step 3:</strong> Review and submit</p>
+        <p>Your information looks good!</p>
+        <button type="button" class="prev">Previous</button>
+
+        <button type="submit">Submit</button>
+      </div>
+    </form>
+  </section>
+
+  <script>
+    // 1) Menu Toggler
+    const toggleBtn = document.getElementById('toggle-menu');
+    const navItems = document.querySelectorAll('#nav-list li');
+    const navBackground = document.getElementById('nav-list');
+
+
+    toggleBtn.addEventListener('click', () => {
+      navItems.forEach(li => {
+        li.style.display = (li.style.display === 'none') ? 'inline-block' : 'none';
+      });
+      
+    });
+
+    
+    // 2) Form Stepper
+    const steps = document.querySelectorAll('.step');
+    let current = 0;
+    function showStep(idx) {
+      steps.forEach((step, i) => step.style.display = (i === idx ? 'block' : 'none'));
+    }
+    document.querySelectorAll('.next').forEach(btn =>
+      btn.addEventListener('click', () => { current = Math.min(current + 1, steps.length - 1); showStep(current); })
+    );
+    document.querySelectorAll('.prev').forEach(btn =>
+      btn.addEventListener('click', () => { current = Math.max(current - 1, 0); showStep(current); })
+    );
+    showStep(current);
+  </script>
+
+</body>
+</html>

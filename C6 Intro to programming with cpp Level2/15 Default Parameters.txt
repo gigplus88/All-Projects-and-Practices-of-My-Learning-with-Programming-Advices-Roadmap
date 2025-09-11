@@ -1,0 +1,25 @@
+#include <iostream>
+#include "MyLibrary.h"
+#include "MyInputLibrary.h"
+
+using namespace std;
+
+
+
+int MySum(int a, int b , int c=0 , int d=0)
+{
+    return (a + b + c + d);
+}
+
+
+int main()
+{
+   cout << MySum( 3,9) << endl;
+   cout << MySum(3, 9, 7) << endl;
+   cout << MySum(3, 9, 7,8) << endl;
+
+
+
+    return 0;
+
+}

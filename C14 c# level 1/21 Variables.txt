@@ -1,0 +1,28 @@
+using System;
+namespace Main3
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            string  MyName = "Ayoub Fellah";
+            Console.WriteLine(MyName);
+
+            int x = 10, y = 14;
+            
+            Console.WriteLine("x=" +x);
+            Console.WriteLine("y=" +y);
+
+            Console.WriteLine("x + y =" + x+y); // Wrong answer
+            Console.WriteLine("x + y =" + (x+y)); // Right answer
+
+            float o= 48.49f;
+            double j = 493.283D;
+            char MyChar = 'g';
+            bool MyBool = true;
+
+
+            Console.ReadKey(); 
+        }
+    }
+}

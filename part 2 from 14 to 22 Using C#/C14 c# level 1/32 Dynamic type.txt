@@ -1,0 +1,71 @@
+Difference Between dynamic and var:
+
+var is a statically typed variable where the type is determined at compile time, whereas dynamic is resolved at runtime.
+With var:
+csharp
+Copy code
+var x = 10; // x is statically typed as int
+With dynamic:
+csharp
+Copy code
+dynamic x = 10; // x is dynamically typed; type is resolved at runtime
+Interactions with Reflection:
+
+dynamic is particularly useful when working with reflection or when interfacing with components that do not have strongly-typed interfaces, 
+such as some COM objects or certain APIs.
+Risk of Runtime Errors:
+
+Since dynamic bypasses compile-time type checking, there is a risk of runtime errors if the operations on the dynamic object are not valid for the actual type.
+For example:
+csharp
+Copy code
+dynamic obj = "Hello";
+obj++; // This will cause a runtime error because strings cannot be incremented
+
+
+
+
+//ProgrammingAdvices.com
+//Mohammed Abu-Hadhoud
+
+using System;
+
+namespace Main
+{
+    internal class Program
+    {
+
+        static void Main(string[] args)
+        {
+
+            //dynamic MyDynamicVar = 100;
+            //Console.WriteLine("Value: {0}, Type: {1}", MyDynamicVar, MyDynamicVar.GetType());
+
+            //MyDynamicVar = "Hello World!!";
+            //Console.WriteLine("Value: {0}, Type: {1}", MyDynamicVar, MyDynamicVar.GetType());
+
+            //MyDynamicVar = true;
+            //Console.WriteLine("Value: {0}, Type: {1}", MyDynamicVar, MyDynamicVar.GetType());
+
+            //MyDynamicVar = DateTime.Now;
+            //Console.WriteLine("Value: {0}, Type: {1}", MyDynamicVar, MyDynamicVar.GetType());
+
+
+            dynamic MyDynamicVariable = 120;
+            Console.WriteLine(MyDynamicVariable);
+            Console.WriteLine("Value : {0} , type : {1}" , MyDynamicVariable , MyDynamicVariable.GetType());
+
+            MyDynamicVariable = "Ayoub";
+            Console.WriteLine(MyDynamicVariable);
+            Console.WriteLine("Value : {0} , type : {1}", MyDynamicVariable, MyDynamicVariable.GetType());
+
+            MyDynamicVariable = DateTime.Now;
+            Console.WriteLine(MyDynamicVariable);
+            Console.WriteLine("Value : {0} , type : {1}", MyDynamicVariable, MyDynamicVariable.GetType());
+
+            Console.ReadKey();
+
+        }
+    }
+}
+

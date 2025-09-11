@@ -1,0 +1,79 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
+
+public class Person
+{
+    public string Name { get; set; }
+
+    public Person(string name)
+    {
+        this.Name = name;
+    }
+}
+
+
+class Program
+{
+    static void Main()
+    {
+
+        Hashtable Hashtable = new Hashtable();
+
+
+        Hashtable.Add("Key1", "Value1");
+        Hashtable.Add("Key2", "Value2");
+        Hashtable.Add("Key3", "Value3");
+        Hashtable.Add("Key4", "Value4");
+
+
+        Console.WriteLine("Accessing key1 : " + Hashtable["Key1"]);
+
+
+        Hashtable["Key1"] = "Said";
+
+        Hashtable.Remove("Key1");
+
+
+        foreach (DictionaryEntry entry in Hashtable)
+        {
+            Console.WriteLine($"Key: {entry.Key}, Value: {entry.Value}");
+        }
+
+
+
+
+
+        Stopwatch stopwatch = new Stopwatch();
+
+        stopwatch.Start();
+
+        for (int i = 0; i < 1000000; i++)
+        {
+            Hashtable.Add("Key" + i, "Value"+i);
+        }
+        stopwatch.Stop();
+
+        Console.WriteLine("Time of Hashe Table is :" + stopwatch.ElapsedMilliseconds + "ms");
+
+
+
+
+        Stopwatch stopwatch1 = new Stopwatch();
+
+        Dictionary< int , string> dictionary = new Dictionary< int , string>();
+
+        stopwatch1.Start();
+        for (int i = 0; i < 1000000; i++)
+        {
+            dictionary.Add(i, "Value"+ i);
+        }
+        stopwatch1.Stop();
+
+        Console.WriteLine("Time of  Dictionary is :" + stopwatch1.ElapsedMilliseconds + "ms");
+
+        Console.ReadKey();
+    }
+}

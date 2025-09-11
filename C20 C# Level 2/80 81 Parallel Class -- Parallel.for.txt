@@ -1,0 +1,219 @@
+using System;
+using System.Diagnostics;
+using System.Threading.Tasks;
+
+
+class Program
+{
+    static void Main()
+    {
+        // Example with Parallel.for
+
+        Stopwatch stopwatch = Stopwatch.StartNew();
+        // Define the number of iterations
+        int numberOfIterations = 10;
+
+
+        stopwatch.Start();
+        // Use Parallel.For to execute the loop in parallel
+        Parallel.For(0, numberOfIterations, i =>
+        {
+            Console.WriteLine($"Executing iteration {i} on thread {Task.CurrentId}");
+            // Simulate some work
+            //Task.Delay(1000).Wait();
+        });
+        stopwatch.Stop();
+
+        Console.WriteLine("The time of this Parallel.for is." + stopwatch.Elapsed);
+
+
+
+
+
+
+
+        //With for loop
+
+
+        Stopwatch stopwatch2 = Stopwatch.StartNew();
+
+        stopwatch2.Start();
+
+        for (int i = 0; i < numberOfIterations; i++)
+        {
+            Console.WriteLine($"Executing iteration {i} on thread ");
+
+        }
+        stopwatch2.Stop();
+
+        Console.WriteLine("The time of this for loop ." + stopwatch2.Elapsed);
+
+        Console.WriteLine("All iterations completed.");
+
+
+
+
+
+
+
+
+        // Use Parallel.For to execute the loop in parallel
+        Parallel.For(0, numberOfIterations, ProcessIteration);
+        Console.WriteLine("All iterations completed.");
+
+
+
+
+
+
+
+
+        Console.WriteLine($"---------------------------------------------------");
+
+        Parallel.For(0, 28, i =>
+        {
+            Console.WriteLine($"Ex 2 for Parallel.For {i} with ID = {Task.CurrentId}");
+        });
+
+        Console.WriteLine("All iterations completed.");
+
+
+
+        Parallel.For(0, 28, Fun2);
+        Console.WriteLine($"Ex 2  with Independent Fun Completed");
+       
+
+
+        Console.WriteLine($"---------------------------------------------------");
+
+
+
+
+
+       
+    }
+
+    static void ProcessIteration(int i)
+    {
+        Console.WriteLine($"Executing iteration {i} on thread {Task.CurrentId}");
+        // Simulate some work
+        Task.Delay(1000).Wait();
+    }
+
+    static void Fun2(int i)
+    {
+        Console.WriteLine($"Executing Ex2  iteration {i} on thread {Task.CurrentId}");
+        // Simulate some work
+        Task.Delay(1000).Wait();
+    }
+
+}using System;
+using System.Diagnostics;
+using System.Threading.Tasks;
+
+
+class Program
+{
+    static void Main()
+    {
+        // Example with Parallel.for
+
+        Stopwatch stopwatch = Stopwatch.StartNew();
+        // Define the number of iterations
+        int numberOfIterations = 10;
+
+
+        stopwatch.Start();
+        // Use Parallel.For to execute the loop in parallel
+        Parallel.For(0, numberOfIterations, i =>
+        {
+            Console.WriteLine($"Executing iteration {i} on thread {Task.CurrentId}");
+            // Simulate some work
+            //Task.Delay(1000).Wait();
+        });
+        stopwatch.Stop();
+
+        Console.WriteLine("The time of this Parallel.for is." + stopwatch.Elapsed);
+
+
+
+
+
+
+
+        //With for loop
+
+
+        Stopwatch stopwatch2 = Stopwatch.StartNew();
+
+        stopwatch2.Start();
+
+        for (int i = 0; i < numberOfIterations; i++)
+        {
+            Console.WriteLine($"Executing iteration {i} on thread ");
+
+        }
+        stopwatch2.Stop();
+
+        Console.WriteLine("The time of this for loop ." + stopwatch2.Elapsed);
+
+        Console.WriteLine("All iterations completed.");
+
+
+
+
+
+
+
+
+        // Use Parallel.For to execute the loop in parallel
+        Parallel.For(0, numberOfIterations, ProcessIteration);
+        Console.WriteLine("All iterations completed.");
+
+
+
+
+
+
+
+
+        Console.WriteLine($"---------------------------------------------------");
+
+        Parallel.For(0, 28, i =>
+        {
+            Console.WriteLine($"Ex 2 for Parallel.For {i} with ID = {Task.CurrentId}");
+        });
+
+        Console.WriteLine("All iterations completed.");
+
+
+
+        Parallel.For(0, 28, Fun2);
+        Console.WriteLine($"Ex 2  with Independent Fun Completed");
+       
+
+
+        Console.WriteLine($"---------------------------------------------------");
+
+
+
+
+
+       
+    }
+
+    static void ProcessIteration(int i)
+    {
+        Console.WriteLine($"Executing iteration {i} on thread {Task.CurrentId}");
+        // Simulate some work
+        Task.Delay(1000).Wait();
+    }
+
+    static void Fun2(int i)
+    {
+        Console.WriteLine($"Executing Ex2  iteration {i} on thread {Task.CurrentId}");
+        // Simulate some work
+        Task.Delay(1000).Wait();
+    }
+
+}

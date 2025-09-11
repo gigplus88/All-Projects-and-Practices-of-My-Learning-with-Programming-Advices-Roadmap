@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rel Attribute Example</title>
+</head>
+<body>
+   <h1>Simple Unordered List</h1>
+   <ul>
+    <li>Html</li>
+    <li>CSS</li>
+    <li>JS</li>
+   </ul>
+
+   <ul style="list-style-type:circle;">
+    <li>Html</li>
+    <li>CSS</li>
+    <li>JS</li>
+   </ul>
+
+   <ul style="list-style-type:circle;">
+    <li><a  href="google.com" target="_blank"> <img src="Images/Logo.png" alt="logo image" style="width: 80px; height: 80px; "></a></li>
+    <li><a  href="google.com" target="_blank"><img src="Images/Logo.png"  alt="logo image" style="width: 80px; height: 80px;"></a></li>
+    <li><a  href="google.com" target="_blank"><img src="Images/Logo.png"  alt="logo image" style="width: 80px; height: 80px;"></a></li>
+   </ul>
+    
+    <ol style="list-style-type:upper-latin;">
+    <li>Html</li>
+    <li>CSS</li>
+    <li>JS</li>
+   </ol>
+
+   <dl>
+    <dt>Term 1</dt>
+    <dd>This is the definition of Term1</dd>
+    <dd>This is the definition of Term1</dd>
+    
+    <dt>Term 2</dt>
+    <dd>This is the definition of Term2</dd>
+
+   </dl>
+</body>
+</html>

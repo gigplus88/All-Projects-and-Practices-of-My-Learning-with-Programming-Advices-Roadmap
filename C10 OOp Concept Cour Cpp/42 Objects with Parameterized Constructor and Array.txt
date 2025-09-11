@@ -1,0 +1,53 @@
+
+#include<iostream>
+#include<vector>
+
+using namespace std;
+
+class clsA
+{
+public:
+	//Default Constructor
+	// Each element of the array of Object is initialized using the default constructor of clsA.
+
+	// If clsA does not have a default constructor, the compiler will not know how to construct each element of the array, resulting in a compilation error.
+	clsA()
+	{
+	}
+	clsA(int value)
+	{
+		x = value;
+	}
+
+	int x;
+
+	void Print()
+	{
+		cout << "The value of x=" << x << endl;
+	}
+
+};
+
+
+
+int main()
+
+{
+	clsA Object[] = { clsA(1) ,  clsA(23) ,  clsA(33) };
+
+	 Object[2].Print();// for the third element
+
+	 // For All Elements
+
+	 Object[2].x = 12;
+	 for (short i = 0; i < 3 ; i++)
+	 {
+		 Object[i].Print();
+	 }
+	
+
+	system("pause>0");
+	return(0);
+
+}
+

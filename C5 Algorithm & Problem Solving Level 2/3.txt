@@ -1,0 +1,124 @@
+#include <iostream>
+#include <cmath>
+#include <string>
+using namespace std;
+
+enum enIsperfectNumber { Perfect = 1, NotPerfect = 2 };
+enIsperfectNumber IsperfectNumber;
+
+float ReadPositiveNumber(string Message)
+{
+    float Number = 0.0;
+
+    do
+    {
+        cout << Message << endl;
+        cin >> Number;
+
+    } while (Number <= 0);
+
+    return Number;
+}
+
+//enPrimeNotPrime CheckPrime(int Number)
+//{
+//    int M = round(Number / 2) /*Number - 1*/;
+//
+//    for (int j = 2; j <= M; j++)
+//    {
+//        if (Number % j == 0)
+//        {
+//            return enPrimeNotPrime::NotPrime;
+//        }
+//
+//    }
+//
+//    return enPrimeNotPrime::Prime;
+//}
+
+
+
+//enIsperfectNumber GetIsPerfectNumber(int &Number)
+//{
+//    int sum = 0 ;
+//    for (int i = 1; i <= Number-1; i++)
+//    {
+//
+//        if (Number % i == 0)
+//        {
+//             sum = sum + i ;
+//          
+//        }   
+//         
+//    }
+//
+//    if (sum == Number)
+//    {
+//        
+//        return  enIsperfectNumber::Perfect;
+//    }
+//    else
+//    {
+//        return enIsperfectNumber::NotPerfect;
+//    }
+//   
+//
+//}
+
+bool IsPerfectNumber(int Number)
+{
+    int sum = 0;
+    for (int i = 1; i <= Number - 1; i++)
+    {
+
+        if (Number % i == 0)
+        {
+            sum = sum + i;
+
+        }
+
+    }
+    return Number == sum;
+
+}
+
+void PrintPerfectOrNo()
+{
+    int Number = ReadPositiveNumber("Please enter a positive number");
+
+    if (IsPerfectNumber( Number))
+    {
+        cout << Number << " is perfect number";
+    }
+
+    else
+    {
+        cout << Number << " is not perfect number";
+    }
+
+
+    //if (GetIsPerfectNumber(Number)== enIsperfectNumber::Perfect)
+    //{
+    //    cout << Number << " is perfect number";
+    //}
+    //else
+    //{
+    //    cout << Number << " is not perfect number";
+    //}
+}
+
+int main()
+{
+
+    PrintPerfectOrNo();
+    
+    return 0;
+
+}
+
+
+
+
+
+
+

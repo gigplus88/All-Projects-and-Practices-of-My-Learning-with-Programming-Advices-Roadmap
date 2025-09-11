@@ -1,0 +1,39 @@
+
+//ProgrammingAdvices.com
+//Mohammed Abu-Hadhoud
+
+using System;
+using System.Diagnostics;
+
+namespace Main
+{
+    internal class Program
+    {
+
+        static void Main(string[] args)
+        {
+
+
+
+            Console.WriteLine("Please enter your number: ");
+            byte number = Convert.ToByte( Console.ReadLine()) ;
+
+            bool isEven = (number % 2 == 0) ? true : false;
+
+            if (isEven)
+            {
+                Console.WriteLine("Yes is Even"); 
+            }
+            else 
+            {
+                Console.WriteLine("No is not even");
+            
+            }
+
+
+            Console.ReadKey();
+
+        }
+    }
+}
+

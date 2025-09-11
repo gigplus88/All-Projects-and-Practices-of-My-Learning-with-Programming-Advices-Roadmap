@@ -1,0 +1,60 @@
+#include <iostream>
+#include <cmath>
+#include <string>
+#include <cstdlib>
+
+using namespace std;
+
+
+
+float ReadPositiveNumber(string Message)
+{
+
+    float Number;
+
+    do
+    {
+        cout << Message << endl;
+        cin >> Number;
+
+    } while (Number >= 0);
+
+    return Number;
+}
+
+float MyAbsResult(float Number)
+{
+    //float Abs;
+    
+    if (Number>0)
+    {
+        return Number; /*Abs = -Number;*/
+    }
+
+    else
+    {
+        return Number * -1;  /*Abs = Number;*/
+    }
+    
+    //return Abs;
+}
+
+int main()
+{
+    srand((unsigned)time(NULL));
+
+    int    Number = 0 , Abs;
+    
+    Number = ReadPositiveNumber("Enter your negative number please");
+
+    cout << "My abs Result: " << MyAbsResult( Number) << endl;
+    cout << "C++ abs Result: " << abs(Number);
+
+   
+
+
+
+
+    return 0;
+
+}

@@ -1,0 +1,20 @@
+
+
+Insert into Makes
+select distinct Make from Car_Details
+Order by Make;
+
+Update Car_Details
+set MakeID = (select MakeID from Makes where Makes.MakeName = Car_Details.Make ); 
+
+select * from Car_Details;
+
+
+
+select * from Makes;
+
+select * from Models;
+
+
+--insert into Models
+--select distinct Model from Car_Details;

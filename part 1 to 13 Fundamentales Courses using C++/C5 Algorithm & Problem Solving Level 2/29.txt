@@ -1,0 +1,143 @@
+#include <iostream>
+#include <cmath>
+#include <string>
+#include <cstdlib>
+
+using namespace std;
+ 
+enum enPrimeNotPrime { Prime = 1, NotPrime = 2 };
+
+
+enPrimeNotPrime CheckPrime(int Number)
+{
+    int M = /*round(Number / 2)*/ Number - 1;
+
+    for (int i = 2; i <= M; i++)
+    {
+        if (Number % i == 0)
+        {
+            return enPrimeNotPrime::NotPrime;
+        }
+
+    }
+
+    return enPrimeNotPrime::Prime;
+}
+
+
+int ReadPositiveNumber(string Message)
+{
+    int Number;
+
+    do
+    {
+        cout << Message << endl;
+        cin >> Number;
+
+    } while (Number <= 0);
+
+    return Number;
+}
+
+
+
+int RandomNumber(int From, int To)
+{
+
+    int randNum = rand() % (To - From + 1) + From;
+
+
+    return randNum;
+}
+
+
+
+
+void ReadArray(int arr[100], int  &arrLength)
+{
+    
+    
+    for (int i = 0; i <  arrLength; i++)
+    {
+        
+        arr[i]= RandomNumber(1, 100);
+ 
+    }
+   
+}
+
+
+
+
+
+
+
+void PrintArrayElements(int arr[100], int  arrLength)
+
+{
+
+    cout << "Array Elements:";
+    for (int i = 0; i < arrLength; i++)
+    {
+        cout << arr[i] << " ";
+    }
+
+}
+
+
+void CheckPrime(int arr2[100], int arrLength , int arr[100] , int &arrLength2)
+{
+
+    int counter = 0;
+    for (int i = 0; i < arrLength; i++)
+    {
+        if (CheckPrime(arr[i]) == enPrimeNotPrime::Prime)
+        {
+            arr2[counter] = arr[i];
+            counter++;
+
+        }
+
+    }
+
+    arrLength2 = --counter;
+
+}
+
+
+
+void PrintPrimeInArray(int arrLength2, int arr2[100])
+{
+
+    cout << endl << "Prime number in Array 2:";
+    for (int i = 0; i < arrLength2; i++)
+    {
+        cout << endl<< arr2[i] << endl;
+    }
+
+}
+
+
+int main()
+{
+    srand((unsigned)time(NULL));
+    int arr[100] , arrLength , arr2[100] , arrLength2=0;
+    
+
+    arrLength = ReadPositiveNumber("Please enter number of elements :");
+
+    ReadArray( arr,  arrLength);
+
+
+    PrintArrayElements(arr, arrLength);
+
+    //PrintArrayElements(arr2, arrLength2);
+
+    PrintPrimeInArray(arrLength2, arr2);
+
+    
+
+    return 0;
+
+}
+

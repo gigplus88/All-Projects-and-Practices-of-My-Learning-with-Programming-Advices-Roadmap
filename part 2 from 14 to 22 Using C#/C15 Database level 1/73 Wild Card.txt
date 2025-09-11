@@ -1,0 +1,55 @@
+
+
+
+
+select * from Employees;
+
+Update Employees
+set FirstName ='Mohammed' , LastName='Abu-Hadhoud'
+where ID= 285;
+
+
+Update Employees 
+set FirstName ='Mohammad' , LastName='Maher'
+where ID= 286;
+
+select ID , FirstName from Employees
+where Firstname ='Mohammed' or Firstname = 'Mohammad';
+
+
+select ID , FirstName from Employees
+where Firstname Like'Mohamm[ae]d';
+
+
+select ID , FirstName from Employees
+where Firstname Not Like'Mohamm[ae]d';
+
+
+select ID , FirstName , LastName 
+from Employees
+where Firstname  Like'a%' or Firstname  Like'b%' or Firstname  Like'c%';
+
+
+select ID , FirstName , LastName 
+from Employees
+where Firstname  Like'[abc]%' ;
+
+select ID , FirstName , LastName 
+from Employees
+where Firstname  Like'[abcd]%' ;
+
+
+select ID , FirstName , LastName 
+from Employees
+where Firstname  Like'[a-d]%' ;
+
+
+select ID , FirstName , LastName 
+from Employees
+where Firstname  Like'[a-l]%' ;
+
+
+select ID , FirstName 
+from Employees
+where FirstName Like 'b%';
+

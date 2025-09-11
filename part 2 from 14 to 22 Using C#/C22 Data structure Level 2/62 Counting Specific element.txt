@@ -1,0 +1,31 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+
+
+
+class Program
+{
+    static void Main()
+    {
+        ArrayList arrayList = new ArrayList { 1, 2, 5, 2, 3, 6, 7, 8, 9, 10 };
+
+
+
+        int targetNumber = 2;
+
+        var count = arrayList.Cast<int>().Count(num => num == targetNumber);
+
+
+        var SumFirstAndLastNum = arrayList.Cast<int>().Where(n=> n== targetNumber).Count();
+
+
+        Console.WriteLine($"Number of occurrences of {targetNumber} in the ArrayList: {count}");
+        Console.WriteLine($"Number of occurrences of {targetNumber} in the ArrayList: {SumFirstAndLastNum}");
+
+
+        Console.ReadKey();
+
+    }
+}

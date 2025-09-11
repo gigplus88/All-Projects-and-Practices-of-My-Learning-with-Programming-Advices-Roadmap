@@ -1,0 +1,20 @@
+-- With Having
+SELECT Makes.Make, COUNT(*) AS VehicleNumbers
+FROM VehicleDetails
+INNER JOIN Makes ON VehicleDetails.MakeID = Makes.MakeID
+WHERE Year BETWEEN 1950 AND 2000
+GROUP BY Makes.Make
+HAVING COUNT(*) > 12000
+ORDER BY VehicleNumbers DESC;
+
+-- Without Having
+
+select * from
+(SELECT Makes.Make, COUNT(*) AS VehicleNumbers
+FROM VehicleDetails
+INNER JOIN Makes ON VehicleDetails.MakeID = Makes.MakeID
+WHERE Year BETWEEN 1950 AND 2000
+GROUP BY Makes.Make
+)R1
+where VehicleNumbers > 12000
+ORDER BY VehicleNumbers DESC;

@@ -1,0 +1,3 @@
+
+select NewID(), * from FuelTypes
+Order By NewID();

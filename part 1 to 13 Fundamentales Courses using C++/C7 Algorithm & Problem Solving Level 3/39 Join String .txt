@@ -1,0 +1,74 @@
+#include <iostream>
+#include <string>
+#include <vector>
+#include <iomanip>
+
+using namespace std;
+
+
+string ReadString()
+{
+    string  S1;
+    cout << "Please Enter Your String?" << endl;
+    getline(cin, S1);
+
+    return S1;
+}
+
+void PrintFirstLetterOfEachWord(string  YourInput)
+{
+    bool isFirstLetter = true;
+    for (short i = 0; i < YourInput.length(); i++) 
+    {
+        if (YourInput[i] != ' ' && isFirstLetter)
+        {
+            cout << YourInput[i] << endl;
+        }
+
+        isFirstLetter = (YourInput[i] == ' ' ? true : false); 
+
+    }
+
+
+}
+string JoinString(vector<string> vJoin, string delim)
+{
+    string Word="";
+
+    // My Solution
+     
+ /* for (short i = 0; i < vJoin.size(); i++)
+    {
+
+        Word.append(vJoin[i] + delim);
+
+    }
+
+    return Word;*/
+    for (string &s : vJoin)
+    {
+        Word = Word + s + delim;
+
+    }
+
+    return  Word.substr(0, Word.length() - delim.length());
+}
+
+
+
+
+
+int main()
+{
+    vector<string> vJoin = { "Ayoub" , "Fellah" , "Saad" , "Marouan"};
+
+   
+
+    cout << "Vector After join: " << endl 
+        << JoinString(vJoin, " ") << endl;
+
+   
+    system("pause>0");
+
+    return 0;
+}

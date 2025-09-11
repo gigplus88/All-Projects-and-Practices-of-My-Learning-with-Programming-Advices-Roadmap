@@ -1,0 +1,68 @@
+#include <iostream>
+#include <cmath>
+#include <string>
+#include <iomanip>
+#include <vector>
+
+using namespace std;
+
+//  Dynamic array ,new and delete
+int main()
+{
+    int *ptrX;
+    float *ptrY;
+
+
+    ptrX = new int;
+    ptrY = new float;
+
+    *ptrX = 300;
+    *ptrY = 2.32;
+
+    cout << *ptrX <<endl;
+    cout << *ptrY << endl;
+
+    delete ptrX;
+    delete ptrY;
+
+    return 0;
+}
+
+
+
+
+
+
+
+
+
+int main()
+{
+    float* ptr;
+    int num;
+    
+    cout << "Please enter your student numbers:" << endl;
+    cin >> num;
+
+    ptr = new float[num];
+
+    cout << "Please enter the grades of your students" <<endl;
+
+    for (int i = 0; i < num; i++)
+    {
+        cout << "student:"<< i+1 << ":";
+        cin >> * (ptr + i);
+    }
+
+
+    cout << "Print Grades of students:" << endl;
+    for (int i = 0; i < num; i++)
+    {
+        cout << "student " << i + 1 << ":" << *(ptr + i) << endl;
+    }
+
+    delete [] ptr;
+
+    return 0;
+}
+

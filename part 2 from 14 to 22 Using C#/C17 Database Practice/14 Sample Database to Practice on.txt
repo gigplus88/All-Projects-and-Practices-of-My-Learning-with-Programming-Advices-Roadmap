@@ -1,0 +1,154 @@
+
+-- Select statment with and , or, not // Select distinct
+select * from Bodies;
+select * from DriveTypes;
+select * from FuelTypes;
+select * from MakeModels;
+select * from Makes;
+select * from VehicleCylindres;
+select * from VehicleDetails;
+
+
+select distinct * from DriveTypes;
+
+select distinct * from Makes
+where makeID=3 or Make = 'AC';
+
+select distinct * from Makes
+where makeID=3 and Make = 'Acura';
+
+select distinct * from Makes
+where MakeID is not null and  Make = 'AC';
+
+-- Between Operator 
+select distinct * from Makes
+where MakeID between 2 and 5;
+
+-- In Operator
+select MakeID from MakeModels
+where ModelName in('1000','1150','205' , '428');
+
+--Sorting : Order By
+select distinct * from Makes
+where MakeID between 2 and 5
+Order by Make Desc;
+
+select distinct * from Makes
+where MakeID between 2 and 5
+Order by Make Asc;
+
+--Select Top Statement
+select top 5 (Make) from Makes
+Order by Make Desc; 
+
+--Select As
+select FuelTypeID as ID , FuelTypeName  as Name 
+from FuelTypes;
+
+--Between Operator
+select distinct * from Makes
+where MakeID between 2 and 5;
+
+
+--Count, Sum, Avg, Min, Max Functions
+select count(*) from Makes;
+
+select sum(Engine_CC) from VehicleDetails;
+
+select Avg(Year) from VehicleDetails;
+
+select Min(Year) from VehicleDetails;
+
+select Max(Year) from VehicleDetails;
+select * from VehicleDetails;
+
+
+--Group By
+select MakeID, count(MakeID)
+from VehicleDetails
+group by MakeId
+order by MakeID;
+
+select ModelID , count(ModelID) as NumberOfModel
+from VehicleDetails
+group By ModelID
+order by ModelID;
+
+select ModelID , count(ModelID) as NumberOfModel
+from VehicleDetails
+group By ModelID
+order by ModelID;
+
+-- Having
+
+select ModelID , count(ModelID) as NumberOfModel
+from VehicleDetails
+group By ModelID
+Having ModelID>20
+order by ModelID;
+
+
+-- Like
+select MakeID , Vehicle_Display_Name from VehicleDetails
+where Vehicle_Display_Name like 'AC Shelby Cobra__%';
+
+
+select * from Makes 
+where Make like '__a%';
+
+
+--WildCards
+select ModelID,Vehicle_Display_Name from VehicleDetails
+where Vehicle_Display_Name like 'AC Shelby Cobra 196[453] Base'
+Order by Vehicle_Display_Name; 
+
+select DriveTypeID,DriveTypeName from DriveTypes
+where DriveTypeName like '10 X [26]'
+Order by DriveTypeID; 
+
+-- Joins
+select distinct	 Makes.MakeID ,MakeModels.ModelID , MakeModels.ModelName 
+from Makes inner join MakeModels 
+On Makes.MakeID = MakeModels.MakeID;
+
+
+-- View
+
+Create view MakeModel as 
+select distinct	 Makes.MakeID ,MakeModels.ModelID , MakeModels.ModelName 
+from Makes inner join MakeModels 
+On Makes.MakeID = MakeModels.MakeID;
+
+
+
+-- Exists
+
+select  MakeModels.MakeID ,MakeModels.ModelID from MakeModels
+where exists ( select * from MakeModels where ModelID >20);
+
+    -- Not Result
+    select  MakeModels.MakeID ,MakeModels.ModelID from MakeModels
+    where exists ( select * from MakeModels where ModelID >77586);
+
+--Union
+select * from Makes where MakeID <20
+Union
+select * from Makes where MakeID >=20;
+
+select * from VehicleDetails;
+
+--Case
+select  MakeID,Engine as NewEngine , Vehicle_Display_Name =
+case when Vehicle_Display_Name = 'AC Shelby Cobra 1964 Base' then 'BC'
+     when Vehicle_Display_Name = 'Acura RSX 2006 Type-S' then 'BB'
+else 'Unkown'
+end
+from VehicleDetails 
+where MakeID in (2,3 , 61) and Engine like '4.7L__%'
+Order by MakeID ;
+
+
+
+
+
+

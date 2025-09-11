@@ -1,0 +1,59 @@
+using System;
+using System.Configuration;
+using System.Diagnostics;
+
+
+class Program
+{
+    static void Main()
+    {
+        string ConnectionString = ConfigurationManager.AppSettings["ConnectionString"];
+        string element = ConfigurationManager.AppSettings["element1"];
+        string koko = ConfigurationManager.AppSettings["koko"];
+
+        string ConnectionString2 = ConfigurationManager.ConnectionStrings["MyDBConnection"].ConnectionString;
+
+        Console.WriteLine("ConnectionString" + ConnectionString);
+        Console.WriteLine("element" + element);
+        Console.WriteLine("koko" + koko);
+
+
+        Console.WriteLine("ConnectionString2" + ConnectionString2);
+
+
+
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+// XML app.Config
+
+<?xml version="1.0" encoding="utf-8" ?>
+<configuration>
+    <startup> 
+        <supportedRuntime version="v4.0" sku=".NETFramework,Version=v4.7.2" />
+    </startup>
+
+	<connectionStrings>
+		<add name="MyDBConnection" connectionString="Data Source=ServerName; Initial Catalog=DatabaseName"/>
+	</connectionStrings>
+	
+	
+	<appSettings>
+		<add key="ConnectionString" value="Data Source=ServerName; Initial Catalog=DatabaseName"/>
+		<add key="element1" value=" This is element1"/>
+		<add key="koko" value="what s koko"/>
+
+	</appSettings>
+
+
+</configuration>

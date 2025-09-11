@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Font-Size Keyword Examples</title>
+  <style>
+    .xx-small-key { font-size: xx-small; }
+    .x-small-key  { font-size: x-small; }
+    .small-key    { font-size: small; }
+    .medium-key   { font-size: medium; }   /* default */
+    .large-key    { font-size: large; }
+    .x-large-key  { font-size: x-large; }
+    .xx-large-key { font-size: xx-large; }
+    .smaller-key  { font-size: smaller; }
+    .larger-key   { font-size: larger; }
+  </style>
+</head>
+<body>
+  <h1>font-size Keyword Demonstrations</h1>
+  <p class="xx-small-key">xx-small text</p>
+  <p class="x-small-key">x-small text</p>
+  <p class="small-key">small text</p>
+  <p class="medium-key">medium text (default)</p>
+  <p class="large-key">large text</p>
+  <p class="x-large-key">x-large text</p>
+  <p class="xx-large-key">xx-large text</p>
+  <p class="smaller-key">smaller text (relative to parent)</p>
+  <p class="larger-key">larger text (relative to parent)</p>
+</body>
+</html>

@@ -1,0 +1,125 @@
+
+#include<iostream>
+#include"clsDate.h"
+#include"clsUtil.h"
+
+#pragma warning(disable : 4996)
+using namespace std;
+
+
+
+
+int main()
+{
+	clsUtil::Srand();
+	cout << clsUtil::RandomNumber(1 , 44) << endl;
+	cout << clsUtil::GetRandomCharacter(clsUtil::MixChar)<< endl;
+	cout << clsUtil::GenerateWord(clsUtil::MixChar, 8) << endl;
+	cout << clsUtil::GenerateKey(clsUtil::Digit) << endl;
+    clsUtil::GenerateKeys(5 , clsUtil::CapitallLetter) ;
+	cout << endl;
+
+
+	// Swapping  int
+
+	int x = 3, y = 6;
+
+	clsUtil::Swap(x, y);
+
+	cout << x << " " << y;
+	cout << endl;
+
+	// Swapping double
+
+	double r = 3.543 , e = 6.786;
+
+	clsUtil::Swap(r, e);
+
+	cout << r << " " << e;
+	cout << endl;
+
+	// Swapping string
+
+	string S1 = "Saad", S2 = "Fouad";
+
+	clsUtil::Swap(S1, S2);
+
+	cout << S1 << " " << S2;
+	cout << endl;
+
+	// Swapping Date
+
+	clsDate Date1(4 , 5 , 2023), Date2(2 , 4 , 2025);
+
+	
+	clsUtil::Swap(Date1, Date2);
+
+	 Date1.Print();
+	 cout << endl;
+
+	 Date2.Print();
+	cout << endl;
+
+     // Int Array
+
+	int Arr[5] = { 1 ,2 , 3 , 4 , 5 };
+
+	clsUtil::ShuffleArray(5, Arr);
+
+	for (int i = 0; i < 5; i++)
+	{
+		cout << Arr[i] << endl;
+	}
+
+	// Shuffle to string Array
+
+	string Arr1[5] = { "Mouad" ,"Saad" , "Salim" , "Redouan" , "Bakr"};
+
+	clsUtil::ShuffleArray(5, Arr1);
+
+	for (int i = 0; i < 5; i++)
+	{
+		cout << Arr1[i] << endl;
+	}
+
+
+	clsUtil::FillArrayWithRandomNumbers(Arr, 5, 20, 50);
+
+	for (int i = 0; i < 5; i++)
+	{
+		cout << Arr[i] << endl;
+	}
+
+	clsUtil::FillArrayWithRandomWords(Arr1, 5, clsUtil::SmallLetter, 5);
+
+	for (int i = 0; i < 5; i++)
+	{
+		cout << Arr1[i] << endl;
+	}
+
+	string Arr3[5];
+
+	clsUtil::FillArrayWithRandomKeys(Arr3, 5, clsUtil::CapitallLetter);
+
+	for (int i = 0; i < 5; i++)
+	{
+		cout << Arr3[i] << endl;
+	}
+	cout <<  "Text1" << clsUtil::Tabs(2) << "Text2" << endl;
+
+
+	string TextAfterEncryption, TextAfterDecryption;
+	string Text = "Ayoub Fellah";
+	TextAfterEncryption = clsUtil::EncryptText(Text , 3);
+	TextAfterDecryption = clsUtil::DecryptText(TextAfterEncryption, 3);
+
+	cout << TextAfterEncryption << endl;
+	cout << TextAfterDecryption << endl;
+
+
+
+	system("pause>0");
+	return(0);
+
+}
+

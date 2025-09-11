@@ -1,0 +1,18 @@
+
+Alter TRIGGER trg_AfterUpdateStudent ON Students
+AFTER Update
+AS
+BEGIN
+	if Update(Grade)
+		INSERT INTO StudentUpdateLog(StudentID, OldGrade, NewGrade )
+		SELECT i.StudentID, d.Grade as OldGrade, i.Grade as NewGrade FROM inserted i inner join
+		deleted d On
+		i.StudentID = d.StudentID;
+
+		select * from StudentUpdateLog;
+END;
+
+
+UPDATE Students
+SET Grade = 96
+WHERE StudentID = 1;

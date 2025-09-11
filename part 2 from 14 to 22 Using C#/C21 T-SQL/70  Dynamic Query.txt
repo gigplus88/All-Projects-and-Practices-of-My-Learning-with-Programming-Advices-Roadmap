@@ -1,0 +1,42 @@
+
+
+Alter procedure GenerateDynamicSQL
+  @TableName nvarchar(100)
+
+As
+Begin
+	Declare @SQL nvarchar(200);
+
+	set @SQL = 'Select * from ' + @TableName;
+	EXECUTE(@SQL);
+	
+End
+
+
+
+
+
+
+
+CREATE PROCEDURE GenerateDynamicSQL2
+    @TableName NVARCHAR(128)
+AS
+BEGIN
+    DECLARE @SQL NVARCHAR(MAX);
+    SET @SQL = N'SELECT * FROM ' + QUOTENAME(@TableName);
+    EXEC sp_executesql @SQL;
+END
+----
+
+
+
+
+Declare @TableName nvarchar(100)
+set @TableName = 'Students';
+
+Execute dbo.GenerateDynamicSQL
+ @TableName = 'Students';
+
+ 
+EXEC [dbo].[GenerateDynamicSQL2] 
+   @TableName = 'Employees2';

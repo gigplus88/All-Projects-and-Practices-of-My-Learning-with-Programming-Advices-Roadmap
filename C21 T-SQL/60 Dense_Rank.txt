@@ -1,0 +1,10 @@
+
+SELECT 
+    StudentID, 
+    Name, 
+    Subject, 
+    Grade,
+    Dense_Rank()  OVER (ORDER BY Grade DESC) AS RowGrade
+FROM 
+    Students
+	Order By Grade Desc;

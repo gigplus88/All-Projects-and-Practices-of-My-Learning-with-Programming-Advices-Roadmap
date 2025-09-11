@@ -1,0 +1,172 @@
+using System;
+using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
+
+
+public class OrderEventArgs : EventArgs
+{
+   
+    public int OrderTotalPrice { get; }
+    public string PhoneNumber { get; }
+    public string Email { get; }
+
+
+    public OrderEventArgs (int orderTotalPrice,string Email, string PhoneNumber)
+    { 
+        this.OrderTotalPrice = orderTotalPrice;
+        this.PhoneNumber = PhoneNumber;
+        this.Email = Email;
+    }
+
+}
+
+public class Order
+{
+    public event EventHandler <OrderEventArgs> OnOrderCreated;
+
+    public void Create(int orderTotalPrice, string Email, string PhoneNumber)
+    {
+        Console.WriteLine("New Order created; now will notify everyone by raising the event.\n");
+
+        if (OnOrderCreated != null)
+        {
+            OnOrderCreated(this, new OrderEventArgs(orderTotalPrice,  Email, PhoneNumber));
+        }
+    }
+}
+
+public class EmailService
+{
+  
+
+    public void Subscribe(Order order)
+    {
+        order.OnOrderCreated += HandleNewOrder;
+    }
+
+
+    public void UnSubscribe(Order order)
+    {
+        order.OnOrderCreated -= HandleNewOrder;
+    }
+
+    public void HandleNewOrder(object sender, OrderEventArgs e)
+    {
+        Console.WriteLine($"------------Email Service--------");
+        Console.WriteLine($"SMS Service Object Received a new order event");
+        Console.WriteLine($"Order Price: {e.OrderTotalPrice}");
+        Console.WriteLine($"Email: {e.Email}");
+        Console.WriteLine($"Phone Num: {e.PhoneNumber}");
+        Console.WriteLine($"\nSend SMS");
+        Console.WriteLine($"--------------------------------");
+        /*
+         here you write the code to send the SMS to the client 
+         */
+        Console.WriteLine();
+    }
+}
+
+public class SMSService
+{
+   
+
+    public void Subscribe(Order order)
+    {
+        order.OnOrderCreated += HandleNewOrder;
+    }
+
+
+    public void UnSubscribe(Order order)
+    {
+        order.OnOrderCreated -= HandleNewOrder;
+    }
+
+    public void HandleNewOrder(object sender, OrderEventArgs e)
+    {
+        Console.WriteLine($"------------SMS Service--------");
+        Console.WriteLine($"SMS Service Object Received a new order event");
+        Console.WriteLine($"Order Price: {e.OrderTotalPrice}");
+        Console.WriteLine($"Email: {e.Email}");
+        Console.WriteLine($"Phone Num: {e.PhoneNumber}");
+        Console.WriteLine($"\nSend SMS");
+        Console.WriteLine($"--------------------------------");
+        /*
+         here you write the code to send the SMS to the client 
+         */
+        Console.WriteLine();
+
+
+    }
+}
+
+public class ShippingService
+{
+
+
+    public void Subscribe(Order order)
+    {
+        order.OnOrderCreated += HandleNewOrder;
+    }
+
+
+    public void UnSubscribe(Order order)
+    {
+        order.OnOrderCreated -= HandleNewOrder;
+    }
+
+    public void HandleNewOrder(object sender, OrderEventArgs e)
+    {
+        Console.WriteLine($"---------Shipping Service-------");
+        Console.WriteLine($"Shipping Service Object Received a new order event");
+        Console.WriteLine($"Orider Price: {e.OrderTotalPrice}");
+        Console.WriteLine($"Email: {e.Email}");
+        Console.WriteLine($"Phone Num: {e.PhoneNumber}");
+        Console.WriteLine($"\nHandel Shipping");
+        Console.WriteLine($"--------------------------------");
+        /*
+         here you write the code to handel shipping to the client 
+         */
+        Console.WriteLine();
+
+
+    }
+}
+
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        var order = new Order();
+
+        EmailService emailService = new EmailService();
+
+        SMSService smsService = new SMSService();
+
+        ShippingService shippingService = new ShippingService();
+
+
+        emailService.Subscribe(order);
+        //smsService.Subscribe(order);
+        //shippingService.Subscribe(order);
+        //shippingService.UnSubscribe(order);
+
+
+        order.Create(10, "ayoub@email.com","06748392");
+
+        //order.Create(11, 300, "Ali@gmail.com" , "0874710675");
+
+
+        //var order2 = new Order(); 
+        //var Email = new EmailService();
+
+        //Email.Subscribe(order2);
+
+
+        //order2.Create(3, 300, "ayoub@email.com", "0726710675");
+
+
+        Console.ReadLine();
+
+    }
+}

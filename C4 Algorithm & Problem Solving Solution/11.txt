@@ -1,0 +1,80 @@
+#include <iostream>
+#include <cmath>
+#include <string>
+using namespace std;
+
+
+enum enPassFail{PASS=1 , FAIL=2};
+
+void Readof3Numbers(int& Mark1, int& Mark2, int& Mark3)
+{
+
+    cout << "Please enter your Number 1" << endl;
+    cin >>  Mark1;
+
+    cout << "Please enter your Number 2" << endl;
+    cin >> Mark2;
+
+    cout << "Please enter your Number 3" << endl;
+    cin >> Mark3;
+
+
+}
+int SummOf3Marks(int Mark1, int Mark2, int Mark3)
+{
+    return Mark1 + Mark2 + Mark3;
+}
+
+float CalculateAverage(int Mark1, int Mark2, int Mark3)
+{
+    return float(SummOf3Marks( Mark1, Mark2, Mark3)) /2;
+}
+
+enPassFail CheckAverage(float &Average) 
+
+{
+    if (Average >=50)
+    {
+        return enPassFail::PASS;
+    }
+
+    else
+    {
+        return enPassFail::FAIL;
+    }
+}
+
+void PrintResults(float Average)
+{
+    
+    cout << "The Average is: " << Average << endl;
+
+    if (CheckAverage(Average) == enPassFail::PASS)
+    {
+        cout << "PASS" << endl;
+    }
+
+    else
+    {
+        cout <<"FAIL" <<endl;
+    }
+}
+
+
+
+
+
+
+int main()
+{
+    int Mark1, Mark2, Mark3;
+    Readof3Numbers(Mark1, Mark2, Mark3);
+    PrintResults(CalculateAverage(Mark1, Mark2, Mark3));
+
+
+    return 0;
+
+
+
+}
+

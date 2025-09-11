@@ -1,0 +1,31 @@
+using System;
+
+class Program
+{
+    public delegate float MyDelegate(int x );
+    static Func<int, float> Square = Adding;
+    static float Adding(int x )
+    {
+        return x+x ;
+    }
+    static void Main()
+    {
+        //Method1
+        MyDelegate myDelegate = new MyDelegate(Adding) ;
+
+        int result = (int)myDelegate(6);
+
+        Console.WriteLine(result);
+
+
+
+
+        //Method2
+
+        float result2 = Square(4);
+        Console.WriteLine(result2);
+
+    }
+
+
+}

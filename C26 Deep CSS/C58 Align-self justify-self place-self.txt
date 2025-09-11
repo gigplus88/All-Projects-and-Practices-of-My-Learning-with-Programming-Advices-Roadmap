@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Self-Alignment: Simple Example</title>
+  <style>
+    .grid {
+      display: grid;
+      grid-template-columns: 100px 100px;
+      grid-template-rows:    100px 100px;
+      gap: 10px;
+      background: #eee;
+      padding: 10px;
+    }
+    .grid div {
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: sans-serif;
+    }
+    /* 1) Default stretch */
+    .default {      
+       background: #4a90e2;
+       align-self: center;
+ }
+
+    /* 2) justify-self: end (push right) */
+    .right {
+      justify-self: end;
+      background: #e94c3d;
+    }
+
+    /* 3) align-self: end (push bottom) */
+    .bottom {
+      align-self: end;
+      background: #f1c40f;
+      color: #333;
+    }
+
+    /* 4) place-self: center center */
+    .center {
+      place-self: center center;
+      background: #50e3c2;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Simple Self-Alignment Grid</h1>
+  <div class="grid">
+    <div class="default">Default</div>
+    <div class="right">Right</div>
+    <div class="bottom">Bottom</div>
+    <div class="center">Center</div>
+  </div>
+
+</body>
+</html>

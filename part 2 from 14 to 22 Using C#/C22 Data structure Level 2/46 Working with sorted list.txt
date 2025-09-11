@@ -1,0 +1,48 @@
+using System;
+using System.Collections.Generic;
+
+
+class Program
+{
+    static void Main()
+    {
+        SortedList< String, int > sortedList = new SortedList< String, int >();
+
+        sortedList.Add("Tomato" , 1);
+        sortedList.Add("Potato", 2);
+        sortedList.Add("Eggs", 3);
+
+
+        Console.WriteLine("\nQuantity of Tomato: " + sortedList["Tomato"]);
+
+
+        foreach (var item in sortedList)
+        {
+            Console.WriteLine($"Key: {item.Key}, Value: {item.Value}");
+        }
+
+        Console.WriteLine($"Give us your Item to remove");
+        var ItemToRemove =  Console.ReadLine();
+
+        if (!sortedList.ContainsKey(ItemToRemove) )
+        {
+            Console.WriteLine($"Sorry your Item to remove is not exist");
+            return;
+        }
+
+        sortedList.Remove(ItemToRemove);
+
+
+
+        foreach (var item in sortedList)
+        {
+            Console.WriteLine($"Key: {item.Key}, Value: {item.Value}");
+        }
+
+        sortedList.Clear();
+        Console.WriteLine($"All sorted list element are Deleted ");
+
+
+        Console.ReadKey();
+    }
+}

@@ -1,0 +1,21 @@
+
+
+
+Select TotallCount = Count(MonthlySalary) ,
+       TotallSum = Sum(MonthlySalary),
+	   Average = Avg(MonthlySalary),
+	   MinSalary = Min(MonthlySalary),
+	   MaxSalary = Max(MonthlySalary)
+
+	 from Employees; 
+
+
+Select TotallCount = Count(MonthlySalary) ,
+       TotallSum = Sum(MonthlySalary),
+	   Average = Avg(MonthlySalary),
+	   MinSalary = Min(MonthlySalary),
+	   MaxSalary = Max(MonthlySalary)
+
+	 from Employees where DepartmentID in(1);
+	 
+	  

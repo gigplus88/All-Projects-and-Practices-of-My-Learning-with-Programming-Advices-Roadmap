@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Pixels Example</title>
+  <style>
+    .pixel-box {
+      /* Styles for the element with the class "pixel-box" */
+
+      width: 300px;
+      /* Sets the width of the box to 300 pixels */
+
+      height: 150px;
+
+      background: lightgray;
+
+      border: 2px solid #333;
+
+      margin: 20px auto;
+
+      text-align: center;
+
+      line-height: 150px;
+
+      font-size: 16px;
+    }
+
+    .cm-box {
+      /* Styles for the element with the class "pixel-box" */
+
+      width: 30cm;
+      /* Sets the width of the box to 300 pixels */
+
+      height: 10cm;
+
+      background: rgb(230, 74, 74);
+
+      border: 2px solid #333;
+
+      margin: 20px auto;
+
+      text-align: center;
+
+      line-height: 150px;
+
+      font-size: 16px;
+    }
+    .in-box {
+      /* Styles for the element with the class "pixel-box" */
+
+      width: 30in;
+      /* Sets the width of the box to 300 pixels */
+
+      height: 15in;
+
+      background: lightgray;
+
+      border: 2px solid #333;
+
+      margin: 20px auto;
+
+      text-align: center;
+
+      line-height: 150px;
+
+      font-size: 16px;
+    }
+
+    .body-text {
+      font-size: 12pt;  /* Standard body copy size in print */
+      display: block;
+    }
+    .heading {
+      font-size: 18pt;  /* Larger heading for print */
+      margin-bottom: 20px;
+      display: block;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Starts the body section where the content appears -->
+
+  <div class="pixel-box">PX</div>
+    <div class="cm-box">CM</div>
+  <div class="in-box">iN</div>
+
+  <h1 class="heading">18pt Heading</h1>
+  <p class="body-text">
+    This paragraph is set in 12pt, matching common print typography standards.
+  </p>
+  <!-- Creates a div (box) with the class "pixel-box".
+       The text inside shows the dimensions of the box. -->
+
+</body>
+</html>

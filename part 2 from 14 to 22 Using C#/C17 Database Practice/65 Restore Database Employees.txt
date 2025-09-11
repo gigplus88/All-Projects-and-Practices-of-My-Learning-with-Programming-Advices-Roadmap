@@ -1,0 +1,5 @@
+
+RESTORE DATABASE EmployeesDB FROM
+DISK = 'C:/EmployeesDB.bak';
+
+:/  for runing

@@ -1,0 +1,68 @@
+#include <iostream>
+#include <iostream>
+#include <fstream>
+#include <string>
+#include <vector>
+#include <iomanip>
+
+using namespace std;
+
+class clsPerson {
+private:
+    string _FirstName;
+    string _LastName;
+    int _ID = 24;
+
+public :
+
+   
+    // I clean Set Function to Read Only Property, with set Function;  
+    // To scure ID you can initialise private member and return with GetFunction your Private Member value and hase security to change the value of this member;
+    int GetID()
+    {
+        return _ID;
+    }
+
+
+    void SetFirstName(string FirstName)
+    {
+        
+        _FirstName = FirstName;
+    }
+
+    string GetFirstName()
+    {
+        return _FirstName;
+    }
+
+    void SetLastName(string LastName)
+    {
+        
+        _LastName = LastName;
+    }
+
+    string GetLastName()
+    {
+        return _LastName;
+    }
+
+};
+
+
+int main()
+
+{
+    clsPerson Person1;
+
+    Person1.SetFirstName( "Ayoub");
+    Person1.SetLastName("Fellah");
+    
+   
+    cout << "ID:" << Person1.GetID() << endl;
+    cout << "First Name: " << Person1.GetFirstName() << endl;
+    cout << "Last Name:" << Person1.GetLastName();
+
+
+    system("pause>0");
+    return 0;
+}

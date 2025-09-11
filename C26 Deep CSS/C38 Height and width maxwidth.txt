@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+        <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap"
+        rel="stylesheet"
+    >
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Audiowide|Sofia|Trirong|Noto+Kufi&display=swap">
+
+    <title>font-variant Examples</title>
+  <style>
+    .fix {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 16px;
+      line-height: 1.5;
+      width: 700px;
+      border: 2px solid #f8f8f8;
+      background-color: #d68383;
+      padding: 5px;
+      text-align: center;
+    }
+   
+    .flex {
+      font-family: 'Audiowide', sans-serif;
+      font-size: 16px;
+      line-height: 1.5;
+      width: 80%;
+      border: 2px solid #f8f8f8;
+      background-color: #83d6d6;
+      padding: 5px;
+      text-align: center;
+    }
+    .max-width {
+      font-family: 'Sofia', sans-serif;
+      font-size: 16px;
+      line-height: 1.5;
+      width: 80%;
+      max-width: 800px;
+      border: 2px solid #f8f8f8;
+      background-color: #d6d683;
+      padding: 5px;
+      text-align: center;
+    }
+    .auto-heigt {
+      font-family: 'Trirong', sans-serif;
+      font-size: 16px;
+      line-height: 1.5;
+      width: 600px;
+      height: auto;
+      border: 2px solid #f8f8f8;
+      background-color: #83d683;
+      padding: 5px;
+      text-align: center;
+    }
+    .auto-width {
+      font-family: 'Noto Kufi', sans-serif;
+      font-size: 16px;
+      line-height: 1.5;
+      display: inline-block;
+      height: 300px;
+      border: 2px solid #f8f8f8;
+      background-color: #d683d6;
+      padding: 5px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="fix">
+    <h1>Lorem ipsum dolor s</h1>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+        Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+    </p>
+  </div>
+
+  <div class="flex">
+    <h1>Lorem ipsum dolor s</h1>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+        Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+    </p>
+   </div>
+
+    <div class="max-width">
+        <h1>Lorem ipsum dolor s</h1>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+            Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+        </p>
+    </div>
+
+    <div class="auto-heigt">
+        <h1>Lorem ipsum dolor s</h1>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+            Sed do eiusmod tempor incididunt ut labore et dolore magna 
+            aliqua.
+            Lorem ipsum dolor sit amet consectetur adipisicing elit.
+             Incidunt natus, fuga quidem placeat iure eum!
+             
+        </p>
+
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+            Sed do eiusmod tempor incididunt ut labore et dolore magna 
+            aliqua.
+            Lorem ipsum dolor sit amet consectetur adipisicing elit.
+             Incidunt natus, fuga quidem placeat iure eum!
+             
+        </p>
+    </div>
+
+    <div class="auto-width">
+        <h1>Lorem ipsum dolor s</h1>
+        <pre>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Lorem ipsum dolor sit amet consectetur adipisicing elit.
+             Incidunt natus, fuga quidem placeat iure eum!
+             
+        </pre>
+
+       
+    </div>
+</body>
+</html>

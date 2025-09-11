@@ -1,0 +1,95 @@
+// In ConsoleApplication8
+
+#pragma once
+
+#include<iostream>
+#include<string>
+#include <vector>
+#include <fstream>
+using namespace std;
+
+template <class T>
+class Calculator
+{
+private:
+	 T _Number1, _Number2;
+
+public:
+
+	Calculator(T n1 , T n2)
+	{
+		_Number1 = n1;
+		_Number2 = n2;
+	}
+
+	void PrintResult()
+	{
+		cout << _Number1 << "+" << _Number2 << "=" << Add() << endl;
+		cout << _Number1 << "-" << _Number2 << "=" << Substract() << endl;
+		cout << _Number1 << "*" << _Number2 << "=" << Multiply() << endl;
+		cout << _Number1 << "/" << _Number2 << "=" << Divide() << endl;
+
+	}
+
+	T Add()
+	{
+		return _Number1 + _Number2;
+	}
+
+	T Substract()
+	{
+		return _Number1 - _Number2;
+	}
+
+	T Multiply()
+	{
+		return _Number1 * _Number2;
+	}
+
+	T Divide()
+	{
+		return _Number1 / _Number2;
+	}
+
+
+};
+
+
+
+
+#include<iostream>
+#include"Calculator.h"
+
+using namespace std;
+
+
+
+
+int main()
+{
+	
+	Calculator <int> intCalculator(3, 4);
+	Calculator <float> floatCalculator(3, 4);
+	Calculator <double> doubleCalculator(3, 4);
+
+	cout << "int Result:" << endl << endl;
+	intCalculator.PrintResult();
+
+	cout << endl << "Float Result:" << endl << endl;
+	floatCalculator.PrintResult();
+
+	cout << endl << "Double Result:" << endl << endl;
+	doubleCalculator.PrintResult();
+
+
+
+
+
+
+
+
+	system("pause>0");
+	return(0);
+
+}
+

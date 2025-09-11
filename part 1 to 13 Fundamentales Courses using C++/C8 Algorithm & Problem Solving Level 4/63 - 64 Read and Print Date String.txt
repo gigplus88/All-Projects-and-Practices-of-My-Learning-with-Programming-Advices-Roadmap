@@ -1,0 +1,158 @@
+#include <iostream>
+#include <fstream>
+#include <string>
+#include <vector>
+#include <iomanip>
+#include <ctime>
+#include <cmath>
+
+
+#pragma warning (disable : 4996)
+
+using namespace std;
+
+struct sDate {
+
+    int Year, Month, Day;
+};
+string ReadDateString()
+{
+    string DateString;
+
+    cout << "Please enter Date dd/mm/yyyy?";
+    getline(cin  >>ws, DateString);
+    cout << "\n\n";
+    return DateString;
+}
+
+short ReadYear()
+{
+    int Year;
+
+    cout << "Enter a Year: ";
+    cin >> Year;
+
+    return Year;
+}
+
+short ReadMonth()
+{
+    int Month;
+
+    cout << "Enter a Month: ";
+    cin >> Month;
+
+    return Month;
+}
+
+short ReadDay()
+{
+    int Day;
+
+    cout << "Enter a day: ";
+    cin >> Day;
+
+    return Day;
+}
+
+
+vector<string> SplitString(string  S1, string delim)
+{
+    vector<string> vSplit;
+    string Word;
+    short pos = 0;
+
+
+
+    while ((pos = S1.find(delim)) != std::string::npos)
+    {
+        Word = S1.substr(0, pos);
+
+        if (Word != "")
+        {
+            vSplit.push_back(Word);
+
+
+        }
+
+        S1.erase(0, pos + delim.length());
+    }
+
+
+
+    if (S1 != "")
+    {
+        vSplit.push_back(S1);
+    }
+
+    return vSplit;
+
+
+}
+
+//sDate ConvertLineToRecord(string  Line, string Seperator)
+//
+//{
+//
+//    sDate Date;
+//    vector<string> vWord = SplitString(Line, Seperator); // We are solve the vector vClientData with Split, 
+//    // And do this vector in ClientInfo.
+//    Date.Day = vWord[0];
+//    Date.Month = vWord[1];
+//    Date.Year = vWord[2];
+//
+//    return Date;
+//
+//}
+sDate PrintDateToStruct(  string DateString)
+{
+    sDate Date;
+
+    // My Solution
+    //Date = ConvertLineToRecord(DateString, "/"); 
+
+    vector<string> vWord = SplitString(DateString, "/"); 
+    Date.Day =stoi(vWord[0]);
+    Date.Month = stoi(vWord[1]);
+    Date.Year = stoi(vWord[2]);
+
+
+    return Date;
+}
+
+string ConvertRecordToLine(sDate Date, string delim)
+{
+    string DateString = "";
+
+    DateString = DateString + to_string(Date.Day) + delim;
+    DateString = DateString + to_string(Date.Month) + delim;
+    DateString = DateString + to_string(Date.Year) + delim;
+
+
+    return  DateString.substr(0, DateString.length() - delim.length());
+}
+
+
+string DateRecordToLine(sDate Date)
+{
+
+    return to_string(Date.Day) + "/" + to_string(Date.Month) + "/" + to_string(Date.Year) ;
+}
+int main()
+
+{
+
+    string DateString = ReadDateString();
+
+    sDate Date = PrintDateToStruct( DateString);
+
+
+    cout << "Date:" << Date.Day << endl;
+    cout << "Mont:" << Date.Month << endl;
+    cout << "Year:" << Date.Year << endl;
+
+
+    cout << "You Entered: "<<DateRecordToLine( Date);
+    system("pause>0");
+    return 0;
+}

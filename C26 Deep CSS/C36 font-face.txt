@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+        <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap"
+        rel="stylesheet"
+    >
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Audiowide|Sofia|Trirong|Noto+Kufi&display=swap">
+
+    <title>font-variant Examples</title>
+  <style>
+    @font-face {
+        font-family: "YourFontName";       /* 1) Internal name */
+        src:
+            url("fonts/YourFont.woff2") format("woff2"), /* 2) Preferred format */
+            url("fonts/YourFont.woff")  format("woff");  /* 3) Fallback */
+        font-weight: 400;                  /* normal weight */
+        font-style:  normal;               /* normal, italic, etc. */
+        font-display: swap;                /* swap | block | fallback | optional */
+        unicode-range: U+000-5FF;          /* optional subsetting */
+    }
+
+     /* cascadia-code-200 - latin */
+    @font-face {
+    font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+    font-family: 'Cascadia Code';
+    font-style: normal;
+    font-weight: 200;
+    src: url('./fonts/cascadia-code-v4-latin-200.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+    }
+    /* cascadia-code-regular - latin */
+    @font-face {
+    font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+    font-family: 'Cascadia Code';
+    font-style: normal;
+    font-weight: 400;
+    src: url('./fonts/cascadia-code-v4-latin-regular.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+    }
+
+   
+
+  /* sofia-regular - latin */
+    @font-face {
+    font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+    font-family: 'Sofia';
+    font-style: normal;
+    font-weight: 400;
+    src: url('./fonts/sofia-v14-latin-regular.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+    }
+    /* Base styles using MontserratCustom */
+    body {
+      margin: 2rem;
+      font-family: "Cascadia Code", Arial, sans-serif;
+      line-height: 1.6;
+      color: #333;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    /* Utility class for Sofia */
+    .sofia {
+      font-family: "Sofia", serif;
+    }
+
+    section {
+      margin-bottom: 2rem;
+      padding: 1rem;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+    }
+
+    h2 {
+      margin-top: 0;
+      font-size: 1.75rem;
+    }
+
+    p {
+      margin-bottom: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Custom Web Fonts Demo</h1>
+    <p class="sofia">Subtitle in Sofia Regular</p>
+  </header>
+
+  <section>
+    <h2>Main Content (MontserratCustom)</h2>
+    <p>
+      This paragraph is rendered in <strong>MontserratCustom Regular</strong>,  
+      loaded from <code>fonts/montserrat-v30-latin-regular.woff2</code>.
+    </p>
+    <p>
+      MontserratCustom gives a clean, modern look ideal for body text and UI.
+    </p>
+  </section>
+
+  <section>
+    <h2 class="sofia">Alternate Heading (Sofia)</h2>
+    <p class="sofia">
+      This paragraph uses <strong>Sofia Regular</strong>,  
+      loaded from <code>fonts/sofia-v14-latin-regular.woff2</code>.  
+      Sofia’s rounded letterforms add a friendly, decorative touch.
+    </p>
+  </section>
+
+  <section>
+    <h2>Mixed Usage</h2>
+    <p>
+      You can mix both fonts. For example, highlight a phrase in 
+      <span class="sofia">Sofia</span> while keeping the rest in 
+      <span style="font-family:'cascadia-code-200',sans-serif; font-weight: 200;">cascadia-code-200</span>.
+    </p>
+  </section>
+</body>
+</html>

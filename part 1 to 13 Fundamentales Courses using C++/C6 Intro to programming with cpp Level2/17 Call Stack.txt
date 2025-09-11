@@ -1,0 +1,39 @@
+#include <iostream>
+#include "MyLibrary.h"
+#include "MyInputLibrary.h"
+
+using namespace std;
+
+
+
+void Function4()
+{
+   cout << "This is my function 4";
+}
+
+void Function3()
+{
+    Function4();
+}
+
+void Function2()
+{
+    Function3();
+}
+
+void Function1()
+{
+    Function2();
+}
+
+
+int main()
+{
+    Function1();
+   
+
+
+    return 0;
+
+}
+

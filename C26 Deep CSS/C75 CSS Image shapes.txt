@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>CSS Image Shapes Demo</title>
+  <style>
+    /* Reset & Base */
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: Arial, sans-serif;
+      background: #fafafa;
+      color: #333;
+      padding: 2rem;
+      max-width: 1000px;
+      margin: auto;
+      line-height: 1.5;
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    section {
+      margin-bottom: 3rem;
+      background: #fff;
+      padding: 1rem;
+      border-radius: 6px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+    section h2 {
+      margin-bottom: 0.5rem;
+      color: #2c3e50;
+    }
+    p.label {
+      margin-bottom: 1rem;
+      color: #555;
+    }
+    .demo {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+    .demo img {
+      display: block;
+    }
+
+    /* A.1) Circle via border-radius */
+    .circle-img {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    /* A.2) Circle via via clip-path */
+    .circleClipPath1-img {
+      width: 150px;
+      height: 150px;
+      clip-path: circle(50%);
+      object-fit: cover;
+    }
+
+     /* A.3) Hlaf Right Circle via clip-path */
+    .circleClipPathRight-img {
+      width: 150px;
+      height: 150px;
+      clip-path: circle(50% at right);
+      object-fit: cover;
+    }
+
+
+      /* A.4) Hlaf Left Circle via clip-path */
+    .circleClipPathLeft-img {
+      width: 150px;
+      height: 150px;
+      clip-path: circle(50% at left);
+      object-fit: cover;
+    }
+
+    /* B.1) Ellipse via border-radius */
+    .ellipse1-img {
+      width: 300px;
+      height: 150px;
+      border-radius: 50% / 50%; /*horizontal radii values/vertical radii values*/
+      object-fit: cover;
+    }
+
+      /* B.2) Ellipse via border-radius */
+    .ellipse2-img {
+      width: 300px;
+      height: 150px;
+      border-radius: 50% / 25%; /*horizontal radii values/vertical radii values*/
+      object-fit: cover;
+    }
+
+    /* B.3) Ellipse via clip-path:ellipse */
+    .ellipse3-img {
+      width: 300px;
+      height: 150px;
+      clip-path:ellipse(50% 35%);
+      object-fit: cover;
+    }
+
+     /* B.4) Right Ellipse via clip-path:ellipse */
+    .ellipseRight-img {
+      width: 300px;
+      height: 150px;
+      clip-path:ellipse(50% 50% at right);
+      object-fit: cover;
+    }
+
+   /* B.5) Right Ellipse via clip-path:ellipse */
+    .ellipseLeft-img {
+      width: 300px;
+      height: 150px;
+      clip-path:ellipse(50% 50% at left);
+      object-fit: cover;
+    }
+
+
+
+  /* C.1) Polygon via clip-path */
+    .Polygon {
+      width: 200px;
+      height: 200px;
+      object-fit: cover;
+      clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+    }
+
+  /* C.2) Hexagon via clip-path */
+    .hexagon {
+      width: 200px;
+      height: 200px;
+      object-fit: cover;
+      clip-path: polygon(
+        25% 6.7%, 75% 6.7%,
+        100% 50%, 75% 93.3%,
+        25% 93.3%, 0% 50%
+      );
+    }
+
+    /* D) Inset rounded rectangle & circle mask via clip-path */
+    .rounded-rect {
+      width: 250px;
+      height: 150px;
+      object-fit: cover;
+      /*The inset() function defines a smaller rectangle inside the element’s box by   “pushing in” its four edges.*/
+      clip-path: inset(10px round 20px); 
+    }
+    .circle-mask {
+      width: 200px;
+      height: 200px;
+      object-fit: cover;
+      clip-path: circle(50% at 50% 50%);
+    }
+
+    /* E) Text wrapping with shape-outside */
+    .shape-container {
+      float: left;
+      width: 200px;
+      height: 200px;
+      margin-right: 1rem;
+      shape-outside:polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+      shape-margin: 1rem;
+      clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+    }
+    .shape-container img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .clearfix::after {
+      content: "";
+      display: table;
+      clear: both;
+    }
+
+    /* F) Triangle via clip-path */
+
+    /*
+    The clip-path: polygon(50% 0%, 0% 100%, 100% 100%); rule takes the element’s rectangular box and “cuts out” a triangular region defined by three corner-points. Here’s how it works:
+
+        Coordinate System
+
+        The polygon coordinates are given in percentages relative to the element’s own bounding box:
+
+            0% 0% is the top-left corner,
+
+            100% 100% is the bottom-right corner,
+
+            50% 50% would be the exact center, etc.
+
+        Points in Order
+
+            50% 0% → the point halfway along the top edge (the midpoint of the top side).
+
+            0% 100% → the bottom-left corner.
+
+            100% 100% → the bottom-right corner.
+    */
+    .triangle {
+      width: 200px;
+      height: 200px;
+      object-fit: cover;
+      clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+    }
+
+    /* G) Star via clip-path */
+    .star {
+      width: 200px;
+      height: 200px;
+      object-fit: cover;
+      clip-path: polygon(
+        50% 0%, 61% 35%, 98% 35%, 68% 57%,
+        79% 91%, 50% 70%, 21% 91%, 32% 57%,
+        2% 35%, 39% 35%
+      );
+    }
+  </style>
+</head>
+<body>
+
+  <h1>CSS Image Shapes Demo</h1>
+
+  <section>
+    <h2>A.1) Circle via <code>border-radius</code></h2>
+    <p class="label">Mask a square image into a perfect circle using <code>border-radius: 50%</code>.</p>
+    <div class="demo">
+      <img class="circle-img" src="Images/A3.jpg" alt="Circle Example">
+    </div>
+  </section>
+
+   <section>
+    <h2>A.2) Circle via <code>clip-path</code></h2>
+    <p class="label">Mask a square image into a perfect circle using <code>clip-path</code>.</p>
+    <div class="demo">
+      <img class="circleClipPath1-img" src="Images/A3.jpg" alt="Circle Example">
+    </div>
+  </section>
+
+  <section>
+    <h2>A.3) Half Right Circle via <code>clip-path</code></h2>
+    <p class="label">Mask a square image into a right half circle using <code>clip-path</code>.</p>
+    <div class="demo">
+      <img class="circleClipPathRight-img" src="Images/A3.jpg" alt="Circle Example">
+    </div>
+  </section>
+
+   <section>
+    <h2>A.4) Half Left Circle via <code>clip-path</code></h2>
+    <p class="label">Mask a square image into a left half circle using <code>clip-path</code>.</p>
+    <div class="demo">
+      <img class="circleClipPathLeft-img" src="Images/A3.jpg" alt="Circle Example">
+    </div>
+  </section>
+
+  <section>
+    <h2>B.1) Ellipse via <code>border-radius</code></h2>
+    <p class="label">Create an ellipse by specifying horizontal and vertical radii.</p>
+    <div class="demo">
+      <img class="ellipse1-img" src="images\A3.jpg" alt="Ellipse Example">
+    </div>
+  </section>
+
+  <section>
+    <h2>B.2) Ellipse via <code>border-radius</code></h2>
+    <p class="label">Create an ellipse by specifying horizontal and vertical radii.</p>
+    <div class="demo">
+      <img class="ellipse2-img" src="images\A3.jpg" alt="Ellipse Example">
+    </div>
+  </section>
+
+  <section>
+    <h2>B.3) Ellipse via <code>clip-path:ellipse</code></h2>
+    <p class="label">Create an ellipse via clip-path.</p>
+    <div class="demo">
+      <img class="ellipse3-img" src="images\A3.jpg" alt="Ellipse Example">
+    </div>
+  </section>
+
+  <section>
+    <h2>B.4) Rigth Ellipse via <code>clip-path:ellipse</code></h2>
+    <p class="label">Create an ellipse via clip-path.</p>
+    <div class="demo">
+      <img class="ellipseRight-img" src="images\A3.jpg" alt="Ellipse Example">
+    </div>
+  </section>
+
+  <section>
+    <h2>B.5) Left Ellipse via <code>clip-path:ellipse</code></h2>
+    <p class="label">Create an ellipse via clip-path.</p>
+    <div class="demo">
+      <img class="ellipseLeft-img" src="images\A3.jpg" alt="Ellipse Example">
+    </div>
+  </section>
+
+
+  <section>
+    <h2>C.1) Polygon via <code>clip-path</code></h2>
+    <p class="label">Clip an image into a hexagon shape using a four-point <code>polygon()</code>.</p>
+    <div class="demo">
+      <img class="Polygon" src="images\A3.jpg" alt="Hexagon Example">
+    </div>
+  </section>
+
+
+  <section>
+    <h2>C.2) Hexagon via <code>clip-path</code></h2>
+    <p class="label">Clip an image into a hexagon shape using a six-point <code>polygon()</code>.</p>
+    <div class="demo">
+      <img class="hexagon" src="images\A3.jpg" alt="Hexagon Example">
+    </div>
+  </section>
+
+  <section>
+    <h2>D) Inset Rounded Rect & Circle Mask via <code>clip-path</code></h2>
+    <p class="label">Use <code>inset()</code> with <code>round</code> for a rounded rectangle, and <code>circle()</code> for a precise circle mask.</p>
+    <div class="demo">
+      <img class="rounded-rect" src="images\A3.jpg" alt="Rounded Rect Example">
+      <img class="circle-mask" src="images\A3.jpg" alt="Circle Mask Example">
+    </div>
+  </section>
+
+  <section class="clearfix">
+    <h2>E) Text Wrapping with <code>shape-outside</code></h2>
+    <p class="label">Float a ellipse-clipped image and wrap text around its shape using <code>shape-outside</code>.</p>
+    <div class="shape-container">
+      <img src="images\A3.jpg" alt="Float Shape Example">
+    </div>
+    <p>
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nec est a nisi mollis accumsan. Sed venenatis, 
+      arcu at ullamcorper fringilla, urna dui luctus massa, non ultricies neque purus sit amet est. Morbi tincidunt 
+      urna sed libero semper volutpat. Integer ac suscipit quam. Vivamus vehicula sapien non dolor condimentum, 
+      non tincidunt nisi elementum. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nec est a nisi mollis accumsan. Sed venenatis, 
+      arcu at ullamcorper fringilla, urna dui luctus massa, non ultricies neque purus sit amet est. Morbi tincidunt 
+      urna sed libero semper volutpat. Integer ac suscipit quam. Vivamus vehicula sapien non dolor condimentum, 
+      non tincidunt nisi elementum.
+    </p>
+  </section>
+
+  <section>
+    <h2>F) Triangle via <code>clip-path</code></h2>
+    <p class="label">Clip an image into a triangle shape using a three-point <code>polygon()</code>.</p>
+    <div class="demo">
+      <img class="triangle" src="images\A3.jpg" alt="Triangle Example">
+    </div>
+  </section>
+
+  <section>
+    <h2>G) Star via <code>clip-path</code></h2>
+    <p class="label">Create a star shape using a ten-point <code>polygon()</code>.</p>
+    <div class="demo">
+      <img class="star" src="images\A3.jpg" alt="Star Example">
+    </div>
+  </section>
+
+</body>
+</html>

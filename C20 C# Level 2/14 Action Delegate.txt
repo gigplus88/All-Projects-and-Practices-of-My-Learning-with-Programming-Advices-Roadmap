@@ -1,0 +1,39 @@
+using System;
+
+class Program
+{
+    static Action ParameterLessAction = ActionWithoutParameter;
+    static Action<int> ParameterLessAction2 = ParameterlessMethod;
+    static Action<string ,int> ParameterLessAction3 = ActionWithMultipleParameters;
+
+
+    static void Main()
+    {
+        //Method1
+
+        ParameterLessAction();
+        ParameterLessAction2(4);
+        ParameterLessAction3("This is your Parametrize delegate with two parameter: string and " , 6) ;
+
+
+
+        //Method2
+
+
+    }
+    static void ActionWithoutParameter()
+    {
+        Console.WriteLine("This is your Parametrize delegate");
+    }
+    static void ParameterlessMethod(int x)
+    {
+        Console.WriteLine($"This is your Parametrize delegate with parameter : {x}");
+    }
+    
+    static void ActionWithMultipleParameters(string message , int x)
+    {
+        Console.WriteLine(message + "," + x);
+    }
+
+
+}

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>CSS Multi-Column Layout Demo</title>
+  <style>
+    body {
+      font-family: Georgia, serif;
+      padding: 2rem;
+      line-height: 1.6;
+      color: #333;
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
+
+    /* 1) Basic 3-column layout */
+    .three-cols {
+      column-count: 3;
+      column-gap: 1rem;
+    }
+
+    /* 2) Adding a column rule (divider) */
+    .with-rule {
+      column-count: 3;
+      column-gap: 1rem;
+      column-rule: 2px solid #999;
+      margin-top: 2rem;
+      padding-top: 1rem;
+    }
+
+    /* 3) Responsive columns via column-width */
+    .auto-cols {
+      column-width: 200px; /* each column at least 200px */
+      column-gap: 1rem;
+      margin-top: 2rem;
+    }
+
+    /* 4) Prevent images from splitting */
+    .with-images {
+      column-count: 2;
+      column-gap: 1rem;
+      margin-top: 2rem;
+    }
+    .with-images img {
+      width: 100%;
+      margin-bottom: 1rem;
+      break-inside:avoid;
+      display: block;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>CSS Multi-Column Layout Examples</h1>
+
+  <section class="three-cols">
+    <h2>1) column-count: 3;</h2>
+    <p>
+      Our quarterly newsletter covers the latest advancements in sustainable technology,
+      practical health tips, and inspiring lifestyle stories. Each issue brings expert
+      insights, step-by-step guides, and community highlights—all arranged neatly into
+      three columns for easy reading.
+    </p>
+  </section>
+
+  <section class="with-rule">
+    <h2>2) column-rule: 2px solid #999;</h2>
+    <p>
+      Breaking news: Scientists have just identified a new species of hummingbird in the
+      Amazon rainforest. This discovery underscores the critical need for habitat protection
+      and global conservation efforts, and it reminds us how much there is still to learn
+      about our planet’s biodiversity.
+    </p>
+  </section>
+
+  <section class="auto-cols">
+    <h2>3) column-width: 200px;</h2>
+    <p>
+      Resize your browser window to see how the number of columns changes. By setting a
+      minimum column width, the text flows into as many columns as will fit, ensuring
+      optimal readability on both desktop and mobile devices.
+    </p>
+  </section>
+
+  <section class="with-images">
+    <h2>4) Avoid Splitting Images Across Columns</h2>
+    <p>
+      Below are two snapshots from our team's recent retreat. We used CSS to ensure each
+      image stays whole in its column, avoiding awkward splits between pages or columns:
+    </p>
+    <img src="https://via.placeholder.com/300x150?text=Team+Retreat+1" alt="Team Retreat Photo 1">
+    <img src="https://via.placeholder.com/300x150?text=Team+Retreat+2" alt="Team Retreat Photo 2">
+  </section>
+
+</body>
+</html>

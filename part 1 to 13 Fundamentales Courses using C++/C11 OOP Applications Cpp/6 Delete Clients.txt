@@ -1,0 +1,48 @@
+#include <iostream>
+#include "clsPerson.h"
+#include "clsBankClient.h"
+#include "clsInputValidate.h"
+
+void DeleteClient()
+{
+    string AccountNumber = "";
+
+    cout << "Please enter Account Number";
+    AccountNumber = clsInputValidate::ReadString();
+
+
+    while (!clsBankClient::IsClientExist(AccountNumber))
+    {
+        cout << "\nAccount Number is not found, Please enter an other";
+        AccountNumber = clsInputValidate::ReadString();
+    }
+
+    clsBankClient Client1 = clsBankClient::Find(AccountNumber);
+    Client1.Print();
+
+    cout << "\nAre you sure you want to delete this client";
+    char Answer = 'n';
+
+    while (Answer = tolower(Answer))
+    {
+        if (Client1.Delete())
+        {
+            cout << "\nClient Deleted Successfully :-)\n";
+            Client1.Print();
+        }
+        else
+        {
+            cout << "\nError Client Was not Deleted\n";
+        }
+    }
+
+}
+
+
+int main()
+
+{
+    DeleteClient();
+    system("pause>0");
+    return 0;
+}

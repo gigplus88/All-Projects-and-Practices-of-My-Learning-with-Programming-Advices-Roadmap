@@ -1,0 +1,94 @@
+#include <iostream>
+#include <string>
+#include <iomanip>
+
+using namespace std;
+
+
+
+void PrintMatrix1(int arr[3][3], short Rows, short Cols)
+{
+    for (int i = 0; i < Rows; i++)
+    {
+        for (int j = 0; j < Cols; j++)
+        {
+            cout << arr[i][j] << "\t";
+            //cout << setw(3) << arr[i][j] << "\t";
+        }
+        cout << endl;
+    }
+
+}
+
+bool IsNumberInMatrix(int Matrix1[3][3], short Rows, short Cols, int NumberToLook)
+{
+
+    for (int i = 0; i < Rows; i++)
+    {
+        for (int j = 0; j < Cols; j++)
+        {
+            if (Matrix1[i][j] == NumberToLook)
+            {
+
+                return true;
+            }
+
+        }
+
+    }
+
+    return false;
+
+
+}
+
+
+void TheIntersectedNumbersInMatrixs(int Matrix1[3][3], int Matrix2[3][3], short Rows, short Cols)
+{
+    
+    for (int i = 0; i < Rows; i++)
+    {
+        for (int j = 0; j < Cols; j++)
+        {
+            if (IsNumberInMatrix( Matrix2,  3, 3, Matrix1[i][j]))
+            {
+                 
+                cout << Matrix1[i][j] <<"\t";
+            }
+            
+        }
+
+    }
+
+    
+    
+}
+
+
+
+
+
+int main()
+{
+    srand((unsigned)time(NULL));
+
+    int Matrix1[3][3] =
+    { {0,2,5},
+      {0,4,1},
+      {5,0,0}
+    } ,  Matrix2[3][3] = { {88,3,99},{21,5,43},{32,43,7} };
+    short NumberToLook=0;
+
+    cout << "Matrix1 :" << endl;
+    PrintMatrix1(Matrix1, 3, 3);
+
+    cout << "Matrix2 :" << endl;
+    PrintMatrix1(Matrix2, 3, 3);
+
+    TheIntersectedNumbersInMatrixs( Matrix1,  Matrix2,  3, 3);
+
+    
+
+
+    return 0;
+}

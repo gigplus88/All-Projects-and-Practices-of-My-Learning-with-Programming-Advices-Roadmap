@@ -1,0 +1,47 @@
+#include <iostream>
+#include <iostream>
+#include <fstream>
+#include <string>
+#include <vector>
+#include <iomanip>
+
+using namespace std;
+
+class clsPerson {
+private:
+    string _FirstName;
+    
+
+public :
+
+   
+
+    void SetFirstName(string FirstName)
+    {
+        
+        _FirstName = FirstName;
+    }
+
+    string GetFirstName()
+    {
+        return _FirstName;
+    }
+
+    __declspec(property(get = GetFirstName, put = SetFirstName)) string FirstName;
+};
+
+
+int main()
+
+{
+    clsPerson Person1;
+
+    Person1.FirstName = "Ayoub";
+    cout << Person1.FirstName;
+    
+    
+   
+    
+    system("pause>0");
+    return 0;
+}

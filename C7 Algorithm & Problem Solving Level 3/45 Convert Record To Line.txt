@@ -1,0 +1,74 @@
+#include <iostream>
+#include <string>
+#include <vector>
+#include <iomanip>
+
+using namespace std;
+struct sClient
+{
+    string AccountNum;
+    string PinCode;
+    string Name;
+    string Phone;
+    double AccountBalance;
+
+};
+
+
+sClient ReadData(short NumberOfClient)
+{
+    
+    
+    sClient ClientInfo;
+
+    cout << "Please Enter your Account Number?" << endl;
+    getline(cin, ClientInfo.AccountNum);
+
+    cout << "Please Enter your PinCode?" << endl;
+    getline(cin, ClientInfo.PinCode);
+
+    cout << "Please Enter your Name?" << endl;
+    getline(cin, ClientInfo.Name);
+
+    cout << "Please Enter your Phone?" << endl;
+    getline(cin, ClientInfo.Phone);
+
+    cout << "Please Enter your AccountBalance?" << endl;
+    cin >> ClientInfo.AccountBalance;
+
+
+
+    
+        return ClientInfo;
+
+}
+
+string ConvertRecordToLine(sClient CostumerInfo, string delim)
+{
+    string strClientRecord = "";
+
+        strClientRecord = strClientRecord + CostumerInfo.AccountNum + delim;
+        strClientRecord = strClientRecord + CostumerInfo.PinCode + delim;
+        strClientRecord = strClientRecord + CostumerInfo.Name + delim;
+        strClientRecord = strClientRecord + CostumerInfo.Phone + delim;
+        strClientRecord = strClientRecord + to_string(CostumerInfo.AccountBalance) + delim;
+
+    
+    return  strClientRecord.substr(0, strClientRecord.length() - delim.length());
+}
+
+
+int main()
+{
+    sClient Client;
+    Client =ReadData(2);
+    cout << "Client Record for Saving is: " << endl;
+     cout << ConvertRecordToLine(Client,  "#//#");
+
+   
+
+    system("pause>0");
+
+    return 0;
+
+}

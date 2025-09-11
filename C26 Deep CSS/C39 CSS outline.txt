@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>CSS Padding Practice Activity</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 20px;
+      text-align: center;
+    }
+    .box1 {
+      position: relative;
+      left: 30%;
+      width: 300px;
+      height: 200px;
+      background-color: lightblue;
+      padding: 20px; /* Adjust padding to see the effect */
+      
+      outline: darkgoldenrod dotted 3px;
+      outline-offset: 3px;
+    }
+    button {
+      padding: 1rem 1rem; /* Adjust button padding */
+      background-color: rgb(86, 135, 243);
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin: 15px;
+    }
+    button:focus {
+      outline: 2px dotted rgb(5, 5, 3);
+      box-shadow: rgb(255, 195, 83);
+    }     
+
+    input {
+      padding: 10px; /* Adjust input padding */
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      width: 200px;
+      margin: 10px;
+    }
+
+    input:focus {
+      outline: 2px solid rgb(250, 103, 92);
+      outline-offset: 2Px;
+    }
+  </style>
+</head>
+<body>
+  <h1>CSS Padding Practice Activity</h1>
+  
+  <div class="box1">
+    <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+       Quod esse vel dolores ipsam velit?
+    </p>
+  </div>
+  <div>
+    <button> Save</button>
+   </div>
+
+   <form action="">
+
+    <label for="name"> Name</label>
+    <input type="text" id="name" name="name" placeholder="Enter your name" required>
+   </form>
+
+</body>
+</html>
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>CSS Padding Practice Activity</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 20px;
+      text-align: center;
+    }
+    .debug {
+      outline: 2px dashed orange;
+      padding: 10px;
+      margin: 20px auto;
+      width: 80%;
+      background-color: #fff;
+      box-sizing: border-box; /* Ensures padding is included in width */
+    }
+    .custom-focus {
+      outline-offset: 2px;
+      color: black;
+    }
+    .custom-focus:focus {
+      outline: 1.5px solid rgb(245, 173, 39);
+      outline-offset: 2px;
+    }
+
+    a.custom-focus {
+      text-decoration: none;
+      color: #85b9ec;
+      padding: 0.25em 0.5em;
+      border-radius: 4px;
+    }
+    input.custom-focus {
+      padding: 0.5em;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    /* 3) Temporary Highlights on hover */
+    .card {
+      width: 200px;
+      padding: 1rem;
+      background: #f0f0f0;
+      border-radius: 6px;
+      transition: outline-offset 2s;
+      margin-left: 50%;
+    }
+    .card:hover {
+      outline: 2px dashed red;
+      outline-offset: 4px;
+      cursor: pointer;
+
+    }
+    /* 4) Observations list */
+    /* Observations list styling */
+    .observations li {
+      margin-bottom: 0.5em;
+    }
+  </style>
+</head>
+<body>
+   <section>
+    <h2>1) Debug Layout</h2>
+    <div class="debug">
+      <p>This <code>.debug</code> wrapper has an orange outline.</p>
+      <p>Notice the outline does not change the element’s size or push other content away.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>2) Custom Focus</h2>
+    <p>
+      <a href="#" class="custom-focus">Focusable Link</a>
+    </p>
+
+    <p>
+      <input type="text" class="custom-focus" placeholder="Focus me with Tab">
+    </p>
+    <p>Press Tab to move focus—both elements get a blue outline without shifting layout.</p>
+  </section>
+
+  <section>
+    <h2>3) Temporary Highlights</h2>
+    <div class="card">
+      <p>Hover over this card to see a red dashed outline with offset.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>4) Observations</h2>
+    <ul class="observations">
+      <li>The <strong>outline</strong> is drawn outside the border and does <em>not</em> affect the box model or element dimensions.</li>
+      <li>Unlike borders, outlines do not push or resize adjacent elements—they sit “on top” of the layout.</li>
+      <li>Outlines can overlap neighboring content if the offset is negative (not shown) or minimal.</li>
+      <li>Outlines are not limited by border radius and can follow non-rectangular element shapes in some browsers.</li>
+    </ul>
+  </section>
+
+</body>
+</html>

@@ -1,0 +1,36 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
+using System.Threading.Tasks;
+
+
+
+class Program
+{
+
+    static void Main()
+    {
+        int[][] jaggedArray = new int[3][];
+        jaggedArray[0] = new int[] { 2 , 0, 4, 3 , 11 ,3};
+        jaggedArray[1] = new int[] { 2, 0, 8 };
+        jaggedArray[2] = new int[] { -2, 12, 4, 4 };
+
+
+        for (int i = 0; i < jaggedArray.Length; i++)
+        {
+            for (int j = 0; j < jaggedArray[i].Length; j++)
+            {
+                Console.Write(jaggedArray[i][j] + " ");
+            }
+            Console.WriteLine();
+        }
+
+
+        Console.ReadKey();
+
+    }
+  
+
+}

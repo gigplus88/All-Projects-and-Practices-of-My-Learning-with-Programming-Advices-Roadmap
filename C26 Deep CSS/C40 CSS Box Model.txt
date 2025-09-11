@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>CSS Padding Practice Activity</title>
+  <style>
+    
+    body {
+      font-family: Arial, sans-serif;
+      background-color: hsl(0, 0%, 94%);
+      padding: 20px;
+      margin: 10px;
+      display: flex;
+      flex-wrap: wrap;
+    }
+
+    .box1, .box2, .box3 {
+      width: 100px;
+      padding: 20px;
+      text-align: center;
+        }
+    .box1 {
+   
+      border: 5px solid rgb(206, 83, 83);
+      box-sizing:content-box;
+      background-color: rgb(163, 241, 186);
+      margin: 10px;
+    }
+    .box2 {
+    
+      border: 5px solid rgb(63, 209, 99);
+      box-sizing:border-box;
+      background-color: rgb(167, 157, 224);
+      margin: 10px;
+
+    }
+    .box3{
+      border: 5px solid rgb(63, 209, 99);
+      box-sizing:content-box;
+      margin: 10px -40px; 
+      background-color: rgb(167, 157, 224);
+    }
+    .box4 {
+      width: 100px;
+      padding: 20px;
+      border: 5px solid rgb(13, 26, 16);
+      box-sizing:border-box;
+      background-color: rgb(167, 157, 224);
+      margin: 41px;
+    }
+    
+
+
+  </style>
+</head>
+<body>
+   <div class="box1">
+    <h2>Border Box Model1</h2>
+    <p>This box uses the border-box model. 
+      The padding is included in the total width.
+    </p>
+   </div>
+
+    <div class="box2">
+      <h2>Border Box Model</h2>
+      <p>This box uses the border-box model. 
+        The padding is included in the total width.
+      </p>
+   </div>
+
+    <div class="box3">
+      <h2>Border Box Model</h2>
+      <p>This box uses the border-box model. 
+        The padding is included in the total width.
+      </p>
+   </div>
+   <div class="box4">
+      <h2>Border Box Model</h2>
+      <p>This box uses the border-box model. 
+        The padding is included in the total width.
+      </p>
+   </div>
+</body>
+</html>

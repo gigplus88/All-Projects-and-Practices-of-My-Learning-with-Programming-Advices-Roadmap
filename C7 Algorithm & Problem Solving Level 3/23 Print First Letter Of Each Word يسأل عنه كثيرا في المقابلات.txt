@@ -1,0 +1,39 @@
+#include <iostream>
+#include <string>
+#include <iomanip>
+
+using namespace std;
+
+
+void PrintFirstLetterOfEachWord(string  YourInput)
+{
+    bool isFirstLetter = true;
+    for (short i = 0; i < YourInput.length(); i++) // أتحكم في أول حرف بالفراغ فقط
+    {
+        if (YourInput[i] != ' ' && isFirstLetter)
+        {
+            cout << YourInput[i] << endl;
+        }
+
+        isFirstLetter = (YourInput[i] == ' '? true : false); //  لكي لا أكتب ما بعد هذا الحرف على أنه أول حرف في الكلمة فإذا وصل إلى الفراغ أعطى ترو فكتب مابعد الفراغ في المرة المقبلة  (true) كأني أقول له أني على غير الفراغ فلا تعطني 
+
+    }
+        
+   
+}
+
+
+int main()
+{
+    
+    string  YourInput;
+
+    cout << "Please Enter Your String?" << endl;
+    getline(cin , YourInput);
+
+    PrintFirstLetterOfEachWord(YourInput);
+
+    system("pause>0");
+
+    return 0;
+}

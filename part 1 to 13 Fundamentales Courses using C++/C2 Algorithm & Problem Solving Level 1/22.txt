@@ -1,0 +1,41 @@
+
+#include <iostream>
+using namespace std;
+#include <cmath>
+#include <string>
+
+ float CircleAreaInscribedInAnIsoceles( float a , float b, float Area )
+{
+     const float PI = 3.14;
+     Area = (PI * pow(b, 2) / 4) * ((2 * a) - b) / ((2 * a) + b);
+     return Area;
+
+}
+
+
+
+
+
+
+ int main()
+ {
+     float a, b;
+     cout << "Enter the a :";
+     cin >> a;
+
+     cout << "Enter the b :";
+     cin >> b;
+
+     const float PI = 3.14;
+     float  Area = (PI * pow(b, 2) / 4) * ((2 * a) - b) / ((2 * a) + b);
+
+     cout << "The Area of the circle is: " << CircleAreaInscribedInAnIsoceles(a, b, Area) << endl ;
+
+     cout << "The Area of the circle with floor is: " << floor(CircleAreaInscribedInAnIsoceles(a, b, Area));
+
+
+     return 0;
+
+ }
+
+

@@ -1,0 +1,33 @@
+#include <iostream>
+#include <iomanip>
+
+
+template <typename T> T MyMax(T Number1, T Number2)
+{
+    return (Number1 > Number2) ? Number1 : Number2;
+}
+
+int main()
+
+{
+    cout << MyMax<char>('a', 'd') << endl; // Call MyMax for character
+
+    cout << MyMax<int>(3, 45) << endl; // Call MyMax for int
+    cout << MyMax <double>(34.5, 34.500001) << endl; // Call MyMax for double
+
+
+    
+
+
+    //while (true)
+    //{
+    //    if (!clsLoginScreen::ShowLoginScreen())
+    //    {
+    //        break;
+    //    }
+    //}
+
+  
+    system("pause>0");
+    return 0;
+}

@@ -1,0 +1,143 @@
+#include <iostream>
+#include <iostream>
+#include <fstream>
+#include <string>
+#include <vector>
+#include <iomanip>
+
+using namespace std;
+
+
+class clsCalculator
+{
+
+private:
+    float _Result=0; // For print Result of Operation
+    float _LastNumber=0 ; // for new number to do my operation
+    string _LastOperation="Clear";
+    float _PreviousResult=0;  // for old number befor operation
+
+    bool _IsZero(float Number)
+    {
+        return (Number == 0);
+    }
+
+    
+
+public:
+
+    void Clear()
+    {
+        _LastOperation = "Clear";
+        _LastNumber = 0;
+        _PreviousResult = 0;
+        _Result = 0; 
+
+    }
+
+
+    void Adding(float Number)
+    {
+        _LastOperation = "Adding";
+        _LastNumber = Number; // Number which I  Operate
+        _PreviousResult = _Result;
+        _Result += Number;
+    }
+
+    void Subtract(float Number)
+    {
+        _LastOperation = "Subtracting";
+        _LastNumber = Number; // Number which I  Operate
+        _PreviousResult = _Result;
+        _Result -= Number;
+    }
+
+    void Divide(float Number)
+    {
+        _LastNumber = Number; // Number which I  Operate
+        if (_IsZero( Number))
+        {
+            Number = 1;
+        }
+        _LastOperation = "Dividing";
+        _PreviousResult = _Result;
+        _Result /= Number;
+    }
+
+    void Multiply(float Number)
+    {
+        _LastOperation = "Multiplying";
+        _LastNumber = Number; // Number which I  Operate
+        _PreviousResult = _Result;
+        _Result *= Number;
+    }
+
+   
+    void CancelLastResult()
+    {
+        _LastOperation = "Cancelling Last Operation";
+        _LastNumber = 0; // Number which I  Operate
+        _Result = _PreviousResult;
+    }
+
+    void PrintResult()
+    {
+     
+        cout << "\nResult After " << _LastOperation << " " << _LastNumber << " is: " << _Result;
+
+    }
+
+    
+};
+
+
+int main()
+
+{
+     clsCalculator Calculator1;
+   
+     Calculator1.Clear();
+     Calculator1.PrintResult();
+
+     Calculator1.Adding(14);
+     Calculator1.PrintResult();
+
+     Calculator1.Adding(1);
+     Calculator1.PrintResult();
+
+
+     Calculator1.Adding(5);
+     Calculator1.PrintResult();
+
+
+     Calculator1.Multiply(2);
+     Calculator1.PrintResult();
+
+
+     Calculator1.Subtract(5);
+     Calculator1.PrintResult();
+
+
+     Calculator1.Divide(4);
+     Calculator1.PrintResult();
+
+
+     Calculator1.Clear();
+     Calculator1.PrintResult();
+
+     Calculator1.Adding(1);
+     Calculator1.PrintResult();
+
+     Calculator1.Adding(8);
+     Calculator1.PrintResult();
+
+     Calculator1.Divide(0);
+     Calculator1.PrintResult();
+
+     Calculator1.CancelLastResult();
+     Calculator1.PrintResult();
+
+    
+    system("pause>0");
+    return 0;
+}

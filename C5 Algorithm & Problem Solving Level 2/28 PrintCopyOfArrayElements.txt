@@ -1,0 +1,123 @@
+#include <iostream>
+#include <cmath>
+#include <string>
+#include <cstdlib>
+
+using namespace std;
+ 
+enum enCharType{SmallLetter=1 , CapitallLetter=2 , SpetialCharacter=3 , Digit=4};
+
+
+
+int ReadPositiveNumber(string Message)
+{
+    int Number;
+
+    do
+    {
+        cout << Message << endl;
+        cin >> Number;
+
+    } while (Number <= 0);
+
+    return Number;
+}
+
+int RandomNumber(int From, int To)
+{
+
+    int randNum = rand() % (To - From + 1) + From;
+
+
+    return randNum;
+}
+
+
+
+
+void ReadArray(int arr[100], int  &arrLength)
+{
+    
+    
+    for (int i = 0; i <  arrLength; i++)
+    {
+        
+        arr[i]= RandomNumber(1, 100);
+        
+    }
+
+   
+   
+}
+
+
+
+void CopyOfArrayElements( int  arrLength , int arr[100] , int arr2[100])
+{
+    
+    
+    for (int i = 0; i < arrLength; i++)
+    {
+         arr2[i] = arr[i];
+
+    }
+
+}
+
+
+void PrintArrayElements(int arr[100], int  arrLength)
+
+{
+
+    cout << "Array Elements:";
+    for (int i = 0; i < arrLength; i++)
+    {
+        cout << arr[i] << " ";
+
+    }
+
+}
+
+
+void PrintCopyOfArrayElements(int  arrLength, int arr2[100])
+{
+
+    cout << endl << "The Copy Of Array Elements:";
+    for (int i = 0; i < arrLength; i++)
+    {
+       cout << arr2[i] << " ";
+
+    }
+
+}
+
+
+int main()
+{
+    srand((unsigned)time(NULL));
+    int arr[100] , arrLength , arr2[100];
+    enCharType CharType = {};
+
+    
+    
+     
+    arrLength = ReadPositiveNumber("Please enter number of elements :");
+
+    ReadArray( arr,  arrLength);
+
+
+    CopyOfArrayElements( arrLength , arr , arr2);
+
+
+    PrintArrayElements(arr, arrLength);
+
+    PrintCopyOfArrayElements(arrLength, arr2);
+
+    
+
+    return 0;
+
+}
+
+
+

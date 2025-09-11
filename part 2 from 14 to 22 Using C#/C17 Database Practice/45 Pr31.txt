@@ -1,0 +1,8 @@
+
+
+ -- YEAR(GetDate()) function gives the year of DayDate
+ select  VehicleDetails.Vehicle_Display_Name , 
+         year , 
+		 (YEAR(GetDate()) - VehicleDetails.Year) as CarAge
+ from VehicleDetails 
+ Order By CarAge desc;

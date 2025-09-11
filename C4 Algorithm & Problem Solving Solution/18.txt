@@ -1,0 +1,45 @@
+#include <iostream>
+#include <cmath>
+#include <string>
+using namespace std;
+
+
+
+float ReadRadious(float &r)
+{
+    
+    cout << "Please enter r" << endl;
+    cin >> r;
+    return r;
+}
+
+float CircleArea(float r )
+{
+    const float PI = 3.141592653589793238;
+    float Area = PI * pow(r, 2);
+     return Area;
+}
+void PrintArea(float r)
+{
+    cout << "The Rectangle Area is: " << CircleArea(r) << endl;
+
+}
+
+
+ 
+
+
+
+
+int main()
+{
+    float  r;
+    
+    
+    PrintArea(ReadRadious(r));
+
+
+    return 0;
+
+}
+

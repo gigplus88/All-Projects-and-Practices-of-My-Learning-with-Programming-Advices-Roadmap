@@ -1,0 +1,60 @@
+#include <iostream>
+#include <string>
+#include <iomanip>
+
+using namespace std;
+
+
+void FibonnaciSeriesWithRecursion(short HowNumbers , int Prev1,int Prev2)
+{
+    int NewPrev = 0;
+
+    if (HowNumbers>0)
+    {
+        NewPrev = Prev1 + Prev2;
+
+        Prev2 = Prev1;
+        Prev1 = NewPrev;
+        cout << NewPrev << " ";
+
+        FibonnaciSeriesWithRecursion(HowNumbers - 1, Prev1, Prev2);
+
+
+    }
+        
+   
+}
+
+
+
+void FibonnaciSeries(short HowNumbers)
+{
+    int Prev1 = 1, Prev2 = 0, NewPrev=0;
+    
+    cout << Prev1 <<" ";
+
+    for (int i = 1; i <= HowNumbers-1; i++)
+    {
+        NewPrev = Prev1 + Prev2;
+        cout <<  NewPrev <<" ";
+        
+        Prev2 = Prev1;
+        Prev1 = NewPrev;
+
+    }
+
+}
+
+
+
+
+int main()
+{
+    
+
+    FibonnaciSeriesWithRecursion(10 , 0, 1);
+
+    system("pause>0");
+
+    return 0;
+}

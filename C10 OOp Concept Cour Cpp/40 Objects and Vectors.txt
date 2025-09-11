@@ -1,0 +1,79 @@
+//ProgrammingAdivces.com
+//Mohammed Abu-Hadhoud
+#include<iostream>
+#include<vector>
+
+using namespace std;
+
+class clsA
+{
+public:
+	//Parametarized Constructor
+	clsA(int value)
+	{
+		x = value;
+	}
+
+	int x;
+
+	void Print()
+	{
+		cout << "The value of x=" << x << endl;
+	}
+
+};
+
+class clsObjects
+{
+public:
+
+	clsObjects(int Value)
+	{
+		x = Value;
+	}
+	int x;
+
+	void Print(int y )
+	{
+		cout << "The value of Object" << y << "is:" << x << endl;
+	}
+
+};
+
+
+int main()
+
+{
+
+	vector <clsA> v1;
+	short NumberOfObjects = 5;
+
+	// inserting object at the end of vector
+	//for (int i = 0; i < NumberOfObjects; i++)
+	//{
+	//	v1.push_back(clsA(i));
+	//}
+
+	// printing object content
+	/*for (int i = 0; i < NumberOfObjects; i++)
+	{
+		v1[i].Print();
+
+	}*/
+
+	vector <clsObjects> vObject;
+
+	for (short i = 0; i < NumberOfObjects; i++)
+	{
+		vObject.push_back(clsObjects(i));
+	}
+
+	for (short i = 0; i < NumberOfObjects; i++)
+	{
+		vObject[i].Print(i+1);
+	}
+
+	system("pause>0");
+
+}
+

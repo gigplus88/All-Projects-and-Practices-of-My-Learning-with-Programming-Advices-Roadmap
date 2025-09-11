@@ -1,0 +1,298 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+
+public class TreeNode<T> 
+{
+    public T Value { get; set; }
+    public List<TreeNode<T>> Children { get; set; }
+
+    public TreeNode(T value)
+    {
+        this.Value = value; 
+        Children = new List<TreeNode<T> >();
+    }
+    public void AddChild(TreeNode<T> Child) 
+    {
+        Children.Add(Child); 
+    }
+    public TreeNode<T> Find(T value)
+    {
+        if (EqualityComparer<T>.Default.Equals(Value, value))
+            return this;
+
+        foreach (var child in Children)
+        {
+            var found = child.Find(value);
+            if (found != null)
+                return found;
+        }
+
+        return null; // Not found
+    }
+
+
+}
+public class Tree<T>
+{
+    public TreeNode<T> Root { get;private set; }
+
+    public Tree(T RootValue)
+    {
+        Root = new TreeNode<T>(RootValue);
+    }
+    public void PrintTree( string indent = " ")
+    {
+        PrintTree(this.Root , indent);
+    }
+    public  void PrintTree<T>(TreeNode<T> node, string indent = "  ")
+    {
+        Console.WriteLine(indent + node.Value);
+        foreach (var child in node.Children)
+        {
+            PrintTree(child, indent + "-");
+        }
+    }
+    public TreeNode<T> Find(T value)
+    {
+        return Root?.Find(value);
+    }
+}
+
+
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        // Creating the tree
+        var CompanyTree = new Tree<string>("CEO");
+        var Finance = new TreeNode<string>("CFO");
+        var Tech = new TreeNode<string>("CTO");
+        var Marketing = new TreeNode<string>("CMO");
+
+        // Adding departments to the CEO node
+        CompanyTree.Root.AddChild(Finance);
+        CompanyTree.Root.AddChild(Tech);
+        CompanyTree.Root.AddChild(Marketing);
+
+
+        // Adding employees to departments
+        Finance.AddChild(new TreeNode<string>("Accountant"));
+        Tech.AddChild(new TreeNode<string>("Developer"));
+        Tech.AddChild(new TreeNode<string>("Ux Designer"));
+        Marketing.AddChild(new TreeNode<string>("Social Media Manager"));
+
+        // Printing the tree
+        //PrintTree(CompanyTree.Root);
+
+
+        CompanyTree.PrintTree("-");
+
+
+        // Finding Method
+
+        if (CompanyTree.Find("Accountant") != null)
+            Console.WriteLine("Accountant is Found : -)");
+        else
+            Console.WriteLine("Accountant is not Found : (-");
+
+
+        if (CompanyTree.Find("CEO") != null)
+            Console.WriteLine("CEO is Found : -)");
+        else
+            Console.WriteLine("CEO is not Found : (-");
+
+
+
+        Console.WriteLine("\nFinding DBA...");
+        if (CompanyTree.Find("DBA") == null)
+            Console.WriteLine("Not Found :-(");
+        else
+            Console.WriteLine("Found :-)");
+
+
+        Console.ReadKey();
+    }
+    
+
+}
+
+
+
+
+
+//Delete Node
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+
+public class TreeNode<T> 
+{
+    public T Value { get; set; }
+    public List<TreeNode<T>> Children { get; set; }
+
+    public TreeNode(T value)
+    {
+        this.Value = value; 
+        Children = new List<TreeNode<T> >();
+    }
+    public void AddChild(TreeNode<T> Child) 
+    {
+        Children.Add(Child); 
+    }
+    public TreeNode<T> Find(T value)
+    {
+        if (EqualityComparer<T>.Default.Equals(Value, value))
+            return this;
+
+        foreach (var child in Children)
+        {
+            var found = child.Find(value);
+            if (found != null)
+                return found;
+        }
+
+        return null; // Not found
+    }
+
+
+  
+    public bool Delete(T value)
+    {
+        // Check if value is a direct child
+        var childToRemove = Children.FirstOrDefault(c => EqualityComparer<T>.Default.Equals(c.Value, value));
+        if (childToRemove != null)
+        {
+            Children.Remove(childToRemove);
+            return true;
+        }
+
+        // Otherwise, recurse into children
+        foreach (var child in Children)
+        {
+            if (child.Delete(value))
+                return true;
+        }
+
+        return false; // Not found
+    }
+
+}
+public class Tree<T>
+{
+    public TreeNode<T> Root { get;private set; }
+
+    public Tree(T RootValue)
+    {
+        Root = new TreeNode<T>(RootValue);
+    }
+    public void PrintTree( string indent = " ")
+    {
+        PrintTree(this.Root , indent);
+    }
+    public  void PrintTree<T>(TreeNode<T> node, string indent = "  ")
+    {
+        Console.WriteLine(indent + node.Value);
+        foreach (var child in node.Children)
+        {
+            PrintTree(child, indent + "-");
+        }
+    }
+    public TreeNode<T> Find(T value)
+    {
+        return Root?.Find(value);
+    }
+    public bool Delete(T value)
+    {
+        if (EqualityComparer<T>.Default.Equals(Root.Value, value))
+        {
+            Console.WriteLine("Cannot delete the root node!");
+            return false;
+        }
+        return Root.Delete(value);
+        
+
+    }
+
+}
+
+
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        // Creating the tree
+        var CompanyTree = new Tree<string>("CEO");
+        var Finance = new TreeNode<string>("CFO");
+        var Tech = new TreeNode<string>("CTO");
+        var Marketing = new TreeNode<string>("CMO");
+
+        // Adding departments to the CEO node
+        CompanyTree.Root.AddChild(Finance);
+        CompanyTree.Root.AddChild(Tech);
+        CompanyTree.Root.AddChild(Marketing);
+
+
+        // Adding employees to departments
+        Finance.AddChild(new TreeNode<string>("Accountant"));
+        Tech.AddChild(new TreeNode<string>("Developer"));
+        Tech.AddChild(new TreeNode<string>("Ux Designer"));
+        Marketing.AddChild(new TreeNode<string>("Social Media Manager"));
+
+        // Printing the tree
+        //PrintTree(CompanyTree.Root);
+
+
+        CompanyTree.PrintTree("-");
+
+
+        // Finding Method
+
+        if (CompanyTree.Find("Accountant") != null)
+        {
+            Console.WriteLine("Accountant is Found : -)");
+            if (CompanyTree.Delete("Accountant"))
+            {
+                Console.WriteLine("Accountant is removed : -)");
+
+            }
+        }
+        else
+            Console.WriteLine("Accountant is not Found : (-");
+
+
+        CompanyTree.PrintTree("-");
+
+
+
+        if (CompanyTree.Find("Developer") != null)
+        {
+            Console.WriteLine("Developer is Found : -)");
+            if (CompanyTree.Delete("Developer"))
+            {
+                Console.WriteLine("Developer is removed : -)");
+
+            }
+        }
+        else
+            Console.WriteLine("Developer is not Found : (-");
+
+        CompanyTree.PrintTree("-");
+
+
+        Console.WriteLine("\nFinding DBA...");
+        if (CompanyTree.Find("DBA") == null)
+            Console.WriteLine("Not Found :-(");
+        else
+            Console.WriteLine("Found :-)");
+
+
+        Console.ReadKey();
+    }
+    
+
+}

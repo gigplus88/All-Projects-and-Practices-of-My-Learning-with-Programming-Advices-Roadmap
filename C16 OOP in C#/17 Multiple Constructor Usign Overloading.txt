@@ -1,0 +1,56 @@
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Simple.Calculator
+{
+    class clsPerson
+    {
+        public int ID { get; set; }
+        public string Name { get; set; }
+        public short Age { get; set; }
+
+        public clsPerson()
+        {
+            this.ID = -1;
+            this.Name = "Empty";
+            this.Age = 0;
+
+        }
+
+        public clsPerson(int ID , string Name , short Age)
+        {
+            this.ID = ID;
+            this.Name = Name;
+            this.Age = Age;
+        }
+
+    }
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+
+            clsPerson Person1 = new clsPerson();
+
+            Console.WriteLine("ID:{0}", Person1.ID);
+            Console.WriteLine("Name:{0}", Person1.Name);
+            Console.WriteLine("Age:{0}", Person1.Age);
+
+            Console.WriteLine("\n\nCalling Parametarized Construcor");
+
+            clsPerson Person2 = new clsPerson(12 , "Saad" , 24);
+
+            Console.WriteLine("ID:{0}", Person2.ID);
+            Console.WriteLine("Name:{0}", Person2.Name);
+            Console.WriteLine("Age:{0}", Person2.Age);
+
+
+
+
+        }
+    }
+}

@@ -1,0 +1,95 @@
+
+#include <iostream>
+#include <cmath>
+#include <string>
+using namespace std;
+
+
+void ReadTotalSales(float &TotalSales)
+{
+    cout << "enter your TotalSales please " << endl;
+    cin >> TotalSales;
+
+}
+
+float PrintFor1(float &TotalSales, float &TotalCommission )
+{
+   return TotalCommission = TotalSales * 0.01;
+
+}
+
+float PrintFor2(float &TotalSales, float &TotalCommission)
+{
+    return TotalCommission = TotalSales * 0.02;
+
+}
+
+float PrintFor3(float &TotalSales, float &TotalCommission)
+{
+    return  TotalCommission = TotalSales * 0.03;
+
+}
+
+float PrintFor5(float &TotalSales, float &TotalCommission)
+{
+    return TotalCommission = TotalSales * 0.05;
+
+}
+
+float PrintFor0(float &TotalSales, float &TotalCommission)
+{
+    return TotalCommission = TotalSales * 0;
+
+}
+
+
+int main()
+{
+   
+    float TotalSales  , TotalCommission=0.0;
+
+
+    ReadTotalSales(TotalSales);
+
+    if (TotalSales > 1000000 )
+    {
+       cout<< PrintFor1(TotalSales, TotalCommission);
+    
+    }
+
+    else if (TotalSales >= 500000 && TotalSales <= 1000000)
+
+    {
+        cout << PrintFor2(TotalSales, TotalCommission);
+
+
+    }
+
+    else if (TotalSales > 100000 && TotalSales <= 500000)
+
+    {
+        cout << PrintFor3(TotalSales, TotalCommission);
+
+
+    }
+
+    else if (TotalSales > 50000 && TotalSales <= 100000)
+
+    {
+        cout << PrintFor5(TotalSales, TotalCommission);
+
+
+    }
+
+    else 
+
+    {
+        cout << PrintFor0(TotalSales, TotalCommission);
+
+
+    }
+
+
+    return 0;
+}
+

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>CSS Padding Practice Activity</title>
+  <style>
+  * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+     body {
+      font-family: Arial, sans-serif;
+      line-height: 1.5;
+      padding: 1rem;
+      height: 3000px;
+    }
+    .demo-block {
+      background: #8fa;
+      color: #110909;
+      padding: 1rem;
+      margin-bottom: 1rem;
+      border-radius: 4px;
+    }
+    .demo-inline-convert {
+      background: #cce5ff;
+      color: #070;
+      margin-right: 0.5rem;
+      display: inline-block;
+    }
+
+    nav ul {
+      padding: 0.5rem;
+      background: #0b0f13;
+      border-radius: 4px;
+      list-style: none;
+
+    }
+    nav li {
+      list-style: none;
+      margin-bottom: 0.5rem;
+      margin-left: 1rem;
+      display: inline-block;
+      padding: 5px;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: rgb(239, 240, 239);
+      padding: 0.5rem 1rem;
+    }
+     nav a:hover {
+      border: #0c7ef0 1px solid;
+      border-radius: 5px;
+      background-color: #b1b6bb;
+      color: #110909;
+    }
+
+    .inline {
+      display: inline;
+      padding: 0.5rem 1rem;
+      background: #8fa;
+      border: 1px solid #070;
+      color: #070;
+      cursor: pointer;
+    }
+    .inline-block {
+      display: inline-block;
+      padding: 0.5rem 1rem;
+      background: #a8f;
+      border: 1px solid #707;
+      color: #070;
+      cursor: pointer;
+    }
+    button {
+      border: none;
+      border-radius: 8px;
+      cursor:pointer;
+ 
+     
+    }
+
+  </style>
+
+
+</head>
+<body>
+ <section>
+    <h2>1) Convert & Observe</h2>
+    <p>Default (block):</p>
+    <div class="demo-block">I am <code>display: block</code> (full width).</div>
+    <p>Converted (inline):</p>
+    <div class="demo-inline-convert">I am <code>display: inline</code></div>
+    <div class="demo-inline-convert">so I flow side by side</div>
+    <p class="note">Notice how the inline elements sit on the same line, only as wide as their content.</p>
+  </section>
+
+
+   <section>
+    <h2>2) Nav Menu (inline-block on <li>)</h2>
+    <nav>
+      <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="#">About</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+    </nav>
+    <p class="note">Each `<li>` is <code>display: inline-block</code>, allowing padding and margins without breaking the line.</p>
+  </section>
+
+   
+    <section>
+        <h2>3) Button Styling: inline vs inline-block</h2>
+        <p>
+        <button class="inline">Inline Button</button>
+        <button class="inline-block">Inline-Block Button</button>
+        </p>
+        <p class="note">
+        The <code>inline</code> button cannot have its width/height adjusted independently,  
+        whereas the <code>inline-block</code> button respects width/height and margins.
+        </p>
+  </section>
+
+</body>
+</html>

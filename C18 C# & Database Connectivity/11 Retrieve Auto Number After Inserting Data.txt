@@ -1,0 +1,111 @@
+using System;
+using System.Data;
+using System.Net;
+using System.Data.SqlClient;
+using System.ComponentModel;
+using System.Security.Policy;
+
+public class Program
+{
+    static string connectionString = "Server=.;Database=Contacts; User Id=sa;Password=123456;"; // Replace with your actual connection string
+
+    public struct StContact
+    {
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string Email { get; set; }
+        public string Phone { get; set; }
+        public string Address { get; set; }
+        public int CountryID { get; set; }
+    }
+    
+    class clsContact
+    {
+        public string FirstName{ get; set; }
+        public string LastName { get; set; }
+        public string Email { get; set; }
+        public string Phone { get; set; }
+        public string Address { get; set; }
+        public int CountryID { get; set; }
+        public clsContact(string FirstName , string LastName, string Email , string Phone , string Address , int CountryID)
+        {
+            this.FirstName = FirstName;
+            this.LastName = LastName;
+            this.Email = Email;
+            this.Phone = Phone;
+            this.Address = Address;
+            this.CountryID = CountryID;
+        }
+    }
+    static void AddNewContactAndGetID(StContact NewContact)
+    {
+        SqlConnection connection = new SqlConnection(connectionString);
+
+        string Quer = @"INSERT INTO Contacts(FirstName ,LastName,Email ,Phone ,Address,CountryID) 
+                      VALUES (@FirstName ,@LastName,@Email ,@Phone ,@Address,@CountryID);
+                      Select SCOPE_IDENTITY() ;";
+
+        SqlCommand command = new SqlCommand(Quer , connection);
+
+        command.Parameters.AddWithValue("@FirstName", NewContact.FirstName);
+        command.Parameters.AddWithValue("@LastName", NewContact.LastName);
+        command.Parameters.AddWithValue("@Email", NewContact.Email);
+        command.Parameters.AddWithValue("@Phone", NewContact.Phone);
+        command.Parameters.AddWithValue("@Address", NewContact.Address);
+        command.Parameters.AddWithValue("@CountryID", NewContact.CountryID);
+
+        try
+        {
+            connection.Open();
+
+            // ExecuteScalar dos the insert then get the first column of first row
+            object result = command.ExecuteScalar();
+
+            if (result != null && int.TryParse(result.ToString() , out int InsertedID))
+            {
+                Console.WriteLine($"New inserted ID is : {InsertedID}");
+            }
+
+            else
+            {
+                Console.WriteLine($"New inserted ID is failed ");
+            }
+
+            connection.Close();
+        }
+
+        catch(Exception ex)
+        {
+            Console.WriteLine("Error: " + ex.Message);
+        }
+
+    }
+    
+
+    
+    
+
+
+    public static void Main()
+    {
+        //PrintAllContacts();
+
+        StContact Contact = new StContact()
+        {
+            FirstName ="Laila" ,
+            LastName = "Ibrahim",
+            Email = "Laila@gmail.com",
+            Phone = "0734234523",
+            Address = "Meknes b14 ",
+            CountryID = 2
+        };
+        AddNewContactAndGetID(Contact);
+        
+
+      
+        Console.ReadKey();
+    }
+
+}
+
+

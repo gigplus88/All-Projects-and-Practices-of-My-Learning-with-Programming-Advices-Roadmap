@@ -1,0 +1,23 @@
+!DOCTYPE html
+html lang=en
+head
+    meta charset=UTF-8
+    meta name=viewport content=width=device-width, initial-scale=1.0
+    titleTable Exampletitle
+    style
+     
+    style
+   
+head
+body style=font-size20px
+    
+    p style=align-items center;
+
+        audio controls autoplay loop
+            source src=audiosدفاعا عن النفس_1-mc.mp3 type=audiompeg
+            source src=audiosدفاعا عن النفس_1-mc.ogg type=audioogg
+            Your browser does not support the audio element.
+        audio
+
+    p
+html

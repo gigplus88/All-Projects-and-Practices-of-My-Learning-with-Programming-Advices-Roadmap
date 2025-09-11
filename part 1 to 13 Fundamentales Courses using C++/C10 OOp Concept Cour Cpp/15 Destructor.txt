@@ -1,0 +1,54 @@
+#include <iostream>
+#include <iostream>
+#include <fstream>
+#include <string>
+#include <vector>
+#include <iomanip>
+
+using namespace std;
+
+
+class clsPerson
+{
+    string _FullName;
+
+public:
+   
+    clsPerson()
+    {
+        _FullName = "Ayoub Fellah";
+
+        cout << "\nHi I m Constructor";
+    }
+
+    ~clsPerson()
+    {
+
+        cout << "\nHi I m Destructor";
+    }
+
+};
+
+void Fun1()
+{
+    clsPerson Person1;
+}
+
+void Fun2()
+{
+    clsPerson *Person2 = new clsPerson;
+
+    delete Person2;
+}
+
+
+int main()
+
+{
+
+    Fun1();
+    Fun2();
+
+    system("pause>0");
+    return 0;
+}

@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Showcase CV – Cover Sidebar (CSS-only)</title>
+
+  <style>
+    /* ================================================================
+       🎨 THEME TOKENS (change once, theme everywhere)
+    ================================================================ */
+    :root {
+      --bg: #f8fafc;            /* page background */
+      --back-top: #547ddf;
+      --ink: #0f172a;           /* main text color */
+      --muted: #64748b;         /* secondary text */
+      --card: #ffffff;          /* card background */
+      --line: #e2e8f0;          /* borders */
+      --accent-a: #6366f1;      /* indigo */
+      --accent-b: #22c55e;      /* green */
+      --shadow: 0 10px 30px rgba(2,6,23,0.08);
+      --radius: 16px;
+
+      --space-1: 6px; --space-2: 10px; --space-3: 14px;
+      --space-4: 20px; --space-5: 28px; --space-6: 40px;
+
+      --sidebar-w: 320px;       /* left cover width */
+      --maxw: 1200px;           /* page max width */
+    }
+
+    /* Auto Dark Mode (no manual toggle here) */
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #0b1220;
+        --ink: #e5e7eb;
+        --muted: #9aa3b2;
+        --card: #0f172a;
+        --line: #1f2a44;
+        --shadow: none;
+      }
+    }
+
+    /* ================================================================
+       🧱 BASE + LAYOUT GRID (sidebar | content)
+    ================================================================ */
+    *,*::before,*::after{ box-sizing: border-box; }
+    html{ scroll-behavior: smooth; }
+    body{ margin:0; font:16px/1.6 system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; color:var(--ink); background:var(--bg); }
+    img{ max-width:100%; display:block }
+    a{ color:var(--accent-a); text-decoration:none }
+    a:hover{ text-decoration:underline }
+
+    .wrap{
+      max-width: var(--maxw);
+      margin: 0 auto;
+      display:grid;
+      grid-template-columns: var(--sidebar-w) 1fr;
+      min-height: 100svh;
+    }
+    @media (max-width: 960px){ .wrap{ grid-template-columns: 1fr; } }
+
+    /* ================================================================
+       ◀️ COVER SIDEBAR (sticky, full height look)
+    ================================================================ */
+    .cover{
+      position: sticky; top: 0; align-self: start; min-height: 100svh;
+      background:
+        linear-gradient( to bottom, rgba(15,23,42,0.60), rgba(15,23,42,0.35) ),
+        url('images/MyImage.jpg') center/cover no-repeat; /* ✅ your image */
+      color: #ecfeff;
+      display: grid; grid-template-rows: auto 1fr auto; gap: var(--space-5);
+      padding: var(--space-5);
+    }
+    @media (max-width: 960px){
+      .cover{ position: relative; min-height: 60svh; border-bottom: 1px solid var(--line); }
+    }
+
+    .me{ display:grid; grid-template-columns: 95px 1fr; gap: var(--space-3); align-items:center }
+    .avatar{ width:88px; height:88px; border-radius:50%; overflow:hidden; border:3px solid rgba(255,255,255,.45); box-shadow: 0 4px 18px rgba(0,0,0,.2) }
+    .avatar img{ width:100%; height:100%; object-fit:cover; object-position:center }
+    .name{ margin:0; font-size: clamp(22px, 4vw, 28px); line-height:1.2 }
+    .role{ margin:.25rem 0 0; opacity:.95 }
+
+    /* Cover navigation (anchors to sections) */
+    .nav{ display:grid; gap: 18px }
+    .nav a{
+      display:flex; justify-content:center; 
+      gap:8px; align-items: center;
+      grid-template-columns: 1fr; 
+      padding:8px 8px; border-radius:12px;
+      color:#ecfeff; text-decoration:none;
+      background: rgba(255,255,255,.14);
+      border:1px solid rgba(255,255,255,.15);
+      transition: transform 0.4s;
+    }
+    .nav a:hover{ background: rgba(255,255,255,.24) ; 
+                  transform: scale(1.1); }
+
+    /* Pure CSS "active" link using :has(:target) */
+    :root:has(#about:target)     .nav a[href="#about"],
+    :root:has(#skills:target)    .nav a[href="#skills"],
+    :root:has(#experience:target) .nav a[href="#experience"],
+    :root:has(#projects:target)  .nav a[href="#projects"],
+    :root:has(#education:target) .nav a[href="#education"],
+    :root:has(#hobbies:target) .nav a[href="#hobbies"]{
+      outline: 2px solid rgba(255,255,255,.75);
+      outline-offset: 2px;
+    }
+
+    /*Update target item*/
+    #about:target , #skills:target , #experience:target ,
+     #projects:target ,#education:target,#hobbies:target {
+      outline: 1px solid black;
+      outline-offset: 2px;
+    }
+   
+    /* Default highlight (when no hash yet) */
+    :root:not(:has(:target)) .nav a[href="#about"]{
+      outline: 2px solid rgba(255,255,255,.5);
+      outline-offset: 2px;
+    }
+
+    .social{ display:flex; gap:12px; flex-wrap:wrap; font-size:14px }
+    .social a{ color:#cffafe ; border: 1px solid white;
+                border-radius: 999px; padding: 5px;
+                text-decoration: none;}
+        
+    .social a:hover{ background-color:#cffafe38 ; }
+
+
+    /* ================================================================
+       ▶️ CONTENT COLUMN
+    ================================================================ */
+    .content{ padding: var(--space-6); display:grid; gap: var(--space-6); }
+    @media (max-width: 640px){ .content{ padding: var(--space-4); } }
+
+    /* Card-like section container */
+    .section{
+      background: var(--card);
+      border:1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: var(--space-5);
+    }
+
+    /* Heading with underline that animates when section is targeted */
+    .section h2{
+      margin: 0 0 12px;
+      font-size: clamp(22px, 3.5vw, 28px);
+      position: relative;
+    }
+    .section h2::after{
+      content:""; position:absolute; left:0; bottom:-6px; width:120px; height:3.5px;
+      background: linear-gradient(90deg, var(--accent-a), var(--accent-b));
+      transform-origin: left; transform: scaleX(.2);
+      transition: transform .6s ease;
+    }
+    /* When a section is the :target, grow the underline */
+    .section:target h2::after{ transform: scaleX(1); }
+
+    /* Simple chips */
+    .chips{ display:flex; flex-wrap:wrap; gap:8px }
+    .chip{
+      padding:6px 10px; border:1px solid var(--line);
+      border-radius:999px; font-size:12px;
+      background: color-mix(in srgb, var(--card) 85%, #fff0 15%);
+    }
+
+    /* Experience timeline (left border) */
+    .timeline{ border-left: 3px solid var(--line); padding-left: var(--space-5); display:grid; gap: 18px; }
+    .tl-item{ position:relative }
+    .tl-item::before{
+      content:""; position:absolute; left:-28px; top:4px; width:14px; height:14px; border-radius:0%;
+      background: linear-gradient(90deg, var(--accent-a), var(--accent-b));
+      box-shadow: 0 0 0 4px color-mix(in srgb, var(--card) 60%, #fff0 40%);
+      transition: transform 2s;
+    }
+
+    .tl-item:hover::before{
+      transform: rotate(360deg);
+    }
+    .tl-role{ font-weight:700 }
+    .tl-role a{ color: var(--back-top); margin-top: 7px;}
+    .tl-role a:hover{ color: rgb(109, 161, 25) }
+
+    .tl-meta{ color: var(--muted); font-size:14px }
+
+    /* Projects grid with subtle 3D tilt (CSS-only hover) */
+    .projects{ display:grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-4); }
+    @media (max-width: 1000px){ .projects{ grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 640px){ .projects{ grid-template-columns: 1fr; } }
+    .proj1 ,.proj2,.proj3{
+      background: var(--card); border:1px solid var(--line);
+      border-radius: 14px; padding: 16px;
+      transition: transform .2s ease, box-shadow .2s ease;
+      will-change: transform;
+    }
+    .proj3:hover{
+      transform: perspective(600px) rotateX(2deg) rotateY(-20deg) translateY(20px);
+      box-shadow: 0 14px 30px rgba(2,6,23,0.12)
+    }
+     .proj1:hover{
+      transform: perspective(600px) rotateX(-2deg) rotateY(20deg) translateY(20px);
+      box-shadow: 0 14px 30px rgba(2,6,23,0.12)
+    }
+     .proj2:hover{
+      transform: perspective(600px) scale(1.1);
+      box-shadow: 0 14px 30px rgba(2,6,23,0.12)
+    }
+    .proj1 h3 ,.proj2 h3 ,.proj3 h3{ margin:0 0 6px; font-size:16px; text-transform:uppercase; letter-spacing:.3px; color:var(--muted) }
+
+    /* Utility text */
+    .muted{ color: var(--muted) }
+    .lead{ font-size: 18px; color: var(--muted); margin-top:4px }
+
+    /* Print */
+    @media print{
+      .cover{ color:#000; background: none; border-right: 0 }
+      a{ color:#000; text-decoration:none }
+      .proj:hover{ transform:none; box-shadow:none }
+      .section{ box-shadow:none }
+    }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <!-- =============================== COVER SIDEBAR =============================== -->
+    <aside class="cover" aria-label="Cover">
+      <!-- Top: photo + name -->
+      <div class="me">
+        <div class="avatar" role="img" aria-label="Profile photo">
+          <img src="images/MyImage.jpg" alt="Your Name portrait" loading="lazy" />
+        </div>
+        <div>
+          <h1 class="name">YOUR NAME</h1>
+          <p class="role">Front-End Developer • UI Engineer</p>
+        </div>
+      </div>
+
+      <!-- Middle: in-page navigation (anchors) -->
+      <nav class="nav" aria-label="Section navigation">
+        <a href="#about">About</a>
+        <a href="#skills">Skills</a>
+        <a href="#experience">Experience</a>
+        <a href="#projects">Projects</a>
+        <a href="#education">Education</a>
+        <a href="#hobbies">Hobbies</a>
+      </nav>
+
+      <!-- Bottom: quick social/contact -->
+      <div class="social" aria-label="Quick links">
+        <a href="mailto:you@example.com">you@example.com</a>
+        <a href="https://your-portfolio.example" target="_blank" rel="noopener">Portfolio</a>
+        <a href="https://www.linkedin.com/in/your-profile" target="_blank" rel="noopener">LinkedIn</a>
+      </div>
+    </aside>
+
+    <!-- ================================ CONTENT ================================= -->
+    <section class="content" aria-label="Main content">
+      <!-- Each real section has an ID for anchors and :target styles -->
+      <section id="about" class="section" aria-labelledby="about-title">
+        <h2 id="about-title">About</h2>
+        <p class="lead">
+          Impact-driven developer focused on accessible, fast, and delightful user interfaces.
+          I love design systems, CSS architecture, and performance.
+        </p>
+        <div class="chips" style="margin-top:10px">
+          <span class="chip">Morooco, Fes</span>
+          <span class="chip">Arabic (Native)</span>
+          <span class="chip">English (Professional)</span>
+        </div>
+      </section>
+
+      <section id="skills" class="section" aria-labelledby="skills-title">
+        <h2 id="skills-title">Skills</h2>
+        <p class="muted">Core strengths and tools I use daily.</p>
+        <div class="chips" style="margin-top:10px">
+          <span class="chip">Semantic HTML</span>
+          <span class="chip">Modern CSS</span>
+          <span class="chip">Accessibility (a11y)</span>
+          <span class="chip">Git & GitHub</span>
+          <span class="chip">Figma</span>
+          <span class="chip">Chrome DevTools</span>
+        </div>
+      </section>
+
+      <section id="experience" class="section" aria-labelledby="exp-title">
+        <h2 id="exp-title">Experience</h2>
+        <div class="timeline">
+          <div class="tl-item">
+            <div class="tl-role">Senior Front-End Developer</div>
+            <div class="tl-meta">Tech Co • Amman • 2023 — Present</div>
+            <ul class="muted">
+              <li>Built a reusable component library; cut CSS by 30%.</li>
+              <li>Led a11y improvements to WCAG 2.1 AA; documented patterns.</li>
+            </ul>
+          </div>
+          <div class="tl-item">
+            <div class="tl-role">Web Designer</div>
+            <div class="tl-meta">Creative Studio • Remote • 2020 — 2023</div>
+            <ul class="muted">
+              <li>Prototyped 12 marketing sites; established a mini design system.</li>
+              <li>Delivered clean, semantic HTML/CSS handoffs to devs.</li>
+            </ul>
+          </div>
+        </div>
+         <div>
+            <div class="tl-role"><a href="#about">↑ Back to top</a></div>
+          </div>
+      </section>
+
+      <section id="projects" class="section" aria-labelledby="proj-title">
+        <h2 id="proj-title">Selected Projects</h2>
+        
+        <div class="projects">
+          <a class="proj1" href="#" aria-label="Portfolio Website">
+            <h3>Portfolio Website</h3>
+            <p class="muted">Static site >95 Lighthouse Performance, CI/CD previews.</p>
+          </a>
+
+          <a class="proj2" href="#" aria-label="Design System Demo">
+            <h3>Design System Demo</h3>
+            <p class="muted">Token-based theming with CSS variables; documented components.</p>
+          </a>
+
+          <a class="proj3" href="#" aria-label="A11y Audit Toolkit">
+            <h3>A11y Audit Toolkit</h3>
+            <p class="muted">Checklists to raise Accessibility scores.</p>
+          </a>
+
+        </div>
+         <div>
+            <div class="tl-role"><a href="#about">↑ Back to top</a></div>
+          </div>
+      </section>
+
+      <section id="education" class="section" aria-labelledby="edu-title">
+        <h2 id="edu-title">Education</h2>
+        <p><strong>B.Sc. in Computer Science</strong><br/>University Name • 2016 — 2020</p>
+        <ul class="muted">
+          <li>Graduated with Honors</li>
+          <li>Key courses: HCI, Data Structures, Databases</li>
+        </ul>
+         <div>
+            <div class="tl-role"><a href="#about">↑ Back to top</a></div>
+          </div>
+      </section>
+      
+      <section id="hobbies" class="section" aria-labelledby="exp-title">
+        <h2 id="exp-title">Hobbies</h2>
+        <div class="timeline">
+          <div class="tl-item">
+            <div class="tl-role">Footballr</div>
+           
+          </div>
+          <div class="tl-item">
+            <div class="tl-role">Swimming</div>
+          </div>
+
+           <div class="tl-item">
+            <div class="tl-role">King Boxing</div>
+          </div>
+
+           <div>
+            <div class="tl-role"><a href="#about">↑ Back to top</a></div>
+          </div>
+
+      </section>
+
+    </section>
+  </main>
+</body>
+</html>

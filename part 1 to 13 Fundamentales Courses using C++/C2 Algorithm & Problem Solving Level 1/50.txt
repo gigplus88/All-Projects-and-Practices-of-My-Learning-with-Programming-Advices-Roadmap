@@ -1,0 +1,65 @@
+
+#include <iostream>
+#include <cmath>
+#include <string>
+using namespace std;
+
+
+void ReadATMBalancecode( int& ATMBalanceCode)
+{
+    cout << "enter your ATM PIN code please " << endl;
+    cin >> ATMBalanceCode;
+
+}
+
+void PrintUSERBalance(int& ATMBalanceCode ,int goodjob)
+{
+    while (ATMBalanceCode==1234)
+    {
+        cout << "Your Balance Is: 7500" << endl;
+        cin >> goodjob;
+
+    }
+}
+
+void PrintWrongPassword (int&ATMBalanceCode  )
+{
+    int i;
+
+    i = 1;
+    while (ATMBalanceCode != 1234 && i <=2)
+    {
+        cout << "Wrong Password,enter your code  pleas" << endl;
+        cin >> ATMBalanceCode;
+       
+        i++;
+
+    }
+    cout << "Card locked" << endl;
+
+
+}
+
+
+
+int main()
+{
+
+    int ATMBalanceCode = 0, i, goodjob = 0;
+
+    ReadATMBalancecode(ATMBalanceCode);
+    PrintUSERBalance(ATMBalanceCode, goodjob);
+    PrintWrongPassword( ATMBalanceCode);
+
+
+  
+    return 0;
+}
+
+
+
+
+
+
+
+
