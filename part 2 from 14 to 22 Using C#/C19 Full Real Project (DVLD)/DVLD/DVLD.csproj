@@ -949,6 +949,15 @@
     <Content Include="Resources2\Written Test 32.png" />
     <Content Include="Resources2\Written Test 512.png" />
     <Content Include="Resources\Add Person 72.png" />
+    <None Include="Resources\Blue Car Driving For Men Facebook Post8.png" />
+    <None Include="Resources\Blue Car Driving For Men Facebook Post7.png" />
+    <None Include="Resources\Blue Car Driving For Men Facebook Post6.png" />
+    <None Include="Resources\Blue Car Driving For Men Facebook Post5.png" />
+    <None Include="Resources\Blue Car Driving For Men Facebook Post4.png" />
+    <None Include="Resources\Blue Car Driving For Men Facebook Post3.png" />
+    <None Include="Resources\Blue Car Driving For Men Facebook Post2.png" />
+    <None Include="Resources\Blue Car Driving For Men Facebook Post1.png" />
+    <None Include="Resources\Blue Car Driving For Men Facebook Post.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

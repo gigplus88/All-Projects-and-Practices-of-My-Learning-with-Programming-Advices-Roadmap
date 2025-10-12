@@ -43,6 +43,8 @@ namespace DVLD
         {
             lblWelcomeMessage.Text = clsGlobalSettings.CurrentUser.UserName;
             lblVersion.Text = "DVLD " + clsGlobalSettings.Version;
+            this.Controls.SetChildIndex(gbWelcome, 0);
+
         }
 
         private void peopleToolStripMenuItem1_Click(object sender, EventArgs e)
