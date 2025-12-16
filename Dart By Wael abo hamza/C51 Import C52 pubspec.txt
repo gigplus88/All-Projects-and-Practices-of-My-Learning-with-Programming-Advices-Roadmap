@@ -1,0 +1,38 @@
+import 'dart:math'; // import built in package
+import 'core/functions.dart'; // importing folders
+
+void main() {
+  printName("Saad");
+}
+
+
+
+
+//pubspec.yaml
+
+version:1.0.0 // Version of app 
+
+1-> للاصدار الرئيسي ، رفعها يدل على اضافة مزايا لا تتوافق مع الاصدار القديم
+0 الاولى : للمزايا الجديدة لمضافة للتطبيق وهي متطابقة مع التطبيق القديم
+0 الثانية:  للاصلاح القائم على الاصدار الذي رفعته
+
+
+
+environment    sdk: 3.9.4
+
+//dependencies: لمكتبات المطلوبة لعمل التطبيق
+
+// dev_dependencies : للمكتبات التي يحتاجها المطور أثناء تطويره للتطبيق
+
+
+
+لتحميل package لابد من تحميلها على pub.dev
+ثم أكتبها على terminal
+
+
+import 'dart:math'; // import built in package
+import 'core/functions.dart'; // importing folders
+import 'package:http/http.dart';
+void main() {
+  printName("Saad");
+}

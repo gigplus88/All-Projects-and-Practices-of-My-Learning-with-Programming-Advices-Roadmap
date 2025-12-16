@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1 id="Activity">Press Start</h1>
+
+    <button onclick="startProcess()" id="startButton">Start</button>
+    <script>
+
+        function startProcess() {
+            let count = 0;
+            let activityHeader = document.getElementById("Activity");
+            // This function will execute after a delay of 3 seconds
+                activityHeader.textContent = "Starting Soon...";
+
+                setTimeout( () => {
+                activityHeader.textContent = "Running...";
+                    
+                    count++;
+                    let interval = setInterval( () => {
+                        if (count === 5) {
+                        activityHeader.textContent = "Process Complete!";
+                        clearInterval(interval);
+                        return;
+                    }
+                    activityHeader.textContent = `Running...${count}`;
+                    count++;
+
+                    }, 1000);
+                }, 2000);
+                
+            
+     
+    }
+    </script>
+  </body>
+</html>

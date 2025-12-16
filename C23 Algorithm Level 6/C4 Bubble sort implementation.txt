@@ -1,0 +1,72 @@
+using System;
+using System.Diagnostics;
+
+
+class LinearSearchExample
+{
+    // Method to perform binary search
+  
+    static void BubbleSearch(int[] arr)
+    {
+        int n = arr.Length;
+        int temp;
+        //for (int j = 0; j < n; j++)
+        //{
+        //    for (int i = j+1;i <n ; i++)
+        //    {
+        //        if (arr[i] <= arr[j])
+        //        {
+        //            //temp = arr[j];
+        //            //arr[j] = arr[i];
+        //            //arr[i] = temp;
+        //            (arr[j], arr[i]) = (arr[i] , arr[j]);
+        //        }
+        //        j++;
+        //    }
+        //    n--;
+        //}
+
+        for (int i = 0; i < n - 1; i++)
+            for (int j = 0; j < n - i - 1; j++)
+                if (arr[j] > arr[j + 1])
+                {
+                    // Swap temp and arr[i]
+                     temp = arr[j];
+                    arr[j] = arr[j + 1];
+                    arr[j + 1] = temp;
+                }
+
+    }
+
+
+
+    // Driver code
+    static void Main(string[] args)
+    {
+      
+        int[] arr = { 22, 25, 89, 41, 45, 46, 49, 59, 55, 58, 70, 80, 82, 90, 95  }; // Sorted array
+        
+
+        Console.WriteLine(" Array before sorting:");
+        foreach (var item in arr)
+            Console.Write(item + " ");
+        Console.WriteLine();
+
+
+        Stopwatch stopwatch = new Stopwatch();
+        stopwatch.Start();
+
+        BubbleSearch(arr);
+
+        stopwatch.Stop();
+
+        Console.WriteLine($"Binary search time has {stopwatch.Elapsed} .");
+
+        foreach (var item in arr)
+            Console.Write(item + " ");
+
+
+
+        Console.ReadKey();
+    }
+}

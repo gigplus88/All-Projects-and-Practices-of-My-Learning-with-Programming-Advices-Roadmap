@@ -1,0 +1,103 @@
+import 'dart:ffi';
+import 'dart:math'; // import built in package
+import 'core/functions.dart'; // importing folders
+import 'package:http/http.dart';
+
+enum Validations { enter, delete, update }
+
+void main() {
+  People people = People();
+
+  people.printName();
+  Users user = Users();
+
+  user.printName();
+
+  people.addCount();
+  people.addCount();
+  people.PrintCount();
+
+  people.addCount();
+
+  people.PrintCount();
+  people.addCount();
+  people.PrintCount();
+
+  People people2 = People();
+  people2.addCount();
+  people2.PrintCount();
+
+
+  KIA k = KIA();
+  k.name = "Ahmed";
+  print(k.name);
+}
+
+class People {
+  String? name;
+  String? phone;
+  static int count = 0; //static variablr
+
+  printName() {
+    print("Ayoub");
+  }
+
+  addCount() {
+    count++;
+  }
+
+  PrintCount() {
+    print(count);
+  }
+}
+
+// user use in (sub or derived) class to implement
+// the parameters and methods of based class
+
+class Users extends People {
+  @override
+  printName() {
+    print("User");
+  }
+}
+
+//abstract class
+abstract class Vehicle {
+  String? name;
+  String? age;
+  Vehicle() {}
+
+  void start();
+  void stop();
+}
+
+class Bmw extends Vehicle {
+  @override
+  void start() {}
+  @override
+  bool stop() {
+    return false;
+  }
+}
+
+class Employee {
+  String? gender;
+}
+
+// KIA class says that Vehicle is Interface class
+//with Emplement keyword
+class KIA implements Vehicle, Employee {
+  @override
+  String? name;
+
+  @override
+  String? age;
+
+  @override
+  void start() {}
+  @override
+  void stop() {}
+
+  @override
+  String? gender;
+}

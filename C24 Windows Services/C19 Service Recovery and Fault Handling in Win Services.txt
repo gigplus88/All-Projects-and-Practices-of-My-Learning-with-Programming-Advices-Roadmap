@@ -1,0 +1,179 @@
+1. What is Service Recovery and Fault Handling?
+Service Recovery refers to the mechanisms that Windows Services use to respond to failures, such as restarting the service 
+automatically or running a custom program.
+Fault Handling involves writing code to detect, log, and manage errors within a service.
+
+Why are Service Recovery and Fault Handling Important?
+
+Ensures high availability of critical services.
+Reduces manual intervention when a service fails.
+Logs failures for troubleshooting and root cause analysis.
+Minimizes system downtime by automatically recovering from errors.
+
+
+
+
+
+  3. Configuring Service Recovery
+3. Configuring Service Recovery
+You can configure service recovery settings using:
+
+Services Management Console (services.msc)
+Command-Line Tools (SC Command)
+Programmatically using C#
+
+
+
+A. Using Services Management Console
+Open Run (Win + R) and type services.msc.
+Right-click the service and select Properties.
+Go to the Recovery tab.
+Configure the recovery actions for:
+First failure
+Second failure
+Subsequent failures
+Set the Restart service after delay (e.g., 60 seconds).
+Click Apply and OK.
+B. Using SC Command (Command-Line)
+You can configure recovery actions using the sc command.
+
+Syntax:
+sc failure <ServiceName> reset= <TimeInSeconds> actions= <Action1>/<Delay1>/<Action2>/<Delay2>/<Action3>/<Delay3>
+
+Actions:
+restart: Restart the service.
+run: Run a program.
+reboot: Reboot the system.
+"": No action.
+Example:
+Restart a service on first and second failure, and take no action for subsequent failures:
+
+sc failure MyCustomService reset= 86400 actions= restart/60000/restart/60000/""/0
+
+Explanation:
+reset= 86400: Reset failure count after 1 day.
+actions= restart/60000: Restart service after a 60-second delay.
+C. Programmatically Configuring Recovery Actions
+You can use PowerShell or WMI to programmatically set service recovery actions.
+
+PowerShell Example:
+
+$serviceName = "MyCustomService"
+
+# Set recovery actions
+sc.exe failure $serviceName reset= 86400 actions= restart/60000/restart/60000/""/0
+
+
+
+
+
+
+
+
+
+
+
+
+
+4. Implementing Fault Handling in Code
+To improve service resilience, implement error detection use try .. catch, logging, and handling within your service code.
+
+using System;
+using System.IO;
+using System.ServiceProcess;
+using System.Threading;
+
+namespace FaultHandlingService
+{
+    public partial class MyCustomService : ServiceBase
+    {
+        private string logFilePath = @"C:\ServiceLogs\RecoveryLog.txt";
+
+        public MyCustomService()
+        {
+            InitializeComponent();
+        }
+
+        protected override void OnStart(string[] args)
+        {
+            LogEvent("Service Started");
+
+            // Start a background task with fault handling
+            Thread workerThread = new Thread(WorkerTask);
+            workerThread.Start();
+        }
+
+        protected override void OnStop()
+        {
+            LogEvent("Service Stopped");
+        }
+
+        private void WorkerTask()
+        {
+            try
+            {
+                // Simulate work
+                while (true)
+                {
+                    LogEvent("Service is running...");
+                    Thread.Sleep(5000);
+
+                    // Simulate a failure
+                    throw new Exception("Simulated error for testing recovery.");
+                }
+            }
+            catch (Exception ex)
+            {
+                LogEvent($"Error: {ex.Message}");
+                // Exit the process to simulate failure
+                Environment.Exit(1);
+            }
+        }
+
+        private void LogEvent(string message)
+        {
+            string logMessage = $"[{DateTime.Now:yyyy-MM-dd HH:mm:ss}] {message}";
+            File.AppendAllText(logFilePath, logMessage + Environment.NewLine);
+        }
+
+        public static void Main()
+        {
+            ServiceBase.Run(new MyCustomService());
+        }
+    }
+}
+
+
+
+
+
+
+
+
+5. Testing Service Recovery
+1- Install the Service: Use InstallUtil to install the service:
+
+cmd
+Copy code
+InstallUtil MyCustomService.exe
+
+
+2-Configure Recovery Actions: Set recovery actions using the SC command:
+
+cmd
+Copy code
+sc failure MyCustomService reset= 86400 actions= restart/10000/restart/10000/""/0
+
+
+3- Simulate a Failure: Start the service and observe the logs. The service will fail, trigger recovery, and restart.
+
+4- Verify Logs: Check the log file (C:\ServiceLogs\RecoveryLog.txt) to ensure the service restarted after the failure.
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,24 @@
+import 'dart:async';
+import 'dart:math'; // import built in package
+import 'core/functions.dart'; // importing folders
+import 'package:http/http.dart';
+
+void main() async {
+  /*Stream stream = Stream.periodic(Duration(seconds: 2), (val) {
+    return val;
+  }).take(8);
+
+  stream.listen((val) {
+    print("listner  $val");
+  });*/
+
+  Stream stream2 = Stream.fromIterable([1, 2, 3, 4, 5]);
+
+  stream2
+      .listen((val) {
+        print("listner  $val");
+      })
+      .onDone(() {
+        print("End");
+      });
+}

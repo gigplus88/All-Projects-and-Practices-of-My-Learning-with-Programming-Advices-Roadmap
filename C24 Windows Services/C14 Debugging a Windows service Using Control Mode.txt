@@ -1,0 +1,5 @@
+Summary
+Adding console mode to a Windows Service simplifies debugging by allowing interactive execution.
+Use Environment.UserInteractive to differentiate between service and console modes.
+Modify the Output Type in Visual Studio to show or suppress the console window.
+After debugging, revert to Windows Application for deployment.

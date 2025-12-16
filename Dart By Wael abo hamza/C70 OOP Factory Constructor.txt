@@ -1,0 +1,48 @@
+import 'dart:math'; // import built in package
+import 'core/functions.dart'; // importing folders
+import 'package:http/http.dart';
+
+void main() {
+
+
+  People people = People(-2.0, 3.9);
+}
+
+class People {
+  final double lengh;
+  final double breath;
+  People.One(this.lengh, this.breath) {
+    double Area = lengh * breath;
+    print("Area is:{$Area}");
+  }
+
+// By factory i should use return its class or other class 
+// By factory constructor i cant use the properties of class 
+  factory People(lengh, breath) {
+    if (lengh > 0 && breath > 0) {
+      return People.One(lengh, lengh);
+    } else {
+      throw Exception("Must have more than 0");
+    }
+    
+  }
+}
+
+//Mixin have not object or constructor
+//we can extend and mixin in the same time
+// عند ارادة مشاركة الكود في أكثر من كلاص أستعمل mixin
+// I cant extend from mixin because is not class
+mixin MixinPrintName {
+  void printName() {
+    print("Name");
+  }
+
+  //abstract mehod
+  int calculateAVG();
+}
+mixin MixinPrint {
+  void printName() {
+    print("Name");
+  }
+}
+

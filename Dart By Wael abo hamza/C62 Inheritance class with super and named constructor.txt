@@ -1,0 +1,36 @@
+import 'dart:math'; // import built in package
+import 'core/functions.dart'; // importing folders
+import 'package:http/http.dart';
+
+void main() {
+  Users users = Users.manager("kokd");
+  users.printName("koko");
+
+  users.displayEmployee("Kolmen");
+}
+
+class Customers {
+  String? name;
+  Customers.manager(this.name) {
+    print("Name : $name from Parent");
+  }
+
+  printName($name) {
+    print($name);
+  }
+}
+
+// user use in (sub or derived) class to implement
+// the parameters and methods of based class
+
+
+class Users extends Customers {
+  Users.manager(super.name) : super.manager() {
+    print("Name : $name from child");
+  }
+
+  displayEmployee($name) {
+    super.printName($name);
+    printName("yy");
+  }
+}

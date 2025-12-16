@@ -1,0 +1,37 @@
+import 'dart:math';
+
+void main() {
+  int a = 3;
+  int b = 0;
+
+  try {
+    int c = a ~/ b;
+    print(c);
+  } on IntegerDivisionByZeroException // Use with Specific Exeption
+  {
+    print("Error zero");
+  } catch (error) {
+    // With error
+    print("Error in Division $error");
+  }
+
+  try {
+    String k = "Souhail";
+    int l = int.parse(k);
+    print(l);
+  } on FormatException {
+    print("Error in transformation");
+  } catch (error) {
+    print("Error in transformation $error");
+  } finally {
+    // Uses for Finql code
+    print("For final");
+  }
+
+
+  // For custom Exeption
+  int age = 12;
+  if (age < 24) {
+    throw Exception("Age can't be less than 24 ");
+  } else {}
+}

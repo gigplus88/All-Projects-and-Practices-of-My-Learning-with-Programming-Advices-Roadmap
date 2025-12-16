@@ -1,0 +1,176 @@
+void main(List<String> arguments) {
+  
+String name1 = "Said fattah";
+  String name2 = "Said fatta";
+
+  print(name1.compareTo(name2));
+  print("Print");
+
+  print(name1.contains("g"));
+
+  String VBV = name1.replaceAll(" ", "#//#");
+  print(VBV);
+
+  int x = 9;
+  if (x >= 2) {
+    print("Yes good");
+  }
+
+  switch (x) {
+    case 1:
+      print("yes");
+      break;
+    case 2:
+      print("yes");
+      break;
+    case 3:
+      print("yes");
+      break;
+
+    case 4:
+      print("yes");
+      break;
+    case 5:
+      print("yes");
+      break;
+
+    default:
+
+  }
+
+int age = 34;
+
+  assert(age > 20, "Your age is inferior of 20");
+
+  print(age);
+
+  for (var i = 0; i < 4; i++) {
+    if (i == 3) {
+      print("Your end is $i");
+      break;
+    }
+  }
+
+  List<int> i = [1, 22, 32, 45, 3];
+
+  i.sort((a, b) => b.compareTo(a));
+
+  print(i);
+
+  i.add(4);
+  i.insert(2, 55);
+  i.remove(45);
+  i.removeAt(i.indexOf(22));
+
+  print(i);
+
+  i.forEach((element) {
+    print(element);
+  });
+
+
+ List<String> names = ["Said", "Rachid", "Morad", "Zaid", "Rouya"];
+
+  List namesAfter = names.map((x) => x + " yes").toList();
+
+  print(namesAfter);
+
+  //names.removeWhere((x) => x.contains("d"));
+  //names.removeWhere((x) => x.startsWith("S"));
+  //names.removeRange(0, 3);
+  names.replaceRange(0, 2, ["Somaya" , "Rachad"  ]);
+  print(names);
+	
+	
+	List students = [1, 3, 43, 4, 43, 55, 54, 90, 100, 0, 3];
+
+  List St2 = [];
+
+  St2.add(students.where((element) => element >= 40));
+
+  print(St2);
+
+  Set Customers = {"Said", "Mohammed", "Rachad", "Sami", "Said"};
+
+  print(Customers.first);
+  print(Customers.isEmpty);
+  print(Customers.contains("m"));
+
+  Customers.add("do");
+  print(Customers);
+  Customers.addAll(["Rami", "Rami", "soad"]);
+  print(Customers);
+
+  print(Customers.length);
+  print(Customers);
+
+  print(Customers.elementAt(0));
+  //Customers.clear();
+
+  Set Customers2 = {"Mohammed", "Fatima", "Rachad", "Zaid", "Said"};
+
+  Set Cust3 = Customers.difference(Customers2);
+    print(Cust3);
+
+  Set Cust4 = Customers.intersection(Customers2);
+    print(Cust4);
+
+ Map userInfo = {"username": "Ayoubbim", "Age": 26, "Country": "Morrocco"};
+  print(userInfo);
+
+  print(userInfo.keys);
+  print(userInfo.values);
+  print(userInfo["username"]);
+
+  userInfo["username"] = "Said";
+  userInfo.remove("username");
+
+  print(userInfo);
+
+  //userInfo.clear();
+
+  userInfo.forEach((key, value) => {print("Key -> $key: Value -> $value") });
+
+
+
+
+
+
+
+
+
+// Functions
+ print("Your Name is:");
+  PrintName(6);
+
+  PrintNameWithnamed(Age: 34, Name: "Saiad");
+  PrintNameWithnamed(Age: 34);
+  PrintNameWithnamedReq(Age: 24, Name: "Rachad");
+
+  /*ar x = (int a, [int b = 5]) {
+    return a + b;                   //Anonymos function
+  };
+
+   var y= (String name) {print(name);} 
+   
+  print(x(3));
+    y("Ayoub");*/
+  var o = sumNumbers(10, 5);
+  print(o);
+  YourName("Mona"); //Arrow Function
+}
+
+sumNumbers(a, r) => (a / r);
+YourName(Name) => (print("Your Name is: $Name"));
+void PrintName(int Age, [String? Name = "Said"]) {
+  print("Welcome: $Name you age is $Age");
+}
+
+//Named Parameter
+void PrintNameWithnamed({Age, Name = "Morad"}) {
+  print("Welcome: $Name you age is $Age");
+}
+
+void PrintNameWithnamedReq({Age, required Name}) {
+  print("Welcome: $Name you age is $Age");
+}

@@ -1,0 +1,56 @@
+Summary
+
+Local Services run with minimal permissions and are restricted to local system resources.
+Network Services have additional permissions to access network resources.
+Choosing the right account for a service depends on its operational needs and security considerations.
+Tools like services.msc and programmatic installation allow you to configure the appropriate service account.
+
+
+
+
+
+Configuring Services with Local or Network Accounts
+Windows allows services to run under different built-in accounts, including LocalService and NetworkService. You can configure these in the Services Management Console (services.msc) or programmatically.
+
+Using Services.msc:
+Open Run (Win + R) and type services.msc.
+Find the service you want to configure, right-click, and select Properties.
+Go to the Log On tab.
+Select the Local Service or Network Service account.
+Restart the service for the changes to take effect.
+
+
+
+
+Programmatic Configuration
+You can configure the account for a custom Windows Service in C# during installation:
+
+using System.ServiceProcess;
+using System.Configuration.Install;
+
+[RunInstaller(true)]
+public class ProjectInstaller : Installer
+{
+    private ServiceProcessInstaller processInstaller;
+    private ServiceInstaller serviceInstaller;
+
+    public ProjectInstaller()
+    {
+        // Use NetworkService account
+        processInstaller = new ServiceProcessInstaller
+        {
+            Account = ServiceAccount.NetworkService
+        };
+
+        // Define the service
+        serviceInstaller = new ServiceInstaller
+        {
+            ServiceName = "MyCustomNetworkService",
+            DisplayName = "My Custom Network Service",
+            StartType = ServiceStartMode.Automatic
+        };
+
+        Installers.Add(processInstaller);
+        Installers.Add(serviceInstaller);
+    }
+}

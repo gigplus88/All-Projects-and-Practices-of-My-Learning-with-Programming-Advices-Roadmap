@@ -1,0 +1,17 @@
+import "./MyFirstAppComponent.css";
+
+function ArticleCmp({ name, gmail, age, children = "No content" }) {
+  return (
+    <>
+      <div>
+        <h1>{name}</h1>
+        <h3>{gmail}</h3>
+        <h3>{age}</h3>
+        <hr />
+        <div>{children}</div>
+      </div>
+    </>
+  );
+}
+
+export default ArticleCmp;

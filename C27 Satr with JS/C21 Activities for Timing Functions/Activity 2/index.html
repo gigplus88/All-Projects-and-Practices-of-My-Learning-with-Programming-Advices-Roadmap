@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: Arial, sans-serif;
+      }
+      body {
+        background-color: rgb(30, 30, 30);
+        color: white;
+        height: 100vh;
+        background: rgb(30, 30, 30) url("images/tasbeeh-gold.png") no-repeat
+          center center / cover;
+      }
+      .avatar-container {
+        position: absolute;
+        top: 100px;
+        left: 50px;
+      }
+      .avatar {
+        border-radius: 50%;
+        border: 2px solid rgb(253, 188, 67);
+        width: 180px;
+
+        box-shadow: 5px 5px 40px gray;
+        transition: transform 0.7s, box-shadow 0.5s ease;
+      }
+      .avatar:hover {
+        transform: scale(1.1);
+        box-shadow: 5px 5px 40px gray;
+      }
+      .link {
+        position: absolute;
+        top: 300px;
+        left: 40px;
+        font-size: 20px;
+        transition: transform 0.7s, box-shadow 0.5s ease;
+      }
+      .link a {
+        color: rgb(253, 188, 67);
+        text-decoration: none;
+        transition: transform 0.5s, color 0.5s;
+      }
+      .link a:hover {
+        text-decoration: none;
+        transform: scale(1.2);
+        color: rgb(231, 211, 145);
+      }
+
+      .link:hover {
+        transform: scale(1.2);
+      }
+      h2 {
+        font-size: 30px;
+        position: absolute;
+        top: 70px;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+      #tasbih {
+        width: 0 auto;
+      }
+      button {
+        display: block;
+        padding: 10px 20px;
+        font-size: 20px;
+        background-color: rgb(253, 188, 67);
+        position: absolute;
+        bottom: 70px;
+        left: 50%;
+        transform: translateX(-50%);
+        border-radius: 8px;
+        width: 120px;
+        height: 50px;
+      }
+
+      button:hover {
+        background-color: rgb(197, 191, 164);
+        cursor: pointer;
+      }
+      .All {
+        position: relative;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 700px;
+        height: 370px;
+        border: 2px solid rgb(240, 218, 21);
+        margin: 50px auto;
+        box-shadow: 5px 5px 20px gray;
+
+        border-radius: 10px;
+        background-color: rgb(5, 5, 5);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .All::after {
+        content: "";
+        position: absolute;
+        width: 20px;
+        height: 20px;
+        bottom: 5px;
+        right: 12px;
+
+        border: solid 2px rgb(68, 21, 240);
+        border-color: rgb(240, 218, 21) rgb(240, 218, 21) transparent
+          transparent;
+        transform: rotate(-45deg);
+      }
+      .All::before {
+        content: "";
+        position: absolute;
+        width: 20px;
+        height: 20px;
+        top: 5px;
+        left: 12px;
+
+        border: solid 2px rgb(68, 21, 240);
+        border-color: transparent transparent rgb(240, 218, 21)
+          rgb(240, 218, 21);
+        transform: rotate(-45deg);
+      }
+    </style>
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="avatar-container">
+      <img class="avatar avatar-sm" src="images/logo.png" alt="User avatar" />
+    </div>
+
+    <div class="link">
+      <a href="https://programmingadvices.com/" target="_blank">
+        Programming Advices</a
+      >
+    </div>
+
+    <div class="All">
+      <h2 id="tasbih">تسبيح</h2>
+
+      <button id="btn" onclick="displayTasbih()">ابدأ</button>
+    </div>
+
+    <script>
+      function displayTasbih() {
+        const tasbihElement = document.getElementById("tasbih");
+        const btn = document.getElementById("btn");
+        let count = 0;
+        let phase = 1;
+        btn.disabled = true;
+
+        function UpdateTasbih() {
+          count++;
+
+          if (phase === 1) {
+            tasbihElement.innerText = `${count} - سبحان الله`;
+            tasbihElement.style.color = "white";
+
+            if (count === 33) {
+              phase = 2;
+              count = 0;
+            }
+          } else if (phase === 2) {
+            tasbihElement.textContent = `${count} - الحمد لله`;
+            tasbihElement.style.color = "red";
+
+            if (count === 33) {
+              phase = 3;
+              count = 0;
+            }
+          } else if (phase === 3) {
+            tasbihElement.textContent = `${count} - الله أكبر`;
+            tasbihElement.style.color = "goldenrod";
+
+            if (count === 33) {
+              phase = 4;
+              count = 0;
+            }
+          }
+
+          if (phase === 4) {
+            tasbihElement.textContent = ` لا إله إلا الله وحده لا شريك له، له الملك وله الحمد وهو على كل شيء قدير `;
+            tasbihElement.style.color = "green";
+
+            clearInterval(IntervalId);
+
+            setTimeout(() => {
+              alert("في ميزان حسناتكم إن شاء الله");
+            }, 1000);
+
+            btn.disabled = false;
+          }
+        }
+        let IntervalId = setInterval(UpdateTasbih, 500);
+      }
+    </script>
+  </body>
+</html>

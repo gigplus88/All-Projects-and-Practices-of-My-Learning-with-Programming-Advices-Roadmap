@@ -29,18 +29,6 @@
         private void InitializeComponent()
         {
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.applicationsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.peopleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.driversToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.usersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.accountSettingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.gbWelcome = new Guna.UI2.WinForms.Guna2Panel();
-            this.guna2Panel2 = new Guna.UI2.WinForms.Guna2Panel();
-            this.lblVersion = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.lblWelcomeMessage = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.guna2PictureBox1 = new Guna.UI2.WinForms.Guna2PictureBox();
             this.applicationsToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmDrivingLicensesServices = new System.Windows.Forms.ToolStripMenuItem();
             this.newDrivingLicenseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -67,9 +55,19 @@
             this.currentUserInfoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.chqngePqsszordToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.signOutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.applicationsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.peopleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.driversToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.usersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.accountSettingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.pWelcome = new Guna.UI2.WinForms.Guna2Panel();
+            this.guna2Panel2 = new Guna.UI2.WinForms.Guna2Panel();
+            this.lblVersion = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.lblWelcomeMessage = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
-            this.gbWelcome.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox1)).BeginInit();
+            this.pWelcome.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -87,111 +85,6 @@
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             this.menuStrip1.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.menuStrip1_ItemClicked);
-            // 
-            // applicationsToolStripMenuItem
-            // 
-            this.applicationsToolStripMenuItem.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.applicationsToolStripMenuItem.Name = "applicationsToolStripMenuItem";
-            this.applicationsToolStripMenuItem.Size = new System.Drawing.Size(85, 46);
-            this.applicationsToolStripMenuItem.Text = "Applications";
-            // 
-            // peopleToolStripMenuItem
-            // 
-            this.peopleToolStripMenuItem.Name = "peopleToolStripMenuItem";
-            this.peopleToolStripMenuItem.Size = new System.Drawing.Size(55, 46);
-            this.peopleToolStripMenuItem.Text = "People";
-            // 
-            // driversToolStripMenuItem
-            // 
-            this.driversToolStripMenuItem.Name = "driversToolStripMenuItem";
-            this.driversToolStripMenuItem.Size = new System.Drawing.Size(55, 46);
-            this.driversToolStripMenuItem.Text = "Drivers";
-            // 
-            // usersToolStripMenuItem
-            // 
-            this.usersToolStripMenuItem.Name = "usersToolStripMenuItem";
-            this.usersToolStripMenuItem.Size = new System.Drawing.Size(47, 46);
-            this.usersToolStripMenuItem.Text = "Users";
-            // 
-            // accountSettingsToolStripMenuItem
-            // 
-            this.accountSettingsToolStripMenuItem.Name = "accountSettingsToolStripMenuItem";
-            this.accountSettingsToolStripMenuItem.Size = new System.Drawing.Size(109, 46);
-            this.accountSettingsToolStripMenuItem.Text = "Account Settings";
-            // 
-            // gbWelcome
-            // 
-            this.gbWelcome.BorderRadius = 10;
-            this.gbWelcome.Controls.Add(this.guna2Panel2);
-            this.gbWelcome.Controls.Add(this.lblVersion);
-            this.gbWelcome.Controls.Add(this.label4);
-            this.gbWelcome.Controls.Add(this.lblWelcomeMessage);
-            this.gbWelcome.Controls.Add(this.label6);
-            this.gbWelcome.Location = new System.Drawing.Point(0, 855);
-            this.gbWelcome.Name = "gbWelcome";
-            this.gbWelcome.Size = new System.Drawing.Size(359, 173);
-            this.gbWelcome.TabIndex = 4;
-            // 
-            // guna2Panel2
-            // 
-            this.guna2Panel2.BorderRadius = 10;
-            this.guna2Panel2.Location = new System.Drawing.Point(416, 787);
-            this.guna2Panel2.Name = "guna2Panel2";
-            this.guna2Panel2.Size = new System.Drawing.Size(359, 203);
-            this.guna2Panel2.TabIndex = 9;
-            // 
-            // lblVersion
-            // 
-            this.lblVersion.AutoSize = true;
-            this.lblVersion.Font = new System.Drawing.Font("Segoe UI Semibold", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblVersion.Location = new System.Drawing.Point(145, 113);
-            this.lblVersion.Name = "lblVersion";
-            this.lblVersion.Size = new System.Drawing.Size(83, 30);
-            this.lblVersion.TabIndex = 8;
-            this.lblVersion.Text = "Version";
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Segoe UI Semibold", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(14, 113);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(94, 30);
-            this.label4.TabIndex = 7;
-            this.label4.Text = "Version: ";
-            // 
-            // lblWelcomeMessage
-            // 
-            this.lblWelcomeMessage.AutoSize = true;
-            this.lblWelcomeMessage.Font = new System.Drawing.Font("Segoe UI Semibold", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblWelcomeMessage.Location = new System.Drawing.Point(145, 34);
-            this.lblWelcomeMessage.Name = "lblWelcomeMessage";
-            this.lblWelcomeMessage.Size = new System.Drawing.Size(196, 30);
-            this.lblWelcomeMessage.TabIndex = 6;
-            this.lblWelcomeMessage.Text = "Welcome  Message";
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Segoe UI Semibold", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(14, 34);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(118, 30);
-            this.label6.TabIndex = 5;
-            this.label6.Text = "Welcome : ";
-            // 
-            // guna2PictureBox1
-            // 
-            this.guna2PictureBox1.BackgroundImage = global::DVLD.Properties.Resources.Blue_Car_Driving_For_Men_Facebook_Post7;
-            this.guna2PictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.guna2PictureBox1.Image = global::DVLD.Properties.Resources.Blue_Car_Driving_For_Men_Facebook_Post8;
-            this.guna2PictureBox1.ImageRotate = 0F;
-            this.guna2PictureBox1.Location = new System.Drawing.Point(4, 98);
-            this.guna2PictureBox1.Name = "guna2PictureBox1";
-            this.guna2PictureBox1.Size = new System.Drawing.Size(1963, 927);
-            this.guna2PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.guna2PictureBox1.TabIndex = 6;
-            this.guna2PictureBox1.TabStop = false;
             // 
             // applicationsToolStripMenuItem1
             // 
@@ -298,16 +191,16 @@
             this.localDrivingApplicationsToolStripMenuItem.Image = global::DVLD.Properties.Resources.country_15615796__1_1;
             this.localDrivingApplicationsToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.localDrivingApplicationsToolStripMenuItem.Name = "localDrivingApplicationsToolStripMenuItem";
-            this.localDrivingApplicationsToolStripMenuItem.Size = new System.Drawing.Size(1255, 794);
+            this.localDrivingApplicationsToolStripMenuItem.Size = new System.Drawing.Size(345, 36);
             this.localDrivingApplicationsToolStripMenuItem.Text = "Local Driving License  Applications";
             this.localDrivingApplicationsToolStripMenuItem.Click += new System.EventHandler(this.localDrivingApplicationsToolStripMenuItem_Click);
             // 
             // internationalLicenseApplicationsToolStripMenuItem
             // 
-            this.internationalLicenseApplicationsToolStripMenuItem.Image = global::DVLD.Properties.Resources.Blue_Car_Driving_For_Men_Facebook_Post5;
+            this.internationalLicenseApplicationsToolStripMenuItem.Image = global::DVLD.Properties.Resources.Geography__1_1;
             this.internationalLicenseApplicationsToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.internationalLicenseApplicationsToolStripMenuItem.Name = "internationalLicenseApplicationsToolStripMenuItem";
-            this.internationalLicenseApplicationsToolStripMenuItem.Size = new System.Drawing.Size(1255, 794);
+            this.internationalLicenseApplicationsToolStripMenuItem.Size = new System.Drawing.Size(345, 36);
             this.internationalLicenseApplicationsToolStripMenuItem.Text = "International License Applications";
             this.internationalLicenseApplicationsToolStripMenuItem.Click += new System.EventHandler(this.internationalLicenseApplicationsToolStripMenuItem_Click);
             // 
@@ -432,15 +325,106 @@
             this.signOutToolStripMenuItem.Text = "Sign Out";
             this.signOutToolStripMenuItem.Click += new System.EventHandler(this.signOutToolStripMenuItem_Click);
             // 
+            // applicationsToolStripMenuItem
+            // 
+            this.applicationsToolStripMenuItem.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.applicationsToolStripMenuItem.Name = "applicationsToolStripMenuItem";
+            this.applicationsToolStripMenuItem.Size = new System.Drawing.Size(85, 46);
+            this.applicationsToolStripMenuItem.Text = "Applications";
+            // 
+            // peopleToolStripMenuItem
+            // 
+            this.peopleToolStripMenuItem.Name = "peopleToolStripMenuItem";
+            this.peopleToolStripMenuItem.Size = new System.Drawing.Size(55, 46);
+            this.peopleToolStripMenuItem.Text = "People";
+            // 
+            // driversToolStripMenuItem
+            // 
+            this.driversToolStripMenuItem.Name = "driversToolStripMenuItem";
+            this.driversToolStripMenuItem.Size = new System.Drawing.Size(55, 46);
+            this.driversToolStripMenuItem.Text = "Drivers";
+            // 
+            // usersToolStripMenuItem
+            // 
+            this.usersToolStripMenuItem.Name = "usersToolStripMenuItem";
+            this.usersToolStripMenuItem.Size = new System.Drawing.Size(47, 46);
+            this.usersToolStripMenuItem.Text = "Users";
+            // 
+            // accountSettingsToolStripMenuItem
+            // 
+            this.accountSettingsToolStripMenuItem.Name = "accountSettingsToolStripMenuItem";
+            this.accountSettingsToolStripMenuItem.Size = new System.Drawing.Size(109, 46);
+            this.accountSettingsToolStripMenuItem.Text = "Account Settings";
+            // 
+            // pWelcome
+            // 
+            this.pWelcome.BorderRadius = 10;
+            this.pWelcome.Controls.Add(this.guna2Panel2);
+            this.pWelcome.Controls.Add(this.lblVersion);
+            this.pWelcome.Controls.Add(this.label4);
+            this.pWelcome.Controls.Add(this.lblWelcomeMessage);
+            this.pWelcome.Controls.Add(this.label6);
+            this.pWelcome.Location = new System.Drawing.Point(0, 841);
+            this.pWelcome.Name = "pWelcome";
+            this.pWelcome.Size = new System.Drawing.Size(359, 173);
+            this.pWelcome.TabIndex = 4;
+            // 
+            // guna2Panel2
+            // 
+            this.guna2Panel2.BorderRadius = 10;
+            this.guna2Panel2.Location = new System.Drawing.Point(416, 787);
+            this.guna2Panel2.Name = "guna2Panel2";
+            this.guna2Panel2.Size = new System.Drawing.Size(359, 203);
+            this.guna2Panel2.TabIndex = 9;
+            // 
+            // lblVersion
+            // 
+            this.lblVersion.AutoSize = true;
+            this.lblVersion.Font = new System.Drawing.Font("Segoe UI Semibold", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblVersion.Location = new System.Drawing.Point(145, 113);
+            this.lblVersion.Name = "lblVersion";
+            this.lblVersion.Size = new System.Drawing.Size(83, 30);
+            this.lblVersion.TabIndex = 8;
+            this.lblVersion.Text = "Version";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Segoe UI Semibold", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(14, 113);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(94, 30);
+            this.label4.TabIndex = 7;
+            this.label4.Text = "Version: ";
+            // 
+            // lblWelcomeMessage
+            // 
+            this.lblWelcomeMessage.AutoSize = true;
+            this.lblWelcomeMessage.Font = new System.Drawing.Font("Segoe UI Semibold", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblWelcomeMessage.Location = new System.Drawing.Point(145, 34);
+            this.lblWelcomeMessage.Name = "lblWelcomeMessage";
+            this.lblWelcomeMessage.Size = new System.Drawing.Size(196, 30);
+            this.lblWelcomeMessage.TabIndex = 6;
+            this.lblWelcomeMessage.Text = "Welcome  Message";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Segoe UI Semibold", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.Location = new System.Drawing.Point(14, 34);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(118, 30);
+            this.label6.TabIndex = 5;
+            this.label6.Text = "Welcome : ";
+            // 
             // FrmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.ClientSize = new System.Drawing.Size(1924, 1030);
-            this.Controls.Add(this.guna2PictureBox1);
-            this.Controls.Add(this.gbWelcome);
+            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.ClientSize = new System.Drawing.Size(1924, 1061);
+            this.Controls.Add(this.pWelcome);
             this.Controls.Add(this.menuStrip1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.IsMdiContainer = true;
@@ -452,9 +436,8 @@
             this.Load += new System.EventHandler(this.FrmMain_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
-            this.gbWelcome.ResumeLayout(false);
-            this.gbWelcome.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox1)).EndInit();
+            this.pWelcome.ResumeLayout(false);
+            this.pWelcome.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -493,12 +476,11 @@
         private System.Windows.Forms.ToolStripMenuItem manageDetainedLicensesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem detainLicenseToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem releaseDetainLicenseToolStripMenuItem;
-        private Guna.UI2.WinForms.Guna2Panel gbWelcome;
+        private Guna.UI2.WinForms.Guna2Panel pWelcome;
         private Guna.UI2.WinForms.Guna2Panel guna2Panel2;
         private System.Windows.Forms.Label lblVersion;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label lblWelcomeMessage;
         private System.Windows.Forms.Label label6;
-        private Guna.UI2.WinForms.Guna2PictureBox guna2PictureBox1;
     }
 }

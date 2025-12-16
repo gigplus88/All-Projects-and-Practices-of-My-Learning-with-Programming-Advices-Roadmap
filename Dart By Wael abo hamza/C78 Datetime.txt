@@ -1,0 +1,22 @@
+import 'dart:async';
+import 'dart:math'; // import built in package
+import 'core/functions.dart'; // importing folders
+import 'package:http/http.dart';
+
+void main() async {
+  DateTime dateTime = DateTime.now();
+
+  print(dateTime.day);
+
+  /*String data = "2025-11-14";
+
+  DateTime dateNew = DateTime.parse(data);
+  print(dateNew);
+
+  DateTime BirthdayDate = DateTime.parse("1998-06-12");
+
+  Duration Age = dateTime.difference(BirthdayDate);
+  print(Age.inDays/365);*/
+
+  print( dateTime.subtract(Duration(hours:5) ));
+}

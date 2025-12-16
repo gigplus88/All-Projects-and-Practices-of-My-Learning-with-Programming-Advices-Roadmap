@@ -1,0 +1,5 @@
+Summary
+The Services Control Manager (SCM) manages the lifecycle of all Windows services, including starting, stopping, and monitoring their states.
+Tools like services.msc, the sc command, and PowerShell provide different ways to interact with the SCM.
+The SCM handles dependencies and can automatically recover services in case of failures.
+A strong understanding of SCM enables efficient management of both built-in and custom services.

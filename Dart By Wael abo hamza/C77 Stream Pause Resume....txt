@@ -1,0 +1,44 @@
+import 'dart:async';
+import 'dart:math'; // import built in package
+import 'core/functions.dart'; // importing folders
+import 'package:http/http.dart';
+
+void main() async {
+  StreamController streamController = StreamController.broadcast();
+
+  Stream streamOne = streamController.stream;
+  Stream streamTwo = streamController.stream;
+
+  StreamSubscription streamSubscription1 = streamOne.listen((val) {
+    print("listner 1 $val");
+  });
+
+  StreamSubscription streamSubscription2 = streamTwo.listen((val) {
+    print("listner 2 $val");
+  });
+
+  Future.delayed(Duration(seconds: 2), () {
+    streamController.add(1);
+  });
+
+  Future.delayed(Duration(seconds: 6), () {
+    streamSubscription1.pause();
+  });
+
+  Future.delayed(Duration(seconds: 8), () {
+    streamController.add(4);
+  });
+
+  Future.delayed(Duration(seconds: 10), () {
+    streamSubscription1.resume();
+    //streamSubscription1.cancel();
+  });
+
+  Future.delayed(Duration(seconds: 14), () {
+    streamController.add(3);
+  });
+
+  Future.delayed(Duration(seconds: 16), () {  // Or with await for all
+    streamController.close();
+  });
+}

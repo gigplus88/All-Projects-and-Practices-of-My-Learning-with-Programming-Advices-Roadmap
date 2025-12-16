@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      body {
+        height: 2000px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Home</h1>
+    <p>
+      Lorem ipsum dolor, sit amet consectetur adipisicing elit. Animi eum
+      dolorum iusto.
+    </p>
+
+    <button id="btn1" onclick="showfun()">Envent onclick</button>
+    <button id="btn2">Envent addEvent</button>
+    <button id="removebtn2">Envent addEvent</button>
+
+    <button onclick="showScroll" id="btnScroll">Scrolling</button>
+    <div id="output">Current Scroll x=0 , y=0</div>
+
+    <button>Scrolling</button>
+    <button onclick="scrollToTop()">Scrolling to top</button>
+    <button onclick="scrollDown()">Scrolling to down</button>
+    <button onclick="scrollSmooth()">Scrolling with smooth</button>
+
+    <button onclick="scrollToTop()" style="position: absolute; bottom: 0">
+      Scrolling to top
+    </button>
+
+    <script>
+      const btn = document.getElementById("btn2");
+      btn.addEventListener("click", showfun);
+
+      const btn2 = document.getElementById("removebtn2");
+      btn2.addEventListener("click", Removefun);
+
+      function showfun() {
+        alert("This is event");
+        btn.removeEventListener("click", showfun);
+      }
+      function Removefun() {
+        btn.removeEventListener("click", showfun);
+        alert("first event is removed");
+      }
+
+      //For scrolling
+
+      function showScroll() {
+        document.getElementById(
+          "output"
+        ).textContent = `Current Scroll x=${window.screenX} , y=${window.scrollY}`;
+      }
+      window.addEventListener("scroll", showScroll);
+
+      //scrollBy  for how increment you it
+      function scrollDown() {
+        window.scrollBy({ top: 1000, behavior: "smooth" });
+      }
+      //scrollBy  for when you want to scroll
+      function scrollToTop() {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
+
+      function scrollSmooth() {
+        // Smoothly scroll to the bottom
+        window.scrollTo({
+          top: document.body.scrollHeight,
+          behavior: "smooth",
+        });
+      }
+
+      // Update display when user manually scrolls
+    </script>
+  </body>
+</html>

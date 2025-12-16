@@ -1,0 +1,72 @@
+##Using services.msc
+Press Win + R, type services.msc, and press Enter.
+
+
+
+
+##Uing Task Manager
+Open Task Manager: Press Ctrl + Shift + Esc or Ctrl + Alt + Del and select Task Manager.
+Go to the Services tab.
+
+
+
+##Using Command Prompt
+Open Command Prompt as Administrator: Press Win + S, type cmd, right-click Command Prompt, and choose Run as Administrator.
+
+Start the service:
+sc start "YourServiceName"
+
+Stop the service:
+sc stop "YourServiceName"
+
+
+
+##Using PowerShell
+1- Open PowerShell as Administrator: Press Win + S, type PowerShell, right-click, and choose Run as Administrator.
+2- Start the service:
+
+Start-Service -Name "YourServiceName"
+
+3- Stop the service:
+Stop-Service -Name "YourServiceName"
+
+4- Check the service status:
+Get-Service -Name "YourServiceName"
+
+
+##Using Task Scheduler
+
+
+Open Task Scheduler: Press Win + S, type Task Scheduler, and press Enter.
+Create a new task: Click Create Task in the right-hand pane.
+Configure triggers: Set conditions to start or stop the service at specific times or events.
+Configure actions:
+Use the following commands as actions:
+Start service: sc start "YourServiceName"
+Stop service: sc stop "YourServiceName"
+Advantages:
+Automates service management based on schedules or events.
+
+
+Steps to Use sc start "YourServiceName" in Task Scheduler
+1- Open Task Scheduler:
+
+Press Win + S, type Task Scheduler, and press Enter.
+2- Create a New Task:
+
+In the right-hand pane, click Create Task.
+3- General Tab:
+
+Give the task a name (e.g., "Start My Service").
+Set the user account under which the task will run. If the service requires administrative privileges, check Run with highest privileges.
+4- Triggers Tab:
+
+Click New and set the conditions that will trigger the task. For example:
+To start the service at system startup, select At startup.
+To start the service at a specific time, select On a schedule and configure the schedule.
+5- Actions Tab:
+
+Click New and set the following:
+Action: Start a program.
+Program/Script: Enter sc.
+Add arguments (optional): Enter start "YourServiceName" (replace "YourServiceName" with the actual service name).

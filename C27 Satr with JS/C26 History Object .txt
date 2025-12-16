@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Location Object Demo</title>
+
+    <style>
+      body {
+        height: 100vh;
+        margin: 0;
+        padding: 40px;
+        background: #f4f4f4;
+        font-family: Arial, sans-serif;
+      }
+
+      button {
+        padding: 12px 30px;
+        font-size: 1.1rem;
+        margin-right: 10px;
+        margin-bottom: 20px;
+        border: none;
+        border-radius: 8px;
+        background-color: #007bff;
+        color: white;
+        cursor: pointer;
+        transition: 0.3s ease;
+      }
+
+      button:hover {
+        background-color: #0056b3;
+        transform: scale(1.05);
+      }
+
+      /* Wide, left-aligned info box */
+      #InfoBox {
+        width: 90%;
+        background: white;
+        border-radius: 12px;
+        padding: 25px;
+        border: 2px solid #007bff;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+        font-size: 1.1rem;
+        text-align: left;
+        line-height: 1.8;
+        word-wrap: break-word; /* Very important for long URLs */
+        overflow-wrap: break-word;
+      }
+
+      .label {
+        font-weight: bold;
+        color: #0056b3;
+      }
+    </style>
+  </head>
+
+   <body>
+    <h2>History Object Demo</h2>
+
+    <button onclick="goBack()">history.back()</button>
+    <button onclick="goForward()">history.forward()</button>
+    <button onclick="goBackTwo()">history.go(-2)</button>
+    <button onclick="reloadPage()">history.go(0)</button>
+    <button onclick="showLength()">Show history.length</button>
+    <button onclick="ToFinalPage()">Show final page</button>
+
+
+    <div id="InfoBox"></div>
+
+    <script>
+      function goBack() {
+        //history.go(-1);
+        history.back();
+        
+      }
+
+      function goForward() {
+        //history.go(1);
+        history.forward();
+      }
+
+      function goBackTwo() {
+        // Go back 2 pages
+        history.go(-2);
+      }
+
+      function reloadPage() {
+        // Reload current page
+        history.go(0);
+      }
+      function ToFinalPage() {
+        // Reload current page
+        history.go(history.length-1);
+      }
+
+      function showLength() {
+        document.getElementById(
+          "InfoBox"
+        ).innerHTML = `<span class="label">History Length:</span> ${history.length}`;
+      }
+    </script>
+  </body>
+</html>

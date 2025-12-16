@@ -1,0 +1,25 @@
+import { useState } from "react";
+
+
+function MyButton() {
+
+
+    const [name , setName] = useState("Ayoub");
+
+    //const [state] = useState("Ayoub");
+    //const value = state[0];
+    //const setValue = state[1];
+    
+    function buttonCliked() {
+        name === "Ayoub" ? setName("Rachid") :  setName("Ayoub");
+    }
+  return (
+    <>
+      <button onClick={buttonCliked}>Click Me</button>
+      <h1>{name}</h1>
+    </>
+  );
+}
+
+
+export default MyButton;

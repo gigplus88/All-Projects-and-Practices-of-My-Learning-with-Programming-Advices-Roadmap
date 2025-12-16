@@ -1,0 +1,46 @@
+##Using Service Management
+
+Press Win + R, type services.msc, and press Enter.
+Locate your service in the list.
+Right-click the service and select Properties.
+In the General tab:Set the Startup type to Automatic or Automatic (Delayed Start).
+Click OK to save changes.
+
+
+
+##Using Command Prompt
+
+Open Command Prompt as Administrator.
+Set the service start-up type to Automatic:
+sc config "YourServiceName" start= auto
+
+For Automatic (Delayed Start):
+sc config "YourServiceName" start= delayed-auto
+
+Run the following command to check the service's configuration:
+sc qc "YourServiceName"
+
+
+##Using PowerShell
+
+Steps:
+Open PowerShell as Administrator.
+Set the service start-up type:
+Set-Service -Name "YourServiceName" -StartupType Automatic
+
+For Automatic (Delayed Start):
+Set-Service -Name "YourServiceName" -StartupType AutomaticDelayedStart
+
+
+Verify:
+Check the current start-up type:
+
+Get-Service -Name "YourServiceName" | Select-Object Name, StartType
+
+
+
+
+##Using Task Scheduler
+
+
+

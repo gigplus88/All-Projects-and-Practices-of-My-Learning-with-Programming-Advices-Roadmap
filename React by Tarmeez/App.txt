@@ -1,0 +1,95 @@
+//import { useState } from "react";
+/*import reactLogo from "./assets/react.svg";
+import viteLogo from "/vite.svg";
+
+import ArticleCmp from "./ArticleCmp.jsx";
+import MyButton from "./MyButton.jsx";
+import MyInput from "./MyInput.jsx";*/
+import "./App.css";
+import MyForm from "./MyForm";
+
+function App() {
+  /*const [count, setCount] = useState(0);
+  const firstComponent = "Lokqs skdok dkdo";
+  const SecondComponent = "Lokqs skdok dkdo";
+  const tasks = [
+   { id:1 , title:"doings my homework" },  
+    { id:2 , title:"reading a book"},
+    { id:3 , title:"studying"},
+    { id:4 , title:"cleaning my room"},
+    { id:5 , title:"Sleeping"},
+  ];
+
+  const myTasksList = tasks.map((task) => {
+    return <li key = {task.id} style={{ fontSize:"40px", backgroundColor :"yellow" }}>{task.title}</li>;
+  });
+
+  console.log(myTasksList);*/
+  return (
+    <>
+
+     <p>Hello Guys</p>
+     <div style={{ padding:"300px" }} >
+       <MyForm></MyForm>
+     </div>
+      
+      
+      
+      {/*
+      <div>
+         
+        <a href="https://vite.dev" target="_blank">
+          <img src={viteLogo} className="logo" alt="Vite logo" />
+        </a>
+        <a href="https://react.dev" target="_blank">
+          <img src={reactLogo} className="logo react" alt="React logo" />
+        </a>
+      </div>
+      <div>
+        <ul>
+          {myTasksList}
+        </ul>
+      </div>
+      <h2>This is React App</h2>
+      <div className="card">
+        <button onClick={() => setCount((count) => count + 1)}>
+          count is {count}
+        </button>
+        <p>
+          Edit <code>src/App.jsx</code> and save to test HMR
+        </p>
+      </div>
+
+      <ArticleCmp
+        content={firstComponent}
+        name="Ayoub fellah"
+        gmail="ayoub@gmail.com"
+        age="29"
+      />
+      <ArticleCmp
+        content={SecondComponent}
+        name="Hoda fellah"
+        gmail="Saad@gmail.com"
+        age="29">
+        <h1>This is Title</h1>
+      </ArticleCmp>
+      <ArticleCmp name="Aziz" gmail="sor@gmail.com" age="29">
+        <div style={{ backgroundColor: "blueviolet" }}>
+          <h2>Hello world</h2>
+          <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid
+            expedita doloribus nam.
+          </p>
+        </div>
+      </ArticleCmp>
+
+      <MyButton/>
+      */}
+      {/*<MyInput/>*/}
+      
+       
+    </>
+  );
+}
+
+export default App;

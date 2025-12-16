@@ -1,0 +1,23 @@
+import 'dart:math'; // import built in package
+import 'core/functions.dart'; // importing folders
+import 'package:http/http.dart';
+
+void main() {
+  People people = People<int>();
+  int x = people.printName(34);
+  print(x);
+  print( printo("k" , 4 , 54));
+}
+
+K printo<T, K, S>(T name, K bro, S dodo) {
+  return bro;
+}
+
+class People<T> {
+  T? name = null;
+  People() {}
+
+  T printName(T name) {
+    return name;
+  }
+}

@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Stories – Accordion Library</title>
+
+    <style>
+      /* ─────────────── Code Overview ───────────────
+       🎯 Purpose: Library-like accordion shelf using <details>/<summary>.
+       🏗️ Layout: Centered column; each item expands to show teaser & actions.
+       🎨 Theme: Bookish, warm neutrals; auto dark mode; soft shadows & borders.
+       ⚡ Interactivity: “Read More” opens native <dialog> with full story.
+       ♿ A11y: Proper summary hit-area; aria-labelledby on dialogs; focus styles.
+       🖨️ Print: Only the OPEN dialog prints; dialog flattened for clean PDF.
+    ───────────────────────────────────────────── */
+
+      :root {
+        --bg1: #f6f9fc;
+
+        --bg: #fbf8f3;
+        --ink: #1e2329;
+        --muted: #606b77;
+        --accent: #8b5cf6; /* violet-500 */
+        --accent-ink: #ffffff;
+        --surface: #ffffff;
+        --rule: #e6e0d8;
+        --border: #e7e7e7;
+        --radius: 16px;
+        --shadow: 0 12px 28px rgba(0, 0, 0, 0.1);
+        --maxw: 980px;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg: #0f131a;
+          --ink: #e6e8ec;
+          --muted: #9aa2b2;
+          --accent: #a78bfa; /* violet-400 */
+          --accent-ink: #0f131a;
+          --surface: #151b24;
+          --rule: #212a36;
+          --border: #243142;
+          --shadow: 0 18px 36px rgba(0, 0, 0, 0.55);
+        }
+      }
+
+      /* ===== Base ===== */
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        font-family: "Georgia", serif;
+        background: var(--bg);
+        color: var(--ink);
+        line-height: 1.72;
+      }
+
+      header {
+        max-width: var(--maxw);
+        margin: 0 auto;
+        border-bottom: 1px solid var(--rule);
+        background: color-mix(in oklab, var(--bg1) 80%, transparent);
+        backdrop-filter: blur(8px);
+        padding: 2rem 1rem 1rem;
+        -webkit-backdrop-filter: blur(8px);
+        position: sticky;
+        top: 0;
+        z-index: 20;
+      }
+      .masthead h1 {
+        margin: 0;
+        font-size: clamp(2rem, 4vw, 2.8rem);
+        letter-spacing: 0.3px;
+      }
+      .dek {
+        margin: 0.4rem 0 0;
+        color: var(--muted);
+      }
+
+      /* ===== Shelf (Accordion Stack) ===== */
+      .shelf {
+        max-width: var(--maxw);
+        margin: 1.25rem auto 2.5rem;
+        padding: 0 1rem;
+        display: grid;
+        gap: 1rem;
+      }
+      details {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        box-shadow: var(--shadow);
+        overflow: clip;
+      }
+
+      /* Summary row (always visible) */
+      summary {
+        list-style: none;
+        cursor: pointer;
+        display: grid;
+        grid-template-columns: 120px 1fr auto;
+        gap: 1rem;
+        align-items: center;
+        padding: 0.8rem;
+      }
+      summary::-webkit-details-marker {
+        display: none;
+      }
+
+      .thumb {
+        width: 120px;
+        height: 84px;
+        object-fit: cover;
+        border-radius: 12px;
+        display: block;
+        border: 1px solid var(--border);
+      }
+      .meta h2 {
+        margin: 0.1rem 0 0.2rem;
+        font-size: 1.25rem;
+        line-height: 1.2;
+        color: var(--accent);
+      }
+      .meta p {
+        margin: 0;
+        color: var(--muted);
+      }
+      .chev {
+        width: 36px;
+        height: 36px;
+        border-radius: 999px;
+        display: grid;
+        place-items: center;
+        background: rgba(139, 92, 246, 0.12);
+        color: var(--accent);
+        border: 1px solid var(--border);
+        margin-right: 0.2rem;
+      }
+      details[open] .chev {
+        transform: rotate(90deg);
+      }
+
+      /* Panel (revealed content) */
+      .panel {
+        border-top: 1px dashed var(--rule);
+        padding: 5px 0.9rem 1rem 0.9rem;
+      }
+      .lede {
+        margin: 0.9rem 0 0.9rem;
+      }
+      .actions {
+        display: flex;
+        gap: 0.6rem;
+        flex-wrap: wrap;
+      }
+      .read-more {
+        display: inline-block;
+        background: var(--accent);
+        color: var(--accent-ink);
+        text-decoration: none;
+        font-weight: 700;
+        padding: 0.55rem 0.95rem;
+        border-radius: 999px;
+        box-shadow: 0 10px 22px rgba(139, 92, 246, 0.28);
+      }
+      .pill {
+        display: inline-block;
+        border: 1px solid var(--border);
+        border-radius: 999px;
+        padding: 0.5rem 0.9rem;
+        text-decoration: none;
+        color: inherit;
+      }
+      .pill:hover {
+        background: var(--accent);
+        color: white;
+      }
+      @media (prefers-color-scheme: dark) {
+        .pill {
+          background: rgba(255, 255, 255, 0.06);
+        }
+      }
+
+      /* Focus styles */
+      a,
+      button,
+      summary {
+        outline: none;
+      }
+      a:focus-visible,
+      button:focus-visible,
+      summary:focus-visible {
+        box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.35),
+          0 0 0 6px rgba(139, 92, 246, 0.18);
+        transition: box-shadow 0.15s ease;
+        border-radius: 10px;
+      }
+
+      /* ===== Dialogs (full story) ===== */
+      dialog {
+        width: 92%;
+        max-width: 760px;
+        border: none;
+        border-radius: 18px;
+        box-shadow: var(--shadow);
+        background: var(--surface);
+        color: var(--ink);
+        padding: 2rem;
+        position: relative;
+        text-align: left;
+      }
+      dialog::backdrop {
+        background: rgba(0, 0, 0, 0.55);
+      }
+      .close-btn {
+        background: none;
+        border: none;
+        cursor: pointer;
+        position: absolute;
+        right: 1rem;
+        top: 1rem;
+        font-size: 1.25rem;
+        color: var(--accent);
+      }
+      dialog img {
+        width: 460px;
+        max-width: 90%;
+        height: auto;
+        display: block;
+        margin: 0 auto 1rem;
+        border-radius: 14px;
+        border: 1px solid var(--border);
+      }
+      dialog h2 {
+        margin: 0.25rem 0 0.8rem;
+        line-height: 1.25;
+      }
+      dialog p {
+        margin: 0 0 1rem;
+      }
+
+      /* ===== Print: Only OPEN dialog ===== */
+      @media print {
+        @page {
+          margin: 16mm;
+        }
+        * {
+          -webkit-print-color-adjust: exact;
+          print-color-adjust: exact;
+        }
+        html,
+        body {
+          height: auto !important;
+          overflow: visible !important;
+        }
+
+        body:has(dialog[open]) > :not(dialog[open]) {
+          display: none !important;
+        }
+        dialog:not([open]) {
+          display: none !important;
+        }
+
+        dialog[open] {
+          display: block !important;
+          position: static !important;
+          inset: auto !important;
+          transform: none !important;
+          width: auto !important;
+          max-width: none !important;
+          height: auto !important;
+          max-height: none !important;
+          overflow: visible !important;
+          box-shadow: none !important;
+          padding: 0 !important;
+          background: var(--surface) !important;
+        }
+        dialog[open]::backdrop {
+          display: none !important;
+        }
+
+        .close-btn,
+        .read-more,
+        nav {
+          display: none !important;
+        }
+        h1,
+        h2,
+        img {
+          break-inside: avoid;
+          page-break-inside: avoid;
+        }
+        p,
+        li {
+          orphans: 3;
+          widows: 3;
+        }
+
+        * {
+          scrollbar-width: none !important;
+        }
+        *::-webkit-scrollbar {
+          display: none !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="masthead">
+        <h1>Short Stories – Accordion Library</h1>
+        <p class="dek">
+          Expand a title to see its teaser. Open the dialog to read the full
+          story.
+        </p>
+      </div>
+    </header>
+
+    <main class="shelf" aria-label="Accordion story shelf">
+      <!-- Item 1 -->
+      <details>
+        <summary>
+          <img
+            class="thumb"
+            src="images/TheLastTrain.png"
+            alt="The Last Train"
+          />
+          <div class="meta">
+            <h2>The Last Train</h2>
+            <p>Feature • Midnight platform, one decision.</p>
+          </div>
+          <span class="chev" aria-hidden="true">▸</span>
+        </summary>
+        <div class="panel">
+          <p class="lede">
+            It was nearly midnight when Sarah stepped onto the empty platform,
+            unaware that this journey would change her life forever...
+          </p>
+          <div class="actions">
+            <a
+              class="read-more"
+              href="#"
+              onclick="document.getElementById('story1').showModal(); return false;"
+              >Read More</a
+            >
+            <a class="pill" href="#story1">Open dialog via button above</a>
+          </div>
+        </div>
+      </details>
+
+      <!-- Item 2 -->
+      <details>
+        <summary>
+          <img
+            class="thumb"
+            src="images/BeneathTheOldOak.png"
+            alt="Beneath the Old Oak"
+          />
+          <div class="meta">
+            <h2>Beneath the Old Oak</h2>
+            <p>Correspondence • Letters, shade, and patience.</p>
+          </div>
+          <span class="chev" aria-hidden="true">▸</span>
+        </summary>
+        <div class="panel">
+          <p class="lede">
+            Every summer afternoon, Daniel would sit beneath the towering oak,
+            waiting for a letter that never came...
+          </p>
+          <div class="actions">
+            <a
+              class="read-more"
+              href="#"
+              onclick="document.getElementById('story2').showModal(); return false;"
+              >Read More</a
+            >
+            <a class="pill" href="#story2">Open dialog via button above</a>
+          </div>
+        </div>
+      </details>
+
+      <!-- Item 3 -->
+      <details>
+        <summary>
+          <img
+            class="thumb"
+            src="images/ThePaperLanternShop.png"
+            alt="The Paper Lantern Shop"
+          />
+          <div class="meta">
+            <h2>The Paper Lantern Shop</h2>
+            <p>Market &amp; Memory • A room to carry light.</p>
+          </div>
+          <span class="chev" aria-hidden="true">▸</span>
+        </summary>
+        <div class="panel">
+          <p class="lede">
+            In a narrow alley lit by rows of glowing paper lanterns, Mei
+            discovered that the smallest shop could hold the biggest secrets...
+          </p>
+          <div class="actions">
+            <a
+              class="read-more"
+              href="#"
+              onclick="document.getElementById('story3').showModal(); return false;"
+              >Read More</a
+            >
+            <a class="pill" href="#story3">Open dialog via button above</a>
+          </div>
+        </div>
+      </details>
+    </main>
+
+    <!-- ============================== DIALOGS (full texts) ============================== -->
+
+    <!-- Dialog 1 -->
+    <dialog id="story1" aria-labelledby="story1-title">
+      <button
+        class="close-btn"
+        onclick="this.parentElement.close()"
+        aria-label="Close story"
+      >
+        ✕
+      </button>
+      <img src="images/TheLastTrain.png" alt="The Last Train full" />
+      <h2 id="story1-title">The Last Train</h2>
+      <p>
+        <em
+          >Just before midnight, Sarah stepped onto the wind-polished platform
+          of a town that looked like a memory—paint peeling, clocks stubborn,
+          and every bench holding the shape of someone who had already left.</em
+        >
+      </p>
+      <p>
+        The conductor stood under the yellow cone of a lamp, hands folded behind
+        his back like a patient question. “Last train,” he said, not unkindly.
+        Steam stitched the cold between them. Sarah nodded and tightened her
+        grip on a small canvas bag that carried less than she owned and more
+        than she could explain.
+      </p>
+      <p>
+        Her phone had died an hour earlier, somewhere between the final argument
+        and the dark road that led to the station. There would be messages by
+        now, apologies shaped like command. She could almost hear them in the
+        hollow of the night. She looked down the track—two parallel convictions
+        vanishing into a possibility.
+      </p>
+      <p>
+        “Where to?” the conductor asked. His badge said M. Ilyas. His eyes said
+        he had watched a thousand departures and never learned to be careless
+        with them.
+      </p>
+      <p>
+        “I don’t know yet,” Sarah said. The answer surprised her by being true.
+      </p>
+      <p>
+        Ilyas considered this as though consulting a timetable in his head. “We
+        stop at Brookline, Ferris, and Harbor. Harbor is the end.”
+      </p>
+      <p>“What’s at Harbor?”</p>
+      <p>“An ocean,” he said. “And whatever lives beside one.”</p>
+      <p>
+        The train exhaled. Sarah bought a ticket whose destination felt like a
+        hand she hadn’t shaken. In the carriage, the lights hummed softly, and
+        the upholstery smelled of oranges and old rain. Opposite her, a boy
+        slept with a book tented over his chest. A woman across the aisle
+        unraveled a scarf of impossible blue.
+      </p>
+      <p>
+        At Brookline, a man climbed aboard with a box that clicked faintly.
+        “Beetles,” he told Ilyas, delighted by the way the word fit in his
+        mouth. “A museum loan.” He sat beside Sarah and, sensing her worry,
+        started speaking of carapaces and the patience of tiny lives. When he
+        fell silent, the clicking went on, a metronome for courage.
+      </p>
+      <p>
+        Ferris arrived like a held breath. Sarah nearly stood—habit tugging at
+        her sleeve. Ferris was the kind of town that knew her last name and the
+        shape of her mother’s disappointment. The platform lamps wrote soft
+        circles on the snow. No one got off. No one got on. The doors closed
+        with the mercy of a gentle refusal.
+      </p>
+      <p>
+        “You passed it,” the beetle man said, not looking at her. “Sometimes
+        that’s the only way forward.”
+      </p>
+      <p>
+        Past midnight, sleep took passengers one by one. Sarah watched herself
+        in the window: a ghost trying on a body. She remembered learning to swim
+        as a child, the way the ocean lifted her when she finally stopped
+        fighting for the bottom. Harbor was still an hour away when she made her
+        decision. It wasn’t a plan; it was the absence of a promise she no
+        longer owed.
+      </p>
+      <p>
+        Harbor opened like a letter. The station smelled of salt and coffee.
+        Vendors poured dawn into paper cups. The ocean didn’t roar; it breathed.
+        Sarah stepped outside. Wind untied her hair. Somewhere gulls negotiated
+        a truce. She found a bench that had not yet learned anyone’s shape and
+        sat until the sky considered blue.
+      </p>
+      <p>
+        Ilyas appeared with two cups. “Your stop,” he said, offering one. “Or
+        your start.” He nodded toward the pier where a hand-painted sign
+        advertised Rooms by the Week.
+      </p>
+      <p>
+        “Thank you,” Sarah said, and surprised herself again by meaning it for
+        more than the coffee. She tore the ticket in half. The pieces didn’t
+        float like in movies; they fell like small decisions.
+      </p>
+      <p>
+        By noon she had a room with a window the size of a choice. That night,
+        the ocean kept time on the sill, and Sarah slept without the train
+        inside her. In the morning she walked to the water and let it take the
+        argument she couldn’t finish, the apology she didn’t owe, and the fear
+        that her life would be a circle. The tide returned with her name spelled
+        wrong and she laughed, and the gulls looked personally offended.
+      </p>
+      <p>
+        Weeks later, on a bus that smelled of pine cleaner, Sarah saw the beetle
+        man again. He held the now-silent box. “They’re home,” he said.
+        “Sometimes that’s the only way forward.”
+      </p>
+      <p>
+        “Sometimes,” Sarah agreed. Behind the glass, Harbor kept breathing. The
+        last train had turned into the first morning without a timetable, and
+        for once, she was not late for her life.
+      </p>
+    </dialog>
+
+    <!-- Dialog 2 -->
+    <dialog id="story2" aria-labelledby="story2-title">
+      <button
+        class="close-btn"
+        onclick="this.parentElement.close()"
+        aria-label="Close story"
+      >
+        ✕
+      </button>
+      <img src="images/BeneathTheOldOak.png" alt="Beneath the Old Oak full" />
+      <h2 id="story2-title">Beneath the Old Oak</h2>
+      <p>
+        <em
+          >Every summer, Daniel measured time by the shade of the oak. By noon
+          the light sat on the ruined porch like a sleeping cat, and the letters
+          he waited for never arrived.</em
+        >
+      </p>
+      <p>
+        His grandmother had told him the tree was older than the house and
+        kinder than most people. It held the hill together, she said, and
+        sometimes it held people, too. When she died, the house learned how to
+        echo, and Daniel learned that a mailbox can be loyal to emptiness.
+      </p>
+      <p>
+        He kept writing anyway—small notes to a father who moved like weather,
+        to a mother who loved him in present tense and panic, to a girl who had
+        left with the first thaw. He folded each page into the same envelope and
+        addressed it to a version of himself that lived on the other side of
+        courage. He never mailed them. He hid them in a shoebox under the bed,
+        which is to say he planted them in a room and hoped for rain.
+      </p>
+      <p>
+        One afternoon, while the heat argued with the cicadas, he noticed a seam
+        in the dirt where the roots rose like old knuckles. The ground had been
+        disturbed. He brought a trowel and a glass jar and the kind of patience
+        that belongs to people who talk to trees. A few inches down he hit
+        metal—the lid of a biscuit tin, red once, now the color of remembering.
+      </p>
+      <p>
+        Inside were letters, brittle as moth wings, tied with blue thread. The
+        top one was addressed to <em>Whoever waits here</em>. The handwriting
+        was neat and stubborn. He read on the porch while the shade slowly
+        crossed his knees.
+      </p>
+      <p>
+        They were love letters, of a sort, written by a woman named Salma to a
+        man who had left for a war and sent back more silence than news. She
+        dated each one and folded a pressed leaf inside, a record of seasons
+        that kept the time he couldn’t. The last letter said:
+        <em
+          >If you come back and I am gone, know that I decided to stay
+          anyway.</em
+        >
+      </p>
+      <p>
+        Daniel felt something unclench in the house. He made tea. He wrote
+        back—not to Salma, who required no reply, and not to the man, who had
+        already chosen his distance, but to <em>Whoever waits here</em>. He
+        wrote about the way the light moves on the porch and how an oak can be a
+        calendar if you’re patient. He wrote about the mailbox, which was not
+        the enemy after all, only a witness. He folded the letter around a leaf,
+        tied it with thread stolen from the hem of a memory, and placed it in
+        the tin.
+      </p>
+      <p>
+        He put the tin back, deeper this time. He patted the earth as if tucking
+        in a child. When he stood, the shade had reached the steps. The mailbox
+        waited at the end of the drive, exactly as faithful as before. Daniel
+        walked to it and opened the door. It was empty, which is another way of
+        saying it was ready.
+      </p>
+      <p>
+        That evening, the wind came up from the river and said a few kind things
+        to the leaves. Daniel sat beneath the oak and read one of his old notes
+        aloud. It sounded less like begging and more like weather—passing,
+        necessary, unashamed. He did not stop waiting; he changed what he was
+        waiting for. Sometimes the letters come, he would tell people later.
+        Sometimes the tree answers instead. Both are good news.
+      </p>
+    </dialog>
+
+    <!-- Dialog 3 -->
+    <dialog id="story3" aria-labelledby="story3-title">
+      <button
+        class="close-btn"
+        onclick="this.parentElement.close()"
+        aria-label="Close story"
+      >
+        ✕
+      </button>
+      <img
+        src="images/ThePaperLanternShop.png"
+        alt="The Paper Lantern Shop full"
+      />
+      <h2 id="story3-title">The Paper Lantern Shop</h2>
+      <p>
+        <em
+          >The storm broke over the old market like a confession, sending
+          tourists under awnings and merchants into laughter. Only one doorway
+          stayed bright—the lantern shop with moons and cranes hung in its
+          window.</em
+        >
+      </p>
+      <p>
+        Leila slipped inside, rain in her sleeves, and the bell announced her
+        with the polite enthusiasm of brass. The shop smelled of starch and ink
+        and the quiet electricity of things made by hand. Lanterns in soft
+        oranges and complicated blues drifted from the ceiling like patient
+        planets. In the corner stood an old man on a stool, tying a filament to
+        a wire frame with impossible fingers.
+      </p>
+      <p>
+        “If you’re waiting for the rain to ask permission, you’ll be here until
+        spring,” he said without turning. His voice had the grain of an old
+        song.
+      </p>
+      <p>“I’m hiding,” Leila confessed. “From a wedding.”</p>
+      <p>“A good one?”</p>
+      <p>“Probably,” she said. “Just not mine.”</p>
+      <p>
+        The old man climbed down. He wore an apron tattooed with the history of
+        glue. “People come here to buy light,” he said, “but sometimes they just
+        need a room where nobody is looking at them.” He set the lantern on the
+        counter. “You can help me, if you like.”
+      </p>
+      <p>
+        Leila took the offered seat and learned quickly, because her hands had
+        been waiting to remember something. The frames were bamboo—bent and
+        stubborn, like good advice. The paper was tougher than it looked. You
+        had to wet the edges and coax them around the ribs. The old man showed
+        her how to leave a small seam for air, how to press without bruising.
+      </p>
+      <p>“How many lanterns do you sell?” she asked.</p>
+      <p>
+        “Enough to keep the lights on,” he said, amused at the accuracy. “Not
+        enough to stop making them.”
+      </p>
+      <p>
+        Outside, thunder practiced its signatures on the sky. Inside, the shop
+        practiced silence. Leila told the old man about the wedding—how her
+        cousin had chosen a dress that looked like a promise someone else would
+        have to keep; how her mother had chosen a table at the front because
+        that’s where mothers keep their worries; how Leila had chosen the door
+        and the rain and the lanterns because she didn’t yet know how to choose
+        herself.
+      </p>
+      <p>
+        “When I was your age,” he said, which is what old men are allowed to say
+        if they also offer tea, “I followed a woman across a border because she
+        said she was allergic to staying. We were married in a kitchen by a man
+        who fixed radios. We lasted long enough to forgive each other for
+        wanting different maps.” He poured tea into cups that had once belonged
+        to certainty. “Sometimes light is not a thing you stand under,” he said.
+        “Sometimes it is something you carry.”
+      </p>
+      <p>
+        A boy came in for a lantern shaped like a carp. The old man chose one
+        with scales drawn by a hand that knew rivers. He taught the boy how to
+        hold it so the wire didn’t bite, how to swing it so the carp looked like
+        it wanted to be exactly where it was. When the door closed, the shop
+        accepted the quiet again.
+      </p>
+      <p>“Show me the one you made,” he told Leila.</p>
+      <p>
+        It was not perfect. The seam wandered like a thought. The paper puckered
+        near the top where she had been impatient. But when he lit it, the
+        lantern made a small, faithful circle of gold that contained her breath
+        and the rain and the idea of a life she hadn’t yet admitted wanting.
+      </p>
+      <p>“You can take it,” he said. “It will cost you a story.”</p>
+      <p>Leila laughed. “I’m short on good ones.”</p>
+      <p>
+        “Then take this: Once there was a woman who thought she needed
+        permission to be happy. One day she found a shop where the owner
+        accepted payment in future tense. She owed him the first story she lived
+        on purpose.”
+      </p>
+      <p>
+        The rain softened into the kind that forgives umbrellas. Leila stood to
+        leave. “How will you collect?” she asked.
+      </p>
+      <p>
+        “Trust,” he said, and shrugged, as if he’d been paid in worse
+        currencies.
+      </p>
+      <p>
+        Months later, the wedding was a photograph on someone’s wall and Leila
+        had a room with a window that knew how to hold morning. The lantern hung
+        above her desk. In the dark it was simply an obedient moon. In the light
+        it was paper and bamboo and the evidence of a choice.
+      </p>
+      <p>
+        She started walking to the market every Saturday. She learned to sand
+        the bamboo so it wouldn’t snag the paper. She learned to paint small
+        cranes that looked like they were deciding where to land. She learned
+        that some days the shop sold three lanterns and some days it sold none
+        and both were ordinary and survivable.
+      </p>
+      <p>
+        One afternoon a man came in, wet and undecided, with a tie like an
+        apology. “I think I’m hiding,” he said.
+      </p>
+      <p>Leila poured tea. “From a wedding?”</p>
+      <p>
+        He considered. “From a life I’m good at but not in.” He touched a
+        lantern shaped like a moon and winced when the wire surprised him. “How
+        do you hold it without getting hurt?”
+      </p>
+      <p>“You change your grip,” she said. “Or you learn where it bites.”</p>
+      <p>
+        When he left with a small sun in a paper cage, the shop was quiet again.
+        The old man—who was sometimes there and sometimes not, as if shared by
+        other stories—looked at her over his glasses. “You owe me,” he said, and
+        Leila realized she had been paying in installments without noticing.
+      </p>
+      <p>
+        That night she wrote a story at the desk beneath the lantern. It was
+        about a storm and a market and a room where nobody was being watched. It
+        ended with a woman buying her own permission. She brought the pages to
+        the shop the next day and set them on the counter.
+      </p>
+      <p>
+        “Paid in full,” the old man said, and hung her lantern in the window,
+        where it taught the street a better color of light.
+      </p>
+      <p>
+        Years later, when the market changed and the rent multiplied like
+        rabbits, people said the shop would close. But every time the rumor
+        reached Leila, someone brought a story and left with light. The sign in
+        the window never learned the word <em>Final</em>. The bell kept its
+        polite enthusiasm. And if you were caught in a storm that wanted to be
+        your excuse, you could still push the door and be announced, and inside
+        there would be paper moons and painted cranes, and an old man or the
+        idea of him, and a woman who knew how to hold a wire without getting
+        hurt.
+      </p>
+    </dialog>
+  </body>
+</html>

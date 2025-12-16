@@ -273,9 +273,9 @@
             this.lblErrorMessage.ForeColor = System.Drawing.Color.Red;
             this.lblErrorMessage.Location = new System.Drawing.Point(382, 510);
             this.lblErrorMessage.Name = "lblErrorMessage";
-            this.lblErrorMessage.Size = new System.Drawing.Size(109, 19);
+            this.lblErrorMessage.Size = new System.Drawing.Size(60, 19);
             this.lblErrorMessage.TabIndex = 9;
-            this.lblErrorMessage.Text = "Error Message";
+            this.lblErrorMessage.Text = "label10";
             this.lblErrorMessage.Visible = false;
             // 
             // FrmLogin

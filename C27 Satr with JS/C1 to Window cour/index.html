@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="main.css" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div>
+      <h1>Home</h1>
+      <p id="YourIndex ">This is home page</p>
+    </div>
+
+    <!--ex1 Openbasic window-->
+    <button id="btn" onclick="window.open('https://www.google.com')">
+      Click Me
+    </button>
+    <!--ex2 open specific target-->
+    <button
+      id="btn"
+      onclick="window.open('https://www.google.com' , '_blank' , 'width=500,height=500,left=200,top=100')"
+    >
+      Click Me
+    </button>
+    ;
+    <!--ex3 open my window-->
+    <button id="btn" onclick="openMyWindow()">Click To Open My Window</button>
+
+    <!--ex4 open and write in info HTML page-->
+    <button id="btn" onclick="openInfoPage()">Click To Open Info Page</button>
+
+    <!--ex5 open and close after 5s info page-->
+    <button id="btn" onclick="openClosePage()">Click To Open Info Page</button>
+
+    <!--ex6 change style of other opened by the current page-->
+    <button id="btn" onclick="WritingToAPopupWindow()">
+      Click To Open Info Page
+    </button>
+
+    <!--ex7 open control page resize ...-->
+    <button id="btn" onclick="ShowInfo()">Click To Open Info Page</button>
+
+    <script src="main.js"></script>
+  </body>
+</html>

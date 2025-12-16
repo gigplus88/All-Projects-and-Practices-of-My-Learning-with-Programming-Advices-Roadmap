@@ -1,0 +1,137 @@
+import { useState } from "react";
+
+function MyForm() {
+  const [formInputs, setformInputs] = useState({
+    name: "",
+    email: "",
+    age: "",
+    generalInfo: "",
+    IsStudent: false,
+    country: "",
+    status: "Student",
+  });
+  function handleInputChange(event, key) {
+    setformInputs({ ...formInputs, [key]: event.target.value });
+  }
+  function handleCheckBoxChange(event) {
+    setformInputs({
+      ...formInputs,
+      IsStudent: event.target.checked ? true : false,
+    });
+  }
+  //setInput(event.target.value);
+  return (
+    <>
+      <form
+        action=""
+        onSubmit={(event) => {
+          event.preventDefault();
+
+          console.log(
+            "Yes it s your " + formInputs.name,
+            formInputs.email,
+            formInputs.age,
+            formInputs.generalInfo,
+            formInputs.IsStudent
+          );
+        }}>
+        <label htmlFor="">Name</label>
+        <input
+          type="text"
+          value={formInputs.name}
+          onChange={(event) => {
+            //setformInputs({name: event.target.value,
+            //email: formInputs.email,});
+            setformInputs({ ...formInputs, name: event.target.value }); //...formInputs is copy of formInputs keys
+          }}
+        />
+
+        <hr />
+
+        <label htmlFor="">Email</label>
+        <input
+          type="text"
+          value={formInputs.email}
+          onChange={(event) => {
+            //setformInputs({name: event.target.value,
+            //email: formInputs.email,});
+            setformInputs({ ...formInputs, email: event.target.value }); //...formInputs is copy of formInputs keys
+          }}
+        />
+
+        <hr />
+        <label htmlFor="">Age</label>
+        <input
+          type="text"
+          value={formInputs.age}
+          onChange={(event) => handleInputChange(event, "age")}
+        />
+
+        <hr />
+        <label htmlFor="">General Info</label>
+        <textarea
+          name=""
+          id=""
+          onChange={(event) => {
+            setformInputs({ ...formInputs, generalInfo: event.target.value });
+          }}>
+          {formInputs.generalInfo}
+        </textarea>
+
+        <hr />
+
+        <label htmlFor="">Is Studdent</label>
+        <input
+          type="checkbox"
+          checked={formInputs.IsStudent}
+          onChange={handleCheckBoxChange}
+        />
+
+        <hr />
+        <label htmlFor="country">Country</label>
+        <select
+          name="country"
+          id="country"
+          value={formInputs.country}
+          onChange={(event) => handleInputChange(event, "country")}>
+          <option>Morocco</option>
+          <option>HSA</option>
+          <option>Egypte</option>
+          <option>Morocco</option>
+        </select>
+        <hr />
+
+        <div>
+          <input
+            type="radio"
+            name="status"
+            value="Student"
+            checked={formInputs.status === "Student"} //To link it with state key
+            onChange={(event) => handleInputChange(event, "status")}
+          />
+          Student
+          <input
+            type="radio"
+            name="status"
+            value="Employed"
+            checked={formInputs.status === "Employed"}
+            onChange={(event) => handleInputChange(event, "status")}
+          />
+          Employed
+          <input
+            type="radio"
+            name="status"
+            value="Unemployed"
+            checked={formInputs.status === "Unemployed"}
+            onChange={(event) => handleInputChange(event, "status")}
+          />
+          Unemployed
+        </div>
+        <hr />
+        <button>Submit</button>
+      </form>
+    </>
+  );
+}
+
+export default MyForm;

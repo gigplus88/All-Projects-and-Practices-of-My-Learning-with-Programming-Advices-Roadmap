@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Web Storage Demo</title>
+
+    <style>
+      body {
+        height: 100vh;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background: #f4f4f4;
+        font-family: Arial, sans-serif;
+      }
+
+      input {
+        padding: 10px;
+        width: 300px;
+        margin-bottom: 20px;
+        font-size: 1.1rem;
+      }
+
+      button {
+        padding: 12px 30px;
+        margin: 6px;
+        border: none;
+        background: #007bff;
+        color: white;
+        font-size: 1rem;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: 0.3s;
+      }
+
+      button:hover {
+        background: #0056b3;
+        transform: scale(1.05);
+      }
+
+      #output {
+        margin-top: 20px;
+        font-size: 1.2rem;
+      }
+    </style>
+  </head>
+
+  <body>
+    <h2>Web Storage Demo</h2>
+
+    <button onclick="saveLS()">Save in Local Storage</button>
+    <button onclick="loadLS()">Load from Local Storage</button>
+    <button onclick="clearLS()">Clear Local Storage</button>
+    <button onclick="clearItem('color')">remove Local Storage item</button>
+
+    <br />
+
+    <button onclick="saveSS()">Save in Session Storage</button>
+    <button onclick="loadSS()">Load from Session Storage</button>
+    <button onclick="clearSS()">Clear Session Storage</button>
+    <button onclick="clearItemSession('color')">
+      remove Sssion Storage item
+    </button>
+
+    <br />
+    <p>Navigate page</p>
+    <a href="page1.html" target="_blank">Open in new tab</a>
+    <a href="page2.html" target="_self">Open in new page</a>
+
+    <div id="output"></div>
+
+    <script>
+      function saveLS() {
+        let name = document.getElementById("nameInput").value;
+        let email = document.getElementById("emailInput").value;
+        let color = document.getElementById("colorInput").value;
+
+        localStorage.setItem("name", name);
+        localStorage.setItem("email", email);
+        localStorage.setItem("color", color);
+
+        alert("Saved in localStorage");
+      }
+
+      function loadLS() {
+        let name = localStorage.getItem("name");
+        let email = localStorage.getItem("email");
+        let color = localStorage.getItem("color");
+
+        document.getElementById("output").textContent =
+          "Local Storage: " +
+          ("Name: " + (name ?? "No value found ")) +
+          " " +
+          ("email: " + (email ?? "No value found")) +
+          " " +
+          ("color: " + (color ?? "No value found"));
+      }
+
+      function clearLS() {
+        localStorage.clear();
+        alert("localStorage cleared");
+      }
+      function clearItem(item) {
+        if (localStorage.getItem(item) !== null) {
+          localStorage.removeItem(item);
+          alert(item + " in localStorage cleared successfully");
+        } else {
+          alert(item + " in localStorage  is not declared");
+        }
+      }
+
+      // Session Storage
+      function saveSS() {
+        let name = document.getElementById("nameInput").value;
+        let email = document.getElementById("emailInput").value;
+        let color = document.getElementById("colorInput").value;
+
+        sessionStorage.setItem("name", name);
+        sessionStorage.setItem("email", email);
+        sessionStorage.setItem("color", color);
+
+        alert("Saved in sessionStorage");
+      }
+
+      function loadSS() {
+        let name = sessionStorage.getItem("name");
+        let email = sessionStorage.getItem("email");
+        let color = sessionStorage.getItem("color");
+
+        document.getElementById("output").textContent =
+          "Session Storage: " +
+          ("Name: " + (name ?? "No value found ")) +
+          " " +
+          ("email: " + (email ?? "No value found")) +
+          " " +
+          ("color: " + (color ?? "No value found"));
+      }
+
+      function clearSS() {
+        sessionStorage.clear();
+        alert("sessionStorage cleared");
+      }
+
+      function clearItemSession(item) {
+        if (sessionStorage.getItem(item) !== null) {
+          sessionStorage.removeItem(item);
+          alert(item + " in sessionStorage cleared successfully");
+        } else {
+          alert(item + " in sessionStorage  is not declared");
+        }
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,26 @@
+import 'dart:async';
+import 'dart:math'; // import built in package
+import 'package:path/path.dart';
+
+import 'core/functions.dart'; // importing folders
+import 'package:http/http.dart';
+
+void main() {
+  String? age = null;
+
+  //print(age.isEvenAndPos());
+
+  //print(age.isEmpty);
+}
+
+extension AyoubEx on int {
+  isEvenAndPos() {
+    return this > 0 && this.isEven;
+  }
+}
+
+extension Ayoub on String {
+  isEmpty() {
+    return this == "" || this == 0;
+  }
+}

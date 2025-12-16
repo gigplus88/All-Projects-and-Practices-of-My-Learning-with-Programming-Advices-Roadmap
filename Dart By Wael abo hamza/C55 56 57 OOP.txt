@@ -1,0 +1,52 @@
+import 'dart:math'; // import built in package
+import 'core/functions.dart'; // importing folders
+import 'package:http/http.dart';
+
+void main() {
+  Customers cs = Customers(name: "Ayoub");
+  Customers cs2 = Customers.ForUpdate();
+
+  cs.setAge(22);
+
+  print(cs.getAge());
+  
+}
+
+
+
+
+
+
+
+
+
+import 'dart:math'; // import built in package
+
+printName(String? name) {
+  print(name);
+}
+
+class Customers {
+  String? name;
+  String? phone;
+  int? _age;
+
+  //Customers(this._age, [this._name, this._phone /*Nullable variable */]);
+  Customers({this.name /*Named parameters */});
+
+  //Named Constructor because dart it not gives us
+  //permissions to work with the same name constructor
+
+  Customers.ForUpdate({name = "said"}) {
+    print("constructor 2 $name");
+  }
+  // Customers.ForUpdate({name = "said"});
+
+  setAge(int age) {
+    _age = age;
+  }
+
+  getAge() {
+    return _age;
+  }
+}

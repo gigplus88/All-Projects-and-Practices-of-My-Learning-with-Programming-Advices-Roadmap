@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Web Storage Demo</title>
+
+    <style>
+      body {
+        height: 100vh;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background: #f4f4f4;
+        font-family: Arial, sans-serif;
+      }
+
+      input {
+        padding: 10px;
+        width: 300px;
+        margin-bottom: 20px;
+        font-size: 1.1rem;
+      }
+
+      button {
+        padding: 12px 30px;
+        margin: 6px;
+        border: none;
+        background: #007bff;
+        color: white;
+        font-size: 1rem;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: 0.3s;
+      }
+
+      button:hover {
+        background: #0056b3;
+        transform: scale(1.05);
+      }
+
+      #output {
+        margin-top: 20px;
+        font-size: 1.2rem;
+      }
+      .AutoSaveTxt textarea {
+        margin: 10px;
+        width: 420px;
+        height: 200px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <h2>Web Storage Demo</h2>
+    <div class="simpleTxt">
+      <textarea name="" id="textbox1" placeholder="tetx wiwthout AutoSave"></textarea>
+    </div>
+
+    <div class="AutoSaveTxt">
+      <textarea name="" id="textbox2" placeholder="text with AutoSave S.Storage"></textarea>
+    </div>
+  
+    <div class="AutoSaveTxt">
+      <textarea name="" id="textbox3" placeholder="text with AutoSave L.Storage"></textarea>
+    </div>
+  
+
+    
+   <script>
+   
+   if (sessionStorage.getItem("autoSaveContent") === null) {
+    sessionStorage.setItem("autoSaveContent", "");
+  }
+
+  const textSaved = sessionStorage.getItem("autoSaveContent");
+
+
+  if (textSaved !== null) {
+    document.getElementById("textbox2").value = textSaved;
+  }
+
+  const autoSave = document.getElementById("textbox2");
+
+
+  autoSave.addEventListener("input", (e) => {
+    const currentText = e.target.value; 
+    sessionStorage.setItem("autoSaveContent", currentText);
+  });
+
+
+
+
+
+  /*With Local Storage*/
+   if (localStorage.getItem("aSContentLS") === null) {
+    localStorage.setItem("aSContentLS", "");
+  }
+
+  const textSavedLS = localStorage.getItem("aSContentLS");
+
+
+  if (textSavedLS !== null) {
+    document.getElementById("textbox3").value = textSavedLS;
+  }
+
+  const autoSaveLS = document.getElementById("textbox3");
+
+
+  autoSaveLS.addEventListener("input", (e) => {
+    const currentText = e.target.value; 
+    localStorage.setItem("aSContentLS", currentText);
+  });
+
+</script>
+  </body>
+</html>

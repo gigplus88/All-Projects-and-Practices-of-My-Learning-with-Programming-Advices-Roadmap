@@ -1,0 +1,47 @@
+import 'dart:math';
+
+void main() {
+  List users = ["Wael", "Saad", "Rachid", "Zaid"];
+
+  List newUsers = users.sublist(1, users.length);
+
+  print(newUsers);
+
+  // Shuffle data at users
+  users.shuffle();
+
+  print(users);
+
+  // list to map
+
+  Map usersMap = users.asMap();
+  print(usersMap);
+
+  // To have specific pe of data from Mix List
+  List mixList = ["Ayoub", 323, false, 93.094, "Said"];
+
+  var ListBool = mixList.whereType<bool>();
+  print(ListBool.toList());
+
+  //getRange
+
+  var filterList = mixList.getRange(1, 4);
+  print(filterList);
+
+  //Any every
+
+  List numbers = [1, 3, 44, 48, 0];
+  List numbers3 = [1, 3, 44, 48, 0];
+
+  print(numbers.any((element) => element > 5));
+  print(numbers3.every((element) => element > 5));
+
+  //take & skip
+
+  List Cus = ["Hamza", "Said", "Rachad", "Souk"];
+  //Get All items from begin to counter
+  print(Cus.take(2 /*Counter*/));
+
+ //It skip all elements from begin to counter
+  print(Cus.skip(1));
+}

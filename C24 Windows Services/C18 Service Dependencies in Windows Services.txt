@@ -1,0 +1,86 @@
+A service dependency is a relationship where one service (dependent service) relies on another service (dependency) 
+to start and run properly. The dependent service cannot start until its dependencies have started.
+
+A service cannot start unless all its dependencies are already running.
+If a dependency service stops, the dependent service will also stop (depending on the configuration).
+Dependencies are managed by the Service Control Manager (SCM).
+
+
+
+
+
+
+3. Viewing Service Dependencies
+You can view the dependencies of a service using the following tools:
+
+A. Services Management Console (services.msc)
+
+B. Command-Line Tools (SC Command)
+
+C. PowerShell
+
+
+
+
+
+
+
+4. Configuring Service Dependencies
+You can configure service dependencies during service installation or manually.
+
+A. Using Command-Line Tools
+The sc config command allows you to specify service dependencies.
+Syntax:
+sc config <ServiceName> depend= <Dependency1>/<Dependency2>
+
+
+B. Programmatically in C#
+You can define dependencies when installing a service using the ServiceInstaller class.
+
+Example Code:
+using System.ServiceProcess;
+using System.Configuration.Install;
+using System.ComponentModel;
+
+[RunInstaller(true)]
+public class ProjectInstaller : Installer
+{
+    private ServiceProcessInstaller processInstaller;
+    private ServiceInstaller serviceInstaller;
+
+    public ProjectInstaller()
+    {
+        processInstaller = new ServiceProcessInstaller
+        {
+            Account = ServiceAccount.LocalSystem
+        };
+
+        serviceInstaller = new ServiceInstaller
+        {
+            ServiceName = "MyCustomService",
+            DisplayName = "My Custom Service",
+            StartType = ServiceStartMode.Automatic,
+            ServicesDependedOn = new string[] { "RpcSs", "EventLog" } // Dependencies
+        };
+
+        Installers.Add(processInstaller);
+        Installers.Add(serviceInstaller);
+    }
+}
+
+
+
+
+
+
+6. Troubleshooting Service Dependencies
+Dependency Not Starting:
+Check the status of the dependency using services.msc or sc query.
+Restart the dependency service.
+Circular Dependency Error:
+Avoid creating circular dependencies where services depend on each other.
+Dependency Not Installed:
+Verify that the required dependency service is installed and available.
+Logs for Failures:
+Use Event Viewer to check logs for dependency-related errors.
+

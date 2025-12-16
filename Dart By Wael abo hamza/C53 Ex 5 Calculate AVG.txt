@@ -1,0 +1,13 @@
+import 'dart:math'; // import built in package
+import 'core/functions.dart'; // importing folders
+import 'package:http/http.dart';
+
+void main() {
+  List numbers = [3, 1 , 83 , 28 ,12];
+
+  print(GetAverage(numbers));
+}
+double GetAverage(List nms) {
+  var sum = nms.reduce((previousValue, element) => previousValue+ element);
+  return (sum / nms.length);
+}

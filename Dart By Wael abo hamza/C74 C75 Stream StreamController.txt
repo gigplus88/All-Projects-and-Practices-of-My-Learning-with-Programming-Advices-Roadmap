@@ -1,0 +1,50 @@
+import 'dart:async';
+import 'dart:math'; // import built in package
+import 'core/functions.dart'; // importing folders
+import 'package:http/http.dart';
+
+void main() async {
+  /*await for (String data in getData()) {
+    print(data);
+  }*/
+
+ // listner واحد يقبل مستمعا واحدا فقط  (Single stream)
+  //StreamController streamController = StreamController();
+
+    StreamController streamController = StreamController.broadcast();
+
+  Stream stream = streamController.stream;
+
+  StreamSubscription streamSubscription1 = stream.listen((val) {
+    print("listner 1 $val");
+  });
+
+    StreamSubscription streamSubscription2 = stream.listen((val) {
+    print("listner 2 $val");
+  });
+
+
+  uploadVideo( streamController);
+}
+
+// stream work with yield for more than one event
+// and async* for more than one event
+Stream getData() async* {
+  yield "1";
+  await Future.delayed(Duration(seconds: 3));
+  yield "3";
+  await Future.delayed(Duration(seconds: 3));
+  yield "4";
+}
+
+ uploadVideo(StreamController streamController) async{
+  streamController.add(1);
+   await Future.delayed(Duration(seconds: 3));
+  streamController.add(30);
+  await Future.delayed(Duration(seconds: 3));
+  streamController.add(70);
+   await Future.delayed(Duration(seconds: 3));
+  streamController.add(100);
+
+
+}

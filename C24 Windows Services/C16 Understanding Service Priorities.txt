@@ -1,0 +1,135 @@
+
+Summary
+Service priorities determine how much CPU time and resources a service receives.
+Windows assigns default priorities but allows them to be adjusted using Task Manager, sc, PowerShell, or programmatically.
+Proper use of service priorities ensures that critical tasks run efficiently without disrupting system performance.
+
+
+
+
+
+ Tools for Monitoring and Managing Service Priorities
+You can view and manage the priorities of running services using various tools:
+
+A. Task Manager
+Open Task Manager (Ctrl + Shift + Esc).
+Go to the Details tab to view process priority levels.
+Right-click a process (e.g., a custom service) → Set Priority → Select a priority class.
+Note: Task Manager changes the priority temporarily until the process restarts.
+B. Command Prompt (using wmic)
+Use the wmic command to view or adjust process priorities.
+View the Priority of a Process:
+wmic process where name="MyService.exe" get Name, Priority
+
+Change the Priority:
+wmic process where name="MyService.exe" CALL setpriority 128
+
+Priority Codes:
+256: Real-Time
+128: High
+32768: Above Normal
+32: Normal
+16384: Below Normal
+64: Idle
+
+
+
+
+C. PowerShell
+Use PowerShell to retrieve and modify service process priorities:
+
+Get Process Priority:
+Get-Process -Name MyService | Select-Object Name, Id, PriorityClass
+
+Set Process Priority:
+(Get-Process -Name MyService).PriorityClass = "High"
+
+
+
+The valid PriorityClass values for processes in Windows are as follows:
+
+
+Idle
+Lowest priority for CPU scheduling.
+Used for processes that run only when the system is idle.
+BelowNormal
+Lower than normal priority.
+Used for processes that should run with less impact on the system than normal processes.
+Normal
+Default priority class.
+Used for most applications.
+AboveNormal
+Higher priority than normal.
+Used for processes that need more CPU time but aren't critical.
+High
+High-priority class.
+Used for time-critical tasks that require immediate execution.
+Be cautious: this can affect other processes' performance.
+RealTime
+Highest possible priority.
+Used for processes that need to respond immediately to real-time events.
+Be extremely cautious: this can starve other processes, including essential system processes.
+
+
+
+
+
+
+
+
+
+. Implementing Service Priorities in Code
+You can programmatically set the priority class of a service process in C# using the Process class.
+
+Example Code to Adjust Priority
+In your Windows Service, you can set the priority level dynamically in the OnStart method:
+
+
+
+
+
+
+using System;
+using System.Diagnostics;
+using System.IO;
+using System.ServiceProcess;
+
+namespace MyServiceWithPriority
+{
+    public partial class MyServiceWithPriority : ServiceBase
+    {
+        private string logFilePath = @"C:\ServiceLogs\PriorityLog.txt";
+
+        public MyServiceWithPriority()
+        {
+            InitializeComponent();
+        }
+
+        protected override void OnStart(string[] args)
+        {
+            LogEvent("Service Started");
+
+            // Set the current process priority to High
+            Process process = Process.GetCurrentProcess();
+            process.PriorityClass = ProcessPriorityClass.High;
+
+            LogEvent($"Service Priority Set to: {process.PriorityClass}");
+        }
+
+        protected override void OnStop()
+        {
+            LogEvent("Service Stopped");
+        }
+
+        private void LogEvent(string message)
+        {
+            string logMessage = $"[{DateTime.Now:yyyy-MM-dd HH:mm:ss}] {message}\n";
+            File.AppendAllText(logFilePath, logMessage);
+        }
+
+        public static void Main()
+        {
+            ServiceBase.Run(new MyServiceWithPriority());
+        }
+    }
+}

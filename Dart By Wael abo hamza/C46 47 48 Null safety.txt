@@ -1,0 +1,40 @@
+import 'dart:math';
+
+void main() {
+  int? a = 3; // nullable by ?
+
+  int b;
+
+  b = a ?? 1; // if a is null get to b 1
+
+  print(b);
+  print(a);
+
+  // ! if I am sure the variable is not null
+
+  int c;
+  c = a!;
+
+  print(c);
+
+  Home home = Home();
+
+  home.printroom();
+
+  List<int?> num = [1, 3, 5, 34, null];
+
+  print(num);
+
+  Map<String?, String?> users = {"username": "Ayoub", "Pass": null};
+  print(users);
+}
+
+class Home {
+  late String room; // to not give it a initial variable
+  // but i should give it a value before  utilise it
+
+  printroom() {
+    room = "Living";
+    print(room);
+  }
+}

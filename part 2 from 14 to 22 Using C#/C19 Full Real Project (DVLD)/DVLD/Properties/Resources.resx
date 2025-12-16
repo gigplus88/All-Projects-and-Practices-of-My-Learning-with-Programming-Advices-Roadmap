@@ -127,9 +127,6 @@
   <data name="ID Verified" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\ID Verified.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="edit 321" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources2\edit 32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="Close" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Close.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -139,8 +136,8 @@
   <data name="Close2 (1)" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Close2 (1).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Money Bag" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Money Bag.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Close (2)" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Close (2).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Add properties (1)" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Add properties (1).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -199,9 +196,6 @@
   <data name="people232" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\people232.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Hand Little" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Hand Little.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="Geography (1)1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Geography (1).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -210,6 +204,9 @@
   </data>
   <data name="Driver_Main" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources2\Driver Main.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Locked With Key (1)1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Locked With Key (1).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Delete2" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Delete2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -235,14 +232,8 @@
   <data name="recruitment_7376100" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\recruitment_7376100.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Vision_5121" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources2\Vision 512.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="Phone_32" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources2\Phone 32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="License_View_32" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources2\License View 32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Count_32" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources2\Count 32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -277,11 +268,11 @@
   <data name="Add Book" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Add Book.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="application_list" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\application_list.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="bank2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\bank2.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Blue Car Driving For Men Facebook Post3" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Blue Car Driving For Men Facebook Post3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Close_32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources2\Close 32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="User_Male2" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\User Male2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -304,8 +295,8 @@
   <data name="country_15615796" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\country_15615796.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Blue Car Driving For Men Facebook Post2" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Blue Car Driving For Men Facebook Post2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Vision_5121" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources2\Vision 512.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Save" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Save.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -361,9 +352,6 @@
   <data name="Certificate" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Certificate.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Blue Car Driving For Men Facebook Post6" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Blue Car Driving For Men Facebook Post6.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="Email_32" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources2\Email 32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -372,9 +360,6 @@
   </data>
   <data name="User Settings (1)" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\User Settings (1).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Female_512" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources2\Female 512.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="LicenseView_400" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources2\LicenseView 400.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -387,6 +372,9 @@
   </data>
   <data name="Car (1)" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Car (1).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Money Bag" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Money Bag.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="User_Male1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\User Male1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -418,23 +406,17 @@
   <data name="country_15615796 (1)" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\country_15615796 (1).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Locked With Key (1)1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Locked With Key (1).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="chat_6777213" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\chat_6777213.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Female" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Female.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Blue Car Driving For Men Facebook Post5" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Blue Car Driving For Men Facebook Post5.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Calendar Plus (1)" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Calendar Plus (1).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Vision_512" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources2\Vision 512.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="recruitment_73761001" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\recruitment_73761001.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="License_Type_32" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources2\License Type 32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -460,14 +442,8 @@
   <data name="Driver License12" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Driver License1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Blue Car Driving For Men Facebook Post7" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Blue Car Driving For Men Facebook Post7.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="Type" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Type.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="chat_6777213" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\chat_6777213.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Man_32" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources2\Man 32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -508,9 +484,6 @@
   <data name="application_list1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\application_list.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Blue Car Driving For Men Facebook Post1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Blue Car Driving For Men Facebook Post1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="Driver License (1)" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Driver License (1).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -520,8 +493,11 @@
   <data name="Driver License" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Driver License1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Close (2)" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Close (2).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Edit" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Edit.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="recruitment_73761001" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\recruitment_73761001.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Bullet List (1)1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Bullet List (1).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -538,8 +514,8 @@
   <data name="International_32" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources2\International 32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="bank2" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\bank2.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="License_View_32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources2\License View 32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Next_32" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources2\Next 32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -547,17 +523,14 @@
   <data name="Written_Test_512" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources2\Written Test 512.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Blue Car Driving For Men Facebook Post4" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Blue Car Driving For Men Facebook Post4.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="application_list" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\application_list.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Left Handed (1)" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Left Handed (1).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Close_32" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources2\Close 32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Blue Car Driving For Men Facebook Post" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Blue Car Driving For Men Facebook Post.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Hand Little" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Hand Little.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Delete (1)" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Delete (1).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -580,8 +553,8 @@
   <data name="Person_32" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources2\Person 32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Edit" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Edit.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Female_512" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources2\Female 512.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Education Fees Payment" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Education Fees Payment.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -598,7 +571,7 @@
   <data name="calendar_52930251" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\calendar_5293025.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Blue Car Driving For Men Facebook Post8" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Blue Car Driving For Men Facebook Post8.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="edit 321" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources2\edit 32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

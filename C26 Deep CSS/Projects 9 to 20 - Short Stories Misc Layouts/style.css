@@ -1,0 +1,83 @@
+/* * ----------------------------------------------------
+ * Custom CSS (Pour la logique de l'écran partagé et les styles non-Bootstrap)
+ * ----------------------------------------------------
+ */
+
+/* 1. Style des images miniatures dans la barre latérale */
+.thumb {
+    width: 84px;
+    height: 64px;
+    object-fit: cover;
+    border-radius: 10px;
+    display: block;
+    border: 1px solid var(--bs-secondary-border);
+}
+
+/* 2. Style de l'image principale de prévisualisation */
+.hero {
+    width: 100%;
+    height: min(48vh, 340px); /* Utilise la fonction CSS min() */
+    object-fit: cover;
+    display: block;
+}
+
+/* 3. Panneau de Prévisualisation (Logique principale :target) */
+.pane {
+    position: relative;
+    min-height: 520px; 
+    overflow: hidden; 
+}
+
+/* Masquer toutes les sections de prévisualisation par défaut */
+.pane section {
+    display: none;
+    /* Animation pour une transition douce lors du clic */
+    animation: fade-in 0.3s ease both;
+}
+
+/* 🎯 Afficher la section ciblée lorsque son ID correspond à l'URL #hash */
+.pane section:target {
+    display: block;
+}
+
+/* 🎯 Logique pour afficher la section par défaut (preview-train) lorsque
+ * l'URL ne contient aucun hachage (#) 
+ */
+.pane:not(:has(section:target)) #preview-train {
+    display: block;
+}
+/* Masquer la section par défaut si une autre section est ciblée */
+.pane:has(section:target) #preview-train {
+    display: none;
+}
+.pane:has(section:target) #preview-default {
+    display: none;
+}
+
+/* Définition de l'animation */
+@keyframes fade-in {
+    from {
+        opacity: 0;
+        transform: translateY(6px);
+    }
+    to {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+
+/* 4. Style de l'élément natif <dialog> (Modal) */
+/* Nécessaire pour positionner correctement la modale et son fond */
+dialog {
+    width: 92%;
+    max-width: 760px;
+    border: none;
+    position: fixed; 
+    inset: 50% 50% 0 0; 
+    transform: translate(-50%, -50%);
+}
+
+dialog::backdrop {
+    background: rgba(0, 0, 0, 0.55);
+}

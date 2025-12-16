@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Web Storage Demo</title>
+
+    <style>
+      body {
+        height: 100vh;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background: #f4f4f4;
+        font-family: Arial, sans-serif;
+      }
+
+      input {
+        padding: 10px;
+        width: 300px;
+        margin-bottom: 20px;
+        font-size: 1.1rem;
+      }
+
+      button {
+        padding: 12px 30px;
+        margin: 6px;
+        border: none;
+        background: #007bff;
+        color: white;
+        font-size: 1rem;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: 0.3s;
+      }
+
+      button:hover {
+        background: #0056b3;
+        transform: scale(1.05);
+      }
+
+      #output {
+        margin-top: 20px;
+        font-size: 1.2rem;
+      }
+    </style>
+  </head>
+
+  <body>
+    <h2>Web Storage Demo</h2>
+
+    <input id="nameInput" type="text" placeholder="Enter your name..." />
+    <input
+      id="phoneInput"
+      type="text"
+      placeholder="Enter your phone number..."
+    />
+
+    <button onclick="saveLS()">Save in Local Storage</button>
+    <button onclick="loadLS()">Load from Local Storage</button>
+    <button onclick="clearLS()">Clear Local Storage</button>
+    <button onclick="clearItem('phone')">Clear Local Storage item</button>
+
+    <br />
+
+    <button onclick="saveSS()">Save in Session Storage</button>
+    <button onclick="loadSS()">Load from Session Storage</button>
+    <button onclick="clearSS()">Clear Session Storage</button>
+
+    <br />
+    <p>Navigate page</p>
+    <a href="page1.html" target="_blank">Open in new tab</a>
+    <a href="page2.html" target="_self">Open in new page</a>
+
+    <div id="output"></div>
+
+    <script>
+      function saveLS() {
+        let name = document.getElementById("nameInput").value;
+        let phone = document.getElementById("phoneInput").value;
+
+        localStorage.setItem("name", name);
+        localStorage.setItem("phone", phone);
+        alert("Saved in localStorage");
+      }
+
+      function loadLS() {
+        let name = localStorage.getItem("name");
+        let phone = localStorage.getItem("phone");
+
+        document.getElementById("output").textContent =
+          "Local Storage: " +
+          (name ?? "No value found") +
+          " " +
+          (phone ?? "No value found");
+      }
+
+      function clearLS() {
+        localStorage.clear();
+        alert("localStorage cleared");
+      }
+      function clearItem(item) {
+        localStorage.removeItem(item);
+        alert({ item } + " in localStorage cleared successfully");
+      }
+
+      // Session Storage
+      function saveSS() {
+        let name = document.getElementById("nameInput").value;
+        sessionStorage.setItem("name", name);
+        alert("Saved in sessionStorage");
+      }
+
+      function loadSS() {
+        let name = sessionStorage.getItem("name");
+        document.getElementById("output").textContent =
+          "Session Storage: " + (name ?? "No value found");
+      }
+
+      function clearSS() {
+        sessionStorage.clear();
+        alert("sessionStorage cleared");
+      }
+    </script>
+  </body>
+</html>

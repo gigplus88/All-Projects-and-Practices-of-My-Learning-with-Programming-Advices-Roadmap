@@ -1,0 +1,25 @@
+import 'dart:math'; // import built in package
+import 'core/functions.dart'; // importing folders
+import 'package:http/http.dart';
+
+void main() {
+  Users users = Users("kokd");
+  users.printName("koko");
+}
+
+class Customers {
+  String? name;
+  Customers({this.name}) {
+    print("Name : $name from Parent");
+  }
+
+  printName($name) {
+    print($name);
+  }
+}
+
+class Users extends Customers {
+  Users(name) : super(name: name) {
+    print("Name : $name from child");
+  }
+}

@@ -1,0 +1,40 @@
+import 'dart:ffi';
+import 'dart:math'; // import built in package
+import 'core/functions.dart'; // importing folders
+import 'package:http/http.dart';
+
+void main() {
+  Admin admin = Admin();
+
+  admin.printName();
+}
+
+//Mixin have not object or constructor
+//we can extend and mixin in the same time
+// عند ارادة مشاركة الكود في أكثر من كلاص أستعمل mixin
+// I cant extend from mixin because is not class
+mixin MixinPrintName {
+  printName() {
+    print("Name");
+  }
+
+  //abstract mehod
+   int calculateAVG();
+}
+mixin MixinPrint {
+  printName() {
+    print("Name");
+  }
+}
+
+class Admin with MixinPrintName, MixinPrint {}
+
+class CEO with MixinPrintName {}
+
+class CTO with MixinPrintName {}
+
+class MArketer with MixinPrintName {}
+
+class CFO with MixinPrintName {}
+
+class CMO with MixinPrintName {}

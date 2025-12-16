@@ -1,0 +1,15 @@
+import 'dart:math';
+
+void main() {
+  List numbers = [1, 3, 44, 48, 0];
+
+  // previousValue + element1 , the sum + element2 + ...
+  var rs = numbers.fold(2, (previousValue, element) => element + previousValue);
+
+  print(rs);
+
+  var rs2 = numbers.reduce((previousValue, element) => previousValue+ element);
+
+  print(rs2);
+
+}
