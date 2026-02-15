@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <script>
+      //Activity 1
+
+      const regex = /cat/;
+      const regex1 = /boom/;
+
+      console.log(regex.test("I have a cat"));
+      console.log(regex1.test("I have boom   a cat"));
+
+      console.log("ha ha ha".match(/ha/g));
+
+      console.log("ha ha ha".match(/ha/));
+
+      //ex
+      /admin/i.test("Admin user"); // true
+
+      console.log("Order 45 costs 300 dollars".match(/\d+/g));
+
+      //Activity 2
+
+      console.log("Hello Bob".replace(/Bob/, "Sara"));
+
+      console.log("ha ha ha".replace(/ha/g, "ho"));
+
+      const text = "Order #45 ";
+      const result = text.match(/#(\d+)/);
+
+      console.log(result);
+
+      //console.log("2025-09-01".replace(/(\d{4})-(\d{2})-(\d{2})/, "$3/$2/$1"));
+
+
+
+      //ex
+
+      const text2 = "User: Omar (ID: 42), User: Sara (ID: 17)";
+      const regex3 = /ID:\s(\d+)/g;
+
+      console.log(text2.match( regex3 ));
+      for (const match of text2.matchAll(regex3)) {
+        console.log(match);
+      }
+
+
+      const converted2 = text2.replace(/User:\s\w+/g, "User: REDACTED");
+
+      console.log(converted2);
+
+      // "User: Omar (ID: 42), User: Sara (ID: 17)".matchAll(/ID:/);
+
+      const prices = "Price: 100$, Discount: 20$";
+      // نستخدم $1 للإشارة إلى الرقم الملتقط بين الأقواس
+      const converted = prices.replace(/ID:\s(\d+)/g, "$1 USD");
+
+      console.log(converted);
+      // "Price: 100 USD, Discount: 20 USD"
+    </script>
+  </body>
+</html>

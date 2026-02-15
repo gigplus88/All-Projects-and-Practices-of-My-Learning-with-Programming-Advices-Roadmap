@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>JavaScript Type System Demo</title>
+
+    <style>
+     
+    </style>
+  </head>
+  <body>
+    
+
+    
+    <script>
+     
+  
+const READ = 1;   // 0001
+const WRITE = 2;  // 0010
+const EXECUTE = 4; // 0100
+
+let user = READ | WRITE; //To add permission
+
+console.log(user & READ);     // true-like  (& to check permission)
+console.log(user & EXECUTE); // 0 (false-like)
+
+user ^= EXECUTE; // toggle EXECUTE
+console.log(user); // now includes EXECUTE
+
+    </script>
+  </body>
+</html>

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>JavaScript Type System Demo</title>
+
+    <style></style>
+  </head>
+  <body>
+    <script>
+      let numbers = [1, 4, 5];
+
+      let copied = [...numbers];
+
+      console.log(copied);
+
+      let newArray = [...numbers, 7, 8];
+
+      console.log(newArray);
+
+      let n2 = [20, 27];
+
+      let merged = [...numbers, ...n2];
+      console.log(merged);
+
+      function multiplyAll(array) {
+        return array.reduce((a, b) => a * b);
+      }
+      console.log(multiplyAll(merged));
+
+      let speed = 60;
+      let result = speed >= 60 ? "Fast" : "Normal";
+
+      console.log(result);
+
+      /*null
+undefined
+""
+"Mohammed"*/
+
+      let someValue = null;
+      let nickname = someValue ?? "No nickname";
+      console.log(nickname);
+
+
+
+      /*Given:
+
+let car = { model: "BMW", engine: { hp: 300 } };
+
+Print:
+
+Horsepower
+Car color (missing → should NOT crash)
+Result of calling optional method car.start?.()
+*/
+
+      let car = { model: "BMW", engine: { hp: 300 }  , color:""};
+
+      console.log("HP ->", car.engine?.hp);
+      console.log("Color ->", car.details?.color ?? "Color not defined");
+      console.log("Start Method ->", car.start?.() ?? "Start Method not defined");
+
+
+
+
+
+
+
+
+      let user = {
+        name: "Mohammed",
+        age: 30
+      };
+
+      delete user.age;
+
+      console.log(user);
+      console.log("age" in user);
+
+      // { name: "Mohammed" }
+
+
+
+      let nums = [10, 20, 30];
+      delete nums[0];
+
+      console.log(nums);
+      console.log(2 in nums);
+
+      // [10, empty, 30]
+
+
+        function getValue() {
+          return 42;
+        }
+
+        console.log(void getValue()); 
+        // undefined
+
+
+        let car2 = { model: "BMW", year: 2020, color: "black" };
+
+        delete car2.color;
+        console.log(car2);
+        console.log("color" in car2);
+
+        let user2 = { name: "Sara", age: undefined };
+        console.log("age" in user2);
+        console.log(user2.age === undefined);
+        // the age property is found but its value is undefined (No assigned value)
+
+
+
+        let result3 = void (10 * 10);
+
+        console.log(result3); //undefined because void operator force undefined to this result
+
+        let x = (5, 10, 20);
+        console.log(x);// , comma operator gives the last value
+
+
+        for (let i = 0, j= 10; i < 10 , j>0; i++ ,j--) {
+          console.log(i,j);
+          
+        }
+        
+        
+
+
+
+
+    </script>
+  </body>
+</html>

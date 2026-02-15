@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>JavaScript Type System Demo</title>
+
+    <style></style>
+  </head>
+  <body>
+    <script>
+      let user = {
+        name: "Alice",
+        age: 30, 
+        isAdmin: false,
+        contact: {
+          email: "alice@example.com",
+          phone: "123-456-7890",
+        },
+        hobbies: ["reading", "traveling", "swimming"],
+        };
+     
+        const copy1 = {...user};
+        const copy2 = JSON.parse(JSON.stringify(user));
+        const copy3 = structuredClone(user);
+        copy3.contact.email = "ayoubfellah@gmail.com";
+
+        //copy1.contact.email = "ayoub@gmail.com";
+
+        console.log("Original User:", user);
+        console.log("Shallow Copy (copy1):", copy1);
+        console.log("Json Copy (copy2):", copy2);
+        console.log("Deep Copy (copy3):", copy3);
+      
+
+
+
+         
+  const original = {
+  user: "Omar",
+  prefs: {
+    theme: "dark"
+  }
+};
+
+// Shallow copy
+const shallow = { ...original };
+shallow.prefs.theme = "light";
+
+console.log(original.prefs.theme); // "light" ❌
+
+// Deep copy
+const deep = structuredClone(original);
+deep.prefs.theme = "blue";
+
+console.log(original.prefs.theme); // "light" ✅
+    </script>
+  </body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>JavaScript Type System Demo</title>
+
+    <style></style>
+  </head>
+  <body>
+    <script>
+      
+
+      let greet = (name) => {
+        return "Hello " + name;
+      }
+
+            console.log(greet("Ayoub"));
+
+       const buildUser = (name , age) => { return( {name: name, age: age}) };
+
+      console.log(buildUser( "Ayoub" , 23) );
+
+      const arr = [1, 2, 3, 4];
+      const res = arr.map( (x) => x*3  );
+
+            console.log(res );
+
+            const add = (a, b) =>{
+                return a+b;
+            } 
+            console.log(add(2,4)  );
+
+
+    </script>
+  </body>
+</html>

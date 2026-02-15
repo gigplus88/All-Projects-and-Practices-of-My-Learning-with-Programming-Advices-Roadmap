@@ -1,0 +1,1080 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Restaurant Table Manager</title>
+
+    <style>
+      /* =========================================================
+         ✅ Base Styles (UI look & feel)
+         ========================================================= */
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: radial-gradient(circle at top, #111827, #020617 60%);
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+          sans-serif;
+        color: #f9fafb;
+      }
+
+      /* ✅ App container (2 columns: left tables, right menu+order) */
+      .shell {
+        width: 1200px;
+        max-width: 96vw;
+        background: #020617;
+        border-radius: 22px;
+        box-shadow: 0 26px 70px rgba(0, 0, 0, 0.9);
+        border: 1px solid rgba(148, 163, 184, 0.4);
+        padding: 22px 24px 24px;
+        display: grid;
+        grid-template-columns: 1.1fr 2fr;
+        gap: 18px;
+      }
+
+      /* ✅ Header (title + badge) */
+      .header {
+        grid-column: 1 / -1;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        margin-bottom: 4px;
+      }
+
+      .header-title {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+      }
+
+      .header h1 {
+        margin: 0;
+        font-size: 1.9rem;
+      }
+
+      .header p {
+        margin: 0;
+        font-size: 0.95rem;
+        color: #9ca3af;
+      }
+
+      .badge {
+        background: rgba(37, 99, 235, 0.15);
+        border-radius: 999px;
+        padding: 6px 14px;
+        font-size: 0.78rem;
+        color: #bfdbfe;
+        border: 1px solid rgba(59, 130, 246, 0.6);
+      }
+
+      /* =========================================================
+         ✅ LEFT PANEL: Tables
+         ========================================================= */
+      .left-panel {
+        border-right: 1px solid rgba(55, 65, 81, 0.9);
+        padding-right: 12px;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      .section-title {
+        font-size: 0.95rem;
+        font-weight: 600;
+        margin-bottom: 4px;
+      }
+
+      .card {
+        background: #030712;
+        border-radius: 16px;
+        border: 1px solid rgba(55, 65, 81, 0.9);
+        padding: 14px 16px;
+      }
+
+      .tables-list {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        max-height: 350px;
+        overflow-y: auto;
+        padding-right: 4px;
+      }
+
+      .table-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-radius: 12px;
+        padding: 8px 10px;
+        background: radial-gradient(
+          circle at left,
+          rgba(15, 23, 42, 0.9),
+          #020617
+        );
+        border: 1px solid rgba(55, 65, 81, 0.9);
+      }
+
+      .table-info {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+      }
+
+      .table-name {
+        font-size: 0.95rem;
+        font-weight: 600;
+      }
+
+      .table-status {
+        font-size: 0.78rem;
+        color: #9ca3af;
+        display: flex;
+        align-items: center;
+        gap: 4px;
+      }
+
+      .status-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+      }
+
+      .dot-open {
+        background: #22c55e;
+      }
+
+      .dot-closed {
+        background: #f97316;
+      }
+
+      .table-actions {
+        display: flex;
+        gap: 6px;
+        align-items: center;
+      }
+
+      /* =========================================================
+         ✅ Buttons
+         ========================================================= */
+      button {
+        padding: 7px 12px;
+        border-radius: 999px;
+        border: none;
+        cursor: pointer;
+        font-size: 0.82rem;
+        font-weight: 600;
+        color: #e5e7eb;
+        background: #2563eb;
+        transition: background 0.18s ease, transform 0.12s ease,
+          box-shadow 0.18s ease;
+        box-shadow: 0 3px 10px rgba(37, 99, 235, 0.45);
+        white-space: nowrap;
+      }
+
+      button:hover {
+        background: #1d4ed8;
+        transform: translateY(-1px);
+        box-shadow: 0 5px 16px rgba(37, 99, 235, 0.7);
+      }
+
+      button:active {
+        transform: translateY(0);
+        box-shadow: 0 3px 8px rgba(37, 99, 235, 0.45);
+      }
+
+      .btn-secondary {
+        background: #6b7280;
+        box-shadow: 0 3px 10px rgba(75, 85, 99, 0.6);
+      }
+
+      .btn-secondary:hover {
+        background: #4b5563;
+      }
+
+      .btn-danger {
+        background: #dc2626;
+        box-shadow: 0 3px 10px rgba(220, 38, 38, 0.6);
+      }
+
+      .btn-danger:hover {
+        background: #b91c1c;
+      }
+
+      .btn-small {
+        padding: 4px 9px;
+        font-size: 0.78rem;
+      }
+
+      .selected-label {
+        font-size: 0.82rem;
+        color: #9ca3af;
+        margin-top: 4px;
+      }
+
+      /* =========================================================
+         ✅ RIGHT PANEL: Menu + Current Order
+         ========================================================= */
+      .right-panel {
+        display: grid;
+        grid-template-rows: 1.2fr 1fr;
+        gap: 10px;
+      }
+
+      .menu-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+        gap: 10px;
+      }
+
+      .menu-item {
+        background: radial-gradient(circle at top, #111827, #020617 55%);
+        border-radius: 14px;
+        border: 1px solid rgba(55, 65, 81, 0.9);
+        padding: 10px 11px 12px;
+        display: flex;
+        flex-direction: column;
+        gap: 3px;
+      }
+
+      .menu-name {
+        font-size: 0.95rem;
+        font-weight: 600;
+      }
+
+      .menu-desc {
+        font-size: 0.78rem;
+        color: #9ca3af;
+      }
+
+      .menu-footer {
+        margin-top: 4px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .menu-price {
+        font-size: 0.9rem;
+        font-weight: 700;
+        color: #22c55e;
+      }
+
+      .order-card {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 0.86rem;
+        background: #020617;
+        border-radius: 12px;
+        overflow: hidden;
+        border: 1px solid rgba(55, 65, 81, 0.9);
+      }
+
+      thead {
+        background: #0f172a;
+      }
+
+      th,
+      td {
+        padding: 6px 8px;
+        border-bottom: 1px solid rgba(31, 41, 55, 0.9);
+        text-align: left;
+      }
+
+      th {
+        font-weight: 600;
+        color: #e5e7eb;
+      }
+
+      tbody tr:nth-child(even) {
+        background: #020617;
+      }
+
+      tbody tr:nth-child(odd) {
+        background: #030712;
+      }
+
+      .qty-controls {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+      }
+
+      .qty-value {
+        min-width: 24px;
+        text-align: center;
+      }
+
+      .order-footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 4px;
+      }
+
+      .total-label {
+        font-size: 0.9rem;
+        color: #9ca3af;
+      }
+
+      .total-value {
+        font-size: 1rem;
+        font-weight: 700;
+        color: #4ade80;
+      }
+
+      .order-actions {
+        display: flex;
+        gap: 8px;
+      }
+
+      .order-empty {
+        font-size: 0.8rem;
+        color: #9ca3af;
+        margin-top: 4px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="shell">
+      <!-- =========================================================
+           ✅ HEADER
+           ========================================================= -->
+      <div class="header">
+        <div class="header-title">
+          <h1>Restaurant Table Manager</h1>
+          <p>Open tables, add orders from the menu, print checks in a popup.</p>
+        </div>
+        <div class="badge">
+          Client-Side • JavaScript + window.open() Print Popup
+        </div>
+      </div>
+
+      <!-- =========================================================
+           ✅ LEFT: TABLES
+           ========================================================= -->
+      <div class="left-panel">
+        <div class="card">
+          <div class="section-title">🪑 Tables</div>
+
+          <!-- ✅ JS will render all tables here -->
+          <div id="tablesList" class="tables-list"></div>
+
+          <!-- ✅ Shows which table is currently selected -->
+          <div id="selectedTableLabel" class="selected-label">
+            Selected table: none
+          </div>
+
+          <!-- ✅ Demo controls -->
+          <div
+            style="margin-top: 8px; display: flex; gap: 8px; flex-wrap: wrap"
+          >
+            <button class="btn-secondary btn-small" onclick="addNewTable()">
+              + Add Table
+            </button>
+            <button class="btn-secondary btn-small" onclick="resetAll()">
+              Reset All (Demo)
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- =========================================================
+           ✅ RIGHT: MENU + CURRENT ORDER
+           ========================================================= -->
+      <div class="right-panel">
+        <!-- ✅ MENU -->
+        <div class="card">
+          <div class="section-title">📋 Menu</div>
+          <div id="menuGrid" class="menu-grid"></div>
+        </div>
+
+        <!-- ✅ ORDER -->
+        <div class="card order-card">
+          <div class="section-title">🧾 Current Table Order</div>
+
+          <table>
+            <thead>
+              <tr>
+                <th style="width: 35%">Item</th>
+                <th style="width: 15%">Price</th>
+                <th style="width: 25%">Qty</th>
+                <th style="width: 20%">Subtotal</th>
+                <th style="width: 5%"></th>
+              </tr>
+            </thead>
+            <tbody id="orderBody"></tbody>
+          </table>
+
+          <!-- ✅ Shown when there is no order to display -->
+          <div id="orderEmpty" class="order-empty">
+            No table selected or no items yet.
+          </div>
+
+          <div class="order-footer">
+            <div>
+              <span class="total-label">Total:</span>
+              <span id="orderTotal" class="total-value">$0.00</span>
+            </div>
+
+            <div class="order-actions">
+              <button class="btn-secondary btn-small" onclick="clearOrder()">
+                Clear Order
+              </button>
+              <button onclick="printCheckAndClose()">
+                Print Check & Close Table
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      /* =========================================================
+         ✅ Code Overview (Beginner Friendly)
+         ---------------------------------------------------------
+         ✅ Purpose:
+            - Manage restaurant tables (Open/Close + Select)
+            - Add menu items to the selected table’s order
+            - Print a bill in a popup window, then close the table
+
+         ✅ Layout:
+            1️⃣ Left panel  → Tables list + open/close + select
+            2️⃣ Right top   → Menu cards (Add item)
+            3️⃣ Right bottom→ Current order table (qty + remove + total)
+
+         ✅ Main Flow:
+            1️⃣ User opens a table and selects it
+            2️⃣ User adds menu items → order is stored in memory
+            3️⃣ User prints check → popup opens → print dialog shows
+            4️⃣ After that, table closes and its order clears (demo behavior)
+         ========================================================= */
+
+      /* =========================================================
+         ✅ 1) Data Models (In-Memory for this Demo)
+         ---------------------------------------------------------
+         ⚠️ This demo does NOT use a database.
+         Data is stored in JavaScript variables (lost on refresh).
+         ========================================================= */
+
+      // ✅ Restaurant tables list
+      // Each table: { id, name, isOpen }
+      let tables = [
+        { id: 1, name: "Table 1", isOpen: false },
+        { id: 2, name: "Table 2", isOpen: true },
+        { id: 3, name: "Table 3", isOpen: false },
+        { id: 4, name: "Table 4", isOpen: false },
+      ];
+
+      // ✅ Static restaurant menu
+      // Each item: { id, name, price, description }
+      const menu = [
+        {
+          id: 101,
+          name: "Margherita Pizza",
+          price: 8.5,
+          description: "Tomato, mozzarella, basil.",
+        },
+        {
+          id: 102,
+          name: "Grilled Chicken",
+          price: 11.0,
+          description: "Served with vegetables and rice.",
+        },
+        {
+          id: 103,
+          name: "Caesar Salad",
+          price: 6.5,
+          description: "Fresh lettuce, croutons, parmesan.",
+        },
+        {
+          id: 104,
+          name: "Spaghetti Bolognese",
+          price: 9.0,
+          description: "Rich meat sauce, parmesan.",
+        },
+        {
+          id: 105,
+          name: "Lemonade",
+          price: 2.5,
+          description: "Freshly squeezed.",
+        },
+        {
+          id: 106,
+          name: "Cheesecake",
+          price: 4.5,
+          description: "Classic baked cheesecake.",
+        },
+      ];
+
+      // ✅ Orders storage (per table)
+      // key   → tableId (number)
+      // value → array of order lines
+      // order line: { menuId, name, price, quantity }
+      const ordersByTable = {};
+
+      // ✅ Which table is selected right now
+      let selectedTableId = null;
+
+      /* =========================================================
+         ✅ 2) DOM References (Cache elements once)
+         ========================================================= */
+      const tablesList = document.getElementById("tablesList");
+      const selectedTableLabel = document.getElementById("selectedTableLabel");
+      const menuGrid = document.getElementById("menuGrid");
+      const orderBody = document.getElementById("orderBody");
+      const orderEmpty = document.getElementById("orderEmpty");
+      const orderTotal = document.getElementById("orderTotal");
+
+      /* =========================================================
+         ✅ 3) Initial Render (Run once at startup)
+         ========================================================= */
+      renderTables();
+      renderMenu();
+      renderCurrentOrder();
+
+      /* =========================================================
+         ✅ 4) Tables: Render + Actions
+         ========================================================= */
+
+         function table(table){
+
+         }
+      // ✅ Render all tables in the left panel
+      function renderTables() {
+        tablesList.innerHTML = "";
+
+        tables.forEach(function (table) {
+          // ✅ Row wrapper
+          const row = document.createElement("div");
+          row.className = "table-item";
+
+          // ✅ Table info: name + status
+          const info = document.createElement("div");
+          info.className = "table-info";
+
+          //Table name
+          const name = document.createElement("div");
+          name.className = "table-name";
+          name.textContent = table.name;
+
+          //Table status
+          const status = document.createElement("div");
+          status.className = "table-status";
+
+          //The color status is here
+          const dot = document.createElement("div");
+          dot.className =
+            "status-dot " + (table.isOpen ? "dot-open" : "dot-closed");
+
+          //The status text
+          const statusText = document.createElement("span");
+          statusText.textContent = table.isOpen ? "Open" : "Closed";
+
+          status.appendChild(dot);
+          status.appendChild(statusText);
+
+          info.appendChild(name);
+          info.appendChild(status);
+
+          // ✅ Actions: select + open/close
+          const actions = document.createElement("div");
+          actions.className = "table-actions";
+
+          const selectBtn = document.createElement("button");
+          selectBtn.className = "btn-small";
+          selectBtn.textContent = "Select";
+          selectBtn.onclick = function () {
+            selectTable(table.id);
+          };
+
+          const toggleBtn = document.createElement("button");
+          toggleBtn.className = "btn-secondary btn-small";
+          toggleBtn.textContent = table.isOpen ? "Close" : "Open";
+
+          toggleBtn.onclick = function () {
+            toggleTableOpen(table.id);
+          };
+
+          actions.appendChild(selectBtn);
+          actions.appendChild(toggleBtn);
+
+          row.appendChild(info);
+          row.appendChild(actions);
+
+          tablesList.appendChild(row);
+        });
+      }
+
+      // ✅ Select a table so we can add items to its order
+      function selectTable(tableId) {
+        selectedTableId = tableId;
+
+        const table = tables.find(function (t) {
+          return t.id === tableId;
+        });
+
+        if (table) {
+          selectedTableLabel.textContent =
+            "Selected table: " +
+            table.name +
+            (table.isOpen ? " (Open)" : " (Closed)");
+        } else {
+          selectedTableLabel.textContent = "Selected table: none";
+        }
+
+        renderCurrentOrder();
+      }
+
+      // ✅ Toggle a table between Open and Closed
+      function toggleTableOpen(tableId) {
+        const table = tables.find(function (t) {
+          return t.id === tableId;
+        });
+
+        if (!table) return;
+
+        // ✅ Flip the boolean
+        table.isOpen = !table.isOpen;
+
+        renderTables();
+        renderCurrentOrder();
+      }
+
+      // ✅ Add a new table (demo: auto-increment id)
+      function addNewTable() {
+        // index of later table plus one
+        const nextId = tables.length > 0 ? tables[tables.length - 1].id + 1 : 1; 
+
+        tables.push({
+          id: nextId,
+          name: "Table " + nextId,
+          isOpen: false,
+        });
+
+        // lile refresh to this part (Tables at page)
+        renderTables();
+      }
+
+      // ✅ Reset everything (tables + orders) back to initial demo state
+      function resetAll() {
+        if (!confirm("Reset all tables and orders (demo only)?")) return;
+
+        tables = [
+          { id: 1, name: "Table 1", isOpen: false },
+          { id: 2, name: "Table 2", isOpen: false },
+          { id: 3, name: "Table 3", isOpen: false },
+          { id: 4, name: "Table 4", isOpen: false },
+        ];
+
+        // ✅ Clear orders object
+        for (const key in ordersByTable) {
+          delete ordersByTable[key];
+        }
+
+        selectedTableId = null;
+
+        renderTables();
+        selectedTableLabel.textContent = "Selected table: none";
+        renderCurrentOrder();
+      }
+
+      /* =========================================================
+         ✅ 5) Menu: Render + Add Items to Order
+         ========================================================= */
+
+      // ✅ Render menu cards (top-right)
+      function renderMenu() {
+        menuGrid.innerHTML = "";
+
+        menu.forEach(function (item) {
+          const card = document.createElement("div");
+          card.className = "menu-item";
+
+          const name = document.createElement("div");
+          name.className = "menu-name";
+          name.textContent = item.name;
+
+          const desc = document.createElement("div");
+          desc.className = "menu-desc";
+          desc.textContent = item.description;
+
+          const footer = document.createElement("div");
+          footer.className = "menu-footer";
+
+          const price = document.createElement("div");
+          price.className = "menu-price";
+          price.textContent = "$" + item.price.toFixed(2);
+
+          const addBtn = document.createElement("button");
+          addBtn.className = "btn-small";
+          addBtn.textContent = "Add";
+          addBtn.onclick = function () {
+            addMenuItemToOrder(item.id);
+          };
+
+          footer.appendChild(price);
+          footer.appendChild(addBtn);
+
+          card.appendChild(name);
+          card.appendChild(desc);
+          card.appendChild(footer);
+
+          menuGrid.appendChild(card);
+        });
+      }
+
+      // ✅ Add a menu item to the currently selected table order
+      function addMenuItemToOrder(menuId) {
+        // ✅ Must select a table first
+        if (selectedTableId === null) {
+          alert("Please select a table first.");
+          return;
+        }
+
+        // ✅ Selected table must be OPEN
+        const table = tables.find(function (t) {
+          return t.id === selectedTableId;
+        });
+
+        if (!table || !table.isOpen) {
+          alert("Selected table must be OPEN to add items.");
+          return;
+        }
+
+        // ✅ Find menu item details
+        const menuItem = menu.find(function (m) {
+          return m.id === menuId;
+        });
+
+        if (!menuItem) return;
+
+        // ✅ Create order array if it doesn't exist yet
+        if (!ordersByTable[selectedTableId]) {
+          ordersByTable[selectedTableId] = [];
+        }
+
+        const orderItems = ordersByTable[selectedTableId];
+
+        // ✅ Check if item already exists in the order
+        const existingItem = orderItems.find(function (it) {
+          return it.menuId === menuId;
+        });
+        // It has new order
+
+        if (existingItem) {
+          existingItem.quantity += 1;
+        }
+        //It hasen't any order yet 
+        else {
+          orderItems.push({
+            menuId: menuItem.id,
+            name: menuItem.name,
+            price: menuItem.price,
+            quantity: 1,
+          });
+        }
+
+        renderCurrentOrder();
+      }
+
+      /* =========================================================
+         ✅ 6) Order: Render + Update Quantity + Remove + Clear
+         ========================================================= */
+
+      // ✅ Render the selected table order (bottom-right)
+      function renderCurrentOrder() {
+        orderBody.innerHTML = "";
+
+        // ✅ No table selected
+        if (selectedTableId === null) {
+          orderEmpty.textContent = "No table selected.";
+          orderEmpty.style.display = "block";
+          orderTotal.textContent = "$0.00";
+          return;
+        }
+
+        const orderItems = ordersByTable[selectedTableId] || [];
+
+        // ✅ Selected table has no items yet
+        if (orderItems.length === 0) {
+          orderEmpty.textContent = "No items for this table yet.";
+          orderEmpty.style.display = "block";
+          orderTotal.textContent = "$0.00";
+          return;
+        }
+
+        orderEmpty.style.display = "none";
+
+        let total = 0;
+
+        orderItems.forEach(function (item) {
+          const tr = document.createElement("tr");
+
+          // ✅ Item name
+          const tdName = document.createElement("td");
+          tdName.textContent = item.name;
+
+          // ✅ Unit price
+          const tdPrice = document.createElement("td");
+          tdPrice.textContent = "$" + item.price.toFixed(2);
+
+          // ✅ Quantity controls (+/-)
+          const tdQty = document.createElement("td");
+          const qtyControls = document.createElement("div");
+          qtyControls.className = "qty-controls";
+
+          const btnMinus = document.createElement("button");
+          btnMinus.className = "btn-small";
+          btnMinus.textContent = "-";
+          btnMinus.onclick = function () {
+            changeQuantity(item.menuId, -1);
+          };
+
+          const spanQty = document.createElement("span");
+          spanQty.className = "qty-value";
+          spanQty.textContent = item.quantity;
+
+          const btnPlus = document.createElement("button");
+          btnPlus.className = "btn-small";
+          btnPlus.textContent = "+";
+          btnPlus.onclick = function () {
+            changeQuantity(item.menuId, 1);
+          };
+
+          qtyControls.appendChild(btnMinus);
+          qtyControls.appendChild(spanQty);
+          qtyControls.appendChild(btnPlus);
+          tdQty.appendChild(qtyControls);
+
+          // ✅ Subtotal
+          const tdSub = document.createElement("td");
+          const subtotal = item.price * item.quantity;
+          tdSub.textContent = "$" + subtotal.toFixed(2);
+          total += subtotal;
+
+          // ✅ Remove line button
+          const tdRemove = document.createElement("td");
+          const removeBtn = document.createElement("button");
+          removeBtn.className = "btn-danger btn-small";
+          removeBtn.textContent = "×";
+          removeBtn.onclick = function () {
+            removeOrderItem(item.menuId);
+          };
+          tdRemove.appendChild(removeBtn);
+
+          tr.appendChild(tdName);
+          tr.appendChild(tdPrice);
+          tr.appendChild(tdQty);
+          tr.appendChild(tdSub);
+          tr.appendChild(tdRemove);
+
+          orderBody.appendChild(tr);
+        });
+
+        orderTotal.textContent = "$" + total.toFixed(2);
+      }
+
+      // ✅ Change quantity for one menu line (+1 or -1)
+      function changeQuantity(menuId, delta) {
+        if (selectedTableId === null) return;
+
+        const orderItems = ordersByTable[selectedTableId];
+        if (!orderItems) return;
+
+        const item = orderItems.find(function (it) {
+          return it.menuId === menuId;
+        });
+
+        if (!item) return;
+
+        item.quantity += delta;
+
+        // ✅ If quantity goes to 0 → remove line
+        if (item.quantity <= 0) {
+          const index = orderItems.indexOf(item);
+          if (index !== -1) orderItems.splice(index, 1);
+        }
+
+        //refresh for order part
+        renderCurrentOrder();
+      }
+
+      // ✅ Remove an order line completely
+      function removeOrderItem(menuId) {
+        if (selectedTableId === null) return;
+
+        const orderItems = ordersByTable[selectedTableId];
+        if (!orderItems) return;
+
+        const index = orderItems.findIndex(function (it) {
+          return it.menuId === menuId;
+        });
+
+        if (index !== -1) orderItems.splice(index, 1);
+
+        renderCurrentOrder();
+      }
+
+      // ✅ Clear the entire current table order
+      function clearOrder() {
+        if (selectedTableId === null) {
+          alert("Select a table first.");
+          return;
+        }
+
+        const current = ordersByTable[selectedTableId] || [];
+        if (current.length === 0) {
+          alert("No items to clear for this table.");
+          return;
+        }
+
+        if (!confirm("Clear all items for this table?")) return;
+
+        ordersByTable[selectedTableId] = [];
+        renderCurrentOrder();
+      }
+
+      /* =========================================================
+         ✅ 7) Print Check in a Popup + Close Table
+         ========================================================= */
+
+      function printCheckAndClose() {
+        // ✅ Must select a table first
+        if (selectedTableId === null) {
+          alert("Please select a table first.");
+          return;
+        }
+
+        // ✅ Find table object
+        const table = tables.find(function (t) {
+          return t.id === selectedTableId;
+        });
+
+        if (!table) {
+          alert("Table not found.");
+          return;
+        }
+
+        // ✅ Must have items to print
+        const orderItems = ordersByTable[selectedTableId] || [];
+        if (orderItems.length === 0) {
+          alert("No items for this table to print.");
+          return;
+        }
+
+        // ✅ Calculate total
+        let total = 0;
+        orderItems.forEach(function (item) {
+          total += item.price * item.quantity;
+        });
+
+        // ✅ Open a popup window (new tab/window)
+        const popup = window.open("", "PrintCheck", "width=600,height=700");
+
+        // ✅ Build printable HTML string
+        const now = new Date();
+
+        let checkHtml = `
+          <!DOCTYPE html>
+          <html dir="rtl" lang="ar">
+          <head>
+            <meta charset="UTF-8" />
+            <title>Bill - ${table.name}</title>
+            <style>
+              body { font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; margin: 20px; color: #111827; }
+              h1, h2 { margin: 0; }
+              .header { text-align: center; margin-bottom: 16px; }
+              .meta { font-size: 0.9rem; margin-bottom: 12px; }
+              table { width: 100%; border-collapse: collapse; margin-bottom: 15px; font-size: 0.9rem; }
+              th, td { border-bottom: 1px solid #d1d5db; padding: 6px 4px; text-align: left; }
+              th { background: #f3f4f6; }
+              .total-row td { font-weight: 700; }
+              .footer { margin-top: 20px; text-align: center; font-size: 0.9rem; }
+              .small { font-size: 0.8rem; color: #6b7280; }
+            </style>
+          </head>
+          <body>
+            <div class="header">
+              <h1>Restaurant Bill</h1>
+              <h2>${table.name}</h2>
+            </div>
+            <div class="meta">
+              Date: ${now.toLocaleDateString()}<br/>
+              Time: ${now.toLocaleTimeString()}
+            </div>
+            <table>
+              <thead>
+                <tr>
+                  <th style="width:45%">Item</th>
+                  <th style="width:15%">Price</th>
+                  <th style="width:15%">Qty</th>
+                  <th style="width:25%">Subtotal</th>
+                </tr>
+              </thead>
+              <tbody>
+          `;
+
+        // ✅ Add rows for each item
+        orderItems.forEach(function (item) {
+          const sub = item.price * item.quantity;
+          checkHtml += `
+        <tr>
+          <td>${item.name}</td>
+          <td>$${item.price.toFixed(2)}</td>
+          <td>${item.quantity}</td>
+          <td>$${sub.toFixed(2)}</td>
+        </tr>
+        `;
+        });
+
+        // ✅ Finish HTML (auto-print on load)
+        checkHtml += `
+        <tr class="total-row">
+          <td colspan="3">Total</td>
+          <td>$${total.toFixed(2)}</td>
+        </tr>
+        </tbody>
+        </table>
+        <div class="footer">
+          <div>Thank you for your visit! 😊</div>
+          <div class="small">You can print this page or save it as PDF from your browser.</div>
+        </div>
+        <script>
+          window.onload = function () {
+            window.print();
+          };
+        <\/script>
+        </body>
+        </html>
+        `;
+
+        // ✅ Write printable content into the popup
+        popup.document.open();
+        popup.document.write(checkHtml);
+        popup.document.close();
+
+        // ✅ Demo behavior: close the table immediately & clear its order
+        // (We can't reliably detect print completion in all browsers.)
+        table.isOpen = false;
+        ordersByTable[selectedTableId] = [];
+
+        renderTables();
+        renderCurrentOrder();
+      }
+    </script>
+  </body>
+</html>

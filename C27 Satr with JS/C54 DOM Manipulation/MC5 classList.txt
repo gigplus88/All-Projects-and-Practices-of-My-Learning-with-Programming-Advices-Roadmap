@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>classList Activity — Full Working Example</title>
+
+    <style>
+      :root {
+        color-scheme: dark;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        padding: 24px;
+        font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial,
+          sans-serif;
+        background: #0b1020;
+        color: #e9eefc;
+      }
+
+      .app {
+        max-width: 900px;
+        margin: 0 auto;
+      }
+
+      .card {
+        background: rgba(255, 255, 255, 0.06);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        border-radius: 18px;
+        padding: 18px;
+      }
+
+      h1 {
+        margin: 0 0 10px;
+        font-size: 18px;
+      }
+
+      .muted {
+        opacity: 0.8;
+        line-height: 1.5;
+      }
+
+      /* ✅ The element we will control with classList */
+      .box {
+        margin-top: 14px;
+        border-radius: 18px;
+        border: 1px solid rgba(255, 255, 255, 0.14);
+        background: rgba(0, 0, 0, 0.22);
+        padding: 18px;
+        cursor: pointer;
+        transition: transform 180ms ease, background 180ms ease,
+          border-color 180ms ease;
+        user-select: none;
+      }
+
+      /* ✅ Active state (added once on page load) */
+      .box.active {
+        border-color: rgba(79, 124, 255, 0.7);
+        box-shadow: 0 0 0 3px rgba(79, 124, 255, 0.12);
+      }
+
+      /* ✅ Open state (toggled on click) */
+      .box.open {
+        transform: scale(1.03);
+        background: rgba(79, 124, 255, 0.12);
+      }
+
+      .row {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        align-items: center;
+        margin-top: 12px;
+      }
+
+      .pill {
+        display: inline-block;
+        padding: 4px 10px;
+        border-radius: 999px;
+        font-size: 12px;
+        background: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.14);
+      }
+
+      button {
+        border: 0;
+        border-radius: 12px;
+        padding: 10px 14px;
+        cursor: pointer;
+        background: #4f7cff;
+        color: white;
+        font-weight: 700;
+      }
+
+      button.secondary {
+        background: rgba(255, 255, 255, 0.12);
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="app">
+      <div class="card">
+        <h1>classList Demo (add / toggle / contains)</h1>
+        <div class="muted">
+          📋 Instructions:
+          <br />
+          🔹 The box gets <b>active</b> class on load.
+          <br />
+          🔹 Click the box to toggle <b>open</b> class.
+          <br />
+          🔹 Each click checks <b>contains("active")</b> and logs to the
+          console.
+          <br />
+          <br />
+          ✅ Open DevTools → Console (F12) to see logs.
+        </div>
+
+        <!-- ✅ The box element we will control -->
+        <div class="box" id="box">
+          <b>Click Me</b>
+          <div class="muted" style="margin-top: 6px">
+            I use <code>classList</code> to change state.
+          </div>
+
+          <div class="row" style="margin-top: 12px">
+            <span class="pill" id="pillActive">active: ?</span>
+            <span class="pill" id="pillOpen">open: ?</span>
+          </div>
+        </div>
+
+        <div class="row">
+          <button class="secondary" id="btnToggleOpen">
+            Toggle Open (Button)
+          </button>
+          <button class="secondary" id="btnRemoveActive">Remove Active</button>
+          <button class="secondary" id="btnAddActive">Add Active</button>
+        </div>
+
+        <div class="muted" style="margin-top: 10px">
+          Tip: Click the box, then try removing/adding <b>active</b> using the
+          buttons and click again to observe how
+          <code>contains()</code> changes.
+        </div>
+      </div>
+    </div>
+
+    <script>
+      /*──────────────────────────────────────────────
+      │ Code Overview
+      │ Purpose        → Demonstrate classList: add(), toggle(), contains()
+      │ Layout         → One clickable box + status pills + helper buttons
+      │ Use Cases      → UI state (active/open), debugging states, DOM events
+      │ Key Properties → classList.add / toggle / contains, event listeners
+      └──────────────────────────────────────────────*/
+
+      // ✅ Select the box element from the page
+      const box = document.querySelector("#box");
+
+      // ✅ Small UI helpers (to display current state on the page)
+      const pillActive = document.querySelector("#pillActive");
+      const pillOpen = document.querySelector("#pillOpen");
+
+      // ✅ Buttons (extra controls to test add/remove easily)
+      const btnToggleOpen = document.querySelector("#btnToggleOpen");
+      const btnRemoveActive = document.querySelector("#btnRemoveActive");
+      const btnAddActive = document.querySelector("#btnAddActive");
+
+      // ✅ Add "active" once when the page loads (does NOT remove other classes)
+      box.classList.add("active");
+
+      // ✅ Update the pills to reflect current classes (active/open)
+      function updateStatus() {
+        pillActive.textContent = `active: ${box.classList.contains("active")}`;
+        pillOpen.textContent = `open: ${box.classList.contains("open")}`;
+      }
+
+      // ✅ Click on the box:
+      //    1) toggle "open" class
+      //    2) check if it still has "active"
+      //    3) log result to console
+      box.addEventListener("click", () => {
+        // 🔹 toggle() adds "open" if missing, removes it if present
+        box.classList.toggle("open");
+
+        // 🔹 contains() returns true/false if the class exists
+        if (box.classList.contains("active")) {
+          console.log("✅ Box is active");
+        } else {
+          console.log("❌ Box is NOT active");
+        }
+
+        // 🔹 Update the UI pills after the click
+        updateStatus();
+      });
+
+      // ✅ Extra controls for learning (not required, but helpful)
+
+      // Toggle "open" using a button (same effect as clicking the box)
+      btnToggleOpen.addEventListener("click", () => {
+        box.classList.toggle("open");
+        updateStatus();
+      });
+
+      // Remove "active" to see contains("active") become false
+      btnRemoveActive.addEventListener("click", () => {
+        box.classList.remove("active");
+        updateStatus();
+      });
+
+      // Add "active" back again
+      btnAddActive.addEventListener("click", () => {
+        box.classList.add("active");
+        updateStatus();
+      });
+
+      // ✅ Initial status display
+      updateStatus();
+    </script>
+  </body>
+</html>

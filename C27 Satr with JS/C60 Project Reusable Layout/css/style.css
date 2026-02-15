@@ -1,0 +1,41 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+
+.header {
+  background: #222;
+  color: white;
+  padding: 15px;
+}
+
+.header nav a {
+  color: white;
+  margin-right: 15px;
+  text-decoration: none;
+}
+
+.layout {
+  display: flex;
+}
+
+.sidebar {
+  width: 200px;
+  background: #f4f4f4;
+  padding: 15px;
+  min-height: 71vh;
+  position: sticky;
+  top: 0;
+}
+
+.content {
+  flex: 1;
+  padding: 20px;
+}
+
+.footer {
+  background: #222;
+  color: white;
+  text-align: center;
+  padding: 15px;
+}

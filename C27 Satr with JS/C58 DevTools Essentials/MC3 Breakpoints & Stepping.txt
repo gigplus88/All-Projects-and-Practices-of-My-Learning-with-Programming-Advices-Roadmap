@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <script>
+      function calculateTotal(price) {
+        return price * 1.16;
+      }
+
+      function checkout(cart) {
+        const total = calculateTotal(cart.amount);
+        console.log(total);
+      }
+
+      checkout({ amount: 200 });
+
+      //ex
+
+      /*
+        💡 Activity – Expected Result
+          You should be able to say:
+
+          🔹 “This variable changed here”
+          🔹 “Execution entered this function”
+          🔹 “This line caused the bug”
+
+          That confidence matters.
+      */
+    </script>
+  </body>
+</html>

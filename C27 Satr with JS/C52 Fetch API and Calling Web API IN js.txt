@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>JavaScript Type System Demo</title>
+
+    <style></style>
+  </head>
+  <body>
+    <script type="module">
+      //Activity 1
+
+      /*
+
+          💡 Activity – Solution
+            Imagine a web application that displays a list of users.
+
+
+
+            1️⃣ Who is the client in this scenario?
+
+            Client: The browser running JavaScript
+
+
+            2️⃣ Who is the server?
+
+            Server : A backend system that stores user data
+
+
+            3️⃣ What does the API define between them?
+
+            What URL to call
+            Which HTTP method to use
+            What data is returned
+
+
+            4️⃣ Why can’t JavaScript get this data without an API?
+
+            JavaScript cannot access server data directly
+            APIs provide a safe, structured communication channel
+      */
+
+      //Activity 2
+
+      /*
+        💡 Activity – Solution
+
+        1️⃣ Which HTTP method would you use to create a user?
+
+        POST → creating a new user
+        2️⃣ Which status code group indicates a client mistake?
+
+        4xx → client-side errors
+        3️⃣ Where do you specify the data format (JSON)?
+
+        Request headers → Content-Type: application/json
+        4️⃣ Which methods usually include a request body?
+
+        POST, PUT, PATCH → they send data to the server
+
+      */
+
+      //Activity 3
+
+      const params = new URLSearchParams({
+        search: "web dev",
+        page: 2,
+        limit: 10,
+      });
+
+      console.log(params.toString());
+
+      const url = new URL("/users", "https://api.example.com");
+
+      url.searchParams.set("search", "omar");
+      url.searchParams.set("page", 1);
+
+      console.log(url.searchParams.get("search"));
+      console.log(url.toString());
+
+      const params1 = new URLSearchParams(window.location.search);
+
+      const category = params1.get("category");
+      const sort = params1.get("sort");
+
+      params1.set("page", 2); // add or update
+      params1.delete("sort"); // remove
+      params1.has("category");
+
+      console.log(params1.toString());
+      console.log(params1.has("page")); //true
+
+      //ex
+
+      const url2 = new URL("/students", "https://api.example.com");
+
+      url2.searchParams.set("search", "web dev");
+      url2.searchParams.set("page", 3);
+      url2.searchParams.set("limite", 20);
+
+      console.log(url2.toString());
+
+      //Activity 4
+
+      //fetch("https://example.com/data");
+
+      const response = await fetch(url);
+      if (!response.ok) {
+        throw new Error("HTTP", response.status);
+      }
+      const data = await response.json();
+
+      console.log(data);
+
+      /*
+          💡 Activity – Solution
+            Look at this code:
+
+            const result = fetch("/api/users");
+
+
+
+            1️⃣ What does fetch() start?
+
+            fetch() starts an HTTP request
+            2️⃣ What is stored in result?
+
+            result contains a Promise, not the data
+
+
+            3️⃣ Why can’t JavaScript get the data immediately?
+
+            Because network communication takes time and must be asynchronous
+            4️⃣ What tool do we use to wait for the response?
+
+            We use Promises with await or .then()
+      */
+
+      //Activity 5
+
+      if (response.ok) {
+        console.log("good response");
+      } else {
+        console.error("bad response");
+      }
+
+      /*
+
+        💡 Activity – Solution
+        You are given this code:
+
+        const response = await fetch("/api/data");
+
+
+
+        1️⃣ Why is checking response.ok important?
+
+        Because fetch() does not fail on HTTP errors like 404 or 500
+        2️⃣ What does response.status tell you?
+
+        It tells you the exact HTTP result code from the server
+        3️⃣ When should you use response.text() instead of .json()?
+
+        When the response is plain text or not JSON
+        4️⃣ Why can parsing JSON fail even when the request succeeded?
+
+        Because some successful responses return no body (e.g. 204 No Content)
+
+      */
+
+      //Activity 6
+
+      if (!response.ok) {
+        throw new Error("Request failed with status " + response.status);
+      }
+
+      async function loadData() {
+        try {
+          const response = await fetch(url);
+
+          if (!response.ok) {
+            throw new Error("HTTP", response.status);
+          }
+
+          const data = await response.json();
+          return data;
+        } catch (error) {
+          console.error("Fetch failed:", error);
+          throw error; // optional: rethrow
+        }
+      }
+
+      /*
+
+        1️⃣ Which errors are currently handled?
+
+        Network errors (request fails completely)
+        2️⃣ Which errors are NOT handled?
+
+        HTTP errors like 404 or 500
+        3️⃣ What line should be added to correctly detect HTTP failures?
+
+        if (!response.ok) throw new Error("HTTP error");
+
+
+        4️⃣ Why is throw needed here?
+
+        To convert HTTP failure into a real error
+        So try / catch can handle it
+
+
+      */
+
+      //Activity 7
+
+      await fetch("/api/users", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: "Ali",
+          email: "ali@example.com",
+        }),
+      });
+
+      //ex
+
+      /*
+
+      💡 Activity – Solution
+        Imagine you are submitting a registration form.
+
+
+
+        1️⃣ Which HTTP method should you use?
+
+        POST → used to create new data
+        2️⃣ What format should the data be sent in?
+
+        JSON → standard API format
+        3️⃣ Which header tells the server how to read the body?
+
+        Content-Type: application/json
+        4️⃣ Why is JSON.stringify() required?
+
+        Because fetch sends text, not JavaScript objects
+    */
+
+      //Activity 8
+
+      await fetch("/api/users", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: "Ali",
+        }),
+        credentials: "include",
+        cache: "no-cache",
+      });
+
+      //ex
+
+      /*
+      💡 Activity – Solution
+        Imagine you are sending authenticated user data to an API.
+
+        1️⃣ Which option sets the HTTP action?
+
+        method
+        2️⃣ Which option carries the data?
+
+        body
+        3️⃣ Which option tells the server the data format?
+
+        headers (Content-Type)
+        4️⃣ Which option ensures cookies are sent?
+
+        credentials: "include"
+        5️⃣ Which option helps avoid stale cached responses?
+
+        cache: "no-cache"
+    */
+
+      //Activity 8
+
+      fetch("/api/tasks", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+          Authorization: "Bearer token_here",
+        },
+        body: JSON.stringify({
+          title: "Learn Headers",
+        }),
+      });
+
+      //ex
+
+      fetch("/api/users", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ name: "Sara" }),
+      });
+
+      //Activity 9
+
+      /*
+          💡 Activity – Solution
+            Consider this code:
+
+            async function loadData() {
+              const user = await fetchUser();
+              const posts = await fetchPosts();
+            }
+
+
+
+            1️⃣ Are these requests sequential or parallel?
+
+            Sequential — the second waits for the first
+            2️⃣ What is the performance issue?
+
+            Slower execution if requests are independent
+            3️⃣ How would you rewrite this to run them in parallel?
+
+            Parallel version:
+
+            const [user, posts] = await Promise.all([
+              fetchUser(),
+              fetchPosts()
+            ]);
+
+
+            4️⃣ Where should error handling be added?
+
+            Add error handling using try / catch around the async logic
+        */
+
+      //Activity 10
+
+      /*
+
+        💡 Activity – Solution
+          Imagine you are building an app that uses a public weather API.
+
+          Answer conceptually:
+
+          1️⃣ Why might the API require a token?
+
+          To identify users, protect data, and enforce limits
+          2️⃣ What could happen if you send too many requests?
+
+          The API may block requests or return 429 Too Many Requests
+          3️⃣ Why doesn’t the API send all historical data at once?
+
+          Because large datasets are slow and inefficient to send at once
+          4️⃣ What must your JavaScript code do to load more data?
+
+          Request data page by page using pagination parameters
+      */
+
+      //Activity 11
+
+      /*
+
+
+          💡 Activity – Solution
+            Imagine your website calls an external API and gets a CORS error.
+
+            1️⃣ Is this a JavaScript error or a browser security rule?
+
+            A browser security rule, not a JavaScript error
+            2️⃣ Who must allow cross-origin access?
+
+            The server must explicitly allow it
+
+            3️⃣ Why does Postman work while the browser fails?
+
+            Because Postman is not a browser and does not enforce CORS
+            4️⃣ Can JavaScript disable CORS? Why or why not?
+
+            No—because CORS protects users and is enforced by the browser
+
+      */
+
+      //Activity 11
+
+      const controller = new AbortController();
+
+      fetch(url, {
+        signal: controller.signal,
+      });
+
+      controller.abort();
+
+      //Handling Abort Errors
+      try {
+        await fetch(url, { signal });
+      } catch (error) {
+        if (error.name === "AbortError") {
+          console.log("Request was canceled");
+        }
+      }
+
+      //Auto abort after 5 seconds
+      setTimeout(() => {
+        controller.abort();
+      }, 5000); // 5 seconds
+
+      fetch(url, { signal: controller.signal });
+
+      /*
+
+        💡 Activity – Solution
+        Consider this scenario:
+
+        A user types in a search field
+        Each keystroke triggers a fetch request
+
+
+        1️⃣ What problem occurs if old requests are not canceled?
+
+        Old responses may overwrite new data, causing incorrect UI
+        2️⃣ Which object controls request cancellation?
+
+        The AbortController object
+        3️⃣ What happens to fetch when abort() is called?
+
+        Fetch stops and rejects with an AbortError
+        4️⃣ How can AbortController be used to implement a timeout?
+
+        By calling abort() after a setTimeout duration
+      */
+
+
+
+
+
+      //Activity 12
+
+
+      /*  
+
+
+            💡 Activity – Solution
+            Look at this code:
+
+            const response = await fetch("/api/data");
+            const data = response.json();
+
+
+
+            1️⃣ What is missing in this code?
+
+            Missing await and missing response.ok check
+            2️⃣ What is the type of data here?
+
+            data is a Promise, not actual JSON
+            3️⃣ What problem can happen if the server returns 404?
+
+            The app treats an error response as valid data
+            4️⃣ How could overfetching occur in a real app?
+
+            By fetching repeatedly (e.g. on every keystroke or render)
+      
+      */
+
+
+
+
+
+            //Activity 13
+
+            // Simple API Service layer?
+
+            // In file Or module
+            async function getUsers() {
+              const response = await fetch("/api/users");
+              if (!response.ok) throw new Error("Failed");
+              return response.json();
+            }
+
+
+            //Fetch wrapper
+
+            async function apiFetch(url, options = {}) {
+              const response = await fetch(url, options);
+
+              if (!response.ok) {
+                throw new Error("HTTP" ,response.status);
+              }
+
+              return response.json();
+            }
+
+
+
+            /*
+              💡 Activity – Solution
+              Imagine a growing web application that makes many API calls.
+
+              1️⃣ Why is mixing fetch calls directly inside UI code a problem?
+
+              It mixes responsibilities, making code hard to maintain and test
+              2️⃣ What is the role of an API service layer?
+
+              It centralizes and organizes all API communication
+              3️⃣ Why is a reusable fetch wrapper helpful?
+
+              It avoids duplication and ensures consistent error handling
+              4️⃣ Why should errors always be logged or monitored?
+
+              Because silent failures are hard to detect and fix
+            */
+
+
+
+
+
+
+
+            //Activity 14
+
+
+
+            async function fetchWithRetry(url, retries = 3, delay = 1000) {
+              try {
+                return await fetch(url);
+              } catch (err) {
+                if (retries === 0) throw err;
+
+                await new Promise(r => setTimeout(r, delay));
+                
+                return fetchWithRetry(url, retries - 1, delay * 2);
+              }
+            }
+
+
+
+
+
+            // Activity 15
+
+
+
+
+            /*  
+              Activity – Solution
+
+
+              Consider this code:
+
+              const data = fetch("/api/users");
+
+
+
+              1️⃣ What is actually stored in data?
+
+              A Promise, not the data
+              2️⃣ Which step of the pipeline is missing?
+
+              The response parsing step
+              3️⃣ Why is this code incorrect?
+
+              Because fetch does not return data directly
+              4️⃣ What mindset mistake does this reflect?
+
+              Assuming network requests are immediate and reliable
+
+            */
+
+
+
+
+
+
+
+
+    </script>
+    <script type="module" src="mathUtils.js"></script>
+  </body>
+</html>

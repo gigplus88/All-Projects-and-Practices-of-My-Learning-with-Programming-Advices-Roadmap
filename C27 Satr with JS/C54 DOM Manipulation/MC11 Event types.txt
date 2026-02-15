@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>classList Activity — Full Working Example</title>
+
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+    </style>
+  </head>
+
+  <body>
+          <button id="btn">Click Me</button>
+<input id="name" placeholder="Type here">
+
+    <p id="output"> Waiting...</p>
+    <p>
+      to see the key pressed open console F12 - and type somthing in the input
+    </p>
+    <input id="input" placeholder="Type something" />
+
+
+    </div>
+    <script>
+
+   const btn = document.getElementById("btn");
+
+  btn.addEventListener("click", (event) => {
+    console.log("Type:", event.type);
+    console.log("Target:", event.target);
+  });
+
+  const input2 = document.getElementById("name");
+
+  input2.addEventListener("keydown", (event) => {
+    console.log("Key:", event.key);
+  });
+
+
+      const output = document.getElementById("output");
+      const input = document.getElementById("input");
+
+      btn.addEventListener("click", (event) => {
+        output.textContent = "Button clicked!";
+        console.log("Event type:", event.type);
+        console.log("Target:", event.target);
+      });
+
+      input.addEventListener("keydown", (event) => {
+        console.log("Key pressed:", event.key);
+        console.log("Event type:", event.type);
+        });
+
+      /*  
+
+        💡 Activity – Solution
+          🔹 Live search → input
+
+          🔹 Form submission → submit
+
+          🔹 Detect Enter → keydown
+
+          🔹 Validate on exit → blur
+
+          🔹 Checkbox toggle → change
+      */
+
+    </script>
+  </body>
+</html>

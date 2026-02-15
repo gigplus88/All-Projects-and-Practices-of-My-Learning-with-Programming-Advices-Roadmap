@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      .active {
+        background-color: antiquewhite;
+      }
+    </style>
+    <title>Document</title>
+  </head>
+  <body>
+    <button class="active">Submit</button>
+    <script>
+      /*💡 Activity – Expected Outcome
+        You should be able to say:
+
+        🔹 “This value persists because…”
+        🔹 “This bug is caused by stale storage”
+        🔹 “Clearing storage fixes it”
+
+        That insight is powerful.
+      */
+      window.localStorage.setItem("Name", "Ayoub");
+      const name = window.localStorage.getItem("Name");
+
+      console.log(name);
+    </script>
+  </body>
+</html>

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>JavaScript Type System Demo</title>
+
+    <style></style>
+  </head>
+  <body>
+    <script>
+      const user = {
+        name: "Alice",
+      };
+
+      user.country = "Jordan";
+      user["role"] = "Admin";
+
+      user.age = 31;
+      user["active"] = false;
+
+      delete user.active;
+      delete user.age;
+      console.log(user);
+
+      let key = "rating";
+
+      const product = {
+        name: "Laptop",
+        [key]: 4.8,
+      };
+
+      console.log(product.name);
+      console.log(product.rating);
+
+      const car = {
+        brand: "Toyota",
+        model: "Corolla",
+        year: 2020,
+      };
+
+      console.log(car.model);
+
+      car.color = "Red";
+
+      const obj = {
+        ["engine size"]: 34,
+      };
+      console.log(obj["engine size"]);
+      console.log(1);
+
+      let prop = "score";
+
+      const player = {
+        name: "Ali",
+        [prop]: 100,
+      };
+
+      console.log(player.score);
+
+      const user2 = {
+        name: "Sara",
+        show() {
+          const inner = () => console.log(this.name);
+          inner(); // Sara
+        },
+      };
+      user2.show();
+
+      const car2 = {
+        name: "BMW",
+        showBrand()
+        {
+          console.log(this.name);
+        },
+      };
+
+      car2.showBrand();
+      const fn = car2.showBrand.bind(car2) ;
+      fn();
+
+
+
+      const student ={
+        name: "Ali",
+        grade: 95,
+        info(){
+          console.log(`${this.name} has a grade of ${this.grade}`);
+        }
+      };  
+
+      student.info();
+
+      const user3 = {
+        name: "Nour",
+        show() {
+          console.log(this.name);
+        }
+      };
+
+      const x = user3.show.bind(user3);
+      x();
+
+
+      const obj2 = {
+        value: 10,
+        print()
+        {
+          console.log(this.value);
+        },
+      };
+      obj2.print(); // 
+    </script>
+  </body>
+</html>

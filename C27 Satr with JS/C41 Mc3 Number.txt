@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>JavaScript Type System Demo</title>
+
+    <style></style>
+  </head>
+  <body>
+    <script>
+      //Convert the string "150px" into a number using parseInt.
+
+
+      const larger = "150px";
+
+      console.log(parseInt(larger));
+
+      //Convert the string "19.99JD" into a number using parseFloat.
+
+        let x = "19.99JD";
+        console.log(parseFloat(larger));
+
+
+        //Try converting "hello" into a number and check if the result is NaN.
+
+        let y = "hello";
+        /*y = Number(y);
+        console.log(Number.isNaN(y));*/
+
+         console.log(Number(y))
+
+
+         console.log(isNaN("abc"));
+        console.log(Number.isNaN("abc"));
+
+
+
+    </script>
+  </body>
+</html>

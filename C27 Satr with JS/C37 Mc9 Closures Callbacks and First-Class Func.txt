@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>JavaScript Type System Demo</title>
+
+    <style></style>
+  </head>
+  <body>
+    <script>
+      let SayHi = function () {
+        console.log("Hi There!");
+      };
+
+      function process(number, callbak) {
+        const result = number * 2;
+        callbak(result);
+      }
+
+      function makeCounter() {
+        let counter = 0;
+        return () => {
+          counter += 1;
+          return counter;
+        };
+      }
+
+      //Use closure and return function
+      function bankAccount() {
+        let balance = 100;
+        return {
+          deposit: (amount) => (balance += amount),
+          getBalance: () => balance,
+        };
+      }
+
+      function setupMessage(text) {
+        return function() {
+          console.log("Message: ", text);
+        };
+      }
+
+      const show = setupMessage("Hello World");
+
+      show();
+
+      let myAcc = bankAccount();
+
+      myAcc.deposit(40);
+      console.log(myAcc.getBalance());
+      myAcc.deposit(40);
+      console.log(myAcc.getBalance());
+
+      let counter1 = makeCounter();
+      console.log(counter1());
+      console.log(counter1());
+      console.log(counter1());
+      console.log(counter1());
+
+      process(5, (result) => {
+        console.log("Result is: " + result);
+      });
+
+      SayHi();
+    </script>
+  </body>
+</html>

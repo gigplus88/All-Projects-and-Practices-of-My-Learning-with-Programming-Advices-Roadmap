@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>IndexedDB Search with Index (Multiple Results)</title>
+
+    <style>
+      /* ===============================
+         Global Page Styling
+      =============================== */
+      body {
+        margin: 0;
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: linear-gradient(135deg, #111827, #0f766e);
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        color: #f9fafb;
+      }
+
+      /* Main card container */
+      .card {
+        background: #020617;
+        padding: 30px 40px;
+        border-radius: 18px;
+        box-shadow: 0 20px 45px rgba(0, 0, 0, 0.7);
+        width: 840px;
+        border: 1px solid rgba(148, 163, 184, 0.4);
+        display: grid;
+        grid-template-columns: 1.1fr 1fr;
+        gap: 24px;
+      }
+
+      .card-header {
+        grid-column: 1 / -1;
+        text-align: center;
+        margin-bottom: 10px;
+      }
+
+      .card-header h2 {
+        margin: 0;
+        font-size: 1.8rem;
+      }
+
+      .card-header .subtitle {
+        margin-top: 6px;
+        font-size: 0.95rem;
+        color: #9ca3af;
+      }
+
+      /* Left panel: search + log */
+      .left-panel {
+        display: flex;
+        flex-direction: column;
+        gap: 18px;
+      }
+
+      .search-box {
+        background: #020617;
+        border-radius: 12px;
+        padding: 14px 16px;
+        border: 1px solid rgba(55, 65, 81, 0.9);
+      }
+
+      .search-box label {
+        display: block;
+        font-size: 0.9rem;
+        margin-bottom: 6px;
+        color: #e5e7eb;
+      }
+
+      .search-row {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+      }
+
+      input[type="text"] {
+        flex: 1;
+        padding: 8px 10px;
+        border-radius: 8px;
+        border: 1px solid #4b5563;
+        outline: none;
+        background: #020617;
+        color: #f9fafb;
+        font-size: 0.95rem;
+      }
+
+      input::placeholder {
+        color: #6b7280;
+      }
+
+      input:focus {
+        border-color: #22c55e;
+        box-shadow: 0 0 0 1px rgba(34, 197, 94, 0.6);
+      }
+
+      button {
+        padding: 9px 14px;
+        border-radius: 10px;
+        border: none;
+        cursor: pointer;
+        font-size: 0.9rem;
+        font-weight: 600;
+        color: #e5e7eb;
+        background: #2563eb;
+        transition: background 0.2s ease, transform 0.1s ease,
+          box-shadow 0.2s ease;
+        box-shadow: 0 4px 10px rgba(37, 99, 235, 0.35);
+      }
+
+      button:hover {
+        background: #1d4ed8;
+        transform: translateY(-1px);
+        box-shadow: 0 6px 14px rgba(37, 99, 235, 0.5);
+      }
+
+      button:active {
+        transform: translateY(0);
+        box-shadow: 0 3px 8px rgba(37, 99, 235, 0.3);
+      }
+
+      .btn-secondary {
+        background: #6b7280;
+        box-shadow: 0 4px 10px rgba(75, 85, 99, 0.35);
+      }
+
+      .btn-secondary:hover {
+        background: #4b5563;
+      }
+
+      /* Log box */
+      #log {
+        text-align: left;
+        font-size: 0.85rem;
+        background: #020617;
+        border-radius: 10px;
+        padding: 8px 10px;
+        border: 1px solid rgba(148, 163, 184, 0.4);
+        max-height: 150px;
+        overflow-y: auto;
+        color: #e5e7eb;
+      }
+
+      #log-title {
+        font-size: 0.8rem;
+        color: #9ca3af;
+        margin-bottom: 4px;
+      }
+
+      .log-line {
+        margin: 2px 0;
+      }
+
+      .log-ok {
+        color: #22c55e;
+      }
+
+      .log-error {
+        color: #fb7185;
+      }
+
+      .log-info {
+        color: #e5e7eb;
+      }
+
+      /* Right panel: users table + search result table */
+      .right-panel {
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+      }
+
+      .table-title {
+        font-size: 0.9rem;
+        color: #e5e7eb;
+      }
+
+      .section-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 0.9rem;
+        background: #020617;
+        border-radius: 10px;
+        overflow: hidden;
+        border: 1px solid rgba(55, 65, 81, 0.9);
+      }
+
+      thead {
+        background: #0f172a;
+      }
+
+      th,
+      td {
+        padding: 8px 10px;
+        border-bottom: 1px solid rgba(31, 41, 55, 0.9);
+        text-align: left;
+      }
+
+      th {
+        font-weight: 600;
+        color: #e5e7eb;
+      }
+
+      tbody tr:nth-child(even) {
+        background: #020617;
+      }
+
+      tbody tr:nth-child(odd) {
+        background: #030712;
+      }
+
+      .empty-note {
+        font-size: 0.8rem;
+        color: #9ca3af;
+        margin-top: 4px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="card">
+      <!-- HEADER -->
+      <div class="card-header">
+        <h2>IndexedDB – Search Using Index (Multiple Results)</h2>
+        <div class="subtitle">
+          Database with 20 users, indexed by <strong>name</strong> – search
+          returns all matches.
+        </div>
+      </div>
+
+      <!-- LEFT PANEL: SEARCH + LOG -->
+      <div class="left-panel">
+        <!-- Search box -->
+        <div class="search-box">
+          <label for="searchName"
+            ><p>Search users by name (using index):</p></label
+          >
+          <div class="search-row">
+            <input
+              id="searchName"
+              type="text"
+              placeholder="e.g. Ahmed, Sara, Omar..."
+            />
+            <button onclick="findByName()">Search</button>
+          </div>
+          <button
+            class="btn-secondary"
+            style="margin-top: 8px"
+            onclick="clearSearch()"
+          >
+            🧹 Clear Search Results
+          </button>
+        </div>
+
+        <!-- Log box -->
+        <div>
+          <div id="log-title">Log:</div>
+          <div id="log"></div>
+        </div>
+
+        <!-- Search results table -->
+        <div>
+          <div class="table-title"><p>Search Results (by Name)</p></div>
+          <table>
+            <thead>
+              <tr>
+                <th style="width: 60px">ID</th>
+                <th>Name</th>
+                <th style="width: 70px">Age</th>
+              </tr>
+            </thead>
+            <tbody id="searchBody"></tbody>
+          </table>
+          <div class="empty-note" id="searchEmptyNote">
+            No search yet or no matching users.
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT PANEL: TABLES -->
+      <div class="right-panel">
+        <!-- All users table -->
+        <div>
+          <div class="section-header">
+            <div class="table-title"><p>All Users in Database</p></div>
+            <button
+              style="padding: 4px 10px; font-size: 0.8rem"
+              onclick="renderAllUsers()"
+            >
+              🔄 Refresh
+            </button>
+          </div>
+
+          <table>
+            <thead>
+              <tr>
+                <th style="width: 60px">ID</th>
+                <th>Name</th>
+                <th style="width: 70px">Age</th>
+              </tr>
+            </thead>
+            <tbody id="usersBody"></tbody>
+          </table>
+          <div class="empty-note" id="allEmptyNote">
+            No users found. (This should not happen if initial seeding works.)
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      /* ==========================================================
+         Utility: Log messages to the on-page log box
+      ========================================================== */
+      function logMessage(message, type = "info") {
+        const logBox = document.getElementById("log");
+
+        const line = document.createElement("div");
+        line.classList.add("log-line");
+
+        if (type === "ok") line.classList.add("log-ok");
+        else if (type === "error") line.classList.add("log-error");
+        else line.classList.add("log-info");
+
+        line.textContent = message;
+        logBox.appendChild(line);
+
+        logBox.scrollTop = logBox.scrollHeight;
+        console.log(message);
+      }
+
+      /* -----------------------------------------------------------
+         GLOBAL DB VARIABLE
+      ----------------------------------------------------------- */
+      let db;
+
+      /* -----------------------------------------------------------
+         OPEN (OR CREATE) DATABASE
+         - Name: "MyDB_IndexesDemo"
+         - Version: 1
+      ----------------------------------------------------------- */
+      const request = indexedDB.open("MyDB_IndexesDemo", 1);
+
+      /* -----------------------------------------------------------
+         onupgradeneeded
+         - Runs only when DB is created or version increases
+         - Here we:
+           1) Create "users" store
+           2) Create index on "name"
+           3) Seed 20 initial records
+      ----------------------------------------------------------- */
+      request.onupgradeneeded = function (e) {
+        db = e.target.result;
+
+        // Create object store with keyPath "id"
+        const store = db.createObjectStore("users", { keyPath: "id" });
+
+        // Create index "nameIndex" on property "name" (not unique)
+        store.createIndex("nameIndex", "name", { unique: false });
+
+        logMessage("Object store 'users' and index 'nameIndex' created.", "ok");
+
+        // Seed 20 records
+        const initialUsers = [
+          { id: 1, name: "Ahmed", age: 25 },
+          { id: 2, name: "Sara", age: 22 },
+          { id: 3, name: "Omar", age: 30 },
+          { id: 4, name: "Lina", age: 27 },
+          { id: 5, name: "Ahmed", age: 28 }, // same name
+          { id: 6, name: "Hana", age: 24 },
+          { id: 7, name: "Khaled", age: 32 },
+          { id: 8, name: "Noor", age: 21 },
+          { id: 9, name: "Yousef", age: 29 },
+          { id: 10, name: "Reem", age: 26 },
+          { id: 11, name: "Ali", age: 23 },
+          { id: 12, name: "Mona", age: 31 },
+          { id: 13, name: "Ahmed", age: 35 }, // same name
+          { id: 14, name: "Salma", age: 20 },
+          { id: 15, name: "Rami", age: 27 },
+          { id: 16, name: "Huda", age: 24 },
+          { id: 17, name: "Omar", age: 33 }, // same name
+          { id: 18, name: "Tariq", age: 29 },
+          { id: 19, name: "Nour", age: 22 },
+          { id: 20, name: "Ahmed", age: 40 }, // same name
+        ];
+
+        // Use the upgrade transaction to add initial data
+        const upgradeTx = e.target.transaction;
+        const upgradeStore = upgradeTx.objectStore("users");
+
+        initialUsers.forEach((user) => {
+          upgradeStore.add(user);
+        });
+
+        logMessage("20 initial users seeded into 'users' store.", "ok");
+      };
+
+      /* -----------------------------------------------------------
+         onsuccess
+         - DB opened and ready
+         - Render all users
+      ----------------------------------------------------------- */
+      request.onsuccess = function (e) {
+        db = e.target.result;
+        logMessage("✅ Database opened successfully.", "ok");
+        renderAllUsers();
+      };
+
+      /* -----------------------------------------------------------
+         onerror
+      ----------------------------------------------------------- */
+      request.onerror = function (e) {
+        logMessage("❌ Error opening DB: " + e.target.error, "error");
+      };
+
+      /* ===========================================================
+         Render all users into the "All Users" table
+      ========================================================== */
+      function renderAllUsers() {
+        const tbody = document.getElementById("usersBody");
+        const emptyNote = document.getElementById("allEmptyNote");
+        tbody.innerHTML = "";
+
+        // Open a readonly transaction on "users"
+        const tx = db.transaction("users", "readonly");
+        const store = tx.objectStore("users");
+
+        // Get all records
+        const req = store.getAll();
+
+        req.onsuccess = () => {
+          const users = req.result;
+
+          if (!users || users.length === 0) {
+            emptyNote.style.display = "block";
+            logMessage("No users found in store.", "info");
+            return;
+          }
+
+          emptyNote.style.display = "none";
+
+          users.forEach((user) => {
+            const tr = document.createElement("tr");
+
+            const tdId = document.createElement("td");
+            tdId.textContent = user.id;
+
+            const tdName = document.createElement("td");
+            tdName.textContent = user.name;
+
+            const tdAge = document.createElement("td");
+            tdAge.textContent = user.age;
+
+            tr.appendChild(tdId);
+            tr.appendChild(tdName);
+            tr.appendChild(tdAge);
+
+            tbody.appendChild(tr);
+          });
+
+          logMessage("📋 All users rendered. Count: " + users.length, "info");
+        };
+
+        req.onerror = () => {
+          logMessage("❌ Error loading all users.", "error");
+        };
+      }
+
+      /* ===========================================================
+         Clear search results table
+      ========================================================== */
+      function clearSearch() {
+        document.getElementById("searchName").value = "";
+        const tbody = document.getElementById("searchBody");
+        tbody.innerHTML = "";
+        const emptyNote = document.getElementById("searchEmptyNote");
+        emptyNote.textContent = "No search yet or no matching users.";
+        logMessage("🔄 Search results cleared.", "info");
+      }
+
+      /* ===========================================================
+         Search by name using index.getAll(name)
+         - Returns ALL matching users (multiple results)
+      ========================================================== */
+      function findByName() {
+        const name = document.getElementById("searchName").value.trim();
+
+        const tbody = document.getElementById("searchBody");
+        const emptyNote = document.getElementById("searchEmptyNote");
+        tbody.innerHTML = "";
+
+        if (name === "") {
+          alert("Please enter a name to search.");
+          emptyNote.textContent = "No search yet or no matching users.";
+          return;
+        }
+
+        logMessage(`🔍 Searching for users with name = "${name}"...`, "info");
+
+        // Open readonly transaction
+        const tx = db.transaction("users", "readonly");
+        const store = tx.objectStore("users");
+
+        // Get index
+        const index = store.index("nameIndex");
+
+        // Get ALL users that match this name
+        const req = index.getAll(name);
+
+        req.onsuccess = () => {
+          const results = req.result;
+
+          if (!results || results.length === 0) {
+            emptyNote.textContent = `No users found with name "${name}".`;
+            logMessage(`❌ No users found with name "${name}".`, "error");
+            return;
+          }
+
+          emptyNote.textContent = `Found ${results.length} user(s) with name "${name}".`;
+
+          // Render all results
+          results.forEach((user) => {
+            const tr = document.createElement("tr");
+
+            const tdId = document.createElement("td");
+            tdId.textContent = user.id;
+
+            const tdName = document.createElement("td");
+            tdName.textContent = user.name;
+
+            const tdAge = document.createElement("td");
+            tdAge.textContent = user.age;
+
+            tr.appendChild(tdId);
+            tr.appendChild(tdName);
+            tr.appendChild(tdAge);
+
+            tbody.appendChild(tr);
+          });
+
+          logMessage(
+            `✅ Search complete. Found ${results.length} user(s) named "${name}".`,
+            "ok"
+          );
+        };
+
+        req.onerror = () => {
+          logMessage("❌ Error while searching by name.", "error");
+        };
+      }
+    </script>
+  </body>
+</html>

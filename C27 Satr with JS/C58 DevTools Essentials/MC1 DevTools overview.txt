@@ -1,0 +1,8 @@
+💡 Activity – Expected Outcome
+You should be able to say:
+
+🔹 “This is where DOM changes appear”
+🔹 “This is where JavaScript values appear”
+🔹 “This is where network requests appear”
+
+That awareness is the foundation.

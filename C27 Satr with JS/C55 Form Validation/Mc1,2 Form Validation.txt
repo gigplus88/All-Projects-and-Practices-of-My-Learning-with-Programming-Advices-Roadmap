@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>classList Activity — Full Working Example</title>
+
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+      .error {
+        color: red;
+      }
+      .success {
+        color: green;
+      }
+    </style>
+  </head>
+  <form>
+    <label for="name">Name</label>
+    <input id="name" type="text" />
+
+    <label for="email">Email</label>
+    <input id="email" type="email" />
+
+    <button type="submit">Submit</button>
+    <p id="error"></p>
+  </form>
+
+  <body>
+    <script>
+      const form = document.querySelector("form");
+      const error = document.getElementById("error");
+
+      form.addEventListener("submit", (event) => {
+        event.preventDefault();
+
+        console.log("No page reload");
+        const name = document.getElementById("name").value;
+        const email = document.getElementById("email").value;
+
+        error.textContent = "";
+        error.className = "";
+        error.style.border = "1px solid black";
+        error.style.display = "inline-block";
+
+        if (!name) {
+          error.textContent = "Name is required";
+          error.className = "error";
+          return;
+        }
+
+        if (!email || !email.includes("@")) {
+          error.textContent = "Valid email is required";
+          error.className = "error";
+          return;
+        }
+
+        error.textContent = "Form submitted successfully!";
+        error.className = "success";
+
+        form.reset();
+
+        console.log("name: ", name);
+        console.log("email: ", email);
+      });
+    </script>
+  </body>
+</html>

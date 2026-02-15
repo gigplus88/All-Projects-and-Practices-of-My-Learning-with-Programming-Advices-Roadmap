@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>JavaScript Type System Demo</title>
+
+    <style></style>
+  </head>
+  <body>
+    <script>
+      console.log(Math.round(6.7)); // Task 1
+      console.log(Math.floor(9.9)); // Task 2
+      console.log(Math.ceil(2.1)); // Task 3
+      console.log(Math.trunc(-8.75)); // Task 4
+      console.log(Math.abs(-45)); // Task 5
+
+      console.log(Math.pow(2, 5));
+      console.log(3 ** 2);
+      console.log(Math.sqrt(144));
+      console.log(Math.cbrt(64));
+      console.log(10 ** 3);
+
+      const temps = [18, 22, 30, 15, 27];
+      console.log(Math.max(...temps));
+
+      const prices = [19.99, 5.49, 3.5, 99.99, 45.0];
+      console.log("Cheapest", Math.min(...temps));
+      console.log("More expensive", Math.max(...temps));
+
+      const points = [5, 10, 15];
+      console.log(
+        "The different between lower and heiher is",
+        Math.max(...points) - Math.min(...points)
+      );
+
+      let dice1 = Math.floor(Math.random() * 6) + 1;
+      console.log("Dice rolled:", dice1);
+
+      const colors = ["red", "green", "blue", "yellow"];
+      let index = Math.floor(Math.random() * colors.length);
+
+      console.log(colors[index]);
+
+      const randomTo1 = Math.random();
+      console.log("Random number between 0 and 1:", randomTo1);
+
+      const randomFrom0To10 = Math.random() * 10;
+      console.log("Random number between 0 and 10:", randomFrom0To10);
+
+      const randomFrom0To10Int = Math.floor(Math.random() * 10) + 1;
+      console.log(
+        "Random integer number  between 0 and 10:",
+        randomFrom0To10Int
+      );
+
+      let dice = Math.floor(Math.random() * 6) + 1;
+      console.log(dice);
+
+      const names = ["Ali", "Sara", "Omar", "Lina"];
+
+      const indexArray = Math.floor(Math.random() * names.length);
+      console.log("Random name :", names[indexArray]);
+
+      console.log("Pi" + Math.PI + "E = " + Math.E);
+
+      let radians = 90 * (Math.PI / 180);
+            let radians2 = 60 * (Math.PI / 180);
+      let radians3 = 45 * (Math.PI / 180);
+
+      console.log("sin(90)" + Math.sin(radians));
+      console.log("cos(60)" + Math.cos(radians2));
+      console.log("tan(45)" + Math.tan(radians3));
+      console.log("180 degree to radian" + 180 * (Math.PI / 180));
+
+     
+    </script>
+  </body>
+</html>

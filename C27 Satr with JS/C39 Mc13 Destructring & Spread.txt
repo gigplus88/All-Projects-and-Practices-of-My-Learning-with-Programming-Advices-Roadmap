@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>JavaScript Type System Demo</title>
+
+    <style></style>
+  </head>
+  <body>
+    <script>
+      /*
+      🔗 Interconnections
+        🔹 Destructuring → extracts values
+        🔹 Spread operator → expands arrays/objects
+        🔹 Rest operator → collects leftover values
+        🔹 Often used together in modern JS apps (React, Node)
+    */
+
+      const arr1 = [10, 20, 30];
+
+      // Destructuring
+      const [x, y] = [10, 20];
+      console.log("Destructured values:", x, y); // 10 20
+
+
+      const car = {brand: "Toyota", model: "Corolla"};
+      const {brand, model} = car;
+      console.log("Destructured object:", brand, model); // Toyota Corolla
+
+
+      const data = {
+        info: { score: 99 }
+      };
+
+      const { info: { score } }  = data;
+      console.log("Nested destructured value:", score); // 99
+
+
+
+      const [a , ...rest] = [1, 2, 3, 4];
+
+      console.log("Rest operator result:", a, rest); // 1 [2, 3, 4]
+
+
+
+
+
+      const a1 = [1, 2];
+      const b1 = [3, 4];
+
+      const mergedArray = [...a1, ...b1];
+      console.log("Merged array using spread:", mergedArray); // [1, 2, 3, 4]
+      
+      
+
+
+
+      const user = { name: "Omar", age: 22 };
+
+      const copiedObjects = {...user};
+      console.log("Copied object using spread:", copiedObjects); // { name: "Omar", age: 22 }
+
+
+
+      
+    </script>
+  </body>
+</html>

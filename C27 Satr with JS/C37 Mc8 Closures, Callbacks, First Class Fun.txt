@@ -1,0 +1,92 @@
+<!--🧬 Characteristics Summary
+First-Class Functions
+
+Stored in variables
+Passed as arguments
+Returned from functions
+Assigned to objects
+Callbacks
+
+Functions executed later
+Enable asynchronous behavior
+Used in events, timers, array methods
+Closures
+
+Inner functions capture outer variables
+Allow private data
+Persist data after function execution
+Foundation of advanced JS patterns
+
+🔗 Interconnections
+🔹 First-class functions → enable callbacks
+🔹 Callbacks → rely on closures to remember state
+🔹 Closures → form when a callback “carries” external data
+🔹 Event-driven JavaScript → built entirely on callbacks + closures
+🔹 Async JS (setTimeout, promises, Node.js IO) → callbacks everywhere
+
+Understanding these three concepts = mastering how JavaScript really works.-->
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>JavaScript Type System Demo</title>
+
+    <style></style>
+  </head>
+  <body>
+    <script>
+      
+
+      function processData(data, callback) {
+        console.log("معالجة:", data);
+        callback();
+      }
+
+      processData("ملف", () => {
+        console.log("انتهى!");
+      });
+
+
+
+      function createUser(name) {
+        let score = 0;
+
+        return {
+          getName: () => name,
+          addPoint: () => score++,
+          getScore: () => score
+        };
+      }
+
+      const user = createUser("Sara");
+
+      user.addPoint();
+      user.addPoint();
+
+      console.log(user.getName());
+      console.log(user.getScore());
+
+      function setupButton(text) {
+        return function handleClick() {
+          console.log("Clicked: " + text);
+        };
+      }
+
+      const clickFn = setupButton("Save");
+
+      clickFn();
+
+    </script>
+  </body>
+</html>

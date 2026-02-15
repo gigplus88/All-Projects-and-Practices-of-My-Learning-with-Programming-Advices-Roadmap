@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>classList Activity — Full Working Example</title>
+
+    <style>
+     
+      * {
+        box-sizing: border-box;
+      }
+
+     
+    </style>
+  </head>
+
+  <body>
+  
+      <p>add many items, then click on specific one to remove it</p>
+
+    <label for="addItem">Add Item</label>
+          <p class="delete">good</p>
+
+    <input id="inputText" type="text" name="addItem" >
+    <button id="btn" >Add Item</button>
+        <button id="rst" >Reset</button>
+
+      <p class="delete">good</p>
+    
+    <div class="delete">
+     
+    </div>
+
+
+        <div class="card">
+          <h3>Title</h3>
+          <p>Description</p>
+          <button class="delete">Delete</button>
+        </div>
+
+
+    <script>
+   const btn = document.querySelector(".delete");
+    const card = btn.parentElement;
+
+
+    const btn2 = document.querySelector(".delete");
+    const card2 = btn.closest(".card");
+
+
+
+    //Example
+    const Card = document.querySelector(".card");
+
+    const deleteBtn =  Card.children;
+    const previous =  Card.previousElementSibling;
+
+
+    console.log( "delete is children of card", deleteBtn.querySelector );
+
+
+
+    const child = document.querySelector(".delete");
+
+    const cardParent =  child.closest(".card");
+
+    console.log( "card is parent of delet selector element", cardParent );
+    console.log( "the previous of delete button ", cardParent );
+
+    // Check element type
+    if (btn.matches("button")) {
+      console.log("This is a button");
+    }
+
+    </script>
+  </body>
+</html>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>classList Activity — Full Working Example</title>
+
+    <style>
+     
+      * {
+        box-sizing: border-box;
+      }
+
+     
+    </style>
+  </head>
+
+  <body>
+  
+     
+
+
+        <div class="card">
+          <h3>Title</h3>
+          <p>Description</p>
+          <button class="delete"> <span>🗑️</span> Delete</button>
+        </div>
+
+
+        <div class="list">
+          <div class="card">
+            <button class="delete">
+              <span>🗑️</span> Delete
+            </button>
+          </div>
+        </div>
+
+        <div class="card2">
+          <button class="edit"><span>✏️</span> Edit</button>
+        </div>
+
+
+    <script>
+        document.addEventListener("click", (e) => {
+          if (!e.target.closest(".edit")) return; // All element in edit class when i click it the target return true
+
+          const card = e.target.closest(".card2");
+          console.log("Edit card", card);
+        });
+
+
+
+         document.addEventListener("click", (e) => {
+          if (!e.target.closest("button.delete ")) return;  //e.target.matches("button.delete span")
+            
+            const card = e.target.closest(".card");
+            card.remove();
+            
+          }
+        );
+
+
+        document.querySelector(".list").addEventListener("click", (e) => {
+          if (!e.target.closest(".delete")) return;
+
+          const card = e.target.closest(".card");
+          card.remove();
+        });
+
+
+
+
+    </script>
+  </body>
+</html>

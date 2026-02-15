@@ -1,0 +1,15 @@
+💡 Activity – Solution
+❌ Unsafe:
+
+title.innerHTML = product.name;
+
+✅ Safe:
+
+title.textContent = product.name;
+
+✅ Safe:
+
+container.innerHTML = "<h2>Profile</h2>";
+
+(Developer-controlled HTML)
+

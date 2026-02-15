@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>JavaScript Type System Demo</title>
+
+    <style></style>
+  </head>
+  <body>
+    <script>
+      const nums = [1, 2, 3, 4, 454, 54];
+
+      const GreatNum = nums.reduce((great, n) => (great > n ? great : n), 0);
+
+      console.log(GreatNum);
+
+      const cart = [
+        { item: "Book", price: 10 },
+        { item: "Pen", price: 2 },
+        { item: "Bag", price: 25 },
+      ];
+
+      const totalPrice = cart.reduce(
+        (total, product) => total + product.price,
+        0
+      );
+      console.log(totalPrice);
+
+      const letters = ["a", "b", "a", "c", "b", "a"];
+
+      const freq = letters.reduce((table, letter) => {
+        table[letter] = (table[letter] || 0) + 1;
+        return table;
+      }, {});
+
+      console.log(freq);
+
+      const nested = [[1, 2], [3, 4], [5], ["d"]];
+
+      const flat = nested.reduce((arr, sub) => arr.concat(sub), []);
+
+      console.log(flat);
+
+      const entries = [
+        ["name", "Mohammed"],
+        ["age", 30],
+        ["country", "Jordan"],
+      ];
+
+      const obj2 = entries.reduce(
+        (
+          acc,
+          [keys, value] //acc ={} in initial
+        ) => {
+          acc[keys] = value;
+          return acc;
+        },
+        {}
+      );
+      // acc = { "name": "Mohammed"}
+      //acc = {  "name": "Mohammed" , "age": 30}
+      //country = {"name": "Mohammed" , "age": 30, "country": "jordan"}
+
+      console.log(obj2);
+
+      const words = ["JavaScript", "is", "awesome"];
+
+      const sentence = words.toString();
+      const sen = words.join(" ");
+
+      const sent = words.reduce((s, w) => s + " " + w, "").trim();
+
+      console.log(sentence);
+      console.log(typeof sentence);
+      console.log(sent);
+
+      console.log(sen);
+
+
+
+
+
+
+
+
+      const nums2 = [1, 2, 3 , 4 , 5 , 6];
+
+      const result = nums2.reduce((acc, n) => {
+        (n % 2) === 0 ? acc.push(n * 2): acc.push(n );
+        return acc;
+      }, []);
+
+      console.log(result);
+
+
+
+
+
+
+      const people = [
+        { name: "Ali", age: 22 },
+        { name: "Lina", age: 30 },
+        { name: "Ali", age: 28 }
+      ];
+
+      const res = people.find( (x) => x.name === "Ali");
+      console.log(res);
+      
+      const filterRes = people.filter( (x) => x.age > 25);
+      console.log(filterRes);
+
+      
+
+      const cart2 = [20, 15, 30, 10];
+
+
+      const total = cart2.reduce( (total, price) => total + price , 0);
+      console.log(total);
+
+
+
+      const users = [
+        { name: "Omar", age: 24 },
+        { name: "Sara", age: 29 },
+        { name: "Hadi", age: 31 }
+      ];
+
+      const filterResult = users.filter( (x) => x.age > 25).map( (x) => x.name );
+      console.log(filterResult);
+
+
+    </script>
+  </body>
+</html>

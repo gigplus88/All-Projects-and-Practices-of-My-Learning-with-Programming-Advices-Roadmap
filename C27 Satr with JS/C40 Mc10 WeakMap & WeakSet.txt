@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>JavaScript Type System Demo</title>
+
+    <style></style>
+  </head>
+  <body>
+    <script>
+        const settings = new WeakMap();
+
+        user1 = { id: 1, username: "ayoub" , enabled: true };
+        user2 = { id: 2, username: "saad" , enabled: true };
+
+        settings.set(user1, "Ayoub fellah");
+        settings.set(user2,"user");
+
+
+        console.log(settings.get(user1));
+        console.log(settings.get(user2));
+
+      
+
+        //Create a WeakSet to track active sessions.
+
+      const session = new WeakSet();
+
+      session1 = { field : true};
+      session.add(session1);   
+
+
+      console.log(session.has(session1));
+
+    </script>
+  </body>
+</html>

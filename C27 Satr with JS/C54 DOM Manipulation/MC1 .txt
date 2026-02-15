@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>JavaScript Type System Demo</title>
+
+    <style></style>
+  </head>
+  <body>
+
+
+    <h1 id="header" >Heading</h1>
+        <h2 id="header2" >Heading</h2>
+
+    <p class="p">paragraph 1</p>
+    <p class="p">paragraph 2</p>
+    <p class="p">paragraph 3</p>
+
+
+    <button id="submitBtn" >Submit</button>
+
+
+    <script type="module">
+      //Activity 1
+
+      const header = document.getElementById("header");
+     const p1 = document.querySelector(".p");
+    const paragraph = document.getElementsByClassName("p");
+
+
+      const allParagraph = document.querySelectorAll(".p");
+      const btn = document.getElementById("submitBtn");
+
+
+      function changeStyle(){
+        header.textContent = "MyChange";
+        p1.style.color = "red";
+
+        allParagraph.forEach( item =>{
+          item.style.color = "orange";
+          item.style.fontWeight = "bold";
+        } );
+
+
+        //Activity 2
+        //HTMLCollection to array then change color
+         Array.from(paragraph).forEach( i => {
+          i.style.color = "blue";
+        });
+
+
+      }  
+
+    btn.addEventListener("click", changeStyle  );
+
+
+   
+
+       
+    </script>
+    <script type="module" src="mathUtils.js"></script>
+  </body>
+</html>

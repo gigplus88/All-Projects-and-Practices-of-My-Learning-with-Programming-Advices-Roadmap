@@ -1,0 +1,668 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Age Calculator — Modern UI</title>
+
+    <style>
+      /* ============================================================
+         ✅ Modern UI — Age Calculator (CSS Only)
+         ============================================================
+         🔹 Dark theme
+         🔹 Responsive layout
+         🔹 Clean cards + soft borders
+      ============================================================ */
+
+      :root {
+        color-scheme: dark;
+
+        /* 🔹 Simple design tokens (CSS variables) */
+        --bg: #0b1020; /* Page background base color */
+        --card: rgba(255, 255, 255, 0.06); /* Main card background */
+        --card-2: rgba(
+          255,
+          255,
+          255,
+          0.08
+        ); /* Slightly stronger chip background */
+        --border: rgba(255, 255, 255, 0.12); /* Soft border color */
+        --text: #e9eefc; /* Main text color */
+        --muted: rgba(233, 238, 252, 0.7); /* Secondary text color */
+        --accent: #7aa2ff; /* Accent color */
+        --good: #39d98a; /* Success color */
+        --bad: #ff5c7a; /* Error color */
+
+        --radius: 18px; /* Global corner radius */
+        --shadow: 0 18px 40px rgba(0, 0, 0, 0.45); /* Global shadow */
+      }
+
+      * {
+        box-sizing: border-box; /* ✅ Better sizing rules for all elements */
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        display: grid;
+        place-items: center; /* ✅ Center the app horizontally & vertically */
+        padding: 24px;
+        font-family:
+          system-ui,
+          -apple-system,
+          Segoe UI,
+          Roboto,
+          Arial,
+          sans-serif;
+        background:
+          radial-gradient(
+            1200px 800px at 20% 10%,
+            rgba(122, 162, 255, 0.18),
+            transparent 60%
+          ),
+          radial-gradient(
+            1000px 700px at 90% 20%,
+            rgba(57, 217, 138, 0.12),
+            transparent 60%
+          ),
+          var(--bg);
+        color: var(--text);
+      }
+
+      .app {
+        width: min(920px, 100%); /* ✅ Fit on desktop but shrink on mobile */
+        display: grid;
+        gap: 16px;
+      }
+
+      header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        padding: 18px 20px;
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        background: var(--card);
+        box-shadow: var(--shadow);
+      }
+
+      .title {
+        display: grid;
+        gap: 4px;
+      }
+
+      .title h1 {
+        margin: 0;
+        font-size: 20px;
+        letter-spacing: 0.2px;
+      }
+
+      .title p {
+        margin: 0;
+        color: var(--muted);
+        font-size: 13px;
+      }
+
+      .chip {
+        border: 1px solid var(--border);
+        background: var(--card-2);
+        padding: 8px 10px;
+        border-radius: 999px; /* ✅ pill shape */
+        font-size: 12px;
+        color: var(--muted);
+        white-space: nowrap;
+      }
+
+      .grid {
+        display: grid;
+        gap: 16px;
+        grid-template-columns: 1.1fr 0.9fr; /* ✅ Left bigger than right */
+      }
+
+      /* ✅ Mobile layout: stack the two cards */
+      @media (max-width: 860px) {
+        .grid {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      .card {
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        background: var(--card);
+        box-shadow: var(--shadow);
+        overflow: hidden; /* ✅ keeps inner borders clean */
+      }
+
+      .cardHead {
+        padding: 16px 18px;
+        border-bottom: 1px solid var(--border);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+      }
+
+      .cardHead h2 {
+        margin: 0;
+        font-size: 15px;
+      }
+
+      .cardBody {
+        padding: 18px;
+        display: grid;
+        gap: 14px;
+      }
+
+      label {
+        display: grid;
+        gap: 8px;
+      }
+
+      .labelRow {
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        gap: 10px;
+      }
+
+      .labelRow span {
+        color: var(--muted);
+        font-size: 13px;
+      }
+
+      input[type="date"] {
+        width: 100%;
+        padding: 12px 12px;
+        border-radius: 12px;
+        border: 1px solid var(--border);
+        background: rgba(255, 255, 255, 0.06);
+        color: var(--text);
+        outline: none;
+      }
+
+      /* ✅ Focus styling for better accessibility */
+      input[type="date"]:focus {
+        border-color: rgba(122, 162, 255, 0.6);
+        box-shadow: 0 0 0 3px rgba(122, 162, 255, 0.18);
+      }
+
+      .btnRow {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+
+      button {
+        cursor: pointer;
+        border: 1px solid var(--border);
+        background: rgba(255, 255, 255, 0.08);
+        color: var(--text);
+        padding: 11px 14px;
+        border-radius: 12px;
+        font-weight: 600;
+        letter-spacing: 0.2px;
+      }
+
+      button.primary {
+        border-color: rgba(122, 162, 255, 0.55);
+        background: rgba(122, 162, 255, 0.16);
+      }
+
+      button:hover {
+        filter: brightness(1.08);
+      }
+
+      .hint {
+        color: var(--muted);
+        font-size: 12px;
+        line-height: 1.5;
+      }
+
+      .msg {
+        padding: 10px 12px;
+        border-radius: 12px;
+        border: 1px solid var(--border);
+        background: rgba(255, 255, 255, 0.05);
+        color: var(--muted);
+        font-size: 13px;
+      }
+
+      /* ✅ Error message style */
+      .msg.bad {
+        border-color: rgba(255, 92, 122, 0.55);
+        background: rgba(255, 92, 122, 0.12);
+        color: rgba(255, 210, 219, 0.95);
+      }
+
+      /* ✅ Success message style */
+      .msg.good {
+        border-color: rgba(57, 217, 138, 0.55);
+        background: rgba(57, 217, 138, 0.12);
+        color: rgba(209, 255, 234, 0.95);
+      }
+
+      .stats {
+        display: grid;
+        gap: 12px;
+      }
+
+      .statGrid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 12px;
+      }
+
+      /* ✅ On very small screens, show stats vertically */
+      @media (max-width: 520px) {
+        .statGrid {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      .stat {
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        padding: 14px 14px;
+        background: rgba(255, 255, 255, 0.05);
+      }
+
+      .stat .k {
+        color: var(--muted);
+        font-size: 12px;
+      }
+
+      .stat .v {
+        margin-top: 6px;
+        font-size: 26px;
+        font-weight: 800;
+        letter-spacing: 0.2px;
+      }
+
+      .smallLine {
+        color: var(--muted);
+        font-size: 13px;
+        line-height: 1.6;
+      }
+
+      .footerNote {
+        text-align: center;
+        color: var(--muted);
+        font-size: 12px;
+        padding: 6px 0 0;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="app">
+      <!-- ✅ Header (title + today's date chip) -->
+      <header>
+        <div class="title">
+          <h1>📅 Age Calculator</h1>
+          <p>Enter your birth date, then calculate your exact age.</p>
+        </div>
+
+        <!-- ✅ Will be filled by JS on page load -->
+        <div class="chip" id="todayChip">Today: —</div>
+      </header>
+
+      <div class="grid">
+        <!-- ✅ Left Card: Inputs -->
+        <section class="card">
+          <div class="cardHead">
+            <h2>🧾 Inputs</h2>
+            <span class="chip">Modern UI • Vanilla JS</span>
+          </div>
+
+          <div class="cardBody">
+            <!-- ✅ Birth date input -->
+            <label>
+              <div class="labelRow">
+                <span>Birth Date</span>
+                <span>(Required)</span>
+              </div>
+
+              <input id="birthDate" type="date" />
+            </label>
+
+            <!-- ✅ Action buttons -->
+            <div class="btnRow">
+              <button class="primary" id="btnCalc">Calculate Age</button>
+              <button id="btnToday">Use Today (Demo)</button>
+              <button id="btnClear">Clear</button>
+            </div>
+
+            <!-- ✅ Message area (neutral / error / success) -->
+            <div class="msg" id="msgBox">
+              Tip: Choose a birth date and press “Calculate Age”.
+            </div>
+
+            <!-- ✅ Helpful hints for learners -->
+            <div class="hint">
+              🔹 Calculation is based on actual calendar rules (months length,
+              leap years).<br />
+              🔹 “Next Birthday” countdown shows how many days remain.
+            </div>
+          </div>
+        </section>
+
+        <!-- ✅ Right Card: Results -->
+        <section class="card">
+          <div class="cardHead">
+            <h2>📊 Results</h2>
+
+            <!-- ✅ Status chip (Waiting… / Ready… / Calculated ✅) -->
+            <span class="chip" id="statusChip">Waiting…</span>
+          </div>
+
+          <div class="cardBody stats">
+            <!-- ✅ Years / Months / Days blocks -->
+            <div class="statGrid">
+              <div class="stat">
+                <div class="k">Years</div>
+                <div class="v" id="outYears">—</div>
+              </div>
+
+              <div class="stat">
+                <div class="k">Months</div>
+                <div class="v" id="outMonths">—</div>
+              </div>
+
+              <div class="stat">
+                <div class="k">Days</div>
+                <div class="v" id="outDays">—</div>
+              </div>
+            </div>
+
+            <!-- ✅ Extra result lines -->
+            <div class="smallLine" id="nextBirthdayLine">Next birthday: —</div>
+            <div class="smallLine" id="extraLine">Extra info: —</div>
+          </div>
+        </section>
+      </div>
+
+      <div class="footerNote">
+        Built with ❤️ using HTML + CSS + JavaScript (no libraries)
+      </div>
+    </div>
+
+    <script>
+      /* ============================================================
+         ✅ Code Overview (Age Calculator)
+         ============================================================
+         🔹 Purpose        → Calculate exact age (years, months, days)
+         🔹 Layout         → Left: Input | Right: Results
+         🔹 Use Cases      → Learners, forms, profile pages
+         🔹 Key Properties → Real calendar math, validation, next birthday
+      ============================================================ */
+
+      /* ============================================================
+         ✅ 1) Grab Elements (DOM references)
+         ============================================================ */
+
+      /* ============================================================
+         ✅ 1) Grab Elements (DOM references)
+         ============================================================ */
+
+      const UI = {
+        birthDateInput: document.getElementById("birthDate"),
+
+        // ✅ Buttons
+        btnCalc: document.getElementById("btnCalc"),
+        btnToday: document.getElementById("btnToday"),
+        btnClear: document.getElementById("btnClear"),
+
+        // ✅ Output numbers
+        outYears: document.getElementById("outYears"),
+        outMonths: document.getElementById("outMonths"),
+        outDays: document.getElementById("outDays"),
+
+        // ✅ Output text lines
+        nextBirthdayLine: document.getElementById("nextBirthdayLine"),
+        extraLine: document.getElementById("extraLine"),
+
+        // ✅ Header/status chips
+        todayChip: document.getElementById("todayChip"),
+        statusChip: document.getElementById("statusChip"),
+
+        // ✅ Message box (neutral/success/error)
+        msgBox: document.getElementById("msgBox"),
+      };
+
+      /* ============================================================
+         ✅ 2) Helper Functions (small reusable functions)
+         ============================================================ */
+
+      const today = new Date();
+      function FormateDate(date) {
+        return date.toLocaleDateString(undefined, {
+          weekday: "short",
+          year: "numeric",
+          month: "short",
+          day: "2-digit",
+        });
+      }
+      UI.todayChip.textContent = "Today: " + FormateDate(today);
+
+      function setStatus(status) {
+        UI.statusChip.textContent = status;
+      }
+
+      function messageBox(type, message) {
+        UI.msgBox.classList.remove("good", "bad");
+        if (type === "good") UI.msgBox.classList.add("good");
+        if (type === "bad") UI.msgBox.classList.add("bad");
+        UI.msgBox.textContent = message;
+      }
+
+      function resetOutputs() {
+        outYears.textContent = "—";
+        outMonths.textContent = "—";
+        outDays.textContent = "—";
+        nextBirthdayLine.textContent = "Next birthday: —";
+        extraLine.textContent = "Extra info: —";
+        setStatus("Waiting…");
+      }
+
+      function stripTime(date) {
+        return new Date(date.getFullYear(), date.getMonth(), date.getDate());
+      }
+
+      function TodayDateInput() {
+        const today = new Date();
+
+        const yyyy = String(today.getFullYear());
+        const mm = String(today.getMonth() + 1).padStart(2, "0");
+        const dd = String(today.getDate()).padStart(2, "0");
+
+        return `${yyyy}-${mm}-${dd}`;
+      }
+
+      /* ============================================================
+         ✅ 3) Core Age Calculation
+         ============================================================ */
+
+      /**
+       * ✅ calculateExactAge(birthDate, today)
+       * Returns:
+       *   { years, months, days }
+       *
+       * Why not milliseconds only?
+       * 🔹 Months have different lengths.
+       * 🔹 Leap years exist.
+       *
+       * Strategy:
+       * 🔹 Compare year/month/day parts
+       * 🔹 If day is negative -> borrow days from previous month
+       * 🔹 If month is negative -> borrow months from previous year
+       */
+      function calculateExactAge(birthDay, today) {
+        // Calc years
+
+        const yearBirth = birthDay.getFullYear();
+        const yearToday = today.getFullYear();
+        let years = yearToday - yearBirth;
+
+        const monthBirth = birthDay.getMonth();
+        const monthToday = today.getMonth();
+        let months = monthToday - monthBirth;
+
+        const dayBirth = birthDay.getDate();
+        const dayToday = today.getDate();
+        let days = dayToday - dayBirth;
+
+        //My Solution
+        /*
+           if (monthToday < monthBirth) {
+            years--;
+          }
+           if (monthBirth > monthToday) {
+            months = 12 - (monthBirth - monthToday); // years if (monthBirth < monthToday) substract monthBirth substract monthToday
+          }
+
+          if (dayToday < dayBirth) {
+            months--;
+            days = new Date(today.getFullYear(), today.getMonth(), 0).getDate() - (dayBirth - dayToday);
+          }
+
+          */
+
+        //Good solution
+        if (days < 0) {
+          months--; // نستلف شهراً
+          // نحسب عدد الأيام في الشهر السابق بدقة
+          const prevMonth = new Date(today.getFullYear(), today.getMonth(), 0);
+          days += prevMonth.getDate(); // نضيف أيام الشهر السابق للفرق السالب
+        }
+
+        // 2. إذا كانت الشهور سالبة (شهر الميلاد لم يأتِ بعد في هذه السنة)
+        if (months < 0) {
+          years--; // نستلف سنة
+          months += 12; // نضيف 12 شهراً للفرق السالب
+        }
+
+        return { years, months, days };
+      }
+
+      function renderAgeResult(age) {}
+
+      function daysUntilNextBirthday(birthDate, today) {
+        const yearBirth = birthDate.getFullYear();
+        const monthBirth = birthDate.getMonth();
+        const dayBirth = birthDate.getDate();
+
+        const thisYear = today.getFullYear();
+
+        let next = new Date(
+          thisYear,
+          birthDate.getMonth(),
+          birthDate.getDate(),
+        );
+
+        if (stripTime(next) < stripTime(today)) {
+          next = new Date(
+            thisYear + 1,
+            birthDate.getMonth(),
+            birthDate.getDate(),
+          );
+        }
+
+        let msPerDay = 1000 * 3600 * 24;
+
+        const diffMs = stripTime(next) - stripTime(today);
+        const diffDays = Math.round(diffMs / msPerDay);
+
+        return { nextBirthdayDate: next, daysLeft: diffDays };
+      }
+
+      /* ============================================================
+         ✅ 4) UI Events (buttons)
+         ============================================================ */
+
+      // Calculate Click
+
+      UI.btnCalc.addEventListener("click", () => {
+        const birthValue = UI.birthDateInput.value;
+        const today = stripTime(new Date());
+
+        if (!birthValue) {
+          messageBox("bad", "❌ Please select your birth date first.");
+          resetOutputs();
+          return;
+        }
+
+        const [y, m, d] = birthValue.split("-").map(Number);
+        const birthDate = stripTime(new Date(y, m - 1, d));
+
+        if (birthDate > today) {
+          messageBox("bad", "❌ Birth date cannot be in the future.");
+          resetOutputs();
+          return;
+        }
+
+        // 6️⃣ Validate very old years (simple demo rule)
+        if (y < 1900) {
+          messageBox("bad", "❌ Please enter a valid year (1900 or later).");
+          resetOutputs();
+          return;
+        }
+
+        setStatus("Ready...");
+
+        const age = calculateExactAge(birthDate, today);
+
+        // console.log (`${age.days}/ ${age.months} /${age.years}`);
+
+        // ✅ Update the UI with the results
+        outYears.textContent = age.years;
+        outMonths.textContent = age.months;
+        outDays.textContent = age.days;
+
+        // ✅ Next birthday countdown
+        const { nextBirthdayDate, daysLeft } = daysUntilNextBirthday(
+          birthDate,
+          today,
+        );
+
+        UI.nextBirthdayLine.textContent = `Next birthday: ${FormateDate(
+          nextBirthdayDate,
+        )} (in ${daysLeft} day${daysLeft === 1 ? "" : "s"})`;
+
+        // ✅ Extra info: total days lived (approx using date difference)
+        const msPerDay = 1000 * 60 * 60 * 24;
+        const totalDays = Math.floor((today - birthDate) / msPerDay);
+
+        UI.extraLine.textContent = `Extra info: You have lived about ${totalDays.toLocaleString()} days.`;
+
+        // ✅ Success feedback
+        messageBox("good", "✅ Age calculated successfully.");
+        setStatus("Calculated ✅");
+      });
+
+      //Demo Click
+      UI.btnToday.addEventListener("click", () => {
+        setStatus("Ready...");
+        messageBox(
+          "neutral",
+          "📌 Birth date set to today (demo). Now click Calculate.",
+        );
+
+        const todayStr = TodayDateInput();
+        UI.birthDateInput.value = todayStr;
+      });
+
+      /*Clicking Clear */
+      UI.btnClear.addEventListener("click", () => {
+        resetOutputs();
+        messageBox(
+          "neutral",
+          "Tip: Choose a birth date and press “Calculate Age”.",
+        );
+
+        UI.birthDateInput.value = "";
+      });
+    </script>
+  </body>
+</html>

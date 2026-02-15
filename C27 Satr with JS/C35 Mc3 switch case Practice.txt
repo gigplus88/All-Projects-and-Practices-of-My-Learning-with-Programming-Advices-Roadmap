@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>JavaScript Type System Demo</title>
+
+    <style></style>
+  </head>
+  <body>
+    <script>
+      function TrafficLight(Color) {
+        let light = "yellow";
+        let message = "red";
+        switch (Color) {
+          case "red":
+            {
+              light = "red";
+              message = "stop";
+            }
+            break;
+          case "green":
+            light = "green";
+            message = "Go";
+            break;
+          case "yellow":
+            light = "yellow";
+            message = "Get ready";
+            break;
+          default:
+            light = "unknown";
+            message = "Invalid signal";
+        }
+        console.log(message);
+      }
+      TrafficLight("red");
+      TrafficLight("green");
+      TrafficLight("dkf");
+    </script>
+  </body>
+</html>

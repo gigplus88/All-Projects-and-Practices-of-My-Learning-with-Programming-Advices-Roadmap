@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <h3>Sanitization vs Validation Demo</h3>
+
+    <input id="input" placeholder="Enter text" />
+    <button id="btn">Show</button>
+
+    <p>
+      <b
+        >innerHTML (unsafe):because it will will execute it any html tag in the
+        input.</b
+      >
+    </p>
+    <div id="htmlOutput"></div>
+
+    <p>
+      <b
+        >textContent (safe): because it will will encode any html tag in the
+        input and doese not execute it.</b
+      >
+    </p>
+    <div id="textOutput"></div>
+
+    <script>
+      const input = document.getElementById("input");
+      const htmlOutput = document.getElementById("htmlOutput");
+      const textOutput = document.getElementById("textOutput");
+
+      document.getElementById("btn").addEventListener("click", () => {
+        const value = input.value.trim();
+
+        // Validation: not empty
+        if (!value) {
+          alert("Input is required");
+          return;
+        }
+
+        // Unsafe rendering (for demo only)
+        htmlOutput.innerHTML = value;
+
+        // Safe rendering
+        textOutput.textContent = value;
+      });
+    </script>
+  </body>
+</html>

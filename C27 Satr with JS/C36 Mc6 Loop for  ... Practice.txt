@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>JavaScript Type System Demo</title>
+
+    <style></style>
+  </head>
+  <body>
+    <script>
+      const car = { brand: "BMW", year: 2020, color: "Black" };
+
+      for (const key in car) {
+        console.log(`${key}: ${car[key]}`);
+      }
+
+      const word ="JS" ;
+      let count =0;
+
+      for (const element of word) {
+        count++;
+        console.log(element , typeof element , count);
+      }
+
+       const word2 ="JSsyf kikd faokf" ;
+      let count2 =0;
+      const vowels = "aeiouy" ;
+      let newk = [];
+
+      for (const element of word2) {
+        vowels.includes(element)? (count2++ && newk.push(element)) : null ;
+         
+      }
+      console.log("the voyels in my array are :" , count2 , "and its " , newk);
+
+    </script>
+  </body>
+</html>

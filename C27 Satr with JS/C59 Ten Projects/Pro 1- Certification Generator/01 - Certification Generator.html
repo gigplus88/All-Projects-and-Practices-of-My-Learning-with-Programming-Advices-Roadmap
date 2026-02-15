@@ -1,0 +1,1090 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <!-- ✅ Makes the page responsive on mobiles/tablets -->
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+
+    <!-- ✅ Browser tab title -->
+    <title>Certificate Generator — Management Dose</title>
+
+    <style>
+      /* =========================================================
+         ✅ Global / Base Styles
+         ========================================================= */
+
+      /* ✅ Tell the browser we are using a dark UI (affects built-in form controls) */
+      :root {
+        color-scheme: dark;
+      }
+
+      /* ✅ Use predictable sizing (padding/border included in width/height) */
+      * {
+        box-sizing: border-box;
+      }
+
+      /* ✅ Page background + global font */
+      body {
+        margin: 0;
+        padding: 24px;
+        font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial,
+          sans-serif;
+        background: #0b1020;
+        color: #e9eefc;
+      }
+
+      /* =========================================================
+         ✅ Main page layout
+         Left: form panel
+         Right: certificate preview
+         ========================================================= */
+      .page {
+        max-width: 1200px;
+        margin: 0 auto;
+        text-align: center;
+        /* ✅ 2-column layout (form fixed width + preview flexible) */
+        display: grid;
+        grid-template-columns: 420px 1fr;
+        gap: 18px;
+        align-items: start;
+      }
+
+      /* ✅ Reusable panel style (used by form and toolbar) */
+      .panel {
+        background: rgba(255, 255, 255, 0.06);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        border-radius: 16px;
+        padding: 16px;
+      }
+
+      .panel h2 {
+        margin: 0 0 10px;
+        font-size: 16px;
+        letter-spacing: 0.2px;
+      }
+
+      /* ✅ Hint text under the title */
+      .hint {
+        margin: 0 0 14px;
+        font-size: 12px;
+        opacity: 0.85;
+        line-height: 1.4;
+      }
+
+      /* ✅ Each input group (label + input + error text) */
+      .row {
+        display: grid;
+        gap: 8px;
+        margin-bottom: 12px;
+      }
+
+      label {
+        font-size: 12px;
+        opacity: 0.9;
+      }
+
+      /* ✅ Shared styles for inputs */
+      input,
+      textarea {
+        width: 100%;
+        border-radius: 12px;
+        border: 1px solid rgba(255, 255, 255, 0.14);
+        background: rgba(0, 0, 0, 0.35);
+        color: #e9eefc;
+        padding: 10px 12px;
+        outline: none;
+        font-size: 14px;
+      }
+
+      textarea {
+        resize: vertical; /* ✅ allow user to resize vertically only */
+        min-height: 70px;
+      }
+
+      /* ✅ Highlight focused input */
+      input:focus,
+      textarea:focus {
+        border-color: rgba(255, 255, 255, 0.35);
+      }
+
+      /* ✅ File input looks better with padding too */
+      input[type="file"] {
+        padding: 10px 12px;
+      }
+
+      /* ✅ Small helper text for file upload */
+      .fileHint {
+        font-size: 12px;
+        opacity: 0.8;
+        line-height: 1.35;
+      }
+
+      /* ✅ Error message: hidden by default */
+      .error {
+        display: none;
+        font-size: 12px;
+        color: #ffb4b4;
+        line-height: 1.25;
+      }
+
+      /* ✅ If row is invalid: turn border red + show error text */
+      .row.invalid input,
+      .row.invalid textarea {
+        border-color: rgba(255, 90, 90, 0.75);
+      }
+      .row.invalid .error {
+        display: block;
+      }
+
+      /* ✅ Buttons row */
+      .actions {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin-top: 10px;
+      }
+
+      /* ✅ Base button style */
+      button {
+        cursor: pointer;
+        border: 1px solid rgba(255, 255, 255, 0.14);
+        background: rgba(255, 255, 255, 0.08);
+        color: #e9eefc;
+        padding: 10px 12px;
+        border-radius: 12px;
+        font-weight: 650;
+        letter-spacing: 0.2px;
+      }
+
+      button:hover {
+        background: rgba(255, 255, 255, 0.12);
+      }
+
+      /* ✅ Primary button (Print) */
+      button.primary {
+        background: rgba(90, 170, 255, 0.22);
+        border-color: rgba(90, 170, 255, 0.35);
+      }
+      button.primary:hover {
+        background: rgba(90, 170, 255, 0.28);
+      }
+
+      /* ✅ Disabled button state */
+      button:disabled {
+        opacity: 0.55;
+        cursor: not-allowed;
+      }
+
+      /* ✅ Status line under buttons */
+      .status {
+        margin-top: 10px;
+        font-size: 12px;
+        opacity: 0.9;
+      }
+
+      /* ✅ Green status */
+      .status.ok {
+        color: #b8ffcb;
+      }
+
+      /* ✅ Red status */
+      .status.bad {
+        color: #ffb4b4;
+      }
+
+      /* ✅ Right side wrapper (toolbar + certificate preview) */
+      .previewWrap {
+        display: grid;
+        gap: 12px;
+      }
+
+      /* ✅ Small toolbar above certificate */
+      .toolbar {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+      }
+
+      .toolbar .small {
+        font-size: 12px;
+        opacity: 0.85;
+      }
+
+      /* =========================================================
+         ✅ PRINT SETTINGS
+         - A4 landscape
+         - Remove margins
+         - Hide form/tools
+         ========================================================= */
+      @page {
+        size: A4 landscape;
+        margin: 0;
+      }
+
+      @media print {
+        /* ✅ Force printing the exact colors (some browsers fade colors by default) */
+        * {
+          -webkit-print-color-adjust: exact !important;
+          print-color-adjust: exact !important;
+        }
+
+        /* ✅ Full A4 size and remove padding/margins */
+        html,
+        body {
+          width: 297mm;
+          height: 210mm;
+          margin: 0 !important;
+          padding: 0 !important;
+          background: #07070a !important;
+          overflow: hidden !important;
+        }
+
+        /* ✅ Hide the left form + top toolbar during print */
+        .panel,
+        .toolbar {
+          display: none !important;
+        }
+
+        /* ✅ Make page layout single column during printing */
+        .page {
+          display: block !important;
+          max-width: none !important;
+          margin: 0 !important;
+          padding: 0 !important;
+        }
+
+        /* ✅ Scale and position the certificate to fit nicely on A4 */
+        .mdc-cert {
+          margin-top: 20px !important;
+          padding: 0 !important;
+          width: 850px !important;
+          height: 600px !important;
+          transform-origin: top left;
+          transform: translate(32px, 0px) scale(1.25);
+        }
+      }
+
+      /* ✅ On small screens, stack panels vertically */
+      @media (max-width: 980px) {
+        .page {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      /* =========================================================
+         ✅ Certificate Styles (preview box)
+         ========================================================= */
+
+      /* ✅ Main certificate container */
+      .mdc-cert {
+        width: 800px;
+        height: 600px;
+        box-sizing: border-box;
+        padding: 26px;
+        background: #07070a;
+        color: #f6f1dd;
+        font-family: Georgia, "Times New Roman", serif;
+        transition: transform ease 1s;
+      }
+      .mdc-cert:hover{
+        transform: scale(1.08);
+      }
+
+      /* ✅ Outer frame border */
+      .mdc-frame-outer {
+        width: 100%;
+        height: 100%;
+        box-sizing: border-box;
+        padding: 14px;
+        border: 3px solid rgba(216, 177, 92, 0.75);
+        background: rgba(255, 255, 255, 0.02);
+      }
+
+      /* ✅ Inner frame border + positioning */
+      .mdc-frame-inner {
+        width: 100%;
+        height: 100%;
+        box-sizing: border-box;
+        padding: 26px 34px 22px;
+        border: 1px solid rgba(216, 177, 92, 0.35);
+        background: rgba(0, 0, 0, 0.15);
+        position: relative; /* ✅ needed for absolute children like meta and bottom section */
+        overflow: hidden;
+      }
+
+      /* ✅ Meta info at top (Issued date / Serial) */
+      .mdc-meta {
+        position: absolute;
+        top: 14px;
+        left: 34px;
+        right: 34px;
+        z-index: 5;
+        font-family: Arial, sans-serif;
+        font-size: 12px;
+        color: rgba(246, 241, 221, 0.9);
+        pointer-events: none; /* ✅ prevent selecting/clicking meta when dragging/selecting */
+      }
+
+      .mdc-metaCell {
+        vertical-align: top;
+      }
+
+      .mdc-left {
+        text-align: left;
+      }
+
+      .mdc-right {
+        text-align: right;
+        padding-right: 38px;
+      }
+
+      .mdc-metaLabel {
+        opacity: 0.75;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        margin-bottom: 4px;
+      }
+
+      .mdc-metaValue {
+        font-size: 13px;
+        font-weight: 700;
+      }
+
+      .mdc-mono {
+        font-family: "Courier New", monospace;
+        letter-spacing: 0.2px;
+      }
+
+      /* ✅ Logo area */
+      .mdc-header {
+        text-align: center;
+        margin-top: 0;
+        position: relative;
+        z-index: 2;
+      }
+
+      /* ✅ Logo image style */
+      .mdc-logo {
+        display: block;
+        margin: 0 auto 10px;
+        border-radius: 10px;
+
+        /* ✅ Responsive logo sizing */
+        width: 30%;
+        height: auto;
+      }
+
+      .mdc-school {
+        font-family: Arial, sans-serif;
+        font-size: 13px;
+        padding-top: 5px;
+        letter-spacing: 1.6px;
+        text-transform: uppercase;
+        color: rgba(246, 241, 221, 0.88);
+      }
+
+      /* ✅ Main certificate title */
+      .mdc-title {
+        text-align: center;
+        margin: 16px 0 6px;
+        font-size: 25px;
+        font-weight: 700;
+        color: #f7e7b6;
+        letter-spacing: 0.4px;
+        position: relative;
+        z-index: 2;
+      }
+
+      /* ✅ Subtitle under title */
+      .mdc-subtitle {
+        text-align: center;
+        font-family: Arial, sans-serif;
+        font-size: 13px;
+        padding: 5px 0;
+        letter-spacing: 1.2px;
+        text-transform: uppercase;
+        color: rgba(246, 241, 221, 0.8);
+        margin-bottom: 0;
+        position: relative;
+        z-index: 2;
+      }
+
+      /* ✅ Student name (big) */
+      .mdc-name {
+        text-align: center;
+        font-size: 31px;
+        padding: 5px 0;
+        font-weight: 700;
+        color: #fff3c9;
+        margin: 6px 0 10px;
+        letter-spacing: 0.2px;
+        position: relative;
+        z-index: 2;
+
+        /* ✅ If name is too long, show ... instead of breaking layout */
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      /* ✅ Normal paragraph text */
+      .mdc-text {
+        text-align: center;
+        font-family: Arial, sans-serif;
+        font-size: 14px;
+        color: rgba(246, 241, 221, 0.85);
+        margin: 6px 0;
+        position: relative;
+        z-index: 2;
+      }
+
+      /* ✅ Course title */
+      .mdc-course {
+        text-align: center;
+        font-size: 18px;
+        font-weight: 700;
+        color: #f7e7b6;
+        padding: 5px 0;
+        margin: 4px 0 14px;
+        position: relative;
+        z-index: 2;
+      }
+
+      /* ✅ Golden divider line */
+      .mdc-divider {
+        height: 1px;
+        width: 75%;
+        margin: 10px auto 16px;
+        background: rgba(216, 177, 92, 0.55);
+        position: relative;
+        z-index: 5;
+      }
+
+      /* ✅ Bottom area (seal + signature) is placed absolutely at the bottom */
+      .mdc-bottom {
+        position: absolute;
+        left: 34px;
+        right: 34px;
+        bottom: 7px;
+        z-index: 2;
+      }
+
+      .mdc-bottomTable {
+        width: 100%;
+      }
+
+      /* ✅ Table columns widths and alignment */
+      .mdc-sigCol,
+      .mdc-sealCol {
+        width: 65%;
+        vertical-align: bottom;
+        padding-left: 0;
+      }
+
+      .mdc-sigCol {
+        box-sizing: border-box;
+        text-align: right;
+      }
+
+      /* ✅ Signature image fixed size (prevents huge uploads from breaking layout) */
+      .mdc-sigImg {
+        width: 250px !important;
+        height: 100px !important;
+        max-width: 100% !important;
+
+        /* ✅ Contain keeps the whole signature visible (no cropping) */
+        object-fit: contain;
+        object-position: center;
+
+        display: block;
+        margin-left: auto;
+      }
+
+      /* ✅ line under signature */
+      .mdc-sigLine {
+        height: 1px;
+        width: 82%;
+        background: rgba(216, 177, 92, 0.55);
+        margin: 8px 0;
+        margin-left: auto;
+      }
+
+      /* ✅ Instructor name under signature */
+      .mdc-sigName {
+        font-family: Arial, sans-serif;
+        font-size: 12px;
+        font-weight: 700;
+        padding-right: 4px;
+        color: rgba(246, 241, 221, 0.92);
+        letter-spacing: 0.3px;
+      }
+
+      .mdc-sigSpacer {
+        height: 12px;
+      }
+
+      .mdc-sealCol {
+        padding-left: 10px;
+        box-sizing: border-box;
+        vertical-align: bottom;
+      }
+
+      .mdc-sealImg {
+        display: inline-block;
+         justify-self: start;
+      }
+
+      /* ✅ Footer text at bottom center */
+      .mdc-footer {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 20px;
+        text-align: center;
+        font-family: Arial, sans-serif;
+        font-size: 12px;
+        letter-spacing: 1px;
+        color: rgba(246, 241, 221, 0.65);
+        pointer-events: none;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="page">
+      <!-- ======================================================
+           ✅ LEFT SIDE: Form Panel (user inputs)
+           ====================================================== -->
+      <div class="panel" id="formPanel">
+        <h2>Certificate Fields</h2>
+        <p class="hint">
+          Type values below — the certificate updates instantly.
+          <br />
+          Validation rules apply. Print is enabled only when all fields are ✅
+          valid.
+        </p>
+
+        <!-- ✅ Student Name input group -->
+        <div class="row" id="rowName">
+          <label for="studentName">Student Name</label>
+          <input
+            id="studentName"
+            type="text"
+            placeholder="e.g., Ahmed Al-Khaled"
+            autocomplete="off"
+          />
+          <div class="error">Name is required (min 3 characters).</div>
+        </div>
+
+        <!-- ✅ Course Name input group -->
+        <div class="row" id="rowCourse">
+          <label for="courseName">Course Name</label>
+          <textarea
+            id="courseName"
+            placeholder="e.g., Goal Setting: Crafting and Achieving Your Objectives."
+          ></textarea>
+          <div class="error">Course name is required (min 6 characters).</div>
+        </div>
+
+        <!-- ✅ Instructor Name input group -->
+        <div class="row" id="rowInstructor">
+          <label for="instructorName">Instructor Name</label>
+          <input
+            id="instructorName"
+            type="text"
+            placeholder="e.g., Dr. Mohammed Abu-Hadhoud"
+            autocomplete="off"
+          />
+          <div class="error">
+            Instructor name is required (min 3 characters).
+          </div>
+        </div>
+
+        <!-- ✅ Signature image upload -->
+        <div class="row" id="rowSignature">
+          <label for="signatureFile">Signature Image</label>
+          <input id="signatureFile" type="file" accept="image/*" />
+          <div class="fileHint">
+            Upload a PNG/JPG/WebP. It will update the signature instantly.
+          </div>
+          <div class="error">Please upload a signature image.</div>
+        </div>
+
+        <!-- ✅ Issued date -->
+        <div class="row" id="rowIssued">
+          <label for="issuedDate">Issued Date</label>
+          <input id="issuedDate" type="date" />
+          <div class="error">Please select an issued date.</div>
+        </div>
+
+        <!-- ✅ Serial number -->
+        <div class="row" id="rowSerial">
+          <label for="serial">Certificate Serial</label>
+          <input
+            id="serial"
+            type="text"
+            placeholder="e.g., MD-2025-000123"
+            autocomplete="off"
+          />
+          <div class="error">
+            Serial is required (letters/numbers/- only, min 6).
+          </div>
+        </div>
+
+        <!-- ✅ Actions -->
+        <div class="actions">
+          <button type="button" id="btnFillDemo">Fill Demo</button>
+          <button type="button" id="btnReset">Reset</button>
+          <button type="button" class="primary" id="btnPrint" disabled>
+            Print A4 Landscape
+          </button>
+        </div>
+
+        <!-- ✅ Text message showing whether form is valid or not -->
+        <div class="status" id="statusLine"></div>
+      </div>
+
+      <!-- ======================================================
+           ✅ RIGHT SIDE: Preview Panel (certificate output)
+           ====================================================== -->
+      <div class="previewWrap">
+        <!-- ✅ Toolbar above the certificate -->
+        <div class="toolbar panel">
+          <div class="small">
+            Preview (Print will output ONLY the certificate)
+          </div>
+          <div class="small" id="validBadge">❌ Not ready to print</div>
+        </div>
+
+        <!-- ✅ Certificate Preview -->
+        <div class="mdc-cert" id="cert">
+          <div class="mdc-frame-outer">
+            <div class="mdc-frame-inner">
+              <!-- ✅ META (top info) -->
+              <table class="mdc-meta" width="100%">
+                <tr>
+                  <td class="mdc-metaCell mdc-left" width="60%">
+                    <div class="mdc-metaLabel">Issued Date</div>
+                    <div class="mdc-metaValue" id="certIssued">—</div>
+                  </td>
+                  <td class="mdc-metaCell mdc-right">
+                    <div class="mdc-metaLabel">Certificate Serial</div>
+                    <div class="mdc-metaValue mdc-mono" id="certSerial">—</div>
+                  </td>
+                </tr>
+              </table>
+
+              <!-- ✅ Header logo -->
+              <div class="mdc-header">
+                <img class="mdc-logo" src="Logo.png" alt="Logo" />
+              </div>
+
+              <div class="mdc-title">Certificate of Completion</div>
+              <div class="mdc-subtitle">This is proudly presented to</div>
+
+              <!-- ✅ Student name will be injected here -->
+              <div class="mdc-name" id="certName">Student Name</div>
+
+              <div class="mdc-text">for successfully completing</div>
+
+              <!-- ✅ Course name will be injected here -->
+              <div class="mdc-course" id="certCourse">
+                Course Name Goes Here
+              </div>
+
+              <div class="mdc-divider"></div>
+
+              <!-- ✅ Seal + Signature -->
+              <div class="mdc-bottom">
+                <table width="100%" class="mdc-bottomTable">
+                  <tr>
+                    <!-- ✅ Left: Seal -->
+                    <td class="mdc-sealCol">
+                      <img
+                        class="mdc-sealImg"
+                        src="Certified.png"
+                        alt="Seal"
+                        width="110"
+                        height="110"
+                      />
+                    </td>
+
+                    <!-- ✅ Right: Signature + instructor name -->
+                    <td class="mdc-sigCol">
+                      <!-- ✅ Signature image is changeable via JS -->
+                      <img
+                        class="mdc-sigImg"
+                        id="certSignatureImg"
+                        src="DefaultSig.png"
+                        alt="Signature"
+                        width="250"
+                        height="100"
+                      />
+                      <div class="mdc-sigLine"></div>
+
+                      <!-- ✅ Instructor name will be injected here -->
+                      <div class="mdc-sigName" id="certInstructor">
+                        Dr. Mohammed Abu-Hadhoud
+                      </div>
+
+                      <div class="mdc-sigSpacer">&nbsp;</div>
+                    </td>
+                  </tr>
+                </table>
+              </div>
+
+              <!-- ✅ Website footer inside certificate -->
+              <div class="mdc-footer">www.Website.com</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      /* =========================================================
+         ✅ Code Overview (Beginner Friendly)
+         ---------------------------------------------------------
+         ✅ Purpose:
+            - Take user input (name/course/instructor/date/serial/signature)
+            - Update the certificate preview instantly (live preview)
+            - Validate inputs and allow printing only when everything is valid
+
+         ✅ Main Ideas:
+            1) Get DOM elements (inputs and certificate text placeholders)
+            2) Update certificate preview whenever user types
+            3) Validate each field and show errors
+            4) Enable Print button only if all fields are valid
+            5) Handle signature upload safely (no memory leaks)
+         ========================================================= */
+
+      /* =========================================================
+         ✅ 1) DOM References (Inputs)
+         ---------------------------------------------------------
+         We store DOM elements in variables so we can use them easily.
+         ========================================================= */
+      const elName = document.getElementById("studentName");
+      const elCourse = document.getElementById("courseName");
+      const elInstructor = document.getElementById("instructorName");
+      const elSignatureFile = document.getElementById("signatureFile");
+      const elIssued = document.getElementById("issuedDate");
+      const elSerial = document.getElementById("serial");
+
+      /* =========================================================
+         ✅ 2) DOM References (Certificate placeholders)
+         ---------------------------------------------------------
+         These are the places inside the certificate preview
+         where we inject text values.
+         ========================================================= */
+      const certName = document.getElementById("certName");
+      const certCourse = document.getElementById("certCourse");
+      const certInstructor = document.getElementById("certInstructor");
+      const certIssued = document.getElementById("certIssued");
+      const certSerial = document.getElementById("certSerial");
+      const certSignatureImg = document.getElementById("certSignatureImg");
+
+      /* =========================================================
+         ✅ 3) DOM References (Validation rows)
+         ---------------------------------------------------------
+         Each row is a wrapper around input + error text.
+         We add/remove the class "invalid" to show red border + error.
+         ========================================================= */
+      const rowName = document.getElementById("rowName");
+      const rowCourse = document.getElementById("rowCourse");
+      const rowInstructor = document.getElementById("rowInstructor");
+      const rowSignature = document.getElementById("rowSignature");
+      const rowIssued = document.getElementById("rowIssued");
+      const rowSerial = document.getElementById("rowSerial");
+
+      /* =========================================================
+         ✅ 4) DOM References (Buttons / Status)
+         ========================================================= */
+      const btnPrint = document.getElementById("btnPrint");
+      const btnReset = document.getElementById("btnReset");
+      const btnFillDemo = document.getElementById("btnFillDemo");
+      const statusLine = document.getElementById("statusLine");
+      const validBadge = document.getElementById("validBadge");
+
+      /* =========================================================
+         ✅ 5) Signature Preview Memory Management
+         ---------------------------------------------------------
+         When we load a local image file into <img>, we use:
+           URL.createObjectURL(file)
+         This creates a temporary URL.
+         We must call:
+           URL.revokeObjectURL(oldUrl)
+         to avoid memory leaks when user uploads multiple times.
+         ========================================================= */
+      let signatureObjectUrl = null;
+
+      /* =========================================================
+         ✅ Helper: Format date (YYYY-MM-DD → DD - MM - YYYY)
+         ---------------------------------------------------------
+         HTML date input returns: "2025-12-23"
+         We display it as:       "23 - 12 - 2025"
+         ========================================================= */
+      function formatDate(yyyyMMdd) {
+        if (!yyyyMMdd) return "—"; // nothing selected
+        const [y, m, d] = yyyyMMdd.split("-");
+        if (!y || !m || !d) return "—"; // invalid format guard
+        return `${d} - ${m} - ${y}`;
+      }
+
+      /* =========================================================
+         ✅ 6) Validation Rules (One function per field)
+         ---------------------------------------------------------
+         Each function returns:
+           ✅ true  → field is valid
+           ❌ false → field is invalid
+         ========================================================= */
+
+      function validateName(value) {
+        return value.trim().length >= 3;
+      }
+
+      function validateCourse(value) {
+        return value.trim().length >= 6;
+      }
+
+      function validateInstructor(value) {
+        return value.trim().length >= 3;
+      }
+
+      function validateIssued(value) {
+        return Boolean(value); // true if date exists
+      }
+
+      function validateSerial(value) {
+        const v = value.trim();
+        if (v.length < 6) return false;
+
+        // ✅ Only allow: letters, digits, and dash
+        return /^[A-Za-z0-9-]+$/.test(v);
+      }
+
+      function validateSignature(fileInput) {
+        // fileInput.files is a list of files user selected
+        const file = fileInput.files && fileInput.files[0];  //files[0] for first file choose by user
+        return Boolean(file);
+      }
+
+      /* =========================================================
+         ✅ Helper: Apply validation class to a row
+         ---------------------------------------------------------
+         If invalid → add "invalid" class (shows error + red border)
+         If valid   → remove it
+         ========================================================= */
+         //change style if row is invalid
+      function setRowValid(rowEl, isValid) {
+        rowEl.classList.toggle("invalid", !isValid);
+
+      }
+
+      /* =========================================================
+         ✅ 7) Update Certificate Preview Text
+         ---------------------------------------------------------
+         This function reads values from inputs,
+         then writes them into the certificate preview.
+         If a field is empty, we show a nice placeholder text.
+         ========================================================= */
+      function updateCertificate() {
+        certName.textContent = elName.value.trim() || "Student Name";
+
+        certCourse.textContent =
+          elCourse.value.trim() || "Course Name Goes Here";
+
+        certInstructor.textContent =
+          elInstructor.value.trim() || "Instructor Name Goes Here";
+
+        certIssued.textContent = formatDate(elIssued.value);
+
+        certSerial.textContent = elSerial.value.trim() || "—";
+      }
+
+      /* =========================================================
+         ✅ 8) Apply Signature from Uploaded File
+         ---------------------------------------------------------
+         - Read the selected file
+         - Ensure it is an image
+         - Convert it to a temporary object URL
+         - Put it into <img src="...">
+         ========================================================= */
+      function applySignatureFromFile() {
+        const file = elSignatureFile.files && elSignatureFile.files?.[0];
+        if (!file) return; // no file selected
+
+        // ✅ Ensure the selected file is actually an image
+        if (!file.type || !file.type.startsWith("image/")) {
+          return;
+        }
+
+        // ✅ Revoke previous object URL (memory leak prevention)
+        if (signatureObjectUrl) {
+          URL.revokeObjectURL(signatureObjectUrl);
+          signatureObjectUrl = null;
+        }
+
+        // ✅ Create a new temporary URL and display it
+        signatureObjectUrl = URL.createObjectURL(file);
+        certSignatureImg.src = signatureObjectUrl;
+      }
+
+      /* =========================================================
+         ✅ 9) Validate All Fields + Control Print Button
+         ---------------------------------------------------------
+         - Validate each field
+         - Mark invalid rows
+         - Enable printing only when ALL are valid
+         ========================================================= */
+      function validateAll() {
+        const okName = validateName(elName.value);
+        const okCourse = validateCourse(elCourse.value);
+        const okInstructor = validateInstructor(elInstructor.value);
+        const okIssued = validateIssued(elIssued.value);
+        const okSerial = validateSerial(elSerial.value);
+        const okSignature = validateSignature(elSignatureFile);
+
+        // Apply visual validation styles on each row
+        setRowValid(rowName, okName);
+        setRowValid(rowCourse, okCourse);
+        setRowValid(rowInstructor, okInstructor);
+        setRowValid(rowIssued, okIssued);
+        setRowValid(rowSerial, okSerial);
+        setRowValid(rowSignature, okSignature);
+
+        // ✅ All must be true to allow printing
+        const allOk =
+          okName &&
+          okCourse &&
+          okInstructor &&
+          okIssued &&
+          okSerial &&
+          okSignature;
+
+        // ✅ Enable/disable print button
+        btnPrint.disabled = !allOk; //able if All are valide
+
+        // ✅ Update status messages for user
+        if (allOk) {
+          statusLine.textContent = "✅ All fields are valid. Ready to print.";
+          statusLine.className = "status ok";
+          validBadge.textContent = "✅ Ready to print";
+        } else {
+          statusLine.textContent =
+            "❌ Please fix the highlighted fields to enable printing.";
+          statusLine.className = "status bad";
+          validBadge.textContent = "❌ Not ready to print";
+        }
+
+        return allOk;
+      }
+
+      /* =========================================================
+         ✅ 10) One function to handle any input change
+         ---------------------------------------------------------
+         Whenever the user types or changes something:
+         - Update certificate preview
+         - Validate everything
+         ========================================================= */
+      function onInputChange() {
+        updateCertificate();
+        validateAll();
+      }
+
+      /* =========================================================
+         ✅ 11) Live events (instant updates)
+         ---------------------------------------------------------
+         We listen to input/change events so the preview updates live.
+         - "input"  fires on typing
+         - "change" fires when finishing selection (like date input)
+         ========================================================= */
+      [elName, elCourse, elInstructor, elIssued, elSerial].forEach((el) => {
+        el.addEventListener("input", onInputChange);
+        el.addEventListener("change", onInputChange);
+      });
+
+      /* =========================================================
+         ✅ 12) Signature upload event
+         ---------------------------------------------------------
+         When user selects an image:
+         - Show it in certificate
+         - Re-check validation
+         ========================================================= */
+      elSignatureFile.addEventListener("change", () => {
+        applySignatureFromFile();
+        validateAll();
+      });
+
+      /* =========================================================
+         ✅ 13) Print button
+         ---------------------------------------------------------
+         - Validate again (safety)
+         - If valid, open browser print dialog
+         ========================================================= */
+      btnPrint.addEventListener("click", () => {
+        const ok = validateAll();
+        if (!ok) return;
+        window.print();
+      });
+
+      /* =========================================================
+         ✅ 14) Reset button
+         ---------------------------------------------------------
+         - Clear all inputs
+         - Restore default signature
+         - Update preview + validation
+         ========================================================= */
+      btnReset.addEventListener("click", () => {
+        // Clear form
+        elName.value = "";
+        elCourse.value = "";
+        elInstructor.value = "";
+        elIssued.value = "";
+        elSerial.value = "";
+        elSignatureFile.value = "";
+
+        // Restore default signature image and clean up object URL
+        if (signatureObjectUrl) {
+          URL.revokeObjectURL(signatureObjectUrl);
+          signatureObjectUrl = null;
+        }
+        certSignatureImg.src = "DefaultSig.png";
+
+        onInputChange();
+      });
+
+      /* =========================================================
+         ✅ 15) Fill Demo button
+         ---------------------------------------------------------
+         - Adds sample values quickly (useful for testing)
+         - Sets date to today
+         - Shows a demo signature image
+         ========================================================= */
+      btnFillDemo.addEventListener("click", () => {
+        elName.value = "Ayoub Fellah";
+        elCourse.value =
+          "Goal Setting: Crafting and Achieving Your Objectives.";
+        elInstructor.value = "Dr. Mohammed Abu-Hadhoud";
+        elIssued.value = new Date().toISOString().slice(0, 10);
+        elSerial.value = "MD-2025-000123";
+
+        // ✅ For demo only: use a known image file
+        // Note: This does NOT validate the file-input signature,
+        // because file inputs cannot be set programmatically for security.
+        certSignatureImg.src = "sig1.png";
+
+        onInputChange();
+      });
+
+      /* =========================================================
+         ✅ 16) Init (run once when page loads)
+         ---------------------------------------------------------
+         - Fill placeholders
+         - Run validation once so UI is correct from the start
+         ========================================================= */
+      onInputChange();
+    </script>
+  </body>
+</html>

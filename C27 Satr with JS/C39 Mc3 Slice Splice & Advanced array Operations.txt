@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>JavaScript Type System Demo</title>
+
+    <style></style>
+  </head>
+  <body>
+    <script>
+      const fruits = ["Apple", "Banana", "Cherry"];
+      //fruits[2] = "mango";
+      fruits.splice(2  , 1,  "mangos");
+
+      fruits.forEach((fruit) => {
+        console.log(fruit);
+      });
+
+      let nums = [10, 20];
+
+      nums.push(30);
+
+      nums.pop();
+      console.log(nums);
+
+
+
+
+      let a = [5, 6];
+      let b = a;
+
+      b.push(7);
+
+      console.log(a);
+      console.log(b);
+
+
+      const items = ["a", "b", "c", "d", "e"];
+
+      const newItems = items.slice(1, 4);
+
+      console.log(newItems);
+
+
+      let data = [1, 2, 3, 4, 5];
+
+      const removed = data.splice( 2 , 1);
+      data.splice( 2 , 0 ,100 , 200);
+            console.log(data);
+
+      const newm = [1 , 2].concat([3, 4, 5]);
+      console.log(newm);
+
+      const join = ["JavaScript", "Arrays", "Lesson"].join("-");
+      console.log(join);
+
+    </script>
+  </body>
+</html>

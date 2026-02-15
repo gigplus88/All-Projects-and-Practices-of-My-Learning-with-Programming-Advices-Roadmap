@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- ✅ Character encoding so text renders correctly -->
+    <meta charset="utf-8" />
+
+    <!-- ✅ Responsive page on mobile/tablet (scales correctly) -->
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+
+    <!-- ✅ Browser tab title -->
+    <title>Currency Converter — Public API (Frankfurter)</title>
+
+    <style>
+      /* =========================================================
+         ✅ Code Overview (Beginner Friendly)
+         ---------------------------------------------------------
+         ✅ Purpose:
+            - Convert between currencies using a FREE public API (no API key)
+            - Show:
+              1️⃣ conversion result for a chosen amount
+              2️⃣ last 30-day exchange-rate history (chart + table)
+
+         ✅ Flow (High Level):
+            1️⃣ Load supported currencies → fill dropdowns
+            2️⃣ User chooses amount + from/to currencies
+            3️⃣ Convert using /latest
+            4️⃣ Load last 30 days using time-series endpoint
+            5️⃣ Draw a simple line chart (Canvas) + render last table rows
+
+         ✅ Key Concepts:
+            - fetch() + async/await
+            - response.ok check (HTTP error handling)
+            - AbortController (cancel old requests when user clicks quickly)
+            - UI state (loading spinner + error + main content)
+            - Canvas drawing (no libraries)
+         ========================================================= */
+
+      /* ✅ Helps browser choose dark-looking default controls */
+      :root {
+        color-scheme: dark;
+      }
+
+      /* ✅ Make width/height calculations predictable */
+      * {
+        box-sizing: border-box;
+      }
+
+      /* ✅ Page background + default font */
+      body {
+        margin: 0;
+        padding: 24px;
+        font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial,
+          sans-serif;
+        background: #0b1020;
+        color: #e9eefc;
+      }
+
+      /* ✅ Center the app and limit its maximum width */
+      .app {
+        max-width: 1050px;
+        margin: 0 auto;
+      }
+
+      /* ✅ Card container style (reused in UI blocks) */
+      .card {
+        background: rgba(255, 255, 255, 0.06);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        border-radius: 18px;
+        padding: 16px;
+      }
+
+      /* ✅ Page title */
+      h1 {
+        font-size: 18px;
+        margin: 0 0 10px;
+      }
+
+      /* ✅ Slightly faded text (helper class) */
+      .muted {
+        opacity: 0.75;
+      }
+
+      /* ✅ Horizontal row layout for buttons and small groups */
+      .row {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+        align-items: center;
+      }
+
+      /* ✅ Two-column layout: left converter / right history */
+      .grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+        margin-top: 12px;
+      }
+
+      /* ✅ On small screens: stack vertically */
+      @media (max-width: 900px) {
+        .grid {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      /* ✅ Inputs and dropdowns styling */
+      input,
+      select {
+        width: 100%;
+        background: rgba(0, 0, 0, 0.25);
+        border: 1px solid rgba(255, 255, 255, 0.16);
+        color: #e9eefc;
+        border-radius: 12px;
+        padding: 10px 12px;
+        outline: none;
+        min-width: 180px;
+      }
+
+      /* ✅ Field labels */
+      label {
+        font-size: 12px;
+        opacity: 0.85;
+        display: block;
+        margin: 10px 0 6px;
+      }
+
+      /* ✅ Primary button */
+      button {
+        border: 0;
+        border-radius: 12px;
+        padding: 10px 14px;
+        cursor: pointer;
+        background: #4f7cff;
+        color: white;
+        font-weight: 800;
+      }
+
+      /* ✅ Secondary button (less emphasis) */
+      button.secondary {
+        background: rgba(255, 255, 255, 0.12);
+      }
+
+      /* ✅ Disabled buttons look inactive */
+      button:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+      }
+
+      /* ✅ Loading area (spinner + text) hidden by default */
+      .status {
+        margin-top: 10px;
+        display: none; /* ✅ shown only while loading */
+        align-items: center;
+        gap: 10px;
+      }
+
+      /* ✅ Small spinner circle */
+      .spinner {
+        width: 16px;
+        height: 16px;
+        border-radius: 999px;
+        border: 2px solid rgba(255, 255, 255, 0.25);
+        border-top-color: white; /* ✅ visible rotating top */
+        animation: spin 0.85s linear infinite;
+      }
+
+      /* ✅ Animation definition for spinner */
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      /* ✅ Error box hidden by default (shown only when needed) */
+      .error {
+        display: none;
+        margin-top: 10px;
+        padding: 10px 12px;
+        border-radius: 14px;
+        border: 1px solid rgba(255, 79, 109, 0.45);
+        background: rgba(255, 79, 109, 0.12);
+      }
+
+      /* ✅ Big conversion result */
+      .big {
+        font-size: 38px;
+        font-weight: 950;
+        line-height: 1.1;
+        margin: 8px 0 6px;
+      }
+
+      /* ✅ Small pills (rate + date badges) */
+      .pill {
+        display: inline-block;
+        padding: 3px 10px;
+        border-radius: 999px;
+        font-size: 12px;
+        background: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.14);
+        margin-right: 6px;
+        margin-top: 6px;
+      }
+
+      /* ✅ Canvas container (for the line chart) */
+      canvas {
+        width: 100%;
+        height: 220px;
+        border-radius: 14px;
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        background: rgba(0, 0, 0, 0.18);
+        display: block;
+      }
+
+      /* ✅ History table style */
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 8px;
+        overflow: hidden;
+        border-radius: 14px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      th,
+      td {
+        text-align: left;
+        padding: 10px 10px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        font-size: 14px;
+        white-space: nowrap;
+      }
+
+      th {
+        opacity: 0.85;
+        font-weight: 900;
+      }
+
+      tr:last-child td {
+        border-bottom: none;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="app">
+      <div class="card">
+        <!--──────────────────────────────────────────────
+      │ Code Overview
+      │ Purpose        → Currency converter + 30-day history (no API key)
+      │ Layout         → UI refs → apiFetchJson() → loadCurrencies() → run() → history() → drawChart()
+      │ Use Cases      → fetch + async/await + response.ok + AbortController + UI state
+      │ Key Properties → Frankfurter: /v1/currencies, /v1/latest, /v1/{start}.. time-series
+      └──────────────────────────────────────────────-->
+
+        <h1>Currency Converter (Public API)</h1>
+        <div class="muted">
+          Uses Frankfurter (ECB daily reference rates). No API key needed.
+        </div>
+
+        <!-- ✅ Quick action buttons -->
+        <div class="row" style="margin-top: 12px">
+          <button class="secondary" id="btnSwap">Swap</button>
+          <button class="secondary" id="btnUseUSDJOD">USD → JOD</button>
+          <button class="secondary" id="btnUseEURUSD">EUR → USD</button>
+        </div>
+
+        <!-- ✅ Loading indicator -->
+        <div class="status muted" id="loading">
+          <div class="spinner"></div>
+          <div>Loading…</div>
+        </div>
+
+        <!-- ✅ Error message area -->
+        <div class="error" id="error"></div>
+
+        <!-- ✅ Main content (hidden until currencies load) -->
+        <div class="grid" id="content" style="display: none">
+          <!-- LEFT: Converter -->
+          <section class="card">
+            <strong>Convert</strong>
+
+            <label for="amount">Amount</label>
+            <input id="amount" type="number" min="0" step="0.01" value="100" />
+
+            <div class="row">
+              <div style="flex: 1">
+                <label for="from">From</label>
+                <select id="from"></select>
+              </div>
+              <div style="flex: 1">
+                <label for="to">To</label>
+                <select id="to"></select>
+              </div>
+            </div>
+
+            <div
+              class="row"
+              style="justify-content: flex-end; margin-top: 12px"
+            >
+              <button id="btnConvert">Convert</button>
+            </div>
+
+            <!-- ✅ Conversion results -->
+            <div class="big" id="result">—</div>
+            <div class="muted" id="meta">—</div>
+
+            <div style="margin-top: 8px">
+              <span class="pill" id="ratePill">Rate: —</span>
+              <span class="pill" id="datePill">Date: —</span>
+            </div>
+          </section>
+
+          <!-- RIGHT: History -->
+          <section class="card">
+            <strong>Last 30 Days (Rate History)</strong>
+            <div class="muted" style="margin-top: 6px">
+              Shows how 1 “From” currency changed against “To”.
+            </div>
+
+            <!-- ✅ Simple chart (Canvas) -->
+            <div style="margin-top: 10px">
+              <canvas id="chart" width="900" height="260"></canvas>
+            </div>
+
+            <!-- ✅ History table (last ~12 rows shown) -->
+            <table>
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>Rate</th>
+                </tr>
+              </thead>
+              <tbody id="historyBody"></tbody>
+            </table>
+          </section>
+        </div>
+      </div>
+    </div>
+
+    <script type="module">
+      /* =========================================================
+         ✅ Code Overview (JavaScript Part)
+         ---------------------------------------------------------
+         ✅ Goal:
+            - Load currency list → fill dropdowns
+            - Convert amount using /latest
+            - Load 30-day history using time-series endpoint
+            - Draw a line chart (Canvas) + show a small table
+
+         ✅ Why AbortController?
+            - If user clicks convert/swap quickly:
+              old request may finish after new request
+              and overwrite the UI with wrong results
+            - AbortController cancels old request to prevent that ✅
+         ========================================================= */
+
+      // =========================================================
+      // ✅ 1) API Base (Frankfurter)
+      // ---------------------------------------------------------
+      // ✅ Frankfurter provides currency rates (ECB reference rates)
+      // ✅ No API key required
+      // =========================================================
+      const API = "https://api.frankfurter.dev/v1";
+
+      // =========================================================
+      // ✅ 2) DOM References (UI object)
+      // ---------------------------------------------------------
+      // ✅ Store all needed elements once for clean code
+      // =========================================================
+      const UI = {
+        // State areas
+        loading: document.getElementById("loading"),
+        error: document.getElementById("error"),
+        content: document.getElementById("content"),
+
+        // Inputs + selectors
+        amount: document.getElementById("amount"),
+        from: document.getElementById("from"),
+        to: document.getElementById("to"),
+
+        // Buttons
+        btnConvert: document.getElementById("btnConvert"),
+        btnSwap: document.getElementById("btnSwap"),
+        btnUseUSDJOD: document.getElementById("btnUseUSDJOD"),
+        btnUseEURUSD: document.getElementById("btnUseEURUSD"),
+
+        // Result display
+        result: document.getElementById("result"),
+        meta: document.getElementById("meta"),
+        ratePill: document.getElementById("ratePill"),
+        datePill: document.getElementById("datePill"),
+
+        // History UI
+        chart: document.getElementById("chart"),
+        historyBody: document.getElementById("historyBody"),
+      };
+
+      // =========================================================
+      // ✅ 3) App State
+      // =========================================================
+      let controller = null; // used to cancel old in-flight requests
+      let currencyMap = {}; // example: { "USD": "United States Dollar", ... }
+
+      // =========================================================
+      // ✅ 4) UI Helpers (Loading + Error)
+      // =========================================================
+      function setLoading(isLoading) {
+        UI.loading.style.display = isLoading ? "flex" : "none";
+
+        // ✅ Disable buttons while loading to prevent spam clicks
+        UI.btnConvert.disabled = isLoading;
+        UI.btnSwap.disabled = isLoading;
+        UI.btnUseUSDJOD.disabled = isLoading;
+        UI.btnUseEURUSD.disabled = isLoading;
+      }
+
+      function setError(message) {
+        // ✅ If message is empty/null → hide error box
+        if (!message) {
+          UI.error.style.display = "none";
+          UI.error.textContent = "";
+          return;
+        }
+
+        // ✅ Else show it
+        UI.error.style.display = "block";
+        UI.error.textContent = message;
+      }
+
+      // =========================================================
+      // ✅ 5) Fetch Helper (JSON + HTTP error checking)
+      // ---------------------------------------------------------
+      // ✅ fetch() throws only for network errors
+      // ✅ If server returns 404/500, fetch() still resolves
+      //    so we must check res.ok manually ✅
+      // =========================================================// reusability
+      async function apiFetchJson(url, signal) {
+        const res = await fetch(url, { signal });
+
+        // ✅ Convert HTTP failures into readable errors
+        if (!res.ok) throw new Error(`HTTP ${res.status} (${res.statusText})`);
+
+        // ✅ Parse response JSON
+        return res.json();
+      }
+
+      // =========================================================
+      // ✅ 6) Load supported currencies: GET /v1/currencies
+      // ---------------------------------------------------------
+      // ✅ Response is usually:
+      //    { "USD": "United States Dollar", "EUR": "Euro", ... }
+      // =========================================================
+      async function loadCurrencies() {
+        const data = await apiFetchJson(`${API}/currencies`, controller.signal);
+        currencyMap = data; // currencyMap is shared
+
+        // ✅ Sort currency codes (USD, EUR, JOD...)
+        const codes = Object.keys(currencyMap).sort();
+
+        // ✅ Clear dropdowns first
+        UI.from.innerHTML = "";
+        UI.to.innerHTML = "";
+
+        // ✅ Add each code as an option
+        for (const code of codes) {
+          const name = currencyMap[code];
+
+          const opt1 = document.createElement("option");
+          opt1.value = code;
+          opt1.textContent = `${code} — ${name}`;
+          UI.from.appendChild(opt1);
+
+          const opt2 = document.createElement("option");
+          opt2.value = code;
+          opt2.textContent = `${code} — ${name}`;
+          UI.to.appendChild(opt2);
+        }
+
+        // ✅ Default selections (nice for Jordan-based example)
+        UI.from.value = "USD";
+
+        // ✅ Try JOD, if not supported fallback to EUR
+        UI.to.value = "JOD";
+        if (!currencyMap["JOD"]) UI.to.value = "EUR";
+
+        // ✅ Show main content now that dropdowns are ready
+        UI.content.style.display = "grid";
+      }
+
+      // =========================================================
+      // ✅ 7) Convert once: GET /v1/latest?base=FROM&symbols=TO
+      // ---------------------------------------------------------
+      // ✅ Returns latest rate and date
+      // =========================================================
+      async function convertOnce(from, to, amount) {
+        const url = `${API}/latest?base=${encodeURIComponent(
+          from
+        )}&symbols=${encodeURIComponent(to)}`;
+
+        const data = await apiFetchJson(url, controller.signal);
+
+        // ✅ Rate is inside data.rates
+        const rate = data.rates?.[to];
+        if (!rate) throw new Error(`Rate not found for ${from} → ${to}`);
+
+        // ✅ Converted result = amount × rate
+        const converted = amount * rate;
+
+        return { rate, converted, date: data.date, base: data.base };
+      }
+
+      // =========================================================
+      // ✅ 8) History (time-series): GET /v1/YYYY-MM-DD..?
+      // ---------------------------------------------------------
+      // ✅ We request last 30 days and only one symbol (TO)
+      // ✅ Returned shape:
+      //    data.rates = { "2025-01-01": { "USD": 1.09 }, ... }
+      // =========================================================
+
+      // ✅ Helper: format Date to YYYY-MM-DD (UTC-based for simplicity)
+      function formatDate(d) {
+        const y = d.getUTCFullYear();
+        const m = String(d.getUTCMonth() + 1).padStart(2, "0");
+        const day = String(d.getUTCDate()).padStart(2, "0");
+        return `${y}-${m}-${day}`;
+      }
+
+      //For chart 
+      async function loadHistory(from, to, days = 30) {
+        // ✅ End = today
+        const end = new Date();
+
+        // ✅ Start = end - (days) days
+        const start = new Date(end.getTime() - days * 24 * 60 * 60 * 1000);
+
+        const startStr = formatDate(start);
+
+        // ✅ “start..” means from start date to latest available
+        const url = `${API}/${startStr}..?base=${encodeURIComponent(
+          from
+        )}&symbols=${encodeURIComponent(to)}`;
+
+        const data = await apiFetchJson(url, controller.signal);
+
+        // ✅ Convert object map into sorted array rows
+        const rows = Object.entries(data.rates)
+          .map(([date, obj]) => ({ date, rate: obj[to] }))
+          .filter((r) => typeof r.rate === "number")
+          .sort((a, b) => a.date.localeCompare(b.date));
+
+        return rows;
+      }
+
+      // =========================================================
+      // ✅ 9) Draw a simple line chart (Canvas)
+      // ---------------------------------------------------------
+      // ✅ No chart libraries used: pure Canvas drawing
+      // =========================================================
+      function drawChart(canvas, points) {
+        const ctx = canvas.getContext("2d");
+
+        // ✅ Clear old drawing
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        // ✅ If no points: show a message
+        if (!points.length) {
+          ctx.font = "16px system-ui";
+          ctx.fillText("No history data available.", 18, 40);
+          return;
+        }
+
+        // ✅ Padding gives some space from borders
+        const padding = 24;
+        const W = canvas.width;
+        const H = canvas.height;
+
+        // ✅ Find min/max to scale the chart
+        const ys = points.map((p) => p.rate);
+        const minY = Math.min(...ys);
+        const maxY = Math.max(...ys);
+
+        // ✅ Avoid division by zero if all values are equal
+        const safeRange = maxY - minY || 1;
+
+        // ✅ Draw baseline axis (simple horizontal line)
+        ctx.globalAlpha = 0.7;
+        ctx.beginPath();
+        ctx.moveTo(padding, H - padding);
+        ctx.lineTo(W - padding, H - padding);
+        ctx.stroke();
+        ctx.globalAlpha = 1;
+
+        // ✅ Plot the line
+        ctx.beginPath();
+        points.forEach((p, i) => {
+          // x goes from left padding to right padding
+          const x =
+            padding + (i * (W - padding * 2)) / (points.length - 1 || 1);
+
+          // y is scaled so min is bottom and max is top
+          const y =
+            H - padding - ((p.rate - minY) * (H - padding * 2)) / safeRange;
+
+          if (i === 0) ctx.moveTo(x, y);
+          else ctx.lineTo(x, y);
+        });
+        ctx.stroke();
+
+        // ✅ Add small labels for min/max
+        ctx.globalAlpha = 0.85;
+        ctx.font = "14px system-ui";
+        ctx.fillText(`Min: ${minY.toFixed(6)}`, padding, 18);
+        ctx.fillText(`Max: ${maxY.toFixed(6)}`, padding + 160, 18);
+        ctx.globalAlpha = 1;
+      }
+
+      // =========================================================
+      // ✅ 10) Render history table (last ~12 rows)
+      // ---------------------------------------------------------
+      // ✅ We show only the last part to keep UI readable
+      // =========================================================
+      function renderHistoryTable(rows) {
+        const last = rows.slice(-12).reverse();
+
+        UI.historyBody.innerHTML = last
+          .map(
+            (r) => `
+        <tr>
+          <td>${r.date}</td>
+          <td>${r.rate.toFixed(6)}</td>
+        </tr>
+      `
+          )
+          .join("");
+      }
+
+      // =========================================================
+      // ✅ 11) Main action (Convert + History)
+      // ---------------------------------------------------------
+      // ✅ Called when:
+      //   - user clicks Convert
+      //   - user swaps currencies
+      //   - user uses presets (USD→JOD, EUR→USD)
+      // =========================================================
+      async function run() {
+        // ✅ Cancel previous request (prevents old response overwriting new response)
+        if (controller) controller.abort();
+        controller = new AbortController();
+
+        // ✅ Reset UI state
+        setError("");
+
+        const amount = Number(UI.amount.value);
+        const from = UI.from.value;
+        const to = UI.to.value;
+
+        // ✅ Basic validations
+        //!Number.isFinite(amount) it s a number ,yes or no?
+        if (!Number.isFinite(amount) || amount <= 0) 
+          return setError("❌ Enter a valid positive amount.");
+        if (from === to) return setError("❌ Choose two different currencies.");
+
+        setLoading(true);
+
+        try {
+          // ✅ 1) Convert
+          const { rate, converted, date } = await convertOnce(from, to, amount);
+
+          UI.result.textContent = `${converted.toFixed(2)} ${to}`;
+          UI.meta.textContent = `${amount.toFixed(2)} ${from} → ${to}`;
+          UI.ratePill.textContent = `Rate: 1 ${from} = ${rate.toFixed(
+            6
+          )} ${to}`;
+          UI.datePill.textContent = `Date: ${date}`;
+
+          // ✅ 2) History (last 30 days)
+          const rows = await loadHistory(from, to, 30);
+
+          // ✅ Draw chart + show table
+          drawChart(UI.chart, rows);
+          renderHistoryTable(rows);
+        } catch (err) {
+          // ✅ AbortError is expected when user clicks quickly (not a real failure)
+          if (err.name === "AbortError") return;
+
+          // ✅ Show error
+          setError(`❌ ${err.message}`);
+        } finally {
+          setLoading(false);
+        }
+      }
+
+      // =========================================================
+      // ✅ 12) Wire events
+      // =========================================================
+
+      // ✅ Convert button
+      UI.btnConvert.addEventListener("click", run);
+
+      // ✅ Swap From/To currencies then convert again
+      UI.btnSwap.addEventListener("click", () => {
+        const tmp = UI.from.value;
+        UI.from.value = UI.to.value;
+        UI.to.value = tmp;
+        run();
+      });
+
+      // ✅ Preset: USD → JOD (fallback to EUR if JOD missing)
+      UI.btnUseUSDJOD.addEventListener("click", () => {
+        UI.from.value = "USD";
+        UI.to.value = currencyMap["JOD"] ? "JOD" : "EUR";
+        run();
+      });
+
+      // ✅ Preset: EUR → USD
+      UI.btnUseEURUSD.addEventListener("click", () => {
+        UI.from.value = "EUR";
+        UI.to.value = "USD";
+        run();
+      });
+
+      // ✅ Enter on amount triggers convert
+      UI.amount.addEventListener("keydown", (e) => {
+        if (e.key === "Enter") run();
+        if (e.key === "esc") window.location.reload();
+      });
+
+
+      //In first Page loading
+      // =========================================================
+      // ✅ 13) Boot: load currencies then auto-run first conversion
+      // =========================================================
+      (async function boot() {
+        setLoading(true);
+
+        try {
+          // ✅ Create controller for the initial currency load
+          controller = new AbortController();
+
+          // ✅ 1) Load dropdowns
+          await loadCurrencies();
+
+          // ✅ 2) Run initial conversion so user sees results instantly
+          await run();
+        } catch (err) {
+          setError(`❌ ${err.message}`);
+        } finally {
+          setLoading(false);
+        }
+      })();
+    </script>
+  </body>
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <script>
+      //Activity 2
+
+      console.group("Student Load");
+      console.log("Fetching data");
+      console.log("Mapping response");
+      console.groupEnd();
+
+      console.group("User Load");
+      console.log("Fetching data");
+      console.log("Mapping response");
+      console.groupEnd();
+
+      //
+
+      const array = [1, 23, 2123, 32, 31, 343, 22, 1];
+
+      console.table(array);
+
+      function loadStudents() {
+        for (let i = 0; i < array.length; i++) {
+          const element = array[i];
+        }
+      }
+      console.time("load");
+      loadStudents();
+      console.timeEnd("load");
+
+      //
+
+      function a() {
+        b();
+      }
+      function b() {
+        console.trace("Trace here");
+      }
+      a();
+
+      //Debug API Response
+
+      console.group("API Response");
+      console.table(a());
+      console.trace("Response used here");
+      console.groupEnd();
+
+      //Debug performance
+      console.time("Render");
+      loadStudents();
+      console.timeEnd("Render");
+
+      //exercice
+      const students = [
+        { id: 1, name: "Omar", gpa: 3.6 },
+        { id: 2, name: "Sara", gpa: 3.9 },
+      ];
+
+      console.group("Students Debug");
+      
+      console.time("Rendering");
+      /*students.forEach(  (student) => {
+        console.log(student.id + " : " + student.gpa);
+      } );*/
+      console.table(students);
+      console.timeEnd("Rendering");
+
+      console.trace("Students logged");
+      console.groupEnd();
+    </script>
+  </body>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>JavaScript Type System Demo</title>
+
+    <style>
+     
+    </style>
+  </head>
+  <body>
+    <div>
+      <h2>Name: <span class="name" ></span></h2>
+      <p>Age: <span class="age" ></span></p>
+    </div>
+
+    
+    <script>
+     
+
+        let a = "";
+        let b = 0;
+        let c = null;
+        let d = "Hello";
+
+        a ||= "Default";   // replaced
+        b ||= 5;           // replaced (0 is falsy)
+        c ??= "Fallback";  // replaced
+        d &&= "Updated";   // replaced
+
+        console.log(a); // "Default"
+        console.log(b); // 5
+        console.log(c); // "Fallback"
+        console.log(d); // "Updated"
+    </script>
+  </body>
+</html>

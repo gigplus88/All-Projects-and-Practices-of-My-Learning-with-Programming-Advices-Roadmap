@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      .active {
+        background-color: antiquewhite;
+      }
+    </style>
+    <title>Document</title>
+  </head>
+  <body>
+    <button class="active">Submit</button>
+    <script>
+      function slowTask() {
+        console.log("بداية العملية الثقيلة...");
+        const start = performance.now();
+
+        // Loop ضخمة جداً (100 مليون دورة)
+        let result = 0;
+        for (let i = 0; i < 100_000_000; i++) {
+          result += Math.sqrt(i) * Math.atan(i);
+        }
+
+        const end = performance.now();
+        console.log(`تمت العملية في: ${end - start} مللي ثانية`);
+      }
+
+      document.querySelector(".active").addEventListener("click", () => {
+        slowTask();
+      });
+
+
+      /*
+        💡 Activity – Expected Outcome
+        You should be able to say:
+
+        🔹 “This function blocks the UI”
+        🔹 “This part takes the most time”
+        🔹 “This needs optimization”
+
+        That’s real performance debugging.
+      */
+    </script>
+  </body>
+</html>

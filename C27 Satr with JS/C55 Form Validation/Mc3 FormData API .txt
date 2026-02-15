@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>FormData Activity</title>
+
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+      }
+
+      .result {
+        margin-top: 20px;
+        padding: 12px;
+        border: 1px solid #ccc;
+        background: #f7f7f7;
+      }
+
+      pre {
+        background: #eee;
+        padding: 10px;
+        overflow-x: auto;
+      }
+
+      ul {
+        margin: 0;
+        padding-left: 20px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <h1>FormData Activity</h1>
+
+    <form id="taskForm">
+      <input name="title" placeholder="Title" /><br /><br />
+
+      <textarea name="description" placeholder="Description"></textarea>
+      <br /><br />
+
+      <select name="status">
+        <option value="pending">Pending</option>
+        <option value="done">Done</option>
+      </select>
+      <br /><br />
+
+      <button type="submit">Submit</button>
+
+      <p>
+        <b>
+          After submitting:
+          <br />✔ Console output <br />✔ FormData entries <br />✔ Plain object
+          entries
+          <br />
+          <u>Press F12 to open DevTools</u>
+        </b>
+      </p>
+    </form>
+
+    <!-- Output 1: Full Object -->
+    <div class="result">
+      <h3>1️⃣ Form Data as Object</h3>
+      <pre id="objectOutput">No data yet</pre>
+    </div>
+
+    <!-- Output 2: FormData entries -->
+    <div class="result">
+      <h3>2️⃣ FormData Entries (Source of Truth)</h3>
+      <ul id="formDataOutput">
+        <li>No data yet</li>
+      </ul>
+    </div>
+
+    <!-- Output 3: Object entries -->
+    <div class="result">
+      <h3>3️⃣ Object Entries (Derived Data)</h3>
+      <ul id="objectEntriesOutput">
+        <li>No data yet</li>
+      </ul>
+    </div>
+
+    <script>
+      const form = document.getElementById("taskForm");
+
+      const objectOutput = document.getElementById("objectOutput");
+      const formDataOutput = document.getElementById("formDataOutput");
+      const objectEntriesOutput = document.getElementById(
+        "objectEntriesOutput"
+      );
+
+      form.addEventListener("submit", (event) => {
+        // Prevent page reload
+        event.preventDefault();
+
+        // 1️⃣ Create FormData from the form
+        const formData = new FormData(form);
+
+        // 2️⃣ Convert FormData to a plain JavaScript object
+        const data = Object.fromEntries(formData.entries());
+
+        // 3️⃣ Log to console
+        console.log("FormData object:", data);
+
+        // 4️⃣ Show full object (formatted)
+        objectOutput.textContent = JSON.stringify(data, null, 2);
+
+        // 5️⃣ Show FormData entry by entry
+        formDataOutput.innerHTML = "";
+        for (const [key, value] of formData.entries()) {
+          const li = document.createElement("li");
+          li.textContent = `${key} → ${value}`;
+          formDataOutput.appendChild(li);
+        }
+        
+
+        // 6️⃣ Show Object entry by entry
+        objectEntriesOutput.innerHTML = "";
+        for (const key in data) {
+          const li = document.createElement("li");
+          li.textContent = `${key} → ${data[key]}`;
+          objectEntriesOutput.appendChild(li);
+        }
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>JavaScript Type System Demo</title>
+
+    <style></style>
+  </head>
+  <body>
+    <script type="module">
+      //Activity 1
+
+      /*fetchUser()
+      .then(user => fetchPosts(user.id))
+      .then(posts => console.log(posts))
+      .catch(error => console.error(error));
+      */
+
+      async function loadData() {
+        try {
+          const user = await fetchUser();
+          const posts = await fetchPosts(user.id);
+          console.log(posts);
+        } catch (error) {
+          console.error(error);
+        }
+      }
+
+      //Activity 2
+
+      //ex
+      async function getScore() {
+        //throw ("error data");
+        return 43;
+      }
+
+      /*
+      1️⃣ getScore() returns a Promise that resolves to 42
+
+    */
+      getScore()
+        .then((data) => {
+          console.log("Your data is :" + data);
+        })
+        .catch((data) => {
+          console.error("Error :" + data);
+        });
+
+      /*
+    3️⃣ If an error is thrown:
+
+    The Promise is rejected
+    The error must be handled with .catch() or try / catch
+
+
+    You now have a solid mental foundation for moving deeper into await behavior, error handling, and real-world async patterns.
+  */
+
+      //Activity 3
+
+      console.log("Start");
+
+      async function run() {
+        //await delay();
+        console.log("Inside async");
+      }
+
+      run();
+
+      console.log("End");
+
+      //ex
+
+      /*
+      💡 Activity – Solution
+          You have two async functions:
+
+          fetchUser() (takes 2 seconds)
+          fetchSettings() (takes 2 seconds)
+          Answer conceptually:
+
+          1️⃣ How long does it take if you await them sequentially?
+
+          Sequential await
+
+          Total time ≈ 4 seconds
+
+
+          2️⃣ How long does it take if you run them in parallel?
+
+          Parallel await
+
+          Total time ≈ 2 seconds
+
+          3️⃣ Which approach should you use if fetchSettings() depends on the user data?
+
+          Correct choice
+
+          Use sequential await
+          Because fetchSettings() depends on user data
+    */
+
+      //Activity 4
+
+      async function step1() {
+        throw "Error in step1";
+      }
+
+      async function step2() {
+        await step1();
+      }
+
+      async function main() {
+        try {
+          await step2();
+        } catch (e) {
+          console.error(e);
+        }
+      }
+
+      main();
+
+      async function fetchData2() {
+        throw "Server error";
+      }
+
+      try {
+        await fetchData2();
+      } catch (error) {
+        console.error("The error is:" + error);
+      }
+
+      /*
+        What Happens Without try / catch
+        🔹 The error becomes an unhandled Promise rejection 🔹 JavaScript reports a runtime error
+        🔹 The application becomes unstable
+        📌 Proper error handling is mandatory in async code.
+      */
+
+      //Activity5
+
+      const ids = [ "sa" , "sj" , "dj"];
+
+      function fetchData(id){
+        
+      }
+
+      const promises = ids.map((id) => fetchData(id));
+      const results = await Promise.all(promises);
+      console.log(results);
+
+
+
+      async function loadUsers(ids) {
+        const promises = ids.map((id) => fetchUser(id));
+        const user = await Promise.all(promises);
+        console.log(user);
+      }
+
+
+      //ex
+
+      /*
+        💡 Activity – Solution
+        1️⃣ Problem
+
+        Requests run sequentially
+        Total execution time is slow
+        2️⃣ Fix
+
+        Use Promise.all() to run requests in parallel
+        3️⃣ Removing await
+
+        user becomes a Promise
+        Logic breaks silently
+        Bugs appear later
+      */
+
+
+      // Activity 6
+
+
+      async function loadPage() {
+        const user = await fetchUser();
+        const settings = await fetchSettings();
+        render(user, settings);
+      }
+
+      //It looks synchronous because execution is written top-to-bottom using await.
+
+      //The two requests run sequentially, causing unnecessary waiting.
+
+      async function loadPage2() {
+        const [user, settings] = await Promise.all([
+          fetchUser(),
+          fetchSettings()
+        ]);
+        render(user, settings);
+      }
+
+    </script>
+    <script type="module" src="mathUtils.js"></script>
+  </body>
+</html>

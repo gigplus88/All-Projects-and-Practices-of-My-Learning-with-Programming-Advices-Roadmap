@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>classList Activity — Full Working Example</title>
+
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+    </style>
+  </head>
+
+  <body>
+          <button id="btn">Click Me</button>
+<input id="input" placeholder="Type here">
+
+    
+
+
+    </div>
+    <script>
+
+        const inpu = document.getElementById("input");
+
+        
+        function debounce(fn, delay) {
+        let timer;
+        return function (...args) {
+          clearTimeout(timer); // إلغاء المؤقت السابق والبدء من جديد
+          timer = setTimeout(() => fn.apply(this, args), delay);
+        };
+
+
+        const onSearch = debounce((value) => {
+          console.log("Searching for:", value);
+        }, 400);
+
+        inpu.addEventListener("input", (e) => {
+          onSearch(e.target.value);
+        });
+
+
+
+
+
+        function throttle(fn, interval) {
+          let lastTime = 0;
+          return function (...args) {
+            const now = Date.now();
+            if (now - lastTime >= interval) {
+              lastTime = now;
+              fn.apply(this, args);
+            }
+          };
+        }
+
+
+        window.addEventListener(
+          "scroll",
+          throttle(() => {
+            console.log("Scroll handler");
+          }, 300)
+        );
+
+
+        /*
+          
+
+            💡 Activity – Solution
+            🔹 Live search → Debounce
+            🔹 Scroll indicator → Throttle
+            🔹 Save draft → Debounce
+            🔹 Resize preview → Throttle
+
+
+
+            Explanation:
+            
+            🔹 Live search → Debounce
+            🧠 Why debounce is correct
+            Live search fires events on every keystroke.
+
+            If you search immediately:
+            ❌ Too many API calls
+            ❌ Server overload
+            ❌ Wasted work (user still typing)
+
+            🧠 What users actually want:
+
+            “Search after I finish typing”
+            What debounce does
+            🔹 Waits until typing stops
+            🔹 Runs search once
+            🔹 Prevents unnecessary calls
+
+            📌 If the user types 10 characters:
+
+            Debounce → 1 request
+            Throttle → multiple requests (bad UX)
+            ➡️ Debounce matches user intent
+
+
+            🔹 Scroll indicator → Throttle
+            🧠 Why throttle is correct
+            Scroll indicators (progress bar, position marker):
+
+            Must update while scrolling
+            Need continuous feedback
+            🧠 What users expect:
+
+            “Show me progress as I scroll”
+
+            What throttle does
+            🔹 Allows updates at fixed intervals
+            🔹 Keeps UI responsive
+            🔹 Prevents event flooding
+
+            📌 Debounce would:
+
+            Update only after scrolling stops
+            Feel broken or laggy
+            ➡️ Throttle preserves real-time feedback
+
+
+            🔹 Save draft → Debounce
+            🧠 Why debounce is correct
+            Auto-save triggers:
+
+            On text input
+            Often expensive (network / storage)
+            🧠 What users want:
+
+            “Save after I pause typing”
+            What debounce does
+            🔹 Saves only when user stops typing
+            🔹 Prevents excessive writes
+            🔹 Protects battery & bandwidth
+
+            📌 Throttle would:
+
+            Save repeatedly while typing
+            Create unnecessary versions
+            ➡️ Debounce avoids waste
+
+
+            🔹 Resize preview → Throttle
+            🧠 Why throttle is correct
+            Resize preview:
+
+            Must update during resizing
+            Needs visual continuity
+            🧠 What users expect:
+
+            “Preview changes as I resize”
+            What throttle does
+            🔹 Limits update rate
+            🔹 Keeps preview smooth
+            🔹 Prevents layout thrashing
+
+            📌 Debounce would:
+
+            Update only after resize ends
+            Feel unresponsive
+            ➡️ Throttle balances performance and feedback
+
+
+            🧠 Final Mental Rule (Very Important)
+            🧠 Ask one key question:
+
+            Do I want the final result, or continuous updates?
+            🔹 Final result → Debounce
+            🔹 Continuous feedback → Throttle
+
+            This rule works almost everywhere.
+
+
+            ⚠️ Important!
+            Using the wrong one doesn’t just affect performance — it breaks user experience expectations.
+        */
+
+}
+    </script>
+  </body>
+</html>

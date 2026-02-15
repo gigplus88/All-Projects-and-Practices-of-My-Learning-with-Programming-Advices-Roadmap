@@ -1,0 +1,45 @@
+`<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>classList Activity — Full Working Example</title>
+
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+    </style>
+  </head>
+
+  <body>
+    <button class="btnCreate">Add element with create</button>
+
+    <button class="btninsert">Add element with insert</button>
+
+        <ul id="list"></ul>
+
+
+    </div>
+    <script>
+      const btnCreate = document.querySelector(".btnCreate");
+      const btnInsert = document.querySelector(".btninsert");
+            const list = document.getElementById("list");
+
+
+      let counter = 1;
+      btnCreate.addEventListener("click", (e) => {
+        const li = document.createElement("li");
+        li.textContent = "Element by create element" + counter++;
+
+        list.append(li);
+      });
+
+
+      btnInsert.addEventListener("click", (e) => {
+         list.insertAdjacentHTML("beforeend" , `<li>element ${counter++} </li>` );
+      
+      });
+    </script>
+  </body>
+</html>

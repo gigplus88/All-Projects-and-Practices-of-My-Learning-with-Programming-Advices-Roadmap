@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>classList Activity — Full Working Example</title>
+
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+    </style>
+  </head>
+
+  <body>
+    <button data-user-id="42" data-action="delete">Delete</button>
+
+    <div class="card" data-id="7">
+      <button data-action="edit">Edit</button>
+      <button data-action="delete">Delete</button>
+    </div>
+
+    <ul id="list">
+      <li data-id="1">
+        <button data-action="edit">Edit</button>
+        <button data-action="delete">Delete</button>
+      </li>
+    </ul>
+
+    <script>
+      document.getElementById("list").addEventListener("click", (e) => {
+        if (!e.target.matches("button")) return;
+
+        const action = e.target.dataset.action;
+        const id = e.target.closest("li").dataset.id;
+
+        if (action === "edit") {
+                  console.log(action, id);
+
+        }
+        else{
+          return;
+        }
+      });
+
+      /* const btn = document.querySelector("button");
+
+        console.log(btn.dataset.userId);     // "42"
+        console.log(btn.dataset.action); // "delete"
+
+
+        btn.dataset.action = "edit";
+
+                console.log(btn.dataset.action); 
+
+
+        document.addEventListener("click", (e) => {
+          if (!e.target.matches("button")) return;
+
+          const action = e.target.dataset.action;
+          const card = e.target.closest(".card");
+          const id = card.dataset.id;
+
+          if (action === "edit") {
+            console.log("Edit item", id);
+          }
+
+          if (action === "delete") {
+            console.log("Delete item", id);
+          }
+        });*/
+    </script>
+  </body>
+</html>

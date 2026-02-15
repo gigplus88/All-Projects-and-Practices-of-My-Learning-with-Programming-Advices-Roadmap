@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>JavaScript Type System Demo</title>
+
+    <style></style>
+  </head>
+  <body>
+    <script>
+     /*function greet(greeting, punctuation) {
+        console.log(greeting, this.name , punctuation);
+      }
+
+    const user = { name: "Sara" };
+
+    greet.call(user, "Hello", "!"); // Hello Sara !
+    greet.apply(user , ["hi" , "!"]);
+    const boundGreet = greet.bind(user, "Hello" , "?");
+
+    boundGreet(); // Hello Sara
+
+
+
+
+    const emp = {
+      name:"Ayoub",
+      LastName : "Fellah",
+
+      fullName(Prefix){
+        console.log(Prefix + " " + this.name + " " + this.LastName);
+        //return this.name + " " + this.LastName;
+      }
+    };
+
+    const sayFullName = emp.fullName;
+    sayFullName.call(emp , "Mr."); 
+
+    const emp2 = {
+      name: "Ali",
+      LastName: "Ben Omar"
+    };
+
+    sayFullName.call(emp2 , "Dr.");*/
+
+    const user = {
+  name: "Omar",
+  greet(prefix) {
+    console.log(prefix + " " + this.name);
+  }
+};
+sayHello.call(user, "Hello");
+sayHello.apply(user, ["Hi"]);
+
+
+const boundGreet = sayHello.bind(user);
+boundGreet("Welcome");
+
+
+
+
+
+
+    
+
+
+    class Counter {
+      constructor() {
+        this.count = 0;
+        this.inc = this.inc.bind(this);
+      }
+
+      inc() {
+        this.count++;
+        console.log(this.count);
+      }
+  }
+   const counter = new Counter();
+   counter.inc();
+
+
+
+    
+

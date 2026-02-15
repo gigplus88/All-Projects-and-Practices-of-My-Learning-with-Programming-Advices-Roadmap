@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>JavaScript Type System Demo</title>
+
+    <style></style>
+  </head>
+  <body>
+    <script>
+
+      /*
+      const now = new Date();
+      console.log("now:", now, typeof now);
+
+      const n2 = new Date(0);
+      console.log("now:", n2, typeof now);
+
+      const n3 = new Date("2000-01-01");
+      console.log("now:", n3, typeof n3);
+
+      const n4 = new Date(2025 , 11 , 25 );
+      console.log("now:", n4);
+
+       const n5 = new Date(2024 , 6 , 10 , 8,45 );
+      console.log("now:", n5);
+
+
+      const day = new Date("2024-12-31");
+      console.log("Year:", day.getFullYear());
+            console.log("Month:", day.getMonth()+1);
+                  console.log("Day of Month:", day.getDate());
+                      console.log("Day of week:", day.getDay());
+
+
+                    
+      const dateNew = new Date("2025-06-10T14:45:30");
+                  console.log("Hours:", dateNew.getHours());
+                  console.log("Minutes:", dateNew.getMinutes());
+                  console.log("Seconds:", dateNew.getSeconds());
+
+
+
+      const datefor = new Date("2020-01-01");
+
+              console.log( "Before changing", datefor);
+
+              datefor.setFullYear(2025);
+              console.log(datefor);
+
+               datefor.setMonth(7);
+              console.log(datefor);
+
+               datefor.setDate(15);
+              console.log(datefor);
+
+         
+              datefor.setHours(18 ,45);
+              console.log(datefor);
+
+
+              const d = new Date("2024-12-31");
+              d.setDate(d.getDate()+1);
+
+              console.log(d );
+
+              const date3 = new Date("2024-01-01"); 
+
+              console.log(date3.getTime());
+              console.log(Date.now());
+
+              const date4 = new Date("2025-03-01");
+              const date5 = new Date("2025-03-15"); 
+
+              console.log(date4 < date5); // true
+              console.log(date4.getTime() > date5.getTime()); // false
+
+
+
+              //const diff = date5.getDate() - date4.getDate();//Method 1
+              const diff = date5.getTime() - date4.getTime();
+
+              const diffinDay = diff/ (1000*3600 *24);
+              console.log( "The diff between 2025-03-01 and 2025-03-15 " ,(  diffinDay)); 
+
+              const deadline = new Date("2023-12-31");
+
+              if (Date.now() > deadline) {
+                console.log( "The deadline is passed "); 
+              }
+              else{
+                console.log( "The deadline is not passed"); 
+
+              }
+
+
+
+
+
+              const dat4 = new Date("2024-06-15");
+              const dat5 = new Date("2024-09-23");
+
+              console.log( dat4 < date5);
+
+
+
+              const a = new Date("2024-01-01");
+              const b = new Date("2024-01-01");
+
+              console.log(a.getTime() === b.getTime());
+
+
+
+
+              const datesArray = [
+                new Date("2025-01-01"),
+                new Date("2024-06-15"),
+                new Date("2025-03-10"),
+                new Date("2024-12-25"),
+              ];
+
+              datesArray.sort( (a,b) => b - a );
+
+              console.log("Sorted dates from newest to oldest:" , datesArray);
+              
+
+              const dat6 = new Date("2024-06-15");
+              const dat7 = new Date("2024-09-23");
+
+              const newDate = new Date("2029-06-15");
+
+              const cheifBetween = newDate > dat6 && newDate < dat7;
+
+              cheifBetween === true ? console.log("The date is between the two dates") : console.log("The date is not between the two dates");
+            
+              const start = new Date("2024-01-01");
+              start.setDate( start.getDate()+7);
+              console.log( start );
+
+              start.setDate( start.getDate()-14) ;
+              console.log( start );
+
+
+              start.setMonth(start.getMonth()+3) ;
+              console.log( start);
+
+              start.setFullYear(start.getFullYear()-1) ;
+              console.log( start);
+
+               start.setMinutes(start.getMinutes()+90) ;
+              console.log( start);
+
+
+              const d1 = new Date("2024-01-01");
+              const d2 = new Date("2024-01-10");
+              console.log( d2-d1);
+
+
+              //In Days
+              const inDays = (d2-d1)/(1000*3600*24);
+              console.log("In Days", inDays);
+              console.log("In Hours", inDays *24 );
+              console.log("In Weeks", Math.floor(inDays/7) );
+              console.log("In Months", ToMonth(d1 , d2) );
+
+
+
+              function ToMonth(d1 , d2){
+               return (
+                        (d2.getFullYear() - d1.getFullYear()) * 12 +
+                        (d2.getMonth() - d1.getMonth())
+                      );
+                    }
+                      */
+              
+    const dd = new Date();
+    
+    dd.setHours(0,0,0,0);
+    console.log(dd);
+
+
+    dd.setHours(23,59,59,999);
+    console.log(dd);
+
+
+    dd.setDate(1);
+    dd.setHours(0,0,0,0);
+    console.log(dd);
+
+
+
+    dd.setMonth( dd.getMonth()+1,0 );
+    dd.setHours(23,59,59,999);
+    console.log(dd);
+
+
+
+    dd.setMonth(0 , 1);
+    dd.setHours(0,0,0,0);
+    console.log(dd);
+
+
+
+    dd.setMonth(11 , 31);
+    dd.setHours(23,59,59,999);
+    console.log(dd);
+
+
+
+
+
+
+
+    const day = new Date("2024-02-29");
+
+    function isValidDate(date) {
+      return date instanceof Date && !Number.isNaN(date.getTime());
+    }
+
+    console.log(isValidDate(day));
+
+
+    function isLeapYear(year) {
+      return (year % 4 === 0 && year % 100 !== 0) || year % 400 === 0;
+    }
+
+
+    if (isLeapYear(day.getFullYear())) {
+        console.log("yes is valid date");
+    }
+    else{
+        console.log("no is not valid date");
+
+    }
+
+    
+
+    const day2 = new Date("2023-02-29")
+    console.log(isValidDate(day2))
+
+    
+    if (isLeapYear(day2.getFullYear())) {
+        console.log("yes is valid date");
+    }
+    else{
+        console.log("no is not valid date");
+    }
+
+
+
+
+    const d = new Date(2024, 1, 31);
+    console.log(d.toDateString());
+
+
+    
+      const day3 = new Date("2024-01-31");
+
+        day3.setDate(day3.getDate() +1);
+        console.log(day3.toDateString())
+
+
+
+            const day5 = new Date();
+
+            console.log( day5.toString());
+            console.log( day5.toDateString());
+            console.log( day5.toISOString());
+            console.log( day5.toLocaleDateString("en-GB"));
+                        console.log( day5.toLocaleDateString("ar-EG"));
+
+
+
+            function isWeekend(date) {
+              const day = date.getDay();
+              return day === 0 || day === 6;
+            }
+
+
+
+
+            function nextBusinessDay(date) {
+              const d = new Date(date);
+
+              do {
+                d.setDate(d.getDate() + 1);
+              } while (isWeekend(d)); // If the next is weekend it not a business day
+
+              return d;
+            }
+
+            const day4 = new Date("2024-01-31");
+
+
+            console.log(nextBusinessDay(day4));
+
+
+
+
+            function DaysAfterAdding()
+            {
+
+            }
+
+            function addBusinessDays(startDate, days) {
+              const d = { date: new Date(startDate) , added :  0 } ;
+
+              while (d.added < days) {
+                d.date.setDate(d.date.getDate() + 1);
+
+                if (!isWeekend((d.date))) {
+                  d.added++;
+                }
+              }
+
+              return d;
+            }
+
+            console.log(addBusinessDays(day4 , 4));
+
+
+
+
+
+
+            function businessDaysBetween(start, end) {
+            let count = 0;
+            const d = new Date(start);
+
+            while (d < end) {
+              if (!isWeekend(d)) {
+                count++;
+              }
+              d.setDate(d.getDate() + 1);
+            }
+
+            return count;
+          }
+
+
+
+          const day6 = new Date("2024-03-01");
+                    const day7 = new Date("2024-05-06");
+
+           console.log("Working days", businessDaysBetween(day6 , day7));
+
+
+            const holidays = [
+            "2025-01-01",
+            "2025-05-01"
+          ];
+
+
+    function isHoliday(date) {
+      return holidays.includes(date.toISOString().slice(0, 10));
+    }
+
+
+    function isBusinessDay(date) {
+      return !isWeekend(date) && !isHoliday(date);
+    }
+
+
+    //ex
+
+    const d3= new Date();
+        console.log( d3);
+
+    console.log( isBusinessDay(d3));
+    console.log(nextBusinessDay(d3));
+
+    const add = addBusinessDays(d3 , 5);
+    console.log( "The day is:"+ add.date + "And it s added :"+add.added);
+
+
+
+     const d4= new Date("2025-03-1");
+     const d5= new Date("2025-03-15");
+
+         console.log( "Business Days between start and end:"+ businessDaysBetween(d4, d5));
+
+      // Holidays differ by country, company, and year.
+      // Unlike weekends, they must be configured or fetched dynamically.
+      // That’s why holiday logic is usually data-driven, not hardcoded.
+          
+
+    
+
+
+
+      /*Task 1
+      Task 1
+      Create a function that checks if today is a business day.
+
+      Task 2
+      Create a function that returns the next business day.
+
+      Task 3
+      Add 5 business days to today.
+
+      Task 4
+      Calculate how many business days are between:
+
+      1 March 2025
+      15 March 2025
+      Task 5
+      Explain (in code comments) why holidays are handled differently from weekends.
+
+
+
+      */
+
+
+
+
+
+
+     
+    </script>
+  </body>
+</html>

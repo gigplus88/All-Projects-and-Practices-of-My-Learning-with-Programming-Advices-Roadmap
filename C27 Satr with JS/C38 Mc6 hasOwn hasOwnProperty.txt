@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>JavaScript Type System Demo</title>
+
+    <style></style>
+  </head>
+  <body>
+    <script>
+      const user = {
+        name: "Alice",
+        age: 30,
+        isAdmin: false,
+        hobbies: ["reading", "traveling", "coding"],
+        address: {
+          street: "123 Main St",
+          city: "Wonderland",
+          zip: "12345",
+        },
+        greet: function () {
+          console.log(`Hello, my name is ${this.name}`);
+        },
+      };
+      
+      //Write all properties of user object
+      for (const key in user) {
+        if (Object.hasOwn(user, key)) {
+          console.log(key, user[key]);
+        }
+      }
+
+      const obj = Object.create(null);
+      console.log("obj:", Object.hasOwn(obj , "name"));
+
+      obj.name = "Ayoub";
+      obj.address = "Fes Morocco";
+      obj.city = "Fes";
+
+      for (const key in obj) {
+        if (Object.hasOwn(obj, key)) {
+          console.log(key, obj[key]);
+        }
+      }
+
+      console.log("obj with in:", "name" in obj );
+      console.log("obj2:", "toString" in obj );
+
+      console.log("obj3:",  obj.hasOwnProperty("toString"));
+
+
+      
+    </script>
+  </body>
+</html>

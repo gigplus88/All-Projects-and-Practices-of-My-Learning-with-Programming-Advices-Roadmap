@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>DOM Manipulation Activity</title>
+
+    <style>
+      .highlight {
+        color: orange;
+        font-weight: bold;
+      }
+    </style>
+  </head>
+  <body>
+    <h1 id="title">Original Title</h1>
+    <p id="desc">Original description</p>
+    <img id="img" src="https://via.placeholder.com/150" />
+    <br /><br />
+    <button id="btn">Change Content</button>
+
+    <script>
+      const title = document.getElementById("title");
+      const desc = document.getElementById("desc");
+      const img = document.getElementById("img");
+      const btn = document.getElementById("btn");
+
+      btn.addEventListener("click", () => {
+        title.textContent = "Title Changed!";
+        desc.innerHTML = "<b>Description Updated</b>";
+        img.src =
+          "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/512px-React-icon.svg.png";
+        desc.style.color = "lime";
+        desc.classList.toggle("highlight");
+      });
+    </script>
+  </body>
+</html>

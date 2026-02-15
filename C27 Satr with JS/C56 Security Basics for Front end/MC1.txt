@@ -1,0 +1,13 @@
+💡 Activity – Solution
+❌ Unsafe
+
+Reason:
+
+innerHTML executes HTML and scripts
+User input can inject code
+This enables XSS
+✅ Safe alternative:
+
+commentBox.textContent = userComment;
+
+Because textContent will not execute html tags.

@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>JavaScript Type System Demo</title>
+
+    <style></style>
+  </head>
+  <body>
+    <script type="module">
+      //Activity1
+      /*
+        1️⃣ Blocking Fetch Result
+        🔹 The page would freeze
+
+        🔹 Buttons would stop working
+
+        🔹 Bad user experience
+
+
+        2️⃣ Why Async Is Required
+        🔹 Network requests take time
+
+        🔹 JavaScript must stay responsive
+
+        🔹 Async allows waiting without blocking
+
+
+        3️⃣ Better Choice
+        ✔ Promises
+
+        Reason:
+
+        Cleaner flow
+        Easier error handling
+        Easier to extend later with async / await
+
+      */
+
+      //Activity 2
+
+      const paymentPromise = new Promise((resolve, reject) => {
+        const isPaid = true; // محاكاة لعملية دفع
+
+        if (isPaid) {
+          resolve("تم الدفع بنجاح! ✅");
+        } else {
+          reject("فشلت عملية الدفع! ❌");
+        }
+      });
+
+      const onlinePromise = new Promise((resolve, reject) => {
+        const isOnline = true; // محاكاة لعملية دفع
+
+        if (isOnline) {
+          resolve("Connected  ✅");
+        } else {
+          reject("No connection ❌");
+        }
+      });
+
+      //Activity 3
+
+      /*fetchData()
+    .then(data => processData(data))
+    .then(result => display(result))
+    .catch(error => handleError(error))
+    .finally(() => hideLoader());*/
+
+      const promise = new Promise((resolve, reject) => {
+        const success = true;
+
+        if (success) {
+          resolve(10);
+        } else {
+          reject("Failed");
+        }
+      });
+
+      promise
+        .then((value) => {
+          return value * 2;
+        })
+        .then((result) => {
+          console.log(result);
+        })
+        .catch((error) => console.log("your error is", error))
+        .finally(() => {
+          console.log("Finished");
+        });
+
+      /*
+      📌 This demonstrates:
+
+      Success handling
+      Error handling
+      Cleanup logic
+      Promise chaining
+
+    */
+
+      //Full Working example
+
+      /*──────────────────────────────────────────────
+    │ Code Overview
+    │──────────────────────────────────────────────
+    │ Purpose        → Demonstrate consuming a Promise in the browser
+    │ Layout         → Single HTML file with inline JavaScript
+    │ Use Cases      → Learning Promises, async flow, browser behavior
+    │ Key Properties → Promise, then(), catch(), finally()
+    └──────────────────────────────────────────────*/
+
+      console.log("Page loaded");
+
+      // Create a Promise
+      const promise2 = new Promise((resolve, reject) => {
+        const success = true; // toggle to false to test error path
+
+        // Simulate async task (e.g. network request)
+        setTimeout(() => {
+          if (success) {
+            resolve(10);
+          } else {
+            reject("Failed");
+          }
+        }, 1000);
+      });
+
+      // Consume the Promise
+      promise2
+        .then((value) => {
+          console.log("Original value:", value);
+          return value * 2; // pass to next step
+        })
+        .then((result) => {
+          console.log("Doubled value:", result);
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+        })
+        .finally(() => {
+          console.log("Finished");
+        });
+
+      console.log("JavaScript is non-blocking");
+
+      //Activity 3
+
+      const promise4 = new Promise((resolve, reject) => {
+        return new Promise((resolve, rejected) => {
+          if (true) {
+            resolve(10);
+          } else {
+            rejected("Finished");
+          }
+        });
+      });
+
+      promise4
+        .then((result) => {
+          throw new Error("Failure here");
+        })
+        .then((next) => {
+          console.log(next);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+
+      //Activity 4
+
+      const promise5 = new Promise((resolve, reject) => {
+        const success = false;
+
+        if (success) {
+          resolve("Data loaded");
+        } else {
+          reject("Network error");
+        }
+      });
+
+      promise5
+        .then((result) => {
+          throw new Error("Failure here");
+        })
+        .then((next) => {
+          console.log(next);
+        })
+        .catch((error) => {
+          console.error(error);
+        })
+        .finally((value) => {
+          console.log("Finished");
+        });
+
+      /*
+
+      What Happens Without .catch()?
+      🔹 The Promise rejection is unhandled
+
+      🔹 JavaScript reports an unhandled rejection
+
+      🔹 The app becomes unstable
+
+      📌 Proper error handling is not optional in async code.
+
+      catch is not 
+
+    */
+
+      /*──────────────────────────────────────────────
+    │ Code Overview
+    │──────────────────────────────────────────────
+    │ Purpose        → Demonstrate Promise rejection handling in browser
+    │ Layout         → Single HTML file with inline JavaScript
+    │ Use Cases      → Async error handling, safe cleanup
+    │ Key Properties → Promise, then(), catch(), finally()
+    └──────────────────────────────────────────────*/
+
+      console.log("Page loaded");
+
+      // Create a Promise
+      const promise6 = new Promise((resolve, reject) => {
+        const success = false; // toggle to true for success
+
+        // Simulate async task (e.g. API request)
+        setTimeout(() => {
+          if (success) {
+            resolve("Data loaded");
+          } else {
+            reject("Network error");
+          }
+        }, 1000);
+      });
+
+      // Consume the Promise
+      promise6
+        .then((result) => {
+          console.log("Success:", result);
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+        })
+        .finally(() => {
+          console.log("Finished");
+        });
+
+      console.log("JavaScript keeps running while waiting");
+
+      //Activity 5
+
+      const p1 = new Promise((resolve, reject) => {
+        const success = false; // toggle to true for success
+
+        // Simulate async task (e.g. API request)
+        setTimeout(() => {
+          if (success) {
+            resolve("Data loaded");
+          } else {
+            reject("Network error");
+          }
+        }, 1000);
+      });
+
+      const p2 = new Promise((resolve, reject) => {
+        const success = false; // toggle to true for success
+
+        // Simulate async task (e.g. API request)
+        setTimeout(() => {
+          if (success) {
+            resolve("Data loaded");
+          } else {
+            reject("Network error");
+          }
+        }, 2000);
+      });
+
+      const p3 = new Promise((resolve, reject) => {
+        const success = false; // toggle to true for success
+
+        // Simulate async task (e.g. API request)
+        setTimeout(() => {
+          if (success) {
+            resolve("Data loaded");
+          } else {
+            reject("Network error");
+          }
+        }, 3000);
+      });
+
+      /*
+     1️⃣ Which combinator waits for all results regardless of success?
+
+    Promise.allSettled() → waits for all results
+    2️⃣ Which combinator fails immediately if one promise fails?
+
+    Promise.all() → fails on first rejection
+    3️⃣ Which combinator resolves with the first successful promise?
+
+    Promise.any() → first successful resolution
+    4️⃣ Which combinator finishes when the first promise settles?
+
+    Promise.race() → first settled promise
+    */
+
+      //Activity 6
+
+      /*
+      
+      💡 Activity – Solution
+        Consider this scenario:
+
+        A user clicks a button
+        Data is fetched from a server
+        The UI updates after data arrives
+        Answers conceptually:
+
+        1️⃣ What does the Promise represent in this flow?
+
+        The Promise represents future server data
+        2️⃣ When is the value not available yet?
+
+        The value is not available while the Promise is pending
+        3️⃣ When does the value become usable?
+
+        The value becomes usable inside .then() (or after await)
+        4️⃣ Which Promise state matches each step?
+
+        States:
+
+        Pending → Fetching data
+        Fulfilled → Data received
+        Rejected → Request failed
+
+    */
+
+
+
+
+
+
+    //Activity 7
+
+
+    setTimeout(() => console.log("timeout"), 0);
+
+    Promise.resolve().then(() => console.log("promise"));
+
+    queueMicrotask(() => console.log("micro"));
+
+
+
+    //ex
+
+      console.log("A");
+
+      setTimeout(() => console.log("B"), 0);
+
+      Promise.resolve().then(() => console.log("C"));
+
+      queueMicrotask(() => console.log("D"));
+
+      console.log("E");
+
+      /*A , E , C , D , B*/
+
+
+
+
+    
+      //Activity 7
+
+
+      let result;
+
+      setTimeout(() => {
+        console.log(result);
+      }, 0);
+
+      Promise.resolve().then(() => {
+        result = 42;
+      });
+
+
+
+
+      setTimeout(() => console.log("A"), 0);
+
+      Promise.resolve().then(() => console.log("B"));
+
+      console.log("C");
+
+
+      /*
+        C,B,A
+	🔹 C → synchronous
+	🔹 B → microtask
+	🔹 A → macrotask
+      */
+     
+
+
+
+    </script>
+    <script type="module" src="mathUtils.js"></script>
+  </body>
+</html>

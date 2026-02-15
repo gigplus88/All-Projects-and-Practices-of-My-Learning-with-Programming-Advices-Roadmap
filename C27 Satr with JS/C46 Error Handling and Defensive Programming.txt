@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>JavaScript Type System Demo</title>
+
+    <style></style>
+  </head>
+  <body>
+    <script>
+      //MC1
+
+      //console.log(notDefined);
+
+      let x = 10;
+      //x();
+
+      let total = 10 * 2 + 5;
+      console.log(total);
+
+      try {
+        let obj;
+        console.log(obj.name);
+      } catch (e) {
+        console.log("Caught:", e.message);
+      }
+
+      try {
+        console.log("Running");
+      } finally {
+        console.log("Cleanup done");
+      }
+
+      try {
+        try {
+          JSON.parse("{bad}");
+        } catch {
+          console.log("Inner handled");
+        }
+      } catch {
+        console.log("Outer handled");
+      }
+
+      //MC2
+
+      const err = new TypeError("Invalid value");
+      console.log(err.name);
+      console.log(err.message);
+
+      function a() {
+        b();
+      }
+
+      function b() {
+        //throw new Error("Boom!");
+      }
+
+      a();
+
+      //throw new Error("Payment amount cannot be negative");
+
+      function divide(a, b) {
+        if (b === 0) {
+          throw new Error("Division by zero is not allowed");
+        }
+        return a / b;
+      }
+
+      //divide(10, 0);
+
+      function setAge(age) {
+        if (typeof age !== "number") {
+          throw new TypeError("Age must be a number");
+        }
+        return age;
+      }
+
+      //const NewAge = setAge("r");
+
+      //Activity 1
+
+      function registerUser(username) {
+        username === "" || username === null || username === undefined;
+        {
+          throw Error("Error in  username input");
+        }
+
+        return "User registered";
+      }
+
+      //registerUser("");
+
+      function setPrice(price) {
+        if (typeof price !== "number") {
+          throw TypeError("Price input must be number");
+        }
+        return price;
+      }
+
+      //setPrice(7);
+
+      function withdraw(balance, amount) {
+        if (amount > balance) {
+          throw Error("amount must be lower or equal the  balance ");
+        }
+        return balance - amount;
+      }
+
+      //withdraw(6, 9);
+
+      // THROW: cannot continue safely
+      function loadConfig(config) {
+        if (!config) {
+          throw new Error("Missing configuration");
+        }
+      }
+
+      // RETURN: expected outcome
+      function findUser(id) {
+        if (!id) {
+          return null;
+        }
+      }
+
+      //Activity 3
+
+      class GoodError extends Error {
+        constructor(msg) {
+          super(msg); // preserves stack trace
+          this.name = "GoodError";
+        }
+      }
+
+      function findItem(id) {
+        if (id === 0) {
+          throw new GoodError("This id must have not 0");
+        }
+      }
+
+      //findItem(0);
+
+      class ValidationError extends Error {
+        constructor(msg) {
+          super(msg); // preserves stack trace
+          this.name = "ValidationError";
+        }
+      }
+      //throw new ValidationError("Username is required");
+
+      class AuthError extends Error {
+        constructor(msg) {
+          super(msg); // preserves stack trace
+          this.name = "AuthError";
+        }
+      }
+
+      function login(user) {
+        if (user === null || user === undefined) {
+          throw new AuthError("User is missing");
+        }
+
+        console.log("Login successful");
+      }
+
+      //login(null);
+
+      /*/try {
+          login(null);
+        } catch (error) {
+          console.log(error.name);//AuthError
+          console.log(error.message);//User is missing
+
+        }*/
+
+      class ConfigError extends Error {
+        constructor(message) {
+          super(message);
+          this.name = "ConfigError";
+        }
+      }
+
+      function loadConfig(config) {
+        if (!config) {
+          throw new ConfigError("Missing configuration");
+        }
+      }
+
+      //loadConfig(null);
+
+      try {
+        throw new ValidationError("Invalid email format");
+      } catch (err) {
+        console.log(err.stack);
+      }
+
+      //Activity 4
+
+      function calculateDiscount(price) {
+        if (typeof price !== "number") {
+          throw new TypeError("Price must be a number");
+        }
+
+        if (price < 0) {
+          throw new RangeError("Price cannot be negative");
+        }
+
+        return price * 0.9;
+      }
+
+      function greet(name) {
+        if (typeof name !== "string") {
+          throw new TypeError("Name must be a string");
+        }
+        if (name === "" || name === null) {
+          throw new ReferenceError("Name must be a string");
+        }
+        return "Hello " + name.toUpperCase();
+      }
+
+      //greet("Saad");
+
+      function safeDivide(a, b) {
+        try {
+          if (b === 0) {
+            throw new Error("Division by zero");
+          }
+          return a / b;
+        } catch (err) {
+          console.log(err.message);
+          return null;
+        }
+      }
+
+      function getUserName(user) {
+        if (!user || !user.name) {
+          throw new Error("User name is required");
+        }
+        return user.name;
+      }
+
+      function processData(data) {
+        try {
+          if (!data) {
+            throw new Error("No data");
+          }
+        } catch (err) {
+          console.log("Processing failed");
+          throw err; // rethrow
+        }
+      }
+
+      function multiply(a, b) {
+        if (typeof a !== "number" || typeof b !== "number") {
+          throw new TypeError("Both arguments must be numbers");
+        }
+        return a * b;
+      }
+
+      //Activity 5
+
+      function register(username) {
+        if (!username) return "Invalid username";
+        return "Registered";
+      }
+      console.log(register("kfk"));
+
+      function transfer(balance, amount) {
+        if (amount < 0) throw Error("amount cant be negative");
+        if (amount > balance) return "Insufficient funds";
+
+        return balance - amount;
+      }
+
+      //email --> Validation
+      //API key -->Guard clauses (Error)
+      //Input Validation --> for age at text
+
+      function login(user) {
+        if (!user) return "Access denied";
+        if (!user.active) return "Access denied";
+
+        return "Welcome";
+      }
+
+      //Return → Expected situations, user mistakes
+      //Throw → System failure, invalid state, unsafe continuation
+
+      // Activity 6
+
+      window.onerror = function (message, source, line, column, error) {
+        console.error("🔥 Uncaught Error:", message);
+      };
+
+      window.addEventListener("unhandledrejection", function (event) {
+        console.error("Unhandled Promise Rejection:", event.reason);
+      });
+
+      Promise.reject("Server not reachable");
+
+      //ex
+      window.onerror = function (message, source, line, column, error) {
+        //console.error("🔥Error:", message, " ,Line of error is: ", line);
+        logError(error || new Error(message));
+      };
+
+      window.addEventListener("unhandledrejection", function (event) {
+        console.error("Unhandled Promise Rejection:", event.reason);
+      });
+
+      function logError(error) {
+        // 1. طباعة الخطأ للمطور
+        console.error("تم تسجيل خطأ:", error.message);
+
+        // 2. إرسال التفاصيل للسيرفر (مثال تخيلي)
+        //sendToServer({ name: error.name, message: error.message, stack: error.stack });
+      }
+
+      function processData(data) {
+        try {
+          if (!data) {
+            throw new Error("No data");
+          }
+        } catch (err) {
+          logError(err);
+          console.log("Processing failed");
+          throw err; // rethrow
+        }
+      }
+      processData();
+
+      /*Uncaught Error: No data
+    at processData (test.html:322:19)
+    at test.html:330:7
+    */
+
+      // Unhandled Promise Rejection: Server not reachable
+
+      fetch("/api/users")
+        .then((res) => {
+          if (!res.ok) {
+            throw new Error("API responded with status " + res.status);
+          }
+          return res.json();
+        })
+        .catch((err) => {
+          console.error("API failure:", err.message);
+        });
+
+      fetch("/data").catch((err) => {
+        console.error("Network error:", err.message);
+      });
+
+      function submitAge(age) {
+        if (typeof age !== "number" || age <= 0) {
+          throw new Error("Age must be a positive number");
+        }
+      }
+
+
+      if (!process.env.API_KEY) {
+        throw new Error("Missing API_KEY configuration");
+      }
+
+
+      try {
+        const data = JSON.parse(storedValue);
+      } catch {
+        console.error("Corrupted data detected");
+      }
+
+
+
+      // Final 
+
+      function loadUser(id) {
+        if (!id) throw new Error("User ID required");
+        // predictable failure: API request
+      }
+
+
+
+      function parseSettings(json) {
+        // Trust boundary: external input
+        return JSON.parse(json);
+      }
+
+
+      function getUserName(user) {
+        return user?.profile?.name ?? "Guest";
+      }
+
+
+      try {
+        saveData(data);
+      } catch (err) {
+        logError(err);
+        showUserMessage("Something went wrong. Please try again.");
+      }
+
+
+
+      
+    </script>
+
+  </body>
+</html>

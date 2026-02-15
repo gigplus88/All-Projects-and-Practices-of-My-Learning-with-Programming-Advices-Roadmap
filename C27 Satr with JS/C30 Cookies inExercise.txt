@@ -1,0 +1,575 @@
+<!--My solution with redirect to other page-->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Cookie Demo</title>
+
+    <style>
+      body {
+        height: 100vh;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background: #f0f2f5;
+        font-family: Arial, sans-serif;
+      }
+
+      .container {
+        background: white;
+        padding: 30px 40px;
+        border-radius: 12px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        width: 360px;
+      }
+
+      h2 {
+        margin-bottom: 20px;
+        color: #333;
+      }
+
+      input {
+        padding: 12px;
+        width: 100%;
+        margin-bottom: 15px;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        font-size: 1rem;
+      }
+
+      button {
+        width: 100%;
+        padding: 12px;
+        margin: 6px 0;
+        background: #007bff;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: 0.3s ease;
+      }
+
+      button:hover {
+        background: #0056b3;
+        transform: scale(1.03);
+      }
+
+     
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+      <div id="showCookie"></div>
+
+      <h2>🍪Login Simulation</h2>
+
+      <input id="nameBox" type="text" placeholder="Enter your name" />
+      
+      <button onclick="saveCookies()">Login</button>
+
+    </div>
+
+    <script>
+      window.onload = function () {
+        CheckCookies();
+        console.log("Cookies are enabled.");
+      };
+      function CheckCookies() {
+        let cookiesEnabled = navigator.cookieEnabled;
+        if (!cookiesEnabled) {
+          alert(
+            "Cookies are disabled in your browser. Please enable cookies to use this feature."
+          );
+        } else {
+          document.getElementById("showCookie").innerHTML =
+            "Welcome back! Users.";
+        }
+      }
+      
+
+
+      // ---------------------------------------------------------
+      // Function: Save TWO Cookies (username + favoriteColor)
+      // ---------------------------------------------------------
+      function saveCookies() {
+        const name = document.getElementById("nameBox").value;
+
+        // Create an expiration date 7 days from now
+        const expiration = new Date();
+        expiration.setDate(expiration.getDate() + 7);
+
+        // Create cookie 1
+        document.cookie =
+          "username=" +
+          name +
+          "; expires=" +
+          expiration.toUTCString() +
+          "; path=/";
+
+        window.location.href = "test2.html";
+      }
+
+      // ---------------------------------------------------------
+      // Helper Function: Get a specific cookie by name
+      // ---------------------------------------------------------
+      function getCookie(cookieName) {
+        // Split all cookies into an array
+        const cookies = document.cookie.split(";");
+
+        // Loop through cookie list
+        for (let c of cookies) {
+          c = c.trim();
+
+          // Look for "cookieName="
+          if (c.startsWith(cookieName + "=")) {
+            // Return only the value
+            return c.substring(cookieName.length + 1);
+          }
+        }
+
+        return null; // Not found
+      }
+
+      // ---------------------------------------------------------
+      // Function: Read Two Specific Cookies
+      // ---------------------------------------------------------
+      function readSpecificCookies() {
+        const name = getCookie("username");
+
+        const resultBox = document.getElementById("result");
+
+        resultBox.innerHTML = `<strong>Saved Cookies:</strong><br><br>
+         Username: ${name ?? "❌ Not Found"}`;
+      }
+
+      // ---------------------------------------------------------
+      // Function: Delete Both Cookies
+      // ---------------------------------------------------------
+      function deleteCookies() {
+        // Set expiration to a past date to remove cookies
+        document.cookie =
+          "username=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/"; //Get old expiration date to deletz cooky
+
+          alert("Cookies deleted!");
+        document.getElementById("result").innerHTML = "";
+      }
+    </script>
+  </body>
+</html>
+
+
+<!--Page2-->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Cookie Demo</title>
+
+    <style>
+      body {
+        height: 100vh;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background: #f0f2f5;
+        font-family: Arial, sans-serif;
+      }
+
+      .container {
+        background: white;
+        padding: 30px 40px;
+        border-radius: 12px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        width: 360px;
+      }
+
+      h2 {
+        margin-bottom: 20px;
+        color: #333;
+      }
+
+      input {
+        padding: 12px;
+        width: 100%;
+        margin-bottom: 15px;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        font-size: 1rem;
+      }
+
+      button {
+        width: 100%;
+        padding: 12px;
+        margin: 6px 0;
+        background: #da3300;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: 0.3s ease;
+      }
+
+      button:hover {
+        background: #011c38;
+        transform: scale(1.03);
+      }
+
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+
+      <h2>🍪Login Simulation</h2>
+      
+      <div id="showCookie"></div>
+
+      
+      <button onclick="deleteCookies()">Loguot</button>
+
+    </div>
+
+    <script>
+      window.onload = function () {
+        CheckCookies();
+        console.log("Cookies are enabled.");
+      };
+      function CheckCookies() {
+        let cookiesEnabled = navigator.cookieEnabled;
+        if (!cookiesEnabled) {
+          alert(
+            "Cookies are disabled in your browser. Please enable cookies to use this feature."
+          );
+        } else {
+          document.getElementById("showCookie").innerHTML =
+            "Welcome back! " + getCookie("username");
+        }
+      }
+      
+
+
+      // ---------------------------------------------------------
+      // Function: Save TWO Cookies (username + favoriteColor)
+      // ---------------------------------------------------------
+      function saveCookies() {
+        const name = document.getElementById("nameBox").value;
+
+        // Create an expiration date 7 days from now
+        const expiration = new Date();
+        expiration.setDate(expiration.getDate() + 7);
+
+        // Create cookie 1
+        document.cookie =
+          "username=" +
+          name +
+          "; expires=" +
+          expiration.toUTCString() +
+          "; path=/";
+
+        location.replace("test2.html");
+      }
+
+      // ---------------------------------------------------------
+      // Helper Function: Get a specific cookie by name
+      // ---------------------------------------------------------
+      function getCookie(cookieName) {
+        // Split all cookies into an array
+        const cookies = document.cookie.split(";");
+
+        // Loop through cookie list
+        for (let c of cookies) {
+          c = c.trim();
+
+          // Look for "cookieName="
+          if (c.startsWith(cookieName + "=")) {
+            // Return only the value
+            return c.substring(cookieName.length + 1);
+          }
+        }
+
+        return null; // Not found
+      }
+
+
+      // ---------------------------------------------------------
+      // Function: Delete Both Cookies
+      // ---------------------------------------------------------
+      function deleteCookies() {
+        // Set expiration to a past date to remove cookies
+        document.cookie =
+          "username=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/"; //Get old expiration date to deletz cooky
+
+          
+          history.back();
+        document.getElementById("result").innerHTML = "";
+      }
+    </script>
+  </body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--Teacher solution with display none-->
+
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Login Simulation with Cookies</title>
+
+    <style>
+      /* Center page content */
+      body {
+        margin: 0;
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: #f0f2f5;
+        font-family: Arial, sans-serif;
+      }
+
+      /* Card container */
+      .card {
+        background: #ffffff;
+        padding: 30px 40px;
+        border-radius: 12px;
+        box-shadow: 0 4px 18px rgba(0, 0, 0, 0.12);
+        width: 360px;
+        text-align: center;
+      }
+
+      h2 {
+        margin-top: 0;
+        margin-bottom: 20px;
+        color: #333;
+      }
+
+      input {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 15px;
+        border-radius: 8px;
+        border: 1px solid #ccc;
+        font-size: 1rem;
+        box-sizing: border-box;
+      }
+
+      button {
+        width: 100%;
+        padding: 10px;
+        margin-top: 6px;
+        border: none;
+        border-radius: 8px;
+        background-color: #007bff;
+        color: #fff;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: 0.3s;
+      }
+
+      button:hover {
+        background-color: #0056b3;
+        transform: scale(1.03);
+      }
+
+      #welcomeMessage {
+        margin-top: 15px;
+        font-size: 1rem;
+        color: #222;
+        min-height: 24px;
+      }
+
+      #logoutBtn {
+        margin-top: 10px;
+        background-color: #dc3545;
+      }
+
+      #logoutBtn:hover {
+        background-color: #b02a37;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="card">
+      <h2>Login Simulation (Cookies)</h2>
+
+      <!-- Login form (shown only if user is NOT "logged in") -->
+      <div id="loginSection">
+        <input id="usernameInput" type="text" placeholder="Enter username..." />
+        <button onclick="login()">Login</button>
+      </div>
+
+      <!-- Welcome message (updated based on cookie) -->
+      <div id="welcomeMessage"></div>
+
+      <!-- Logout button (shown only if cookie exists) -->
+      <button id="logoutBtn" onclick="logout()" style="display: none">
+        Logout
+      </button>
+    </div>
+
+    <script>
+      // -------------------------------------------------------------------
+      // Helper: Get a specific cookie by its name
+      // -------------------------------------------------------------------
+      function getCookie(name) {
+        // document.cookie returns all cookies in one string: "key=value; key2=value2"
+        const cookies = document.cookie.split(";");
+
+        // Loop over each "key=value" pair
+        for (let i = 0; i < cookies.length; i++) {
+          // Remove any leading spaces
+          let c = cookies[i].trim();
+
+          // Does this cookie start with "name=" ?
+          if (c.startsWith(name + "=")) {
+            // Return the value part only (after "name=")
+            return c.substring(name.length + 1);
+          }
+        }
+
+        // If not found, return null
+        return null;
+      }
+
+      // -------------------------------------------------------------------
+      // Helper: Set a cookie with name, value and expiration (in days)
+      // -------------------------------------------------------------------
+      function setCookie(name, value, days) {
+        // Create a new Date object for the expiration time
+        const expiration = new Date();
+        // Add "days" to the current date
+        expiration.setDate(expiration.getDate() + days);
+
+        // Build the cookie string
+        document.cookie =
+          name +
+          "=" +
+          value +
+          "; expires=" +
+          expiration.toUTCString() +
+          "; path=/"; // path=/ means the whole site can access this cookie
+      }
+
+      // -------------------------------------------------------------------
+      // Helper: Delete a cookie by setting it to an empty value and
+      // an expiration date in the past
+      // -------------------------------------------------------------------
+      function deleteCookie(name) {
+        document.cookie =
+          name + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/";
+      }
+
+      // -------------------------------------------------------------------
+      // Login function:
+      // 1) Read username from the input
+      // 2) Save it in a cookie with 7-day expiration
+      // 3) Update UI to "Welcome back, USER!"
+      // -------------------------------------------------------------------
+      function login() {
+        const usernameInput = document.getElementById("usernameInput");
+        const username = usernameInput.value.trim();
+
+        // Do nothing if user didn't type anything
+        if (username === "") {
+          alert("Please enter a username.");
+          return;
+        }
+
+        // Save cookie "username" that expires in 7 days
+        setCookie("username", username, 7);
+
+        // Clear the input box
+        usernameInput.value = "";
+
+        // Update the interface to show welcome message
+        showWelcomeMessage();
+      }
+
+      // -------------------------------------------------------------------
+      // Logout function:
+      // 1) Delete the "username" cookie
+      // 2) Show the login form again
+      // 3) Clear the welcome message
+      // -------------------------------------------------------------------
+      function logout() {
+        // Remove the cookie
+        deleteCookie("username");
+
+        // Show the login section again
+        document.getElementById("loginSection").style.display = "block";
+
+        // Hide the logout button
+        document.getElementById("logoutBtn").style.display = "none";
+
+        // Clear the welcome message
+        document.getElementById("welcomeMessage").textContent = "";
+      }
+
+      // -------------------------------------------------------------------
+      // Show the welcome message if cookie exists.
+      // This function is used after login AND on page load.
+      // -------------------------------------------------------------------
+      function showWelcomeMessage() {
+        const username = getCookie("username");
+        const loginSection = document.getElementById("loginSection");
+        const welcomeMessage = document.getElementById("welcomeMessage");
+        const logoutBtn = document.getElementById("logoutBtn");
+
+        if (username !== null) {
+          // If cookie exists → simulate "logged in"
+          welcomeMessage.textContent = "Welcome back, " + username + "!";
+          // Hide login form because user is "logged in"
+          loginSection.style.display = "none";
+          // Show logout button
+          logoutBtn.style.display = "block";
+        } else {
+          // No cookie → no user logged in yet
+          welcomeMessage.textContent = "";
+          loginSection.style.display = "block";
+          logoutBtn.style.display = "none";
+        }
+      }
+
+      // -------------------------------------------------------------------
+      // On page load:
+      // Check if "username" cookie exists.
+      // If yes → show "Welcome back, USER!"
+      // If no  → show login form.
+      // -------------------------------------------------------------------
+      window.onload = function () {
+        showWelcomeMessage();
+      };
+      
+    </script>
+  </body>
+</html>
+
+
+
+

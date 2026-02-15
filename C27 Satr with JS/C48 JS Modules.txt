@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>JavaScript Type System Demo</title>
+
+    <style></style>
+  </head>
+  <body>
+    <script type="module">
+      // Activity1
+      /*
+        🔹 Without modules:
+        let config is declared twice → JavaScript throws an error → app crashes.
+
+        🔹 With modules:
+        Each config is private → no conflict → app works correctly.
+      */
+
+      //Activity2
+
+      /*
+        Without type="module"
+      🔹 x becomes a global variable
+      🔹 window.x exists
+      🔹 No error is thrown
+
+
+      With type="module"
+      <script type="module" src="app.js"></scrip>
+
+       JavaScript runs in strict mode
+       x = 10 causes an error
+       No variable is added to window
+
+      📌 This demonstrates:
+
+      Strict mode
+      Module scope
+      Global safety
+      */
+
+      //Activity3
+
+      //export const PI = 3.14;
+
+      /* export function multiply(a, b) {
+        return a * b;
+      }
+
+      export class Calculator {
+        calculate(a, b) {
+          return a + b;
+        }
+      }/*
+
+
+
+      /*
+        🔹 Calculator is a good default export
+
+        🔹 It represents the main responsibility of the module
+
+        🔹 Constants and helper functions are better as named exports
+
+      */
+
+      import { multiply, PI } from "./mathUtils.js";
+
+      import * as Calculator from "./mathUtils.js";
+
+      const myCalc = new Calculator.Calculator();
+
+      console.log(myCalc.calculate(2, 4));
+
+      //ex
+
+      import { add as sum, PI } from "./math.js";
+
+      console.log(add(2, 3), PI);
+      console.log(sum(5, 3));
+
+      import myGreet from "./greet.js";
+
+      myGreet();
+
+      /*
+          Named imports
+          Default import
+          Import renaming
+          Clean module usage
+
+        */
+
+      //Activity 4
+
+      //      import { helper } from "./utils.js";
+
+      /*
+
+            🔹 "utils" is a bare path 🔹 Browsers cannot resolve package names
+            🔹 No file extension is provided
+
+
+            2)
+            🔹 utils.js executes once only
+            🔹 All imports share the same instance
+
+            📌 This is due to module caching.
+
+        */
+
+      //Activity 5
+
+      /* /modules
+        math.js
+        user.js
+        api.js
+
+
+
+        export class Calculator {
+        add(a, b) {
+          this.#validateNumbers(a, b);
+          return a + b;
+        }
+
+        multiplication(a, b) {
+          this.#validateNumbers(a, b);
+          return a * b;
+        }
+
+        substraction(a, b) {
+          this.#validateNumbers(a, b);
+          return a - b;
+        }
+
+        division(a, b) {
+          this.#validateNumbers(a, b);
+          this.#validateZero(b);
+          return a / b;
+        }
+
+        #validateNumbers(a, b) {
+          if (typeof a !== 'number' || typeof b !== 'number') {
+              throw new Error("You must enter only a number");
+          }
+          }
+          #validateZero(b) {
+          if (typeof b === 0 ) {
+              throw new Error("you should have great tan zero value");
+          }
+          }
+      }
+
+      
+
+    export class User {}
+
+    export function DataHandler(value)
+    {
+        if (value === "" || typeof value === "number" ) {
+            throw new Error("your input is empty value or number typed");   
+        }
+    }
+
+
+
+    export function fetchData() {}
+
+    
+    3️⃣ Private Functions
+    🔹 Input validation
+
+    🔹 Formatting helpers
+
+    🔹 Internal calculations
+
+
+        */
+
+      //Activity 5
+
+      /*
+
+            1️⃣ Dependency Graph
+          main → auth → api
+
+          2️⃣ Exports
+          🔹 api.js → fetchData() 🔹 auth.js → login(), logout()
+          🔹 main.js → no exports (entry point)
+
+          3️⃣ Private Logic
+          🔹 Token handling
+          🔹 Input validation
+          🔹 Helper formatting functions
+
+          📌 These stay private to keep modules clean and safe.
+        */
+    </script>
+    <script type="module" src="mathUtils.js"></script>
+  </body>
+</html>

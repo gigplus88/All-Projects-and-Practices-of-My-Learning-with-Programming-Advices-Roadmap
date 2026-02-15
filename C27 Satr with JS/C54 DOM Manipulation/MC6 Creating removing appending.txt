@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>classList Activity — Full Working Example</title>
+
+    <style>
+     
+      * {
+        box-sizing: border-box;
+      }
+
+     
+    </style>
+  </head>
+
+  <body>
+    <p>add many items, then click on specific one to remove it</p>
+
+    <label for="addItem">Add Item</label>
+    <input id="inputText" type="text" name="addItem" >
+    <button id="btn" >Add Item</button>
+        <button id="rst" >Reset</button>
+
+    
+    <div class="container">
+     
+    </div>
+    <script>
+    const container = document.querySelector(".container");
+    const btn = document.querySelector("#btn");
+    const listInput = document.querySelector("#inputText");
+    const rst = document.querySelector("#rst");
+
+      const ul = document.createElement("ul");
+      container.append(ul );
+
+
+     
+
+      btn.addEventListener( "click" ,  () => {
+
+      console.log("is clicked");
+      const li = document.createElement("li");
+
+      const text =  listInput.value.trim() ;
+      if(text) return;
+
+      li.textContent = text  ;
+      ul.style.listStyle = "none";
+      li.style.cursor = "pointer" ;
+      
+
+      li.addEventListener("click", () => {
+      li.remove();
+      });
+
+      ul.append(li );
+      }  );
+
+      listInput.value === "";
+      listInput.focus();      
+
+      rst.addEventListener( "click" , () => {
+        console.log("it s reset")
+        listInput.value = "" ;
+      } )
+      //container.append(p , "good idea" , " sensitive" ); // adding eleements and texts , mixing 
+
+
+       //container.appendChild(p , "good idea" , " sensitive" );
+
+    </script>
+  </body>
+</html>

@@ -1,0 +1,952 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Subscription Expiration Logic — Modern UI</title>
+
+    <style>
+      /* ============================================================
+         ✅ Modern UI — Subscription Expiration Logic
+         ============================================================
+         🔹 Dark theme
+         🔹 Responsive layout
+         🔹 Helpful status badges + countdown
+      ============================================================ */
+
+      :root {
+        color-scheme: dark;
+
+        /* 🔹 Design tokens (colors/spacing reused across UI) */
+        --bg: #0b1020;
+        --card: rgba(255, 255, 255, 0.06);
+        --card-2: rgba(255, 255, 255, 0.08);
+        --border: rgba(255, 255, 255, 0.12);
+        --text: #e9eefc;
+        --muted: rgba(233, 238, 252, 0.7);
+
+        --accent: #7aa2ff;
+        --good: #39d98a;
+        --warn: #ffcc66;
+        --bad: #ff5c7a;
+
+        --radius: 18px;
+        --shadow: 0 18px 40px rgba(0, 0, 0, 0.45);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        display: grid;
+        place-items: center;
+        padding: 24px;
+        font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial,
+          sans-serif;
+
+        /* ✅ Soft radial glow background */
+        background: radial-gradient(
+            1200px 800px at 20% 10%,
+            rgba(122, 162, 255, 0.18),
+            transparent 60%
+          ),
+          radial-gradient(
+            1000px 700px at 90% 20%,
+            rgba(255, 204, 102, 0.12),
+            transparent 60%
+          ),
+          var(--bg);
+
+        color: var(--text);
+      }
+
+      .app {
+        /* ❗ NOTE: your original code has a small typo:
+           width: min(1, 020px, 100%);
+           This should be:
+           width: min(1020px, 100%);
+           I fixed it below so layout works correctly. */
+        width: min(1020px, 100%);
+        display: grid;
+        gap: 16px;
+      }
+
+      header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        padding: 18px 20px;
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        background: var(--card);
+        box-shadow: var(--shadow);
+      }
+
+      .title {
+        display: grid;
+        gap: 4px;
+      }
+
+      .title h1 {
+        margin: 0;
+        font-size: 20px;
+        letter-spacing: 0.2px;
+      }
+
+      .title p {
+        margin: 0;
+        color: var(--muted);
+        font-size: 13px;
+      }
+
+      .chip {
+        border: 1px solid var(--border);
+        background: var(--card-2);
+        padding: 8px 10px;
+        border-radius: 999px;
+        font-size: 12px;
+        color: var(--muted);
+        white-space: nowrap;
+      }
+
+      .grid {
+        display: grid;
+        gap: 16px;
+        grid-template-columns: 1.08fr 0.92fr;
+      }
+
+      @media (max-width: 900px) {
+        .grid {
+          grid-template-columns: 1fr; /* ✅ Stack panels on small screens */
+        }
+      }
+
+      .card {
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        background: var(--card);
+        box-shadow: var(--shadow);
+        overflow: hidden;
+      }
+
+      .cardHead {
+        padding: 16px 18px;
+        border-bottom: 1px solid var(--border);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+      }
+
+      .cardHead h2 {
+        margin: 0;
+        font-size: 15px;
+      }
+
+      .cardBody {
+        padding: 18px;
+        display: grid;
+        gap: 14px;
+      }
+
+      .row2 {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+      }
+
+      @media (max-width: 560px) {
+        .row2 {
+          grid-template-columns: 1fr; /* ✅ Stack inputs on narrow screens */
+        }
+      }
+
+      label {
+        display: grid;
+        gap: 8px;
+      }
+
+      .labelRow {
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        gap: 10px;
+      }
+
+      .labelRow span {
+        color: var(--muted);
+        font-size: 13px;
+      }
+
+      input,
+      select {
+        width: 100%;
+        padding: 12px 12px;
+        border-radius: 12px;
+        border: 1px solid var(--border);
+        background: rgba(255, 255, 255, 0.06);
+        color: var(--text);
+        outline: none;
+      }
+
+      input:focus,
+      select:focus {
+        border-color: rgba(122, 162, 255, 0.6);
+        box-shadow: 0 0 0 3px rgba(122, 162, 255, 0.18);
+      }
+
+      .toggleRow {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        align-items: center;
+      }
+
+      .switch {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 10px 12px;
+        border-radius: 12px;
+        border: 1px solid var(--border);
+        background: rgba(255, 255, 255, 0.05);
+        user-select: none;
+      }
+
+      .switch input {
+        width: 18px;
+        height: 18px;
+        accent-color: var(--accent);
+      }
+
+      .btnRow {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+
+      button {
+        cursor: pointer;
+        border: 1px solid var(--border);
+        background: rgba(255, 255, 255, 0.08);
+        color: var(--text);
+        padding: 11px 14px;
+        border-radius: 12px;
+        font-weight: 700;
+        letter-spacing: 0.2px;
+      }
+
+      button.primary {
+        border-color: rgba(122, 162, 255, 0.55);
+        background: rgba(122, 162, 255, 0.16);
+      }
+
+      button:hover {
+        filter: brightness(1.08);
+      }
+
+      .msg {
+        padding: 10px 12px;
+        border-radius: 12px;
+        border: 1px solid var(--border);
+        background: rgba(255, 255, 255, 0.05);
+        color: var(--muted);
+        font-size: 13px;
+      }
+
+      .msg.bad {
+        border-color: rgba(255, 92, 122, 0.55);
+        background: rgba(255, 92, 122, 0.12);
+        color: rgba(255, 210, 219, 0.95);
+      }
+
+      .msg.good {
+        border-color: rgba(57, 217, 138, 0.55);
+        background: rgba(57, 217, 138, 0.12);
+        color: rgba(209, 255, 234, 0.95);
+      }
+
+      .msg.warn {
+        border-color: rgba(255, 204, 102, 0.55);
+        background: rgba(255, 204, 102, 0.12);
+        color: rgba(255, 244, 214, 0.95);
+      }
+
+      .stats {
+        display: grid;
+        gap: 12px;
+      }
+
+      .statGrid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+      }
+
+      @media (max-width: 560px) {
+        .statGrid {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      .stat {
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        padding: 14px 14px;
+        background: rgba(255, 255, 255, 0.05);
+      }
+
+      .stat .k {
+        color: var(--muted);
+        font-size: 12px;
+      }
+
+      .stat .v {
+        margin-top: 6px;
+        font-size: 20px;
+        font-weight: 900;
+        letter-spacing: 0.2px;
+      }
+
+      .badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 10px;
+        border-radius: 999px;
+        border: 1px solid var(--border);
+        background: rgba(255, 255, 255, 0.06);
+        font-size: 12px;
+        color: var(--muted);
+        white-space: nowrap;
+      }
+
+      .badge.good {
+        border-color: rgba(57, 217, 138, 0.55);
+        background: rgba(57, 217, 138, 0.12);
+        color: rgba(209, 255, 234, 0.95);
+      }
+
+      .badge.warn {
+        border-color: rgba(255, 204, 102, 0.55);
+        background: rgba(255, 204, 102, 0.12);
+        color: rgba(255, 244, 214, 0.95);
+      }
+
+      .badge.bad {
+        border-color: rgba(255, 92, 122, 0.55);
+        background: rgba(255, 92, 122, 0.12);
+        color: rgba(255, 210, 219, 0.95);
+      }
+
+      .smallLine {
+        color: var(--muted);
+        font-size: 13px;
+        line-height: 1.6;
+      }
+
+      .footerNote {
+        text-align: center;
+        color: var(--muted);
+        font-size: 12px;
+        padding: 6px 0 0;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="app">
+      <!-- ✅ Header -->
+      <header>
+        <div class="title">
+          <h1>💳 Subscription Expiration Logic</h1>
+          <p>Check if a subscription is active, expiring soon, or expired.</p>
+        </div>
+        <div class="chip" id="todayChip">Today: —</div>
+      </header>
+
+      <div class="grid">
+        <!-- ✅ Inputs -->
+        <section class="card">
+          <div class="cardHead">
+            <h2>🧾 Inputs</h2>
+            <span class="chip">Vanilla JS • Real Date Rules</span>
+          </div>
+
+          <div class="cardBody">
+            <div class="row2">
+              <label>
+                <div class="labelRow">
+                  <span>Start Date</span>
+                  <span>(Required)</span>
+                </div>
+                <input id="startDate" type="date" />
+              </label>
+
+              <label>
+                <div class="labelRow">
+                  <span>Plan</span>
+                  <span>(Required)</span>
+                </div>
+
+                <!-- ✅ Select plan duration -->
+                <select id="plan">
+                  <option value="7">Weekly (7 days)</option>
+                  <option value="30" selected>Monthly (30 days)</option>
+                  <option value="90">Quarterly (90 days)</option>
+                  <option value="365">Yearly (365 days)</option>
+                </select>
+              </label>
+            </div>
+
+            <div class="row2">
+              <label>
+                <div class="labelRow">
+                  <span>Grace Period (days)</span>
+                  <span>(Optional)</span>
+                </div>
+                <input id="graceDays" type="number" min="0" value="0" />
+              </label>
+
+              <label>
+                <div class="labelRow">
+                  <span>Expiring Soon Threshold (days)</span>
+                  <span>(Optional)</span>
+                </div>
+                <input id="soonDays" type="number" min="0" value="7" />
+              </label>
+            </div>
+
+            <div class="toggleRow">
+              <label
+                class="switch"
+                title="If enabled, subscription counts as valid on the end date too."
+              >
+                <input id="inclusiveEnd" type="checkbox" checked />
+                <span>Inclusive end date</span>
+              </label>
+
+              <label
+                class="switch"
+                title="If enabled, we ignore real calendar months and use fixed day counts (7/30/90/365)."
+              >
+                <input id="fixedDaysMode" type="checkbox" checked />
+                <span>Fixed-days plan mode</span>
+              </label>
+            </div>
+
+            <div class="btnRow">
+              <button class="primary" id="btnCheck">Check Status</button>
+              <button id="btnDemo">Demo (Start 20 days ago)</button>
+              <button id="btnClear">Clear</button>
+            </div>
+
+            <div class="msg" id="msgBox">
+              Tip: Choose a start date, plan, then click “Check Status”.
+            </div>
+
+            <div class="smallLine">
+              🔹 Status types: <b>Active</b> ✅, <b>Expiring Soon</b> ⚠️,
+              <b>Expired</b> ❌, <b>In Grace</b> 🕒<br />
+              🔹 You can simulate different business rules using the toggles.
+            </div>
+          </div>
+        </section>
+
+        <!-- ✅ Results -->
+        <section class="card">
+          <div class="cardHead">
+            <h2>📊 Results</h2>
+            <span class="chip" id="statusChip">Waiting…</span>
+          </div>
+
+          <div class="cardBody stats">
+            <div class="badge" id="badge">Status: —</div>
+
+            <div class="statGrid">
+              <div class="stat">
+                <div class="k">End Date</div>
+                <div class="v" id="outEnd">—</div>
+              </div>
+
+              <div class="stat">
+                <div class="k">Days Left</div>
+                <div class="v" id="outDaysLeft">—</div>
+              </div>
+
+              <div class="stat">
+                <div class="k">Grace Ends</div>
+                <div class="v" id="outGraceEnd">—</div>
+              </div>
+
+              <div class="stat">
+                <div class="k">Final Valid Until</div>
+                <div class="v" id="outFinalValid">—</div>
+              </div>
+            </div>
+
+            <div class="smallLine" id="detailsLine">Details: —</div>
+          </div>
+        </section>
+      </div>
+
+      <div class="footerNote">
+        Built with ❤️ using HTML + CSS + JavaScript (no libraries)
+      </div>
+    </div>
+
+    <script>
+      /* ============================================================
+         ✅ Code Overview (Subscription Expiration Logic)
+         ============================================================
+         🔹 Purpose       → Determine subscription state (active/soon/expired/grace)
+         🔹 Layout        → Left: rules & inputs | Right: status & dates
+         🔹 Use Cases     → SaaS memberships, courses access, billing checks
+         🔹 Key Properties→ End date calc, inclusive end, grace period, thresholds
+      ============================================================ */
+
+      /* ============================================================
+         ✅ 1) DOM Elements (Grab UI references once)
+         ============================================================ */
+
+      // Inputs
+      const startDateInput = document.getElementById("startDate");
+      const planInput = document.getElementById("plan");
+      const graceDaysInput = document.getElementById("graceDays");
+      const soonDaysInput = document.getElementById("soonDays");
+
+      // Toggles
+      const inclusiveEndInput = document.getElementById("inclusiveEnd");
+      const fixedDaysModeInput = document.getElementById("fixedDaysMode");
+
+      // Buttons
+      const btnCheck = document.getElementById("btnCheck");
+      const btnDemo = document.getElementById("btnDemo");
+      const btnClear = document.getElementById("btnClear");
+
+      // UI feedback
+      const msgBox = document.getElementById("msgBox");
+      const statusChip = document.getElementById("statusChip");
+      const todayChip = document.getElementById("todayChip");
+      const badge = document.getElementById("badge");
+
+      // Outputs
+      const outEnd = document.getElementById("outEnd");
+      const outDaysLeft = document.getElementById("outDaysLeft");
+      const outGraceEnd = document.getElementById("outGraceEnd");
+      const outFinalValid = document.getElementById("outFinalValid");
+      const detailsLine = document.getElementById("detailsLine");
+
+      /* ============================================================
+         ✅ 2) Helpers (small reusable functions)
+         ============================================================ */
+
+      // Constant used to convert milliseconds to "days"
+      const msPerDay = 1000 * 60 * 60 * 24;
+
+      /**
+       * ✅ stripTime(date)
+       * Converts any Date into a "date-only" (midnight) Date.
+       * This avoids time-zone / time-of-day bugs in comparisons.
+       */
+      function stripTime(date) {
+        return new Date(date.getFullYear(), date.getMonth(), date.getDate());
+      }
+
+      /**
+       * ✅ parseDateInput(value)
+       * Safely parses "YYYY-MM-DD" into a Date using (year, monthIndex, day).
+       * We avoid new Date("YYYY-MM-DD") because it can shift due to timezone.
+       */
+      function parseDateInput(value) {
+        const [y, m, d] = value.split("-").map(Number);
+        return new Date(y, m - 1, d);
+      }
+
+      /**
+       * ✅ formatDate(date)
+       * Returns a friendly date string like "Dec 23, 2025".
+       */
+      function formatDate(date) {
+        return date.toLocaleDateString(undefined, {
+          year: "numeric",
+          month: "short",
+          day: "2-digit",
+        });
+      }
+
+      /**
+       * ✅ showMessage(type, text)
+       * type: "good" | "warn" | "bad" | "neutral"
+       * Adds matching styling class and updates message text.
+       */
+      function showMessage(type, text) {
+        msgBox.classList.remove("good", "warn", "bad");
+        if (type === "good") msgBox.classList.add("good");
+        if (type === "warn") msgBox.classList.add("warn");
+        if (type === "bad") msgBox.classList.add("bad");
+        msgBox.textContent = text;
+      }
+
+      /**
+       * ✅ setStatus(text)
+       * Updates the small status chip in the Results header.
+       */
+      function setStatus(text) {
+        statusChip.textContent = text;
+      }
+
+      /**
+       * ✅ setBadge(type, text)
+       * Updates the main "Status" badge (Active / Soon / Grace / Expired).
+       */
+      function setBadge(type, text) {
+        badge.classList.remove("good", "warn", "bad");
+        if (type === "good") badge.classList.add("good");
+        if (type === "warn") badge.classList.add("warn");
+        if (type === "bad") badge.classList.add("bad");
+        badge.textContent = text;
+      }
+
+      /**
+       * ✅ resetOutputs()
+       * Restores the Results panel to default state.
+       */
+      function resetOutputs() {
+        outEnd.textContent = "—";
+        outDaysLeft.textContent = "—";
+        outGraceEnd.textContent = "—";
+        outFinalValid.textContent = "—";
+        detailsLine.textContent = "Details: —";
+        setBadge("neutral", "Status: —");
+        setStatus("Waiting…");
+      }
+
+      /**
+       * ✅ safeInt(value, fallback)
+       * Ensures numeric inputs don't become NaN and never go negative.
+       */
+      function safeInt(value, fallback = 0) {
+        const n = Number(value);
+        return Number.isFinite(n) && n >= 0 ? Math.floor(n) : fallback;
+      }
+
+      /* ============================================================
+         ✅ 3) Date Math: Adding days / months / years
+         ============================================================ */
+
+      /**
+       * ✅ addDays(date, days)
+       * Adds N days to a date using Date.setDate().
+       */
+      function addDays(date, days) {
+        const d = new Date(date);
+        d.setDate(d.getDate() + days);
+        return d;
+      }
+
+      /**
+       * ✅ addCalendarMonths(date, months)
+       * Adds months using calendar rules.
+       * Example: Jan 31 + 1 month -> Feb 28/29 automatically.
+       */
+      function addCalendarMonths(date, months) {
+        const d = new Date(date);
+        d.setMonth(d.getMonth() + months);
+        return d;
+      }
+
+      /**
+       * ✅ addCalendarYears(date, years)
+       * Adds years using calendar rules.
+       * Example: Feb 29, 2024 + 1 year -> Feb 28, 2025 (auto-adjust).
+       */
+      function addCalendarYears(date, years) {
+        const d = new Date(date);
+        d.setFullYear(d.getFullYear() + years);
+        return d;
+      }
+
+      /**
+       * ✅ computeEndDate(start, planValue, fixedDaysMode)
+       * Core business rule: how do we compute an end date?
+       *
+       * If fixedDaysMode is ON:
+       *   🔹 Weekly  = start + 7 days
+       *   🔹 Monthly = start + 30 days
+       *   🔹 etc...
+       *
+       *   🔹 Weekly   => +7 days
+       * If fixedDaysMode is OFF (calendar-based):
+       *   🔹 Monthly  => +1 calendar month
+       *   🔹 Quarterly=> +3 calendar months
+       *   🔹 Yearly   => +1 calendar year
+       */
+      function computeEndDate(start, planValue, fixedDaysMode) {
+        const planDays = Number(planValue);
+
+
+        if (fixedDaysMode) {
+          // ✅ Simple approach: always add N days
+          return addDays(start, planDays);
+        }
+
+        // ✅ Calendar-based approach (more realistic for billing cycles)
+        if (planDays === 7) return addDays(start, 7);
+        if (planDays === 30) return addCalendarMonths(start, 1);
+        if (planDays === 90) return addCalendarMonths(start, 3);
+        if (planDays === 365) return addCalendarYears(start, 1);
+
+        // Fallback
+        return addDays(start, planDays);
+      }
+
+      /* ============================================================
+         ✅ 4) Status Decision Logic (Active / Soon / Grace / Expired)
+         ============================================================ */
+
+      /**
+       * ✅ getSubscriptionStatus(config)
+       * Returns:
+       * {
+       *   status, uiType,
+       *   endDate, effectiveEnd, graceEnd, finalValidUntil,
+       *   daysLeft
+       * }
+       *
+       * Business interpretation:
+       * 🔹 endDate       → raw plan end (based on plan rule)
+       * 🔹 effectiveEnd  → last valid day (depends on inclusiveEnd)
+       * 🔹 graceEnd      → effectiveEnd + graceDays
+       * 🔹 finalValidUntil → graceEnd if grace exists, else effectiveEnd
+       *
+       * Status rules:
+       * 🔹 ACTIVE        → today <= effectiveEnd
+       * 🔹 EXPIRING_SOON → ACTIVE but daysLeft <= soonThresholdDays
+       * 🔹 IN_GRACE      → after effectiveEnd but still <= graceEnd
+       * 🔹 EXPIRED       → after effectiveEnd and not in grace
+       */
+      function getSubscriptionStatus({
+        startDate,
+        planValue,
+        fixedDaysMode,
+        inclusiveEnd,
+        graceDays,
+        soonThresholdDays,
+        today,
+      }) {
+        // 1️⃣ Compute plan end date (date-only)
+        const endDate = stripTime(
+          computeEndDate(startDate, planValue, fixedDaysMode)
+        );
+
+        // 2️⃣ Decide what counts as the "last valid day"
+        // Inclusive ON  => end date counts as valid
+        // Inclusive OFF => last valid day is endDate - 1
+        const effectiveEnd = inclusiveEnd ? endDate : addDays(endDate, -1);
+
+        // 3️⃣ Grace ends at (effectiveEnd + graceDays)
+        const graceEnd = stripTime(addDays(effectiveEnd, graceDays));
+
+        // 4️⃣ Normalize today for comparison
+        const t = stripTime(today);
+
+        // 5️⃣ Days left can be positive, 0, or negative
+        const daysLeft = Math.floor((effectiveEnd - t) / msPerDay);
+
+        // 6️⃣ Status checks
+        const isActive = (t <= effectiveEnd);
+        const inGrace = !isActive && graceDays > 0 && t <= graceEnd;
+
+        let status = "EXPIRED";
+        let uiType = "bad";
+
+        if (isActive) {
+          if (daysLeft <= soonThresholdDays) {
+            status = "EXPIRING_SOON";
+            uiType = "warn";
+          } else {
+            status = "ACTIVE";
+            uiType = "good";
+          }
+        } else if (inGrace) {
+          status = "IN_GRACE";
+          uiType = "warn";
+        }
+
+        const finalValidUntil = graceDays > 0 ? graceEnd : effectiveEnd;
+
+        return {
+          status,
+          uiType,
+          endDate,
+          effectiveEnd,
+          graceEnd: graceDays > 0 ? graceEnd : null,
+          finalValidUntil,
+          daysLeft,
+        };
+      }
+
+      /* ============================================================
+         ✅ 5) UI Action: Check Status Button
+         ============================================================ */
+
+      function checkStatus() {
+        const startVal = startDateInput.value;
+
+        // ✅ Validate start date
+        if (!startVal) {
+          showMessage("bad", "❌ Please select a start date.");
+          resetOutputs();
+          return;
+        }
+
+        // ✅ Parse and normalize input values
+        const startDate = stripTime(parseDateInput(startVal));
+        const planValue = planInput.value;
+
+        const graceDays = safeInt(graceDaysInput.value, 0);
+        const soonDays = safeInt(soonDaysInput.value, 7);
+
+        const inclusiveEnd = inclusiveEndInput.checked;
+        const fixedDaysMode = fixedDaysModeInput.checked;
+
+        const today = new Date();
+
+        // ✅ Calculate business result
+        const result = getSubscriptionStatus({
+          startDate,
+          planValue,
+          fixedDaysMode,
+          inclusiveEnd,
+          graceDays,
+          soonThresholdDays: soonDays,
+          today,
+        });
+
+        // ✅ Update result UI
+        outEnd.textContent = formatDate(result.endDate);
+        outDaysLeft.textContent = result.daysLeft.toLocaleString();
+        outGraceEnd.textContent = result.graceEnd
+          ? formatDate(result.graceEnd)
+          : "—";
+        outFinalValid.textContent = formatDate(result.finalValidUntil);
+
+        // ✅ Show badge + message based on status
+
+        //Active
+        if (result.status === "ACTIVE") {
+          setBadge("good", "Status: ACTIVE ✅");
+          showMessage("good", "✅ Subscription is active.");
+        }
+        
+        //EXPIRING_SOON
+        else if (result.status === "EXPIRING_SOON") {
+          setBadge("warn", "Status: EXPIRING SOON ⚠️");
+          showMessage(
+            "warn",
+            `⚠️ Subscription will expire soon (≤ ${soonDays} days left).`
+          );
+        }
+        
+        
+        //IN_GRACE
+        else if (result.status === "IN_GRACE") {
+          setBadge("warn", "Status: IN GRACE 🕒");
+          showMessage(
+            "warn",
+            "🕒 Subscription expired, but user is still within grace period."
+          );
+        } 
+        
+        
+        //EXPIRED
+        else {
+          setBadge("bad", "Status: EXPIRED ❌");
+          showMessage("bad", "❌ Subscription is expired.");
+        }
+
+        // ✅ Details line explains which business rules were used
+        const planLabel = planInput.options[planInput.selectedIndex].text; // Selected Plan
+        const modeLabel = fixedDaysMode ? "Fixed-days" : "Calendar-based";
+        const endRule = inclusiveEnd
+          ? "Inclusive end date"
+          : "Exclusive end date";
+
+        detailsLine.textContent =
+          `Details: Plan = ${planLabel} | Mode = ${modeLabel} | ` +
+          `${endRule} | Grace = ${graceDays} day(s) | Soon threshold = ${soonDays} day(s)`;
+
+        setStatus("Checked ✅");
+      }
+
+      /* ============================================================
+         ✅ 6) Events (buttons + input changes)
+         ============================================================ */
+
+      // Show today's date in the header chip
+      todayChip.textContent = `Today: ${formatDate(new Date())}`;
+
+      // Main button
+      btnCheck.addEventListener("click", checkStatus);
+
+      // Demo: start 20 days ago + useful defaults
+      btnDemo.addEventListener("click", () => {
+        const t = new Date();
+        t.setDate(t.getDate() - 20);
+
+        // Convert to YYYY-MM-DD for the date input
+        const yyyy = t.getFullYear();
+        const mm = String(t.getMonth() + 1).padStart(2, "0");
+        const dd = String(t.getDate()).padStart(2, "0");
+        startDateInput.value = `${yyyy}-${mm}-${dd}`;
+
+        planInput.value = "30"; // monthly
+        graceDaysInput.value = "5";
+        soonDaysInput.value = "7";
+        inclusiveEndInput.checked = true;
+        fixedDaysModeInput.checked = true;
+
+        setStatus("Ready…");
+        showMessage("neutral", "📌 Demo values set. Click “Check Status”.");
+      });
+
+      // Clear: reset everything
+      btnClear.addEventListener("click", () => {
+        startDateInput.value = "";
+        planInput.value = "30";
+        graceDaysInput.value = "0";
+        soonDaysInput.value = "7";
+        inclusiveEndInput.checked = true;
+        fixedDaysModeInput.checked = true;
+
+        resetOutputs();
+        showMessage(
+          "neutral",
+          "Tip: Choose a start date, plan, then click “Check Status”."
+        );
+      });
+
+      // Bonus UX: change any input => show Ready…
+      [
+        startDateInput,
+        planInput,
+        graceDaysInput,
+        soonDaysInput,
+        inclusiveEndInput,
+        fixedDaysModeInput,
+      ].forEach((el) => {
+        el.addEventListener("change", () => {
+          setStatus("Ready…");
+        });
+      });
+
+      // Initial reset
+      resetOutputs();
+    </script>
+  </body>
+</html>

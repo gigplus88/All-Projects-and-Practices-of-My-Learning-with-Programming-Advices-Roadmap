@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>JavaScript Type System Demo</title>
+
+    <style>
+      body {
+        background: #0f172a;
+        color: #e2e8f0;
+        font-family: "Segoe UI", Tahoma, sans-serif;
+        padding: 30px;
+      }
+
+      h1 {
+        text-align: center;
+        margin-bottom: 20px;
+        color: #38bdf8;
+      }
+
+      .card {
+        background: #1e293b;
+        border: 1px solid #334155;
+        border-radius: 10px;
+        padding: 20px;
+        margin-bottom: 25px;
+      }
+
+      code {
+        background: #0f172a;
+        padding: 3px 6px;
+        border-radius: 6px;
+        color: #f8fafc;
+        font-size: 0.95rem;
+      }
+
+      .note {
+        color: #94a3b8;
+        margin-top: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>JavaScript Type System – Demo</h1>
+
+    <div class="card">
+      <h2>📌 How to use</h2>
+      <p>
+        Open your browser's console: <br /><strong>Windows:</strong> F12 →
+        Console <br /><strong>Mac:</strong> Cmd + Option + J
+      </p>
+      <p class="note">All results will appear in the console.</p>
+    </div>
+
+    <div class="card">
+      <h2>📘 Running Script Below...</h2>
+      <p class="note">Check your browser console for output!</p>
+    </div>
+
+    <script>
+      // ========================================
+      // PART 1 — typeof
+      // ========================================
+      let text = "Hello";
+      let number = 42;
+      let isActive = true;
+      let person = { name: "Sara" };
+      let nums = [1, 2, 3];
+      let greet = function () {
+        return "Hi";
+      };
+
+      console.log("=== typeof Examples ===");
+      console.log("typeof text      ->", typeof text);
+      console.log("typeof number    ->", typeof number);
+      console.log("typeof isActive  ->", typeof isActive);
+      console.log("typeof person    ->", typeof person);
+      console.log("typeof nums      ->", typeof nums); // object (arrays are objects)
+      console.log("typeof greet     ->", typeof greet); // function
+
+      // ========================================
+      // PART 2 — instanceof
+      // ========================================
+      let today = new Date();
+
+      console.log("\n=== instanceof Examples ===");
+      console.log("today instanceof Date   ->", today instanceof Date); // true
+      console.log("nums instanceof Array   ->", nums instanceof Array); // true
+      console.log("nums instanceof Object  ->", nums instanceof Object); // true
+
+      // ========================================
+      // PART 3 — Equality Rules
+      // ========================================
+
+      console.log("\n=== Equality Rules (== vs ===) ===");
+
+      // Loose vs strict equality
+      console.log("5 == '5'        ->", 5 == "5");
+      console.log("5 === '5'       ->", 5 === "5");
+      console.log("0 == false      ->", 0 == false);
+      console.log("0 === false     ->", 0 === false);
+      console.log("null == undefined ->", null == undefined);
+      console.log("null === undefined ->", null === undefined);
+    </script>
+  </body>
+</html>

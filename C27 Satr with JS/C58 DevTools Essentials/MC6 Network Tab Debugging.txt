@@ -1,0 +1,46 @@
+
+        document.querySelector(".active").addEventListener( "click" , () => {
+          console.log("it s clicked");
+        }
+        );
+
+        console.log("جاري بدء الطلب...");
+
+      fetch('https://jsonplaceholder.typicode.com/posts/1')
+        .then(response => {
+          console.log("الحالة (Status):", response.status);
+          return response.json();
+        })
+        .then(data => {
+          console.log("البيانات المستلمة:", data);
+        })
+        .catch(error => {
+          console.error("حدث خطأ:", error);
+        });
+
+
+
+
+        fetch('https://jsonplaceholder.typicode.com/posts', {
+          method: 'POST',
+          body: JSON.stringify({
+            title: 'Hello DevTools',
+            body: 'Learning about Payload',
+            userId: 1
+          }),
+          headers: {
+            'Content-type': 'application/json; charset=UTF-8',
+          },
+        })
+        .then(res => res.json())
+        .then(data => console.log('Success:', data));
+        /*
+          💡 Activity – Expected Outcome
+          You should be able to say:
+
+          🔹 “The request failed because…”
+          🔹 “The payload was wrong…”
+          🔹 “This is a CORS issue…”
+
+          That clarity is professional-level.
+        */

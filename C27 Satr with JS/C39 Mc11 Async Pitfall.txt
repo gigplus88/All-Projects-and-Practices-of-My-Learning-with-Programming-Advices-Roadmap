@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>JavaScript Type System Demo</title>
+
+    <style></style>
+  </head>
+  <body>
+    <script>
+    items.forEach(async item => {
+      await save(item);
+    });
+
+    for (const item of items) {
+      await save(item);
+    }
+
+    await Promise.all(items.map(item => save(item)));
+
+
+    </script>
+  </body>
+</html>

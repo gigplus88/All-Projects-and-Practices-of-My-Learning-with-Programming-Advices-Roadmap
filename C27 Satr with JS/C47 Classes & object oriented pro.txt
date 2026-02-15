@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>JavaScript Type System Demo</title>
+
+    <style></style>
+  </head>
+  <body>
+    <script>
+      // Activity1
+
+      const car = {
+        brand: "BMW",
+        model: "BMW",
+        start() {
+          console.log("Hello to you company");
+        },
+      };
+
+      class Car {
+        brand = "BMW";
+        model = "BMW";
+
+        constructor(brand, model) {
+          this.brand = brand;
+          this.model = model;
+        }
+        start() {
+          console.log("Hello to you company:" + this.brand);
+        }
+      }
+
+      const car1 = new Car("Kia", "Kia1");
+      const car2 = new Car("Kia", "Kia1");
+
+      car1.start();
+
+      console.log(car1.start === car2.start);
+
+      //Classes avoid duplication, enforce structure, and allow shared behavior.
+
+      // Activity2
+
+      //const P1 = new Person(24 , "Saad");
+      //const P2 = new Person(22 , "Samir");
+
+      class Person {
+        age = 23;
+        name = "Ayoub";
+        constructor(age, name) {
+          this.name = name;
+          this.age = age;
+        }
+        introduce() {
+          console.log(
+            "My name is " + this.name + " and I am " + this.age + " years old"
+          );
+        }
+      }
+
+      const P3 = new Person(24, "Saad");
+      const P4 = new Person(22, "Samir");
+
+      //Classes are not hoisted to prevent usage before definition and to avoid bugs.
+
+      //Activity 3
+
+      class Car2 {
+        brand = "BMW";
+        model = "BMW";
+
+        constructor(brand = "BMW", model, year) {
+          this.brand = brand;
+          this.model = model;
+          this.year = year;
+        }
+        start() {
+          console.log(
+            "Hello to you company: " +
+              this.brand +
+              " ,model:" +
+              this.model +
+              " ,year: " +
+              this.year
+          );
+        }
+      }
+
+      const car3 = new Car2("Dacia", "Logan", 2021);
+      const car4 = new Car2("Dacia", "Lodgy", 2023);
+
+      car4.start();
+
+      function CreatBrand(b, m, y) {
+        return { brand: b, model: m, year: y };
+      }
+
+      const CarFactory = CreatBrand("Dacia", "Logan", 2021);
+
+      console.log(
+        "The brand: " +
+          CarFactory.brand +
+          " ,Model:" +
+          CarFactory.model +
+          ",Year: " +
+          CarFactory.year
+      );
+
+      function createCar(brand, model, year) {
+        return {
+          brand,
+          model,
+          year,
+          start() {
+            console.log("Car " + brand + " " + model + " started");
+          },
+        };
+      }
+
+      const car5 = createCar("Honda", "Civic", 2019);
+      car5.start();
+
+      // Activity 4
+
+      class Counter {
+        constructor() {
+          this.count = 0;
+        }
+
+        increment() {
+          this.count++;
+          console.log(this.count);
+        }
+      }
+
+      const c = new Counter();
+      c.increment();
+      c.increment();
+
+      //solution
+      const incrementFn2 = c.increment.bind(c);
+      incrementFn2();
+
+      const incrementFn = c.increment;
+      //incrementFn(); // ❌ this is undefined (or window in non-strict mode)
+
+      class Car3 {
+        brand = "BMW";
+        speed = 200;
+
+        constructor(brand = "BMW", speed) {
+          this.brand = brand;
+          this.speed = speed;
+        }
+        drive() {
+          console.log("the curent speed is: " + this.speed);
+        }
+        accelerate(amount) {
+          this.speed += amount;
+        }
+      }
+      const ca = new Car3("Dacia", 88);
+      const ca2 = new Car3("Dacia", 120);
+
+      ca.drive();
+      ca2.drive();
+
+      ca2.accelerate(20);
+      ca2.drive();
+
+      const driveFn = ca.drive.bind(ca);
+      driveFn(); // ❌ this is undefined
+
+      //Activity5
+      class Product {
+        category = "General"; // public field
+
+        constructor(name, price) {
+          this.name = name; // constructor property
+          this.price = price;
+        }
+      }
+
+      const p = new Product("Laptop", 1000);
+      console.log(p);
+
+      class SmartPhone {
+        brand = "Generic"; // Instance-level
+
+        constructor(model) {
+          this.model = model; // Instance-level
+        }
+
+        enableGPS() {
+          this.gpsEnabled = true; // Method-defined
+        }
+      }
+
+      const myPhone = new SmartPhone("Galaxy");
+
+      console.log(myPhone.brand); // ✅ "Generic"
+      console.log(myPhone.gpsEnabled); // ⚠️ undefined
+
+      myPhone.enableGPS();
+      console.log(myPhone.gpsEnabled); // ✅ true
+
+      class Student {
+        name = "Unknown";
+        grade = 0;
+
+        introduce() {
+          console.log(
+            "Student name: " + this.name + " and its grade is: " + this.grade
+          );
+        }
+        promote() {
+          this.level = "one";
+        }
+      }
+
+      const st1 = new Student();
+      st1.name = "Saad";
+      st1.grade = 18;
+
+      st1.introduce();
+
+      const st2 = new Student();
+      st2.name = "Soufiane";
+      st2.grade = 16;
+
+      st2.introduce();
+
+      console.log(st2.level);
+
+      st2.promote();
+      console.log(st2.level);
+
+      //Activity 6
+
+      class User {
+        constructor(name) {
+          this._name = name;
+        }
+
+        set name(value) {
+          this._name = value;
+        }
+
+        get name() {
+          return this._name;
+        }
+      }
+
+      const u = new User("Ahmed");
+      console.log(u.name);
+
+      u.name = "Saad";
+      console.log(u.name);
+
+      class Product2 {
+        constructor(price) {
+          this._price = price;
+        }
+
+        set price(value) {
+          if (value < 0) {
+            throw Error("Invalid price! , enter positive price");
+          }
+          this._price = value;
+        }
+
+        get price() {
+          return this._price;
+        }
+      }
+
+      const product = new Product2(23);
+
+      product.price = 200;
+      console.log("Price is: " + product.price);
+
+      //product.price = -23;
+      //console.log("Price is: " + product.price);
+
+      /*🔹 Direct access bypasses validation 🔹 Breaks encapsulation
+            🔹 Makes future changes risky
+
+            ✔ Getters & setters protect your design.
+          */
+
+      // Activity 7
+
+      class Config {
+        static appName = "My App";
+        static version = "1.0.0";
+        static role() {
+          return "Guest";
+        }
+      }
+
+      console.log(Config.appName);
+      console.log(Config.role());
+
+      class StringUtils {
+        static capitalize(text) {
+          return text[0].toUpperCase() + text.slice(1);
+        }
+      }
+
+      console.log(StringUtils.capitalize("hello"));
+
+      class Calculator {
+        static version = "1.0";
+
+        static add(a, b) {
+          return a + b;
+        }
+        static multiply(a, b) {
+          return a * b;
+        }
+      }
+
+      console.log(Calculator.add(4, 6));
+      console.log(Calculator.multiply(4, 6));
+      console.log("for version :" + Calculator.version);
+
+      const cal = new Calculator();
+      //console.log(cal.add(4, 3));
+
+      //test.html:332 Uncaught TypeError: cal.add is not a function
+      //at test.html:332:24
+
+      //Activity 8
+
+      class Vehicle {
+        move() {
+          return "Vehicle is moving";
+        }
+      }
+
+      class Car4 extends Vehicle {
+        drive() {
+          return "Vehicle is a car";
+        }
+      }
+
+      class Bike extends Vehicle {
+        drive() {
+          return "Vehicle isa bike";
+        }
+      }
+
+      const vc = new Vehicle();
+      const cr = new Car4();
+      const bk = new Bike();
+
+      //console.log(vc.drive());//Error
+      console.log(cr.move());
+      console.log(bk.move());
+
+      console.log(cr instanceof Car4); // true
+      console.log(cr instanceof Vehicle); // true
+      console.log(bk instanceof Vehicle); // true
+
+      //Activity 9
+
+      class Person3 {
+        constructor(name) {
+          this.name = name;
+        }
+      }
+
+      class Student3 extends Person3 {
+        constructor(name, grade) {
+          super(name); // call parent constructor
+          this.grade = grade;
+        }
+      }
+
+      const s = new Student3("Ahmed", "A");
+      console.log(s.name, s.grade);
+
+      class Animal {
+        version = "1.0";
+        speak() {
+          return "The animal makes a sound";
+        }
+      }
+
+      class Dog extends Animal {
+        speak() {
+          return super.speak() + " and barks , this is for ";
+        }
+      }
+
+      const dog = new Dog();
+      console.log(dog.speak());
+
+      class Animal8 {
+        constructor(type) {
+          this.type = type;
+        }
+      }
+
+      class Cat7 extends Animal8 {}
+
+      const c8 = new Cat7("Mammal");
+      console.log(c8.type);
+
+      // full example
+
+      class Employee {
+        constructor(name) {
+          this.name = name;
+        }
+        work() {
+          console.log(`${this.name} يعمل الآن...`);
+        }
+      }
+
+      class Manager extends Employee {
+        constructor(name, department) {
+          super(name); // for parent
+          this.department = department; // for child
+        }
+
+        work() {
+          super.work(); // تشغيل نسخة الأب (base.work)
+          console.log(`ويقوم أيضاً بإدارة قسم ${this.department}`); // إضافة ميزة الابن
+        }
+      }
+
+      const mgr = new Manager("أحمد", "التسويق");
+      mgr.work();
+
+      /*
+
+      ❌ Removing super() causes a runtime error because:
+
+      this cannot exist before the parent is initialized
+      JavaScript enforces proper object construction order
+    */
+
+      // Activity 10
+
+      class Animal6 {
+        speak() {
+          return "Generic sound";
+        }
+      }
+
+      class Dog6 extends Animal6 {
+        speak() {
+          return "Bark";
+        }
+      }
+
+      class Cat6 extends Animal6 {
+        speak() {
+          return "Meow";
+        }
+      }
+
+      const animals = [new Dog6(), new Cat6()];
+
+      animals.forEach((a) => {
+        console.log(a.speak());
+      });
+
+      class Vehicle6 {
+        move() {
+          return "The vehicle moves";
+        }
+      }
+
+      class Car6 extends Vehicle6 {
+        move() {
+          return "The car drives";
+        }
+      }
+
+      class Plane extends Vehicle6 {
+        move() {
+          return super.move() + " and flies in the sky";
+        }
+      }
+
+      const vehicles = [new Car6(), new Plane()];
+
+      vehicles.forEach((v) => {
+        console.log(v.move());
+      });
+      // Polymorphism:
+      // Same method name (move)
+      // Different behavior depen
+
+      //ex
+
+      class User10 {
+        #email = "ay@gmail.com";
+
+        constructor(email) {
+          this.#email = email;
+        }
+        getEmail() {
+          return this.#email;
+        }
+      }
+
+      const uss = new User10("sk@gmail.com");
+      console.log(uss.getEmail());
+
+      // console.log(uss.#email);
+      // ❌ SyntaxError: Private field '#email' must be declared in an enclosing class
+
+      class Counter5 {
+        #count = 0;
+        increment(value) {
+          this.#validateCounter(value);
+          this.#count += value;
+        }
+        getCount() {
+          return this.#count;
+        }
+        #validateCounter(value) {
+          if (typeof value !== "number" || value <= 0) {
+            throw new Error("The counter should be great than 0");
+          }
+        }
+      }
+
+      const count = new Counter5();
+      count.increment(2);
+      count.increment(4);
+
+      count.increment(3);
+
+      count.increment(3);
+
+      console.log(count.getCount());
+
+      //Activity 11
+
+      const animal3 = {
+        eats: true,
+      };
+
+      const dog3 = Object.create(animal3);
+      dog3.barks = true; // build new property
+
+      console.log(dog3.barks); // true (own property)
+      console.log(dog3.eats); // true (from prototype)
+
+      class Person0 {
+        constructor(name) {
+          this.name = name;
+        }
+
+        sayHi() {
+          console.log("Hi, I'm " + this.name);
+        }
+      }
+
+      const p0 = new Person0("Ahmed");
+      const first = Object.create(p0);
+
+      Person0.prototype.sayGood = "Good";
+
+      const p1 = new Person0("Saad");
+      const p3 = new Counter();
+
+      console.log(p1.sayGood);
+      console.log(p0.sayGood);
+      console.log(p3.sayGood);
+
+      //ex
+
+      function Car11(brand) {
+        this.brand = brand;
+      }
+
+      Car11.prototype.drive = function () {
+        console.log(this.brand + " is driving");
+      };
+
+      class Car12 {
+        constructor(brand) {
+          this.brand = brand;
+        }
+        drive() {
+          console.log(this.brand + " is driving");
+        }
+      }
+
+      console.log(Car12.prototype.drive);
+
+      const p5 = new Car12("BMW");
+      const p6 = new Car12("Kia");
+
+      Car12.prototype.brand = "Ford";
+
+      console.log(p5.brand);
+
+      class ElectricCar extends Car12 {
+        charge() {
+          console.log("Charging...");
+        }
+      }
+
+      const e = new ElectricCar("Tesla");
+      e.drive();
+      e.charge();
+      /*e
+        ↓
+        ElectricCar.prototype
+        ↓
+        Car.prototype
+        ↓
+        Object.prototype
+        ↓
+        null
+        */
+
+    </script>
+  </body>
+</html>

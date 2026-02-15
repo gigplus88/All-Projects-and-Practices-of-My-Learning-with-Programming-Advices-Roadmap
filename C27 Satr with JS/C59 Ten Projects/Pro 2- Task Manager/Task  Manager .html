@@ -1,0 +1,971 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <!-- ✅ Responsive layout on mobile/tablet -->
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+
+    <title>Task Manager — IndexedDB (One Page)</title>
+
+    <style>
+      /* =========================================================
+         ✅ Global / Base
+         ========================================================= */
+      :root {
+        color-scheme: dark;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        padding: 24px;
+        font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial,
+          sans-serif;
+        background: #0b1020;
+        color: #e9eefc;
+      }
+
+      /* =========================================================
+         ✅ Layout containers
+         ========================================================= */
+      .app {
+        max-width: 1100px;
+        margin: 0 auto;
+      }
+      .card {
+        background: rgba(255, 255, 255, 0.06);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        border-radius: 18px;
+        padding: 16px;
+      }
+      h1 {
+        font-size: 18px;
+        margin: 0;
+      }
+      .muted {
+        opacity: 0.75;
+      }
+
+      /* ✅ Top area (title + stats/buttons) */
+      .topbar {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 12px;
+      }
+
+      /* ✅ Shared row layout (buttons + inputs) */
+      .row {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        align-items: center;
+      }
+
+      /* ✅ 2-column layout: left form | right list */
+      .grid {
+        display: grid;
+        grid-template-columns: 0.95fr 1.15fr;
+        gap: 12px;
+      }
+      @media (max-width: 900px) {
+        .grid {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      /* =========================================================
+         ✅ Form controls
+         ========================================================= */
+      input,
+      textarea {
+        width: 100%;
+        background: rgba(0, 0, 0, 0.25);
+        border: 1px solid rgba(255, 255, 255, 0.16);
+        color: #e9eefc;
+        border-radius: 12px;
+        padding: 10px 12px;
+        outline: none;
+      }
+      textarea {
+        min-height: 92px;
+        resize: vertical;
+      }
+      label {
+        font-size: 12px;
+        opacity: 0.85;
+        display: block;
+        margin: 10px 0 6px;
+      }
+
+      /* =========================================================
+         ✅ Buttons
+         ========================================================= */
+      button {
+        border: 0;
+        border-radius: 12px;
+        padding: 10px 14px;
+        cursor: pointer;
+        background: #4f7cff;
+        color: white;
+        font-weight: 800;
+      }
+      button.secondary {
+        background: rgba(255, 255, 255, 0.12);
+      }
+      button.danger {
+        background: #ff4f6d;
+      }
+      button:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+      }
+
+      /* =========================================================
+         ✅ Pills (small badges)
+         ========================================================= */
+      .pill {
+        display: inline-block;
+        padding: 3px 10px;
+        border-radius: 999px;
+        font-size: 12px;
+        background: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.14);
+        opacity: 0.9;
+      }
+
+      /* =========================================================
+         ✅ Filters
+         ========================================================= */
+      .filters button {
+        padding: 8px 12px;
+        font-size: 13px;
+      }
+      .filters button.active {
+        outline: 2px solid rgba(79, 124, 255, 0.65);
+      }
+
+      /* =========================================================
+         ✅ Loading spinner + status
+         ========================================================= */
+      .status {
+        display: none;
+        gap: 10px;
+        align-items: center;
+        margin-top: 10px;
+      }
+      .spinner {
+        width: 16px;
+        height: 16px;
+        border-radius: 999px;
+        border: 2px solid rgba(255, 255, 255, 0.25);
+        border-top-color: white;
+        animation: spin 0.85s linear infinite;
+      }
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      /* =========================================================
+         ✅ Error box
+         ========================================================= */
+      .error {
+        display: none;
+        margin-top: 10px;
+        padding: 10px 12px;
+        border-radius: 14px;
+        border: 1px solid rgba(255, 79, 109, 0.45);
+        background: rgba(255, 79, 109, 0.12);
+        line-height: 1.4;
+      }
+
+      /* =========================================================
+         ✅ Tasks list + cards
+         ========================================================= */
+      .list {
+        display: grid;
+        gap: 10px;
+        margin-top: 10px;
+      }
+      .empty {
+        padding: 14px;
+        opacity: 0.8;
+        border-radius: 14px;
+        border: 1px dashed rgba(255, 255, 255, 0.18);
+      }
+
+      /* ✅ Each task card */
+      .task {
+        border-radius: 16px;
+        padding: 12px;
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        display: grid;
+        grid-template-columns: 1fr auto;
+        gap: 10px;
+        align-items: start;
+      }
+
+      /* ✅ Status color: Pending = yellow */
+      .task.pending {
+        background: rgba(255, 214, 79, 0.14);
+        border-color: rgba(255, 214, 79, 0.3);
+      }
+
+      /* ✅ Status color: Done = green */
+      .task.done {
+        background: rgba(79, 255, 154, 0.12);
+        border-color: rgba(79, 255, 154, 0.28);
+      }
+
+      .task h3 {
+        margin: 0 0 6px;
+        font-size: 15px;
+        font-weight: 950;
+        letter-spacing: 0.2px;
+      }
+
+      .task p {
+        margin: 0;
+        opacity: 0.85;
+        line-height: 1.45;
+        white-space: pre-wrap;
+        word-break: break-word;
+      }
+
+      /* ✅ Small info row (id, status, date) */
+      .meta {
+        margin-top: 8px;
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+        align-items: center;
+      }
+
+      /* ✅ Card action buttons */
+      .actions {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+      }
+      .actions button {
+        padding: 8px 10px;
+        font-size: 13px;
+        white-space: nowrap;
+      }
+      button:hover{
+
+      }
+
+      /* =========================================================
+         ✅ Toast popup (bottom-right)
+         ========================================================= */
+      .toast {
+        position: fixed;
+        right: 18px;
+        bottom: 18px;
+        background: rgba(0, 0, 0, 0.55);
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        backdrop-filter: blur(10px);
+        padding: 12px 14px;
+        border-radius: 14px;
+        display: none;
+        max-width: 380px;
+        line-height: 1.35;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="app">
+      <div class="card">
+        <!--──────────────────────────────────────────────
+      │ Code Overview
+      │ Purpose        → One-page Task Manager (CRUD) using IndexedDB (no frameworks)
+      │ Layout         → Topbar (stats/search/filters) | Left (Add form) | Right (Task cards)
+      │ Use Cases      → IndexedDB open/upgrade, transactions, async/await wrappers, UI state, filtering/search
+      │ Key Properties → TaskDB v1, store "tasks" (keyPath id autoIncrement), indexes (status, createdAt)
+      │ Notes          → Pending cards = Yellow | Done cards = Green | Delete uses confirm()
+      └──────────────────────────────────────────────-->
+
+        <div class="topbar">
+          <div>
+            <h1>Task Manager (IndexedDB)</h1>
+            <div class="muted">
+              One page • Modern UI • Persisted locally (refresh-safe)
+            </div>
+          </div>
+
+          <div class="row">
+            <span class="pill" id="stats">Total: 0 • Pending: 0 • Done: 0</span>
+            <button class="secondary" id="btnSeed">Seed</button>
+            <button class="secondary" id="btnClearAll">Clear All</button>
+          </div>
+        </div>
+
+        <div
+          class="row"
+          style="justify-content: space-between; margin-bottom: 10px"
+        >
+          <!-- ✅ Filters -->
+          <div class="row filters" id="filters">
+            <button class="secondary active" data-filter="all">All</button>
+            <button class="secondary" data-filter="pending">Pending</button>
+            <button class="secondary" data-filter="done">Done</button>
+          </div>
+
+          <!-- ✅ Search -->
+          <div class="row" style="min-width: 280px">
+            <input id="search" placeholder="Search title/description…" />
+          </div>
+        </div>
+
+        <!-- ✅ Loading indicator -->
+        <div class="status muted" id="loading">
+          <div class="spinner"></div>
+          <div>Loading…</div>
+        </div>
+
+        <!-- ✅ Error container -->
+        <div class="error" id="error"></div>
+
+        <div class="grid" style="margin-top: 12px">
+          <!-- ======================================================
+               ✅ LEFT: Add Task form
+               ====================================================== -->
+          <section class="card" style="padding: 14px">
+            <strong>Add New Task</strong>
+            <div class="muted" style="margin-top: 6px">
+              Pending tasks are <span class="pill">Yellow</span>. Mark done to
+              turn <span class="pill">Green</span>.
+            </div>
+
+            <label for="title">Title (required)</label>
+            <input
+              id="title"
+              maxlength="80"
+              placeholder="e.g., Record DOM lesson video"
+            />
+
+            <label for="desc">Description (optional, max 300)</label>
+            <textarea
+              id="desc"
+              maxlength="300"
+              placeholder="Details…"
+            ></textarea>
+
+            <div
+              class="row"
+              style="justify-content: flex-end; margin-top: 12px"
+            >
+              <button class="secondary" id="btnReset">Reset</button>
+              <button id="btnAdd">Add Task</button>
+            </div>
+
+            <div class="muted" style="margin-top: 10px">
+              Tip: Press <span class="pill">Ctrl</span> +
+              <span class="pill">Enter</span> to add quickly.
+            </div>
+          </section>
+
+          <!-- ======================================================
+               ✅ RIGHT: Tasks list
+               ====================================================== -->
+          <section>
+            <div class="row" style="justify-content: space-between">
+              <div class="row">
+                <strong>Tasks</strong>
+                <span class="muted" id="shown"></span>
+              </div>
+            </div>
+
+            <div class="list" id="list"></div>
+          </section>
+        </div>
+      </div>
+    </div>
+
+    <!-- ✅ Toast popup -->
+    <div class="toast" id="toast"></div>
+
+    <script>
+      /* =========================================================
+         ✅ Task Manager (IndexedDB) — Beginner Friendly Comments
+         =========================================================
+
+         ✅ What this app does:
+         1️⃣ Stores tasks in IndexedDB (browser database)
+         2️⃣ Reads tasks on startup (so refresh does NOT lose data)
+         3️⃣ Lets you: Add / Toggle Done / Delete / Clear All
+         4️⃣ Lets you: Filter (All/Pending/Done) + Search
+      */
+
+      /* =========================================================
+         ✅ 1) DOM References (UI elements)
+         ---------------------------------------------------------
+         We store all important elements in one object (UI)
+         so we can access them easily everywhere.
+      ========================================================= */
+      const UI = {
+        loading: document.getElementById("loading"), // spinner container
+        error: document.getElementById("error"), // error message container
+        toast: document.getElementById("toast"), // toast popup
+
+        stats: document.getElementById("stats"), // stats text (Total/Pending/Done)
+        shown: document.getElementById("shown"), // how many tasks are shown after filter/search
+
+        filters: document.getElementById("filters"), // filters buttons container
+        search: document.getElementById("search"), // search input
+
+        title: document.getElementById("title"), // add form title input
+        desc: document.getElementById("desc"), // add form description textarea
+        btnAdd: document.getElementById("btnAdd"), // add task button
+        btnReset: document.getElementById("btnReset"), // reset form button
+
+        btnSeed: document.getElementById("btnSeed"), // seed demo tasks
+        btnClearAll: document.getElementById("btnClearAll"), // clear all tasks
+
+        list: document.getElementById("list"), // tasks container (cards go here)
+      };
+
+      /* =========================================================
+         ✅ 2) App State
+         ---------------------------------------------------------
+         db            → the opened IndexedDB database instance
+         tasks         → cached in-memory list of tasks (render reads from here)
+         currentFilter → "all" | "pending" | "done"
+      ========================================================= */
+      let db = null;
+      let tasks = [];
+      let currentFilter = "all";
+
+      /* =========================================================
+         ✅ 3) UI Helpers
+      ========================================================= */
+
+      // ✅ Toast: small popup message (success info, etc.)
+      function showToast(message) {
+        UI.toast.textContent = message;
+        UI.toast.style.display = "block";
+        setTimeout(() => (UI.toast.style.display = "none"), 2200);
+      }
+
+      // ✅ Loading: show spinner and disable main actions to prevent double clicks
+      function setLoading(isLoading) {
+        UI.loading.style.display = isLoading ? "flex" : "none";
+        UI.btnAdd.disabled = isLoading;
+        UI.btnSeed.disabled = isLoading;
+        UI.btnClearAll.disabled = isLoading;
+      }
+
+      // ✅ Error: show a styled error box
+      function setError(message) {
+        UI.error.textContent = message || "";
+        UI.error.style.display = message ? "block" : "none";
+      }
+
+      // ✅ Escape text before putting it into innerHTML
+      // This prevents user text from being interpreted as real HTML.
+      function esc(s) {
+        return String(s ?? "")
+          .replaceAll("&", "&amp;")
+          .replaceAll("<", "&lt;")
+          .replaceAll(">", "&gt;")
+          .replaceAll('"', "&quot;")
+          .replaceAll("'", "&#039;");
+      }
+
+      // ✅ Convert timestamp into readable date/time
+      function formatDate(ms) {
+        return new Date(ms).toLocaleString();
+      }
+
+      /* =========================================================
+         ✅ 4) IndexedDB - Open DB + Upgrade
+         ---------------------------------------------------------
+         IndexedDB is event-based, so we wrap it in a Promise
+         to use async/await cleanly.
+      ========================================================= */
+      function openDB() {
+        return new Promise((resolve, reject) => {
+          // ✅ Open "TaskDB" version 1
+          const request = indexedDB.open("TaskDB", 1);
+
+          // ✅ onupgradeneeded runs only:
+          // - first time creating the DB
+          // - OR when you increase the version number
+          request.onupgradeneeded = () => {
+            const db = request.result;
+
+            // ✅ Create store "tasks"
+            // keyPath: "id" means each task has an "id"
+            // autoIncrement: true means IDs generated automatically (1,2,3,...)
+            const store = db.createObjectStore("tasks", {
+              keyPath: "id",
+              autoIncrement: true,
+            });
+
+            // ✅ Indexes (optional but useful for searching/sorting later)
+            store.createIndex("status", "status", { unique: false });
+            store.createIndex("createdAt", "createdAt", { unique: false });
+          };
+
+          // ✅ Success: return the opened DB
+          request.onsuccess = () => resolve(request.result);
+
+          // ✅ Failure: return the error
+          request.onerror = () =>
+            reject(request.error || new Error("Failed to open IndexedDB"));
+        });
+      }
+
+      /* =========================================================
+         ✅ 5) IndexedDB Helpers
+      ========================================================= */
+
+      // ✅ Create transaction then return store
+      // mode: "readonly" OR "readwrite"
+      function tx(storeName, mode = "readonly") {
+        const transaction = db.transaction(storeName, mode); //db is shared
+        return transaction.objectStore(storeName);
+      }
+
+      // ✅ Convert IDBRequest (event-based) into Promise (awaitable)
+      function idbRequestToPromise(request) {
+        return new Promise((resolve, reject) => {
+          request.onsuccess = () => resolve(request.result);
+          request.onerror = () =>
+            reject(request.error || new Error("IndexedDB request failed"));
+        });
+      }
+
+      /* =========================================================
+         ✅ 6) CRUD (Create / Read / Update / Delete)
+      ========================================================= */
+
+      // ✅ READ: fetch all tasks
+      async function readAllTasks() {
+        const store = tx("tasks", "readonly");
+        const all = await idbRequestToPromise(store.getAll());
+
+        // ✅ Sort newest tasks first
+        all.sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
+        return all;
+      }
+
+      // ✅ CREATE: add task
+      async function createTask({ title, description }) {
+        const now = Date.now();
+
+        // ✅ Create the object we store in IndexedDB
+        const task = {
+          title,
+          description,
+          status: "pending", // new tasks start as pending
+          createdAt: now,
+          updatedAt: now,
+        };
+
+        const store = tx("tasks", "readwrite");
+
+        // ✅ add() stores and returns generated id
+        const id = await idbRequestToPromise(store.add(task));
+
+        // ✅ Return task + id (so UI can use it immediately)
+        return { ...task, id };
+      }
+
+      // ✅ UPDATE: patch task by id
+      async function updateTask(id, patch) {
+        const store = tx("tasks", "readwrite");
+
+        // 1️⃣ Read existing task
+        const existing = await idbRequestToPromise(store.get(id));
+        if (!existing) throw new Error("Task not found");
+
+        // 2️⃣ Merge existing data + patch
+        const updated = {
+          ...existing,
+          ...patch,
+          updatedAt: Date.now(),
+        };
+
+        // 3️⃣ Save back to DB
+        await idbRequestToPromise(store.put(updated));
+        return updated;
+      }
+
+      // ✅ DELETE: remove task by id
+      async function deleteTask(id) {
+        const store = tx("tasks", "readwrite");
+        await idbRequestToPromise(store.delete(id));
+      }
+
+      // ✅ Clear store completely
+      async function clearAllTasks() {
+        const store = tx("tasks", "readwrite");
+        await idbRequestToPromise(store.clear());
+      }
+
+      /* =========================================================
+         ✅ 7) Input Validation
+      ========================================================= */
+      function validateInput() {
+        const title = UI.title.value.trim();
+        const description = UI.desc.value.trim();
+
+        if (!title) return { ok: false, message: "❌ Title is required" };
+        if (title.length < 3)
+          return {
+            ok: false,
+            message: "❌ Title must be at least 3 characters",
+          };
+        if (description.length > 300)
+          return {
+            ok: false,
+            message: "❌ Description must be 300 characters or less",
+          };
+
+        return { ok: true, title, description };
+      }
+
+      /* =========================================================
+         ✅ 8) Filtering + Searching
+         ---------------------------------------------------------
+         currentFilter controls status filter
+         search text checks title/description
+      ========================================================= */
+      function getVisibleTasks() {
+        const q = UI.search.value.trim().toLowerCase();
+
+        return tasks.filter((t) => {
+          // ✅ Filter: All vs Pending vs Done
+          const matchesFilter =
+            currentFilter === "all" ? true : (t.status === currentFilter);
+
+          // ✅ Search: if search is empty, everything matches
+
+          // (t.title || "")  because I can have tasks without name
+          const matchesSearch = !q
+            ? true
+            : (t.title || "").toLowerCase().includes(q) ||
+              (t.description || "").toLowerCase().includes(q);
+
+          // ✅ Keep the task only if it matches both conditions
+          return matchesFilter && matchesSearch;
+        });
+      }
+
+      /* =========================================================
+         ✅ 9) Render UI (Tasks → HTML)
+      ========================================================= */
+      function render() {
+        const visible = getVisibleTasks(); // if I dont choose All so I dont have all results
+
+        // ✅ Stats
+        const total = tasks.length; // Total of tasks is the length of task array
+        const pending = tasks.filter((t) => t.status === "pending").length;
+        const done = tasks.filter((t) => t.status === "done").length;
+
+        UI.stats.textContent = `Total: ${total.toLocaleString()} • Pending: ${pending.toLocaleString()} • Done: ${done.toLocaleString()}`;
+        UI.shown.textContent = `${visible.length.toLocaleString()} shown`;
+
+        // ✅ Empty state
+        if (visible.length === 0) {
+          UI.list.innerHTML = `<div class="empty muted">No tasks match your filter/search.</div>`;
+          return;
+        }
+
+        // ✅ Build task cards
+        UI.list.innerHTML = visible
+          .map((t) => {
+            const isDone = t.status === "done";
+
+            const badge = isDone ? "Done" : "Pending";
+            const toggleLabel = isDone ? "Mark Pending ↩️" : "Mark Done ✅";
+            const statusClass = isDone ? "done" : "pending";
+
+            return `
+              <div class="task ${statusClass}" data-id="${t.id}">
+                <div>
+                  <h3>${esc(t.title)}</h3>
+                  <p>${esc(t.description || "—")}</p>
+
+                  <div class="meta">
+                    <span class="pill">#${t.id}</span>
+                    <span class="pill">${badge}</span>
+                    <span class="pill">Created: ${esc(
+                      formatDate(t.createdAt)
+                    )}</span>
+                  </div>
+                </div>
+
+                <div class="actions">
+                  <button class="secondary" data-action="toggle">${toggleLabel}</button>
+                  <button class="danger" data-action="delete">Delete 🗑️</button>
+                </div>
+              </div>
+            `;
+          })
+          .join("");
+      }
+
+      /* =========================================================
+         ✅ 10) Actions (Add / Toggle / Delete / Seed / Clear All)
+      ========================================================= */
+
+      // ✅ Add task
+      async function handleAdd() {
+        setError("");
+
+        const v = validateInput(); //in v we are object of Ok and Description properties
+        if (!v.ok) return setError(v.message);
+
+        // ✅ block double click
+        UI.btnAdd.disabled = true;
+
+        try {
+          const created = await createTask({
+            title: v.title,
+            description: v.description,
+          });
+
+          // ✅ Put newest task at top
+          tasks.unshift(created);
+
+          // ✅ Clear form
+          UI.title.value = "";
+          UI.desc.value = "";
+
+          render();
+          showToast("✅ Task added");
+        } catch (e) {
+          setError(`❌ Add failed: ${e.message}`);
+        } finally {
+          UI.btnAdd.disabled = false;
+        }
+      }
+
+      // ✅ Toggle done/pending
+      async function handleToggle(id) {
+        setError("");
+
+        const idx = tasks.findIndex((t) => t.id === id);
+        if (idx === -1) return;
+
+        // ✅ Backup for revert if DB fails
+        const old = { ...tasks[idx] };
+
+        // ✅ New status
+        const newStatus = old.status === "done" ? "pending" : "done";
+
+        // ✅ Optimistic UI update (fast feeling)
+        tasks[idx] = {
+          ...tasks[idx],
+          status: newStatus,
+          updatedAt: Date.now(),
+        };
+        render();
+
+        try {
+          await updateTask(id, { status: newStatus });
+          showToast(
+            newStatus === "done" ? "✅ Marked as done" : "✅ Marked as pending"
+          );
+        } catch (e) {
+          // ✅ Revert if failed
+          tasks[idx] = old;
+          render();
+
+          setError(`❌ Update failed: ${e.message}`);
+          showToast("❌ Update failed (reverted)");
+        }
+      }
+
+      // ✅ Delete task
+      async function handleDelete(id) {
+        setError("");
+
+        const t = tasks.find((x) => x.id === id);
+        if (!t) return;
+
+        // ✅ confirm is safer than instant delete
+        if (!confirm(`Delete this task?\n\n"${t.title}"`)) return;
+
+        // ✅ Optimistic remove (feels instant)
+        const backup = [...tasks];
+        tasks = tasks.filter((x) => x.id !== id);
+        render();
+
+        try {
+          await deleteTask(id);
+          showToast("✅ Task deleted");
+        } catch (e) {
+          // ✅ revert if DB fails
+          tasks = backup;
+          render();
+
+          setError(`❌ Delete failed: ${e.message}`);
+          showToast("❌ Delete failed (reverted)");
+        }
+      }
+
+      // ✅ Seed demo tasks
+      async function handleSeed() {
+        setError("");
+
+        const samples = [
+          {
+            title: "Record lesson: Event Delegation",
+            description: "Add examples with bubbling and delegation.",
+          },
+          {
+            title: "Build IndexedDB Task Project",
+            description: "CRUD + search + filters + modern cards.",
+          },
+          {
+            title: "Prepare quiz questions",
+            description: "Mix MCQ and true/false for DOM lessons.",
+          },
+        ];
+
+        UI.btnSeed.disabled = true;
+
+        try {
+          for (const s of samples) {
+            const created = await createTask({
+              title: s.title,
+              description: s.description,
+            });
+            tasks.unshift(created);
+          }
+
+          render();
+          showToast("✅ Seeded sample tasks");
+        } catch (e) {
+          setError(`❌ Seed failed: ${e.message}`);
+        } finally {
+          UI.btnSeed.disabled = false;
+        }
+      }
+
+      // ✅ Clear all tasks
+      async function handleClearAll() {
+        setError("");
+
+        if (!confirm("Clear ALL tasks?\n\nThis cannot be undone.")) return;
+
+        UI.btnClearAll.disabled = true;
+
+        try {
+          await clearAllTasks();
+          tasks = [];
+          render();
+          showToast("✅ All tasks cleared");
+        } catch (e) {
+          setError(`❌ Clear failed: ${e.message}`);
+        } finally {
+          UI.btnClearAll.disabled = false;
+        }
+      }
+
+      // ✅ Reset form (does not touch DB)
+      function resetForm() {
+        UI.title.value = "";
+        UI.desc.value = "";
+        setError("");
+      }
+
+      /* =========================================================
+         ✅ 11) Event Delegation (Task Buttons)
+         ---------------------------------------------------------
+         Instead of adding listeners to each card button,
+         we add ONE listener to the list container.
+      ========================================================= */
+      UI.list.addEventListener("click", (event) => {
+        const btn = event.target.closest("button");
+        if (!btn) return;
+
+        const card = event.target.closest(".task");
+        if (!card) return;
+
+        const id = Number(card.dataset.id);
+        const action = btn.dataset.action;
+
+        if (action === "toggle") handleToggle(id);
+        if (action === "delete") handleDelete(id);
+      });
+
+      /* =========================================================
+         ✅ 12) Filters (All / Pending / Done)
+      ========================================================= */
+      UI.filters.addEventListener("click", (event) => {
+        const btn = event.target.closest("button");
+        if (!btn) return;
+
+        currentFilter = btn.dataset.filter;
+
+        // ✅ Update active class
+        [...UI.filters.querySelectorAll("button")].forEach((b) =>
+          b.classList.remove("active")
+        );
+        btn.classList.add("active");
+
+        render();
+      });
+
+
+
+      // ✅ Search (re-render on each keystroke)
+      UI.search.addEventListener("input", render);
+
+      // ✅ Buttons
+      UI.btnAdd.addEventListener("click", handleAdd);
+      UI.btnReset.addEventListener("click", resetForm);
+      UI.btnSeed.addEventListener("click", handleSeed);
+      UI.btnClearAll.addEventListener("click", handleClearAll);
+
+      // ✅ Keyboard shortcut: Ctrl + Enter to add task quickly
+      window.addEventListener("keydown", (e) => {
+        if (e.ctrlKey && e.key === "Enter") {
+          e.preventDefault();
+          handleAdd();
+        }
+         if (e.ctrlKey && e.key === "d") {
+            e.preventDefault();
+            
+            handleDelete();
+         }
+      });
+
+      /* =========================================================
+         ✅ 13) Boot (Start app)
+         ---------------------------------------------------------
+         1️⃣ Open DB
+         2️⃣ Read tasks
+         3️⃣ Render UI
+      ========================================================= */
+
+      // After fisrst loading I set errors to empty values
+      // Then  I open DB , I read All tasks , I render My results
+      (async function boot() {
+        setLoading(true);
+        setError("");
+
+        try {
+          db = await openDB(); // open IndexedDB
+          tasks = await readAllTasks(); // load stored tasks
+          render(); // show on screen
+        } catch (e) {
+          setError(`❌ Failed to initialize app: ${e.message}`);
+        } finally {
+          setLoading(false);
+        }
+      })();
+    </script>
+  </body>
+</html>

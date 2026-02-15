@@ -1,0 +1,12 @@
+  💡 Activity – Solution
+💡 Activity – Solution
+🔹 User comment → textContent
+
+🔹 Static page title → innerHTML (safe)
+
+🔹 API biography → textContent
+
+🔹 Dashboard layout → innerHTML (no user data)
+
+
+

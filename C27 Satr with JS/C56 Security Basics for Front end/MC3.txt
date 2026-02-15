@@ -1,0 +1,12 @@
+  💡 Activity – Solution
+💡 Activity – Solution
+✔ Validation exists (length check)
+
+❌ Sanitization is missing
+
+✅ Fix: use textContent instead of innerHTML
+
+if (msg.length > 5) {
+  chat.textContent = msg;
+}
+

@@ -1,0 +1,878 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Shop – IndexedDB Basket Demo</title>
+
+    <style>
+      /* =========================================================
+         ✅ Code Overview (Beginner Friendly)
+         ---------------------------------------------------------
+         ✅ Purpose:
+            - Simple "Shop" UI with Products + Basket (Cart)
+            - Products are stored in IndexedDB (offline-like storage)
+            - Cart is stored in IndexedDB too, so it survives refresh
+
+         ✅ Layout:
+            - Left panel  → Products grid (Add to Basket)
+            - Right panel → Basket items + total + clear + checkout
+            - Bottom area → Status indicator (dot + message)
+
+         ✅ Flow (High Level):
+            1️⃣ Open / create IndexedDB database (ShopDB)
+            2️⃣ Create two stores: "products" and "cart"
+            3️⃣ Seed products (only on first run / upgrade)
+            4️⃣ Load products and show them as cards
+            5️⃣ User adds products to basket → cart store updates
+            6️⃣ Render basket items + calculate total each time
+
+         ✅ Key Concepts:
+            - indexedDB.open() + onupgradeneeded()
+            - object stores + transactions (readonly / readwrite)
+            - getAll(), get(), put(), add(), delete(), clear()
+            - keeping UI in sync with IndexedDB (renderCart)
+         ========================================================= */
+
+      * {
+        box-sizing: border-box; /* ✅ predictable sizing */
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+
+        /* ✅ center the app in the page */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        /* ✅ dark background gradient */
+        background: radial-gradient(circle at top, #111827, #020617 60%);
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+          sans-serif;
+        color: #f9fafb;
+      }
+
+      /* ✅ main shell: 2 columns (products + cart) */
+      .page-shell {
+        width: 1150px;
+        max-width: 96vw;
+        background: #020617;
+        border-radius: 22px;
+        box-shadow: 0 26px 70px rgba(0, 0, 0, 0.9);
+        border: 1px solid rgba(148, 163, 184, 0.4);
+        padding: 24px 26px 26px;
+
+        display: grid;
+        grid-template-columns: 2fr 1fr; /* ✅ products wider than cart */
+        gap: 20px;
+      }
+
+      /* ✅ header spans across both columns */
+      .header {
+        grid-column: 1 / -1;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        margin-bottom: 6px;
+      }
+
+      .header-title {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+      }
+
+      .header h1 {
+        margin: 0;
+        font-size: 1.9rem;
+      }
+
+      .header p {
+        margin: 0;
+        font-size: 0.95rem;
+        color: #9ca3af;
+      }
+
+      .badge {
+        background: rgba(37, 99, 235, 0.15);
+        border-radius: 999px;
+        padding: 6px 14px;
+        font-size: 0.78rem;
+        color: #bfdbfe;
+        border: 1px solid rgba(59, 130, 246, 0.6);
+      }
+
+      /* =========================================================
+         ✅ Product list (Left panel)
+         ========================================================= */
+
+      .products-panel {
+        padding-right: 6px;
+        border-right: 1px solid rgba(55, 65, 81, 0.9);
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      .section-title {
+        font-size: 0.95rem;
+        font-weight: 600;
+        margin-bottom: 4px;
+      }
+
+      /* ✅ responsive products grid */
+      .products-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 12px;
+      }
+
+      .product-card {
+        background: radial-gradient(circle at top, #111827, #020617 55%);
+        border-radius: 14px;
+        padding: 12px 12px 14px;
+        border: 1px solid rgba(55, 65, 81, 0.9);
+
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+      }
+
+      .product-name {
+        font-weight: 600;
+        font-size: 0.98rem;
+      }
+
+      .product-desc {
+        font-size: 0.8rem;
+        color: #9ca3af;
+      }
+
+      .product-footer {
+        margin-top: 6px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .product-price {
+        font-weight: 700;
+        color: #22c55e;
+        font-size: 0.98rem;
+      }
+
+      /* =========================================================
+         ✅ Buttons (shared)
+         ========================================================= */
+
+      button {
+        padding: 7px 12px;
+        border-radius: 999px;
+        border: none;
+        cursor: pointer;
+        font-size: 0.85rem;
+        font-weight: 600;
+        color: #e5e7eb;
+        background: #2563eb;
+
+        transition: background 0.18s ease, transform 0.12s ease,
+          box-shadow 0.18s ease;
+
+        box-shadow: 0 3px 10px rgba(37, 99, 235, 0.45);
+      }
+
+      button:hover {
+        background: #1d4ed8;
+        transform: translateY(-1px);
+        box-shadow: 0 5px 16px rgba(37, 99, 235, 0.7);
+      }
+
+      button:active {
+        transform: translateY(0);
+        box-shadow: 0 3px 8px rgba(37, 99, 235, 0.45);
+      }
+
+      /* ✅ secondary button style */
+      .btn-secondary {
+        background: #6b7280;
+        box-shadow: 0 3px 10px rgba(75, 85, 99, 0.6);
+      }
+      .btn-secondary:hover {
+        background: #4b5563;
+      }
+
+      /* ✅ danger button style */
+      .btn-danger {
+        background: #dc2626;
+        box-shadow: 0 3px 10px rgba(220, 38, 38, 0.6);
+      }
+      .btn-danger:hover {
+        background: #b91c1c;
+      }
+
+      /* =========================================================
+         ✅ Cart panel (Right panel)
+         ========================================================= */
+
+      .cart-panel {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .cart-card {
+        background: #030712;
+        border-radius: 16px;
+        padding: 14px 16px;
+        border: 1px solid rgba(55, 65, 81, 0.9);
+
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .cart-items {
+        max-height: 260px;
+        overflow-y: auto; /* ✅ scroll when items exceed height */
+        padding-right: 4px;
+      }
+
+      .cart-empty {
+        font-size: 0.82rem;
+        color: #9ca3af;
+      }
+
+      .cart-item {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        gap: 4px 8px;
+        padding: 8px 10px;
+        border-radius: 10px;
+
+        background: radial-gradient(
+          circle at left,
+          rgba(15, 23, 42, 0.9),
+          #020617
+        );
+        border: 1px solid rgba(55, 65, 81, 0.9);
+
+        margin-bottom: 6px;
+        align-items: center;
+      }
+
+      .cart-item-main {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+      }
+
+      .cart-item-name {
+        font-size: 0.9rem;
+        font-weight: 600;
+      }
+
+      .cart-item-price {
+        font-size: 0.8rem;
+        color: #9ca3af;
+      }
+
+      .cart-item-controls {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        justify-self: end;
+      }
+
+      .qty-display {
+        min-width: 26px;
+        text-align: center;
+        font-size: 0.9rem;
+      }
+
+      .small-btn {
+        padding: 3px 8px;
+        font-size: 0.8rem;
+        border-radius: 999px;
+      }
+
+      .remove-link {
+        color: rgb(5, 0, 0);
+        border: 1px solid black;
+        border-radius: 8px;
+        background-color: #fca5a5;
+        padding: .2em;
+        font-size: 0.75rem;
+        cursor: pointer;
+        text-decoration: none;
+        align-self: flex-start;
+        margin-top: 2px;
+        transition: transform ease ;
+      }
+      .remove-link:hover {
+     
+        background-color: #f35e5e;
+       transform: scale(1.02);
+      }
+
+      .cart-footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 4px;
+        font-size: 0.9rem;
+      }
+
+      .total-label {
+        color: #9ca3af;
+      }
+
+      .total-value {
+        font-size: 1rem;
+        font-weight: 700;
+        color: #4ade80;
+      }
+
+      .cart-actions {
+        display: flex;
+        justify-content: space-between;
+        gap: 8px;
+        margin-top: 8px;
+      }
+
+      /* ✅ tiny status row with a dot */
+      .cart-status {
+        font-size: 0.78rem;
+        color: #9ca3af;
+        display: flex;
+        align-items: center;
+        gap: 4px;
+      }
+
+      .status-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+      }
+
+      .dot-ok {
+        background: #22c55e; /* ✅ green = good */
+      }
+
+      .dot-wait {
+        background: #facc15; /* ✅ yellow = busy/waiting */
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="page-shell">
+      <!-- ======================================================
+           ✅ HEADER (title + small description + badge)
+           ====================================================== -->
+      <div class="header">
+        <div class="header-title">
+          <h1>JavaScript Shop (IndexedDB)</h1>
+          <p>
+            Products stored in IndexedDB – basket persists while tab is open.
+          </p>
+        </div>
+        <div class="badge">IndexedDB • Products Store + Cart Store</div>
+      </div>
+
+      <!-- ======================================================
+           ✅ LEFT SIDE: PRODUCTS (cards rendered via JavaScript)
+           ====================================================== -->
+      <div class="products-panel">
+        <div class="section-title">🛍 Products</div>
+        <div id="productsGrid" class="products-grid">
+          <!-- ✅ Product cards will be inserted here via JS -->
+        </div>
+      </div>
+
+      <!-- ======================================================
+           ✅ RIGHT SIDE: CART / BASKET
+           ====================================================== -->
+      <div class="cart-panel">
+        <div class="cart-card">
+          <div class="section-title">🧺 Basket</div>
+
+          <!-- ✅ List of items inside the basket -->
+          <div id="cartItems" class="cart-items">
+            <div id="cartEmpty" class="cart-empty">Your basket is empty.</div>
+          </div>
+
+          <!-- ✅ Total price -->
+          <div class="cart-footer">
+            <span class="total-label">Total:</span>
+            <span id="cartTotal" class="total-value">$0.00</span>
+          </div>
+
+          <!-- ✅ Cart actions -->
+          <div class="cart-actions">
+            <button class="btn-danger" onclick="clearCart()">
+              🗑 Clear Basket
+            </button>
+            <button onclick="goToCheckout()">Checkout →</button>
+          </div>
+
+          <!-- ✅ Status indicator (db opening / updated / errors) -->
+          <div class="cart-status">
+            <div id="statusDot" class="status-dot dot-wait"></div>
+            <span id="statusText">Opening database...</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      /* =========================================================
+         ✅ Code Overview (JavaScript Part)
+         ---------------------------------------------------------
+         ✅ Goal:
+            - Create / open IndexedDB database "ShopDB"
+            - Store products in "products" store
+            - Store basket items in "cart" store
+            - Render products and cart from IndexedDB
+            - Allow user to:
+              1️⃣ Add to cart
+              2️⃣ Increase / Decrease quantity
+              3️⃣ Remove item
+              4️⃣ Clear basket
+              5️⃣ Checkout navigation
+
+         ✅ Important Note:
+            - IndexedDB works with transactions + requests (event-based).
+            - We must use onsuccess/onerror to know when reads/writes finish.
+         ========================================================= */
+
+      /* =========================================================
+         ✅ 1) GLOBALS + DOM CACHING
+         ========================================================= */
+
+      // ✅ Global DB reference (will hold IDBDatabase instance after open)
+      let db = null;
+
+      // ✅ Cache DOM elements for faster access (avoid repeated getElementById)
+      const productsGrid = document.getElementById("productsGrid");
+      const cartItems = document.getElementById("cartItems");
+      const cartEmpty = document.getElementById("cartEmpty");
+      const cartTotal = document.getElementById("cartTotal");
+      const statusDot = document.getElementById("statusDot");
+      const statusText = document.getElementById("statusText");
+
+      /* =========================================================
+         ✅ 2) STATUS HELPERS (UI feedback)
+         ========================================================= */
+
+      // ✅ Show "OK" status (green dot)
+      function setStatusOk(message) {
+        statusDot.classList.remove("dot-wait"); // remove yellow
+        statusDot.classList.add("dot-ok"); // add green
+        statusText.textContent = message; // set message text
+      }
+
+      // ✅ Show "Waiting/Busy" status (yellow dot)
+      function setStatusWait(message) {
+        statusDot.classList.remove("dot-ok"); // remove green
+        statusDot.classList.add("dot-wait"); // add yellow
+        statusText.textContent = message; // set message text
+      }
+
+      /* =========================================================
+         ✅ 3) OPEN (OR CREATE) IndexedDB DATABASE
+         ---------------------------------------------------------
+         - DB Name   : "ShopDB"
+         - Version   : 1
+         - Stores    : "products", "cart"
+         ========================================================= */
+
+      setStatusWait("Opening database...");
+
+      // ✅ Open database (creates it if it doesn't exist)
+      const openRequest = indexedDB.open("ShopDB", 1);
+
+      // ✅ Runs ONLY on first creation or when version number changes
+      openRequest.onupgradeneeded = function (event) {
+        // ✅ The database instance being created/upgraded
+        const dbInstance = event.target.result;
+
+        // ✅ Create products store (keyPath "id" means id is primary key)
+        dbInstance.createObjectStore("products", { keyPath: "id" });
+
+        // ✅ Create cart store (keyPath "id" where id = product id)
+        dbInstance.createObjectStore("cart", { keyPath: "id" });
+
+        // ✅ Seed initial products (only once on first run)
+        const seedProducts = [
+          {
+            id: 1,
+            name: "JavaScript Basics Course",
+            price: 49,
+            description: "Perfect for beginners starting JS.",
+          },
+          {
+            id: 2,
+            name: "Advanced JS Patterns",
+            price: 79,
+            description: "Deep dive into patterns and architecture.",
+          },
+          {
+            id: 3,
+            name: "DOM Mastery Workshop",
+            price: 39,
+            description: "DOM, events, and interactive UIs.",
+          },
+          {
+            id: 4,
+            name: "Async & Promises Lab",
+            price: 59,
+            description: "Master async, promises, and async/await.",
+          },
+          {
+            id: 5,
+            name: "IndexedDB Hands-On",
+            price: 29,
+            description: "Offline storage & IndexedDB in practice.",
+          },
+          {
+            id: 6,
+            name: "Fullstack JS Bundle",
+            price: 129,
+            description: "Front-end + Node.js + APIs bundle.",
+          },
+        ];
+
+        // ✅ Use the SAME upgrade transaction to add seed data
+        const tx = event.target.transaction; // upgrade transaction
+        const store = tx.objectStore("products"); // products store
+
+        // ✅ Insert each seeded product into IndexedDB
+        seedProducts.forEach((product) => {
+          store.add(product);
+        });
+      };
+
+      
+      // ✅ Runs when DB is opened successfully
+      openRequest.onsuccess = function (event) {
+        db = event.target.result; // save db globally
+        setStatusOk("Database opened.");
+
+        // ✅ On startup: render products and cart
+        loadProducts();
+        renderCart();
+      };
+
+      // ✅ Runs when opening fails
+      openRequest.onerror = function (event) {
+        console.error("Error opening ShopDB:", event.target.error);
+        setStatusWait("Error opening DB.");
+      };
+
+      /* =========================================================
+         ✅ 4) LOAD & RENDER PRODUCTS
+         ---------------------------------------------------------
+         - Read all products from "products" store
+         - Create a card in the UI for each one
+         ========================================================= */
+
+      function loadProducts() {
+        // ✅ clear grid before rendering again
+        productsGrid.innerHTML = "";
+
+        // ✅ readonly transaction (no writing)
+        const tx = db.transaction("products", "readonly");
+        const store = tx.objectStore("products");
+
+        // ✅ getAll returns all products in store
+        const request = store.getAll();
+
+        request.onsuccess = function () {
+          const products = request.result;
+
+          // ✅ if empty store, show message
+          if (!products || products.length === 0) {
+            productsGrid.innerHTML =
+              "<p style='color:#9ca3af;font-size:0.9rem;'>Sorry No products found.</p>";
+            return;
+          }
+
+          // ✅ create card for each product
+          products.forEach((product) => {
+            const card = document.createElement("div");
+            card.className = "product-card";
+
+            card.innerHTML = `
+              <div class="product-name">${product.name}</div>
+              <div class="product-desc">${product.description}</div>
+              <div class="product-footer">
+                <div class="product-price">$${product.price.toFixed(2)}</div>
+                <button onclick="addToCart(${
+                  product.id
+                })">Add to Basket</button>
+              </div>
+            `;
+
+            productsGrid.appendChild(card);
+          });
+        };
+
+        request.onerror = function () {
+          console.error("Error loading products.");
+        };
+      }
+
+      /* =========================================================
+         ✅ 5) CART OPERATIONS (Add / Increase / Decrease / Remove)
+         ========================================================= */
+
+      // ✅ Add product to cart, or increase quantity if it already exists
+      function addToCart(productId) {
+        setStatusWait("Updating basket...");
+
+        // ✅ readwrite transaction (we will update cart)
+        // We need both stores:
+        // - products: to read product info
+        // - cart: to add/update basket entry
+        const tx = db.transaction(["products", "cart"], "readwrite");
+        const productsStore = tx.objectStore("products");
+        const cartStore = tx.objectStore("cart");
+
+        // ✅ Step 1: read product from products store
+        const productRequest = productsStore.get(productId);
+
+        productRequest.onsuccess = function () {
+          const product = productRequest.result;
+
+          // validation
+          if (!product) {
+            console.error("Product not found:", productId);
+            setStatusWait("Product not found.");
+            return;
+          }
+
+          // ✅ Step 2: check if the product is already in cart
+          const cartItemRequest = cartStore.get(productId);
+
+          cartItemRequest.onsuccess = function () {
+            const existing = cartItemRequest.result; //the result of request null or not
+
+            if (existing) {
+              // ✅ already in cart → increment quantity
+              existing.quantity += 1;
+              cartStore.put(existing); // put() updates existing row
+            } else {
+              // ✅ not in cart → create new cart item
+              cartStore.add({
+                id: product.id,
+                name: product.name,
+                price: product.price,
+                quantity: 1,
+              });
+            }
+          };
+        };
+
+        // ✅ When whole transaction completes, we refresh the cart UI
+        tx.oncomplete = function () {
+          renderCart();
+          setStatusOk("Basket updated.");
+        };
+
+        tx.onerror = function () {
+          console.error("Error adding to cart.");
+          setStatusWait("Error updating basket."); //  setStatusWait for waiting and error
+        };
+      }
+
+      function Reduce(Total , percent , condition){
+
+        if (Total >= condition) {
+           Total *(1- percent)
+        }
+       
+        return Total *(1- percent);
+      }
+      // ✅ Increase quantity for a cart item
+      function increaseQty(productId) {
+        const tx = db.transaction("cart", "readwrite");
+        const cartStore = tx.objectStore("cart");
+
+        const req = cartStore.get(productId);
+
+        req.onsuccess = function () {
+          const item = req.result;
+          if (!item) return;
+
+          item.quantity += 1;
+          cartStore.put(item); // update
+        };
+
+        tx.oncomplete = function () {
+          renderCart(); // refresh UI
+        };
+      }
+
+      // ✅ Decrease quantity for a cart item (delete if quantity reaches 0)
+      function decreaseQty(productId) {
+        const tx = db.transaction("cart", "readwrite");
+        const cartStore = tx.objectStore("cart");
+
+  /*1*/ const req = cartStore.get(productId);
+
+        req.onsuccess = function () {
+          const item = req.result;
+          if (!item) return;
+
+          // ✅ if quantity would become 0 → remove row
+          if (item.quantity <= 1) {
+            cartStore.delete(productId);
+          } else {
+            item.quantity -= 1;
+            cartStore.put(item);
+          }
+        };
+
+  /*2*/ tx.oncomplete = function () {
+          renderCart();
+        };
+      }
+
+      // ✅ Remove item completely
+      function removeFromCart(productId) {
+        const tx = db.transaction("cart", "readwrite");
+        const cartStore = tx.objectStore("cart");
+
+       
+        cartStore.delete(productId);
+
+        tx.oncomplete = function () {
+          renderCart();
+        };
+      }
+
+      // ✅ Clear entire cart store
+      function clearCart() {
+        if (!confirm("Clear entire basket?")) return;
+
+        const tx = db.transaction("cart", "readwrite");
+        const cartStore = tx.objectStore("cart");
+
+        cartStore.clear();
+
+        tx.oncomplete = function () {
+          renderCart();
+          setStatusOk("Basket cleared.");
+        };
+      }
+
+      /* =========================================================
+         ✅ 6) RENDER CART (Read from IndexedDB + Build UI)
+         ---------------------------------------------------------
+         - Reads all items from "cart" store
+         - Builds HTML rows
+         - Calculates total = Σ(price × quantity)
+         ========================================================= */
+
+          function Reduce(Total , percent , condition){
+
+            if (Total >= condition) {
+                Total = (Total *(1- percent)).toFixed(2);
+            }
+          
+            return Total;
+          }
+          
+      function renderCart() {
+        cartItems.innerHTML = ""; // clear current items UI
+
+        const tx = db.transaction("cart", "readonly");
+        const cartStore = tx.objectStore("cart");
+        const req = cartStore.getAll();
+
+        // i opene cart obj
+        req.onsuccess = function () {
+          const items = req.result;
+
+          // ✅ empty cart
+          if (!items || items.length === 0) {
+            cartEmpty.style.display = "block";
+            cartEmpty.textContent = "Your basket is empty.";
+            cartTotal.textContent = "$0.00";
+            return;
+          }
+
+          // ✅ cart has items
+          cartEmpty.style.display = "none";
+
+          let total = 0;
+           const result =0;
+
+          items.forEach((item) => {
+            // ✅ calculate item total and add to cart total
+            const itemTotal = item.price * item.quantity;
+            total += itemTotal ;
+            
+             //result = Reduce(total , 20 , 500); //Reduce(total , percent , condition)
+
+            // ✅ build row element
+            const row = document.createElement("div");
+            row.className = "cart-item";
+
+            row.innerHTML = `
+              <div class="cart-item-main">
+                <div class="cart-item-name">${item.name}</div>
+                <div class="cart-item-price">
+                  $${item.price.toFixed(2)} × ${
+              item.quantity
+            } = $${itemTotal.toFixed(2)}
+                </div>
+                <span class="remove-link" onclick="removeFromCart(${item.id})">
+                  Remove
+                </span>
+              </div>
+
+              <div class="cart-item-controls">
+                <button class="small-btn" onclick="decreaseQty(${
+                  item.id
+                })">−</button>
+                <span class="qty-display">${item.quantity}</span>
+                <button class="small-btn" onclick="increaseQty(${
+                  item.id
+                })">+</button>
+              </div>
+            `;
+
+            cartItems.appendChild(row);
+          });
+
+          // ✅ update total
+          cartTotal.textContent = "$" + total;
+        };
+
+        req.onerror = function () {
+          console.error("Error reading cart.");
+        };
+      }
+
+      /*  
+        -20% if if has great than 500$
+      */
+      /* =========================================================
+         ✅ 7) CHECKOUT NAVIGATION
+         ========================================================= */
+
+      function goToCheckout() {
+        // ✅ navigate to checkout page (must exist in same folder)
+        window.location.href = "checkout.html";
+      }
+
+
+
+
+      
+    </script>
+  </body>
+</html>

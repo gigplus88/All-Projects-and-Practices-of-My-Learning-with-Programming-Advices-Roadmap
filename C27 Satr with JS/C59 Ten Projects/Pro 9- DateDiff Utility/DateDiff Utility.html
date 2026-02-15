@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>DateDiff Utility — Modern UI</title>
+
+    <style>
+      /* ============================================================
+         ✅ Modern UI — DateDiff Utility (CSS Only)
+         ============================================================
+         🔹 Dark theme
+         🔹 Responsive layout
+         🔹 Clean cards + soft borders
+      ============================================================ */
+
+      :root {
+        color-scheme: dark;
+
+        /* 🔹 Design tokens (reusable colors + sizes) */
+        --bg: #0b1020;
+        --card: rgba(255, 255, 255, 0.06);
+        --card-2: rgba(255, 255, 255, 0.08);
+        --border: rgba(255, 255, 255, 0.12);
+        --text: #e9eefc;
+        --muted: rgba(233, 238, 252, 0.7);
+        --accent: #7aa2ff;
+        --good: #39d98a;
+        --bad: #ff5c7a;
+
+        --radius: 18px;
+        --shadow: 0 18px 40px rgba(0, 0, 0, 0.45);
+      }
+
+      /* ✅ Make sizing predictable for all elements */
+      * {
+        box-sizing: border-box;
+      }
+
+      /* ✅ Page background + center the app */
+      body {
+        margin: 0;
+        min-height: 100vh;
+        display: grid;
+        place-items: center;
+        padding: 24px;
+        font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial,
+          sans-serif;
+
+        /* ✅ Soft gradients for modern feel */
+        background: radial-gradient(
+            1200px 800px at 20% 10%,
+            rgba(122, 162, 255, 0.18),
+            transparent 60%
+          ),
+          radial-gradient(
+            1000px 700px at 90% 20%,
+            rgba(57, 217, 138, 0.12),
+            transparent 60%
+          ),
+          var(--bg);
+        color: var(--text);
+      }
+
+      /* ✅ App container */
+      .app {
+        width: min(980px, 100%);
+        display: grid;
+        gap: 16px;
+      }
+
+      /* ✅ Top header */
+      header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        padding: 18px 20px;
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        background: var(--card);
+        box-shadow: var(--shadow);
+      }
+
+      .title {
+        display: grid;
+        gap: 4px;
+      }
+
+      .title h1 {
+        margin: 0;
+        font-size: 20px;
+        letter-spacing: 0.2px;
+      }
+
+      .title p {
+        margin: 0;
+        color: var(--muted);
+        font-size: 13px;
+      }
+
+      /* ✅ Small rounded label (chip) */
+      .chip {
+        border: 1px solid var(--border);
+        background: var(--card-2);
+        padding: 8px 10px;
+        border-radius: 999px;
+        font-size: 12px;
+        color: var(--muted);
+        white-space: nowrap;
+      }
+
+      /* ✅ Main 2-column layout */
+      .grid {
+        display: grid;
+        gap: 16px;
+        grid-template-columns: 1.12fr 0.88fr;
+      }
+
+      /* ✅ Mobile: stack columns */
+      @media (max-width: 900px) {
+        .grid {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      /* ✅ Card component */
+      .card {
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        background: var(--card);
+        box-shadow: var(--shadow);
+        overflow: hidden;
+      }
+
+      /* ✅ Card header section */
+      .cardHead {
+        padding: 16px 18px;
+        border-bottom: 1px solid var(--border);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+      }
+
+      .cardHead h2 {
+        margin: 0;
+        font-size: 15px;
+      }
+
+      /* ✅ Card body section */
+      .cardBody {
+        padding: 18px;
+        display: grid;
+        gap: 14px;
+      }
+
+      /* ✅ Two inputs side-by-side */
+      .row2 {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+      }
+
+      /* ✅ Small screens: stack inputs */
+      @media (max-width: 560px) {
+        .row2 {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      label {
+        display: grid;
+        gap: 8px;
+      }
+
+      /* ✅ Label text row with Required helper */
+      .labelRow {
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        gap: 10px;
+      }
+
+      .labelRow span {
+        color: var(--muted);
+        font-size: 13px;
+      }
+
+      /* ✅ Date inputs */
+      input[type="date"] {
+        width: 100%;
+        padding: 12px 12px;
+        border-radius: 12px;
+        border: 1px solid var(--border);
+        background: rgba(255, 255, 255, 0.06);
+        color: var(--text);
+        outline: none;
+      }
+
+      /* ✅ Focus style */
+      input[type="date"]:focus {
+        border-color: rgba(122, 162, 255, 0.6);
+        box-shadow: 0 0 0 3px rgba(122, 162, 255, 0.18);
+      }
+
+      /* ✅ Options row */
+      .toggleRow {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        align-items: center;
+      }
+
+      /* ✅ Checkbox switch pill */
+      .switch {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 10px 12px;
+        border-radius: 12px;
+        border: 1px solid var(--border);
+        background: rgba(255, 255, 255, 0.05);
+        user-select: none;
+      }
+
+      /* ✅ Make checkbox color match theme */
+      .switch input {
+        width: 18px;
+        height: 18px;
+        accent-color: var(--accent);
+      }
+
+      /* ✅ Buttons row */
+      .btnRow {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+
+      /* ✅ Buttons style */
+      button {
+        cursor: pointer;
+        border: 1px solid var(--border);
+        background: rgba(255, 255, 255, 0.08);
+        color: var(--text);
+        padding: 11px 14px;
+        border-radius: 12px;
+        font-weight: 600;
+        letter-spacing: 0.2px;
+      }
+
+      /* ✅ Primary button */
+      button.primary {
+        border-color: rgba(122, 162, 255, 0.55);
+        background: rgba(122, 162, 255, 0.16);
+      }
+
+      button:hover {
+        filter: brightness(1.08);
+      }
+
+      /* ✅ Message box */
+      .msg {
+        padding: 10px 12px;
+        border-radius: 12px;
+        border: 1px solid var(--border);
+        background: rgba(255, 255, 255, 0.05);
+        color: var(--muted);
+        font-size: 13px;
+      }
+
+      /* ❌ Error message style */
+      .msg.bad {
+        border-color: rgba(255, 92, 122, 0.55);
+        background: rgba(255, 92, 122, 0.12);
+        color: rgba(255, 210, 219, 0.95);
+      }
+
+      /* ✅ Success message style */
+      .msg.good {
+        border-color: rgba(57, 217, 138, 0.55);
+        background: rgba(57, 217, 138, 0.12);
+        color: rgba(209, 255, 234, 0.95);
+      }
+
+      /* ✅ Results layout */
+      .stats {
+        display: grid;
+        gap: 12px;
+      }
+
+      .statGrid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+      }
+
+      @media (max-width: 560px) {
+        .statGrid {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      /* ✅ One statistic card */
+      .stat {
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        padding: 14px 14px;
+        background: rgba(255, 255, 255, 0.05);
+      }
+
+      .stat .k {
+        color: var(--muted);
+        font-size: 12px;
+      }
+
+      .stat .v {
+        margin-top: 6px;
+        font-size: 22px;
+        font-weight: 800;
+        letter-spacing: 0.2px;
+      }
+
+      /* ✅ Helper text lines */
+      .smallLine {
+        color: var(--muted);
+        font-size: 13px;
+        line-height: 1.6;
+      }
+
+      /* ✅ Footer note */
+      .footerNote {
+        text-align: center;
+        color: var(--muted);
+        font-size: 12px;
+        padding: 6px 0 0;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="app">
+      <!-- ✅ Header (title + today chip) -->
+      <header>
+        <div class="title">
+          <h1>🧮 DateDiff Utility</h1>
+          <p>
+            Compare two dates and get the difference (days / weeks / months /
+            years).
+          </p>
+        </div>
+        <div class="chip" id="todayChip">Today: —</div>
+      </header>
+
+      <div class="grid">
+        <!-- ✅ Inputs -->
+        <section class="card">
+          <div class="cardHead">
+            <h2>🧾 Inputs</h2>
+            <span class="chip">Vanilla JS • Accurate Date Math</span>
+          </div>
+
+          <div class="cardBody">
+            <!-- ✅ Start + End dates -->
+            <div class="row2">
+              <label>
+                <div class="labelRow">
+                  <span>Start Date</span>
+                  <span>(Required)</span>
+                </div>
+                <input id="startDate" type="date" />
+              </label>
+
+              <label>
+                <div class="labelRow">
+                  <span>End Date</span>
+                  <span>(Required)</span>
+                </div>
+                <input id="endDate" type="date" />
+              </label>
+            </div>
+
+            <!-- ✅ Options -->
+            <div class="toggleRow">
+              <label
+                class="switch"
+                title="If enabled, swaps dates if start is after end."
+              >
+                <input id="autoSwap" type="checkbox" checked />
+                <span>Auto-swap if start &gt; end</span>
+              </label>
+
+              <label
+                class="switch"
+                title="If enabled, include both start and end day in day counting."
+              >
+                <input id="inclusiveDays" type="checkbox" />
+                <span>Inclusive day count</span>
+              </label>
+            </div>
+
+            <!-- ✅ Actions -->
+            <div class="btnRow">
+              <button class="primary" id="btnCalc">Calculate Difference</button>
+              <button id="btnDemo">Demo (Last 90 Days)</button>
+              <button id="btnClear">Clear</button>
+            </div>
+
+            <!-- ✅ Message area -->
+            <div class="msg" id="msgBox">
+              Tip: Pick start/end dates, then click “Calculate Difference”.
+            </div>
+
+            <div class="smallLine">
+              🔹 “Months/Years” are calculated using real calendar boundaries
+              (not just days ÷ 30).<br />
+              🔹 “Days/Weeks” use exact day difference.
+            </div>
+          </div>
+        </section>
+
+        <!-- ✅ Results -->
+        <section class="card">
+          <div class="cardHead">
+            <h2>📊 Results</h2>
+            <span class="chip" id="statusChip">Waiting…</span>
+          </div>
+
+          <div class="cardBody stats">
+            <!-- ✅ Output stats -->
+            <div class="statGrid">
+              <div class="stat">
+                <div class="k">Total Days</div>
+                <div class="v" id="outDays">—</div>
+              </div>
+
+              <div class="stat">
+                <div class="k">Total Weeks</div>
+                <div class="v" id="outWeeks">—</div>
+              </div>
+
+              <div class="stat">
+                <div class="k">Calendar Months</div>
+                <div class="v" id="outMonths">—</div>
+              </div>
+
+              <div class="stat">
+                <div class="k">Calendar Years</div>
+                <div class="v" id="outYears">—</div>
+              </div>
+            </div>
+
+            <!-- ✅ Extra explanation lines -->
+            <div class="smallLine" id="rangeLine">Range: —</div>
+            <div class="smallLine" id="breakdownLine">Breakdown: —</div>
+          </div>
+        </section>
+      </div>
+
+      <div class="footerNote">
+        Built with ❤️ using HTML + CSS + JavaScript (no libraries)
+      </div>
+    </div>
+
+    <script>
+      /* ============================================================
+         ✅ Code Overview (DateDiff Utility)
+         ============================================================
+         🔹 Purpose       → Find difference between two dates
+         🔹 Layout        → Left: Inputs/Options | Right: Results
+         🔹 Use Cases     → Reports, project timelines, planning tools
+         🔹 Key Properties→ Auto-swap, inclusive days, calendar month/year math
+      ============================================================ */
+
+      /* ============================================================
+         ✅ 1) Grab Elements (DOM references)
+         ============================================================ */
+
+      // ✅ Date inputs
+      const startDateInput = document.getElementById("startDate");
+      const endDateInput = document.getElementById("endDate");
+
+      // ✅ Options (checkboxes)
+      const autoSwapInput = document.getElementById("autoSwap");
+      const inclusiveDaysInput = document.getElementById("inclusiveDays");
+
+      // ✅ Buttons
+      const btnCalc = document.getElementById("btnCalc");
+      const btnDemo = document.getElementById("btnDemo");
+      const btnClear = document.getElementById("btnClear");
+
+      // ✅ Outputs (result numbers)
+      const outDays = document.getElementById("outDays");
+      const outWeeks = document.getElementById("outWeeks");
+      const outMonths = document.getElementById("outMonths");
+      const outYears = document.getElementById("outYears");
+
+      // ✅ Extra lines
+      const rangeLine = document.getElementById("rangeLine");
+      const breakdownLine = document.getElementById("breakdownLine");
+
+      // ✅ UI feedback
+      const msgBox = document.getElementById("msgBox");
+      const statusChip = document.getElementById("statusChip");
+      const todayChip = document.getElementById("todayChip");
+
+      /* ============================================================
+         ✅ 2) Helper Functions
+         ============================================================ */
+
+      /**
+       * ✅ formatDate(date)
+       * Turns a Date object into a friendly string like: "Dec 23, 2025"
+       */
+      function formatDate(date) {
+        return date.toLocaleDateString(undefined, {
+          year: "numeric",
+          month: "short",
+          day: "2-digit",
+        });
+      }
+
+      /**
+       * ✅ stripTime(date)
+       * Removes the time portion (sets time to midnight).
+       * This avoids time-zone surprises when comparing dates.
+       */
+      function stripTime(date) {
+        return new Date(date.getFullYear(), date.getMonth(), date.getDate());
+      }
+
+      /**
+       * ✅ parseDateInput(value)
+       * Converts the date input string "YYYY-MM-DD" into a Date object.
+       *
+       * Why not new Date("YYYY-MM-DD")?
+       * Because some browsers treat it as UTC and shift the day depending on timezone.
+       */
+      function parseDateInput(value) {
+        const [y, m, d] = value.split("-").map(Number);
+        return new Date(y, m - 1, d);
+      }
+
+      /**
+       * ✅ showMessage(type, text)
+       * Shows a friendly message in the message box.
+       * type = "good" | "bad" | "neutral"
+       */
+      function showMessage(type, text) {
+        msgBox.classList.remove("good", "bad");
+        if (type === "good") msgBox.classList.add("good");
+        if (type === "bad") msgBox.classList.add("bad");
+        msgBox.textContent = text;
+      }
+
+      /**
+       * ✅ setStatus(text)
+       * Updates the status chip on the results card.
+       */
+      function setStatus(text) {
+        statusChip.textContent = text;
+      }
+
+      /**
+       * ✅ resetOutputs()
+       * Clears the results area (back to "—")
+       */
+      function resetOutputs() {
+        outDays.textContent = "—";
+        outWeeks.textContent = "—";
+        outMonths.textContent = "—";
+        outYears.textContent = "—";
+        rangeLine.textContent = "Range: —";
+        breakdownLine.textContent = "Breakdown: —";
+        setStatus("Waiting…");
+      }
+
+      /* ✅ milliseconds per day (used for ms → days conversion) */
+      const msPerDay = 1000 * 60 * 60 * 24;
+
+      /* ============================================================
+         ✅ 3) Calendar Month/Year Difference Functions
+         ============================================================ */
+
+      /**
+       * ✅ diffCalendarMonths(start, end)
+       * Returns full completed calendar months between start and end.
+       *
+       * Example:
+       * - Jan 15 → Feb 14 = 0 full months
+       * - Jan 15 → Feb 15 = 1 full month
+       */
+      function diffCalendarMonths(start, end) {
+        // Count how many month boundaries we crossed (ignoring day)
+        let months =
+          (end.getFullYear() - start.getFullYear()) * 12 +
+          (end.getMonth() - start.getMonth());
+
+        // If end-day is before start-day, the last month isn't completed
+        if (end.getDate() < start.getDate()) months -= 1;
+
+        return Math.max(0, months);
+      }
+
+      /**
+       * ✅ diffCalendarYears(start, end)
+       * Returns full completed calendar years between start and end.
+       *
+       * Example:
+       * - 2020-06-10 → 2021-06-09 = 0 full years
+       * - 2020-06-10 → 2021-06-10 = 1 full year
+       */
+      function diffCalendarYears(start, end) {
+        let years = end.getFullYear() - start.getFullYear();
+
+        // If end is before the "anniversary" (month/day), subtract 1 year
+        if (
+          end.getMonth() < start.getMonth() ||
+          (end.getMonth() === start.getMonth() &&
+            end.getDate() < start.getDate())
+        ) {
+          years -= 1;
+        }
+
+        return Math.max(0, years);
+      }
+
+      /* ============================================================
+         ✅ 4) Main Calculation
+         ============================================================ */
+
+      /**
+       * ✅ calculateDateDiff()
+       * Validates input dates, applies options, and fills the results UI.
+       */
+      function calculateDateDiff() {
+        const startVal = startDateInput.value;
+        const endVal = endDateInput.value;
+
+        // ❌ Missing input?
+        if (!startVal || !endVal) {
+          showMessage("bad", "❌ Please choose BOTH start and end dates.");
+          resetOutputs();
+          return;
+        }
+
+        // ✅ Parse safely
+        let start = stripTime(parseDateInput(startVal));
+        let end = stripTime(parseDateInput(endVal));
+
+        // ✅ Handle reversed dates (start after end)
+        if (start > end) {
+          if (autoSwapInput.checked) {
+            // ✅ Auto swap enabled → swap them
+            [start, end] = [end, start];
+            showMessage(
+              "neutral",
+              "📌 Dates were swapped (start was after end)."
+            );
+          } else {
+            // ❌ Auto swap disabled → error
+            showMessage(
+              "bad",
+              "❌ Start date must be before end date (or enable auto-swap)."
+            );
+            resetOutputs();
+            return;
+          }
+        } else {
+          showMessage("good", "✅ Date difference calculated successfully.");
+        }
+
+        // ✅ Total days (exact difference in days)
+        let totalDays = Math.round((end - start) / msPerDay);
+
+        // ✅ Inclusive mode (count start and end as part of the range)
+        if (inclusiveDaysInput.checked) {
+          totalDays += 1;
+        }
+
+        // ✅ Total weeks (can be decimals)
+        const totalWeeks = totalDays / 7;
+
+        // ✅ Calendar differences (full boundaries)
+        const calMonths = diffCalendarMonths(start, end);
+        const calYears = diffCalendarYears(start, end);
+
+        // ✅ Update UI outputs
+        outDays.textContent = totalDays.toLocaleString();
+        outWeeks.textContent = totalWeeks.toFixed(2);
+        outMonths.textContent = calMonths.toLocaleString();
+        outYears.textContent = calYears.toLocaleString();
+
+        // ✅ Update explanation lines
+        rangeLine.textContent = `Range: ${formatDate(start)} → ${formatDate(
+          end
+        )}`;
+
+        breakdownLine.textContent = `Breakdown: ${totalDays.toLocaleString()} days ≈ ${totalWeeks.toFixed(
+          2
+        )} weeks | ${calMonths.toLocaleString()} full months | ${calYears.toLocaleString()} full years`;
+
+        setStatus("Calculated ✅");
+      }
+
+      /* ============================================================
+         ✅ 5) Wire Up Events (buttons + changes)
+         ============================================================ */
+
+      // ✅ Show today's date in the header chip
+      todayChip.textContent = `Today: ${formatDate(new Date())}`;
+
+      // ✅ Main calculate button
+      btnCalc.addEventListener("click", calculateDateDiff);
+
+      // ✅ Demo button: sets range to last 90 days
+      btnDemo.addEventListener("click", () => {
+        const end = stripTime(new Date());
+        const start = new Date(end);
+        start.setDate(start.getDate() - 90); //Substract 90 days from start
+
+        // Convert Date → "YYYY-MM-DD" for <input type="date">
+        const toISO = (d) => {
+          const yyyy = d.getFullYear();
+          const mm = String(d.getMonth() + 1).padStart(2, "0");
+          const dd = String(d.getDate()).padStart(2, "0");
+          return `${yyyy}-${mm}-${dd}`;
+        };
+
+        startDateInput.value = toISO(start);
+        endDateInput.value = toISO(end);
+
+        setStatus("Ready…");
+        showMessage(
+          "neutral",
+          "📌 Demo dates set (last 90 days). Click Calculate."
+        );
+      });
+
+      // ✅ Clear button: reset everything to defaults
+      btnClear.addEventListener("click", () => {
+        startDateInput.value = "";
+        endDateInput.value = "";
+        autoSwapInput.checked = true;
+        inclusiveDaysInput.checked = false;
+        resetOutputs();
+        showMessage(
+          "neutral",
+          "Tip: Pick start/end dates, then click “Calculate Difference”."
+        );
+      });
+
+      // ✅ Bonus UX: when user changes anything, show ready status
+      [startDateInput, endDateInput, autoSwapInput, inclusiveDaysInput].forEach(
+        (el) => {
+          el.addEventListener("change", () => {
+            setStatus("Ready…");
+          });
+        }
+      );
+    </script>
+  </body>
+</html>

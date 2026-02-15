@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>JavaScript Type System Demo</title>
+
+    <style></style>
+  </head>
+  <body>
+    <script>
+      const seen = {};
+
+      seen["A"] = true;
+      seen["A"] = true; // overwritten silently
+
+      console.log(seen);
+
+      const ids = new Set();
+
+      ids.add(1);
+      ids.add(1);
+      ids.add(2);
+
+      console.log(ids);
+
+      /*const scores = new Map([
+        ["Ahmed", 90],
+        ["Sara", 85],
+        ["Omar", 92]
+      ]);
+      console.log(scores);*/
+
+      const scores = new Map();
+
+      scores.set("Ahmed", 90);
+      scores.set("Sara", 85);
+      scores.set("Omar", 92);
+
+      console.log(scores);
+
+      const settings = new Map()
+        .set("theme", "dark")
+        .set("language", "en")
+        .set("debug", true);
+
+      const prices = new Map()
+        .set("apple", 2)
+        .set("banana", 1)
+        .set("orange", 3);
+
+      console.log(prices.get("banana")); // 1
+
+      prices.has("apple") ? console.log(prices.get("apple")) : null; // 1
+
+      console.log("The total number of fruits is", prices.size); // 1
+
+      prices.set(4, "Choclate");
+      console.log(prices.get(4));
+
+      user = { id: 4, name: "Ali" };
+      prices.set(user, "User Info");
+      console.log(prices.get(user));
+
+      const students = new Map([
+        ["Ali", 90 ],
+        ["Sara" ,95],
+        ["Omar", 88],
+      ]);
+
+
+      console.log(students.get("Sara"));
+
+
+      if (students.has("Ali")) {
+        console.log("Ali's score is", students.get("Ali"));
+      }
+
+
+
+
+      students.delete("Omar");
+      console.log("students Map is", students.size);
+
+      students.forEach( (key , value) => { console.log("key:" + key , "Value:" +value)} );
+
+     for (let  [key,value] of students) {
+       
+          console.log(name, "=>", score);
+     }
+    </script>
+  </body>
+</html>

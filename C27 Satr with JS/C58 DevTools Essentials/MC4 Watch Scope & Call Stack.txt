@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <script>
+      function outer() {
+      let count = 0;
+
+      return function inner() {
+        count++;
+        debugger;
+      };
+    }
+
+    const fn = outer();
+    fn();
+   
+
+
+
+    //ex
+
+    /*
+      💡 Activity – Expected Outcome
+    You should be able to say:
+
+    🔹 “This variable lives in closure”
+    🔹 “This function was called by that function”
+    🔹 “This value persists across calls”
+
+    That understanding is permanent.
+    */
+    function c(){
+      console.log("I am c func");
+    }
+    function b(){
+      c();
+    }
+    function a(){
+      b();
+    }
+
+    a();
+    </script>
+  </body>
+</html>

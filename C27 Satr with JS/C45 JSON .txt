@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>JavaScript Type System Demo</title>
+
+    <style></style>
+  </head>
+  <body>
+    <script>
+      /*title
+author
+year*/
+
+
+  //Activity 1
+      book = {
+        "title" : "Good",
+        "author" : "C. S. Lewis",
+        "year" : 1945
+      }
+
+      console.log(book);
+
+      const object = {
+        name: "Alice",
+        age: 30,
+        isStudent: false,
+        courses: ["Math", "Science", "History"],
+      }
+       ; 
+
+       y = {
+          "name": "Ali",
+          "age": null
+        }
+
+
+
+          //Activity 2
+
+
+        //3 no double quotes for keys and undefined and command
+        newg = {
+          "name": "Book",
+          "price": null 
+        }
+
+        user = {
+          "userName": "John",
+          "age": 30,
+          "isAdmin" : true
+        };
+
+        // we dont have NaN and Funct in json
+        fix = {
+                "count": 0,
+                "log": "Yes"
+              }
+
+
+              //Activity 3
+
+        const user2 = {
+          name: "Ahmed",
+          age: 30,
+          active: true
+        };
+
+        const json = JSON.stringify(user2);
+
+        console.log(json);
+
+
+
+        const users = [
+          { id: 1, name: "Sara" },
+          { id: 2, name: "Omar" }
+        ];
+
+        console.log(JSON.stringify(users));
+
+
+
+      const product = {
+      name: "Laptop",
+      price: 1200,
+      specs: {
+        cpu: "i7",
+        ram: "16GB"
+      }
+    };
+
+
+
+    //Circular references
+    const pretty = JSON.stringify(product, null, 2);
+    console.log(pretty);
+
+    const user4 = {name : "Saad"};
+    user.self = user4;
+
+    console.log( JSON.stringify(user4) );
+
+
+
+
+
+    const book2 = {
+      title: "JavaScript Basics",
+      pages: 300,
+      available: true
+    };
+
+
+    console.log( JSON.stringify(book2, null, 4) );
+
+    const nums = [ 2 ,3 ,5];
+
+    console.log(JSON.stringify(nums));
+
+    const user5 = {
+      name: "Lina",
+      skills: ["HTML", "CSS", "JS"]
+    };
+      console.log(JSON.stringify(user5 , null,4));
+
+    // It skipp undefined values and functions(params) 
+      
+
+    const obj = {
+      a: 1,
+      run() {}
+    };
+
+    console.log(JSON.stringify(obj));
+
+
+
+
+
+
+    //Activity 4
+
+    const json2 = '{"name":"Ahmed","age":30}';
+
+    const user6 = JSON.parse(json2);
+
+    console.log(user6.name);
+        console.log(user6.age);
+
+    
+    
+    
+
+    localStorage.setItem(
+      "profile",
+      '{"name":"Lina","role":"Admin"}'
+    );
+
+    const stored = localStorage.getItem("profile");
+    const profile = JSON.parse(stored); // profile item to JS variable
+
+    console.log(profile.role);
+
+
+
+
+    const original = { score: 100 , name: "Ayoub" };
+
+    const json6 = JSON.stringify(original);// JS Value to string
+    const restored = JSON.parse(json6); // string to JS value
+
+    console.log(restored.name);
+
+
+
+
+
+
+
+    const json8 = '{"title":"JavaScript","level":"Beginner"}';
+
+    const course = JSON.parse(json8);
+    console.log(course.title);
+
+
+    const json7 = '[5, 10, 15]';
+
+    const re = JSON.parse(json7);
+    console.log(re[1]);
+
+
+    try {
+      const badJson = '{"name": "Test", "age": }'; // Invalid JSON
+      const data = JSON.parse(badJson);
+      console.log(data.name);
+    } catch (error) {
+      console.error("Failed to parse JSON:", error.message);
+    }
+
+
+    const toConvert = { name :"Salam" , age:25};
+      
+    const toJSON = JSON.stringify(toConvert);
+    const toObj = JSON.parse(toJSON);
+
+    console.log(toObj);
+
+
+    //Activity 5
+
+    const settings = { theme: "dark", fontSize: 14 };
+
+    localStorage.setItem("settings", JSON.stringify(settings));
+
+    const saved = JSON.parse(localStorage.getItem("settings"));
+
+    console.log(saved.theme);
+
+
+    const obj11 = { created: new Date() };
+
+    const json11 = JSON.stringify(obj11)
+    console.log(json11);
+
+
+    //Parsing Date
+
+    const parsed = JSON.parse(json11);
+    console.log(typeof parsed.created); // "string"
+
+
+    parsed.created = new Date(parsed.created);
+    console.log(typeof parsed.created); 
+
+
+
+
+
+    //ex
+
+      const sett = { theme: "white", fontSize: 20 };
+
+     localStorage.setItem("sett", JSON.stringify(sett));
+
+     const save = JSON.parse(localStorage.getItem("sett"));
+
+    console.log(save.fontSize);
+
+
+
+
+    const userAPI = '{"userName" : "Salima"}';
+
+    const resultAPI = JSON.parse(userAPI);
+
+    console.log(resultAPI.userName);
+
+
+
+    const objOfStringify = { color : "red" , length : undefined , age : null };
+
+    const stringifyRes = JSON.stringify(objOfStringify);
+
+    console.log(stringifyRes);
+
+
+
+
+
+    
+    const objDate = { created: new Date() };
+
+    const jsonDate = JSON.stringify(objDate)
+    console.log(jsonDate);
+
+
+    //Parsing Date
+
+    const parsedDate = JSON.parse(jsonDate);
+    console.log(typeof parsedDate.created); // "string"
+
+
+    parsedDate.created = new Date(parsedDate.created);
+    console.log( parsedDate.created); 
+
+
+      try{
+        const newBadJson = '{"name": "Test", "age":20 ,}'; // Invalid JSON
+        const data = JSON.parse(newBadJson);
+        console.log(data.name);
+      } catch (error) {
+        console.error("Failed to parse JSON:", error.message);
+        }
+    </script>
+  </body>
+</html>

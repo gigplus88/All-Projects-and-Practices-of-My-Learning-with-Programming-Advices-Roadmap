@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>HTMLCollection Activity</title>
+
+    <style>
+      h2 {
+        transition: color 0.3s;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>Lesson Heading</h2>
+
+    <p class="text">Paragraph One</p>
+    <p class="text">Paragraph Two</p>
+    <p class="text">Paragraph Three</p>
+
+    <button id="btn">Apply Changes</button>
+
+    <script>
+      const button = document.getElementById("btn");
+
+      button.addEventListener("click", () => {
+        // 🔹 Select by class name (HTMLCollection)
+        const paragraphs = document.getElementsByClassName("text");
+
+        for (let i = 0; i < paragraphs.length; i++) {
+          paragraphs[i].style.color = "orange";
+          paragraphs[i].textContent = "Updated paragraph " + (i + 1);
+        }
+
+        // 🔹 Select by tag name (HTMLCollection)
+        const headings = document.getElementsByTagName("h2");
+
+        for (let i = 0; i < headings.length; i++) {
+          headings[i].style.color = "lime";
+        }
+      });
+    </script>
+  </body>
+</html>

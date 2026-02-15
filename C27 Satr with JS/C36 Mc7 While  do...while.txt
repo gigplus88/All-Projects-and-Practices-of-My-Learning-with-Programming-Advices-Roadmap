@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>JavaScript Type System Demo</title>
+
+    <style></style>
+  </head>
+  <body>
+    <script>
+    let count = 5;
+    while(count > 0)
+    {
+      console.log(count);
+      count--;
+    }
+
+    let n = 0; 
+    while (n !== 7) {
+       n = Math.floor(Math.random() * 10);
+       if (n === 7) {
+        console.log("7 found, exiting loop.");
+        break;
+       }
+       console.log(n);
+    }
+
+    </script>
+  </body>
+</html>

@@ -1,0 +1,11 @@
+function sumTo(n) {
+  // Base case
+  if (n === 1) {
+    return 1;
+  }
+
+  // Recursive case
+  return n + sumTo(n - 1);
+}
+
+console.log(sumTo(4)); // 10

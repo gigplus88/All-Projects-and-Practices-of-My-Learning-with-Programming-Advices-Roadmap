@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>FormData Activity</title>
+
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+      }
+
+      .result {
+        margin-top: 20px;
+        padding: 12px;
+        border: 1px solid #ccc;
+        background: #f7f7f7;
+      }
+
+      pre {
+        background: #eee;
+        padding: 10px;
+        overflow-x: auto;
+      }
+
+      ul {
+        margin: 0;
+        padding-left: 20px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <h1>FormData Activity</h1>
+
+    <!--<form id="taskForm">
+      <input type="email" required name="email">
+      <input type="text" minlength="3" name="text">
+      <input type="number" min="1" max="10" name="number">
+      <button type="submit" >Submit</button>
+    </form>-->
+
+    <form id="taskForm">
+      <input
+        type="text"
+        name="title"
+        required
+        minlength="3"
+        placeholder="Title"
+      /><br /><br />
+
+      <input name="email" type="email" placeholder="Email" required />
+      <br /><br />
+
+      <input name="age" type="number" placeholder="Age" min="18" />
+
+      <button type="submit">Submit</button>
+    </form>
+
+    <script>
+      const form = document.getElementById("taskForm");
+
+      form.addEventListener("submit", (e) => {
+        e.preventDefault();
+
+        if (!form.checkValidity()) {
+          form.reportValidity(); // if invalid show invalid message
+          return;
+        }
+        const formData = new FormData(form);
+
+        console.log("Form submitted successfully");
+        // 2️⃣ Convert FormData to a plain JavaScript object
+        const data = Object.fromEntries(formData.entries());
+
+        console.log(data);
+
+        // Safe to submit
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,943 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- ✅ Character encoding (supports most languages correctly) -->
+    <meta charset="utf-8" />
+
+    <!-- ✅ Responsive layout on mobile/tablet -->
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+
+    <!-- ✅ Browser tab title -->
+    <title>Students CRUD Demo — Fetch + async/await</title>
+
+    <style>
+      /* =========================================================
+         ✅ Code Overview (Beginner Friendly)
+         ---------------------------------------------------------
+         ✅ Purpose:
+            - A one-page Students CRUD demo:
+              1️⃣ List (GET)
+              2️⃣ Add (POST)
+              3️⃣ Edit/Update (PUT) via modal
+              4️⃣ Delete (DELETE)
+
+         ✅ What you learn here:
+            - fetch() + async/await
+            - response.ok checking (HTTP error handling)
+            - JSON payloads (send + receive)
+            - try/catch/finally for safe UI states
+            - Optimistic UI updates + revert on failure
+            - Basic validation (name/email/GPA)
+            - Search filtering in memory
+
+         ✅ Important note:
+            - Uses JSONPlaceholder (demo API).
+            - POST/PUT/DELETE return success responses ✅
+              but DO NOT persist data on the server ❗
+            - So we store changes locally in `students[]`.
+         ========================================================= */
+
+      /* ✅ Hint to browser: use dark UI for native controls */
+      :root {
+        color-scheme: dark;
+      }
+
+      /* ✅ Predictable sizing: padding/border included in width/height */
+      * {
+        box-sizing: border-box;
+      }
+
+      /* ✅ Page background + global font */
+      body {
+        margin: 0;
+        padding: 24px;
+        font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial,
+          sans-serif;
+        background: #0b1020;
+        color: #e9eefc;
+      }
+
+      /* ✅ Center the app and limit max width */
+      .app {
+        max-width: 1100px;
+        margin: 0 auto;
+      }
+
+      /* ✅ Reusable card container */
+      .card {
+        background: rgba(255, 255, 255, 0.06);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        border-radius: 18px;
+        padding: 18px;
+      }
+
+      /* ✅ Top bar: title + right buttons/info */
+      .topbar {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 14px;
+      }
+
+      /* ✅ Title size */
+      h1 {
+        font-size: 18px;
+        margin: 0;
+      }
+
+      /* ✅ Muted text helper */
+      .muted {
+        opacity: 0.75;
+      }
+
+      /* ✅ Horizontal row layout */
+      .row {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+        align-items: center;
+      }
+
+      /* ✅ Two-column layout:
+         - Left: list/search
+         - Right: add form
+      */
+      .grid {
+        display: grid;
+        grid-template-columns: 1.1fr 0.9fr;
+        gap: 12px;
+      }
+
+      /* ✅ On small screens: stack into one column */
+      @media (max-width: 900px) {
+        .grid {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      /* ✅ Shared form styles (inputs/select/textarea) */
+      input,
+      select,
+      textarea {
+        width: 100%;
+        background: rgba(0, 0, 0, 0.25);
+        border: 1px solid rgba(255, 255, 255, 0.16);
+        color: #e9eefc;
+        border-radius: 12px;
+        padding: 10px 12px;
+        outline: none;
+      }
+
+      /* ✅ Label style */
+      label {
+        font-size: 12px;
+        opacity: 0.85;
+        display: block;
+        margin: 10px 0 6px;
+      }
+
+      /* ✅ Buttons base style */
+      button {
+        border: 0;
+        border-radius: 12px;
+        padding: 10px 14px;
+        cursor: pointer;
+        background: #4f7cff;
+        color: white;
+        font-weight: 700;
+      }
+
+      /* ✅ Secondary button */
+      button.secondary {
+        background: rgba(255, 255, 255, 0.12);
+      }
+
+      /* ✅ Danger button (delete) */
+      button.danger {
+        background: #ff4f6d;
+      }
+
+      /* ✅ Disabled look */
+      button:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+      }
+
+      /* ✅ List container */
+      .list {
+        display: grid;
+        gap: 10px;
+        margin-top: 10px;
+      }
+
+      /* ✅ One student card */
+      .item {
+        padding: 12px;
+        border-radius: 14px;
+        background: rgba(0, 0, 0, 0.18);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        display: grid;
+        grid-template-columns: 1fr auto;
+        gap: 10px;
+        align-items: start;
+      }
+
+      /* ✅ Student name */
+      .name {
+        font-weight: 900;
+        margin: 0 0 4px;
+      }
+
+      /* ✅ Student meta text (email, etc.) */
+      .meta {
+        margin: 0;
+        opacity: 0.8;
+        line-height: 1.45;
+      }
+
+      /* ✅ Pill badge (id/major/gpa) */
+      .pill {
+        display: inline-block;
+        padding: 3px 10px;
+        border-radius: 999px;
+        font-size: 12px;
+        background: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.14);
+        opacity: 0.9;
+        margin-right: 6px;
+        margin-top: 6px;
+      }
+
+      /* ✅ Buttons container inside student card */
+      .actions {
+        display: flex;
+        gap: 8px;
+      }
+
+      /* ✅ Smaller buttons for Edit/Delete */
+      .actions button {
+        padding: 8px 10px;
+        font-size: 13px;
+      }
+
+      /* ✅ Loading status row */
+      .status {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+        margin-top: 8px;
+      }
+
+      /* ✅ Spinner circle */
+      .spinner {
+        width: 16px;
+        height: 16px;
+        border-radius: 999px;
+        border: 2px solid rgba(255, 255, 255, 0.25);
+        border-top-color: white;
+        animation: spin 0.85s linear infinite;
+      }
+
+      /* ✅ Spinner animation */
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      /* ✅ Toast message (bottom-right) */
+      .toast {
+        position: fixed;
+        right: 18px;
+        bottom: 18px;
+        background: rgba(0, 0, 0, 0.55);
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        backdrop-filter: blur(10px);
+        padding: 12px 14px;
+        border-radius: 14px;
+        display: none;
+        max-width: 360px;
+        line-height: 1.35;
+      }
+
+      /* ✅ Backdrop for modal */
+      .backdrop {
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.55);
+        display: none; /* ✅ shown only when editing */
+        align-items: center;
+        justify-content: center;
+        padding: 18px;
+      }
+
+      /* ✅ Modal box */
+      .modal {
+        width: min(720px, 100%);
+        background: rgba(12, 16, 32, 0.98);
+        border: 1px solid rgba(255, 255, 255, 0.14);
+        border-radius: 18px;
+        padding: 16px;
+      }
+
+      /* ✅ Modal title */
+      .modal h2 {
+        margin: 0 0 6px;
+        font-size: 16px;
+      }
+
+      /* ✅ Modal buttons row */
+      .modal .row {
+        justify-content: flex-end;
+        margin-top: 12px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="app">
+      <div class="card">
+        <!-- ✅ Header: title + API info + reload -->
+        <div class="topbar">
+          <div>
+            <h1>Students CRUD Demo (Fetch + async/await)</h1>
+            <div class="muted">
+              Simulated students data built from a public API response
+            </div>
+          </div>
+
+          <div class="row">
+            <span class="pill" id="apiInfo"
+              >GET /users (mapped to Students)</span
+            >
+            <button class="secondary" id="btnReload">Reload</button>
+          </div>
+        </div>
+
+        <div class="grid">
+          <!-- ======================================================
+               ✅ Left Side: Students list + search
+               ====================================================== -->
+          <section>
+            <div class="row" style="justify-content: space-between">
+              <div class="row">
+                <strong>Students</strong>
+                <span class="muted" id="count"></span>
+              </div>
+
+              <div class="row">
+                <input
+                  id="search"
+                  placeholder="Search name or email…"
+                  style="width: 280px"
+                />
+              </div>
+            </div>
+
+            <!-- ✅ Loading area (hidden by default) -->
+            <div class="status muted" id="loading" style="display: none">
+              <div class="spinner"></div>
+              <div>Loading…</div>
+            </div>
+
+            <!-- ✅ Error text (hidden by default) -->
+            <div
+              class="muted"
+              id="error"
+              style="margin-top: 10px; display: none"
+            ></div>
+
+            <!-- ✅ Students will be rendered here -->
+            <div class="list" id="list"></div>
+          </section>
+
+          <!-- ======================================================
+               ✅ Right Side: Add Student form
+               ====================================================== -->
+          <section class="card" style="padding: 14px">
+            <strong>Add New Student</strong>
+            <div class="muted" style="margin-top: 6px">
+              Sends a POST request (demo). Student is added to local list so
+              CRUD feels real.
+            </div>
+
+            <label for="addName">Full Name</label>
+            <input id="addName" placeholder="e.g., Omar Abu-Hadhoud" />
+
+            <label for="addEmail">Email</label>
+            <input id="addEmail" placeholder="e.g., omar@example.com" />
+
+            <label for="addMajor">Major</label>
+            <select id="addMajor">
+              <option value="Computer Science">Computer Science</option>
+              <option value="Software Engineering">Software Engineering</option>
+              <option value="Information Systems">Information Systems</option>
+              <option value="Cybersecurity">Cybersecurity</option>
+              <option value="Data Science">Data Science</option>
+            </select>
+
+            <label for="addGpa">GPA (0.0 – 4.0)</label>
+            <input
+              id="addGpa"
+              type="number"
+              min="0"
+              max="4"
+              step="0.1"
+              value="3.2"
+            />
+
+            <div
+              class="row"
+              style="margin-top: 12px; justify-content: flex-end"
+            >
+              <button class="secondary" id="btnClear">Clear</button>
+              <button id="btnAdd">Create (POST)</button>
+            </div>
+
+            <div class="muted" style="margin-top: 10px">
+              Tip: In real APIs, students would be stored in your backend
+              database.
+            </div>
+          </section>
+        </div>
+      </div>
+    </div>
+
+    <!-- =========================================================
+         ✅ Edit Modal (shown when editing a student)
+         ========================================================= -->
+    <div class="backdrop" id="backdrop" aria-hidden="true">
+      <div
+        class="modal"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="modalTitle"
+      >
+        <h2 id="modalTitle">Edit Student</h2>
+        <div class="muted" id="editMeta" style="margin-bottom: 10px"></div>
+
+        <label for="editName">Full Name</label>
+        <input id="editName" />
+
+        <label for="editEmail">Email</label>
+        <input id="editEmail" />
+
+        <label for="editMajor">Major</label>
+        <select id="editMajor">
+          <option value="Computer Science">Computer Science</option>
+          <option value="Software Engineering">Software Engineering</option>
+          <option value="Information Systems">Information Systems</option>
+          <option value="Cybersecurity">Cybersecurity</option>
+          <option value="Data Science">Data Science</option>
+        </select>
+
+        <label for="editGpa">GPA (0.0 – 4.0)</label>
+        <input id="editGpa" type="number" min="0" max="4" step="0.1" />
+
+        <div class="row">
+          <button class="secondary" id="btnCancel">Cancel</button>
+          <button id="btnUpdate">Update (PUT)</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ✅ Toast message container -->
+    <div class="toast" id="toast"></div>
+
+    <script>
+      /* =========================================================
+         ✅ Code Overview (JavaScript Part)
+         ---------------------------------------------------------
+         ✅ Idea:
+            - We GET /users from JSONPlaceholder
+            - Then map users → students (add major + GPA)
+            - CRUD operations are "demo API calls"
+            - Real UI changes happen using local array: students[]
+
+         ✅ Main Flow:
+            1️⃣ loadStudents()  → GET users → map to students[] → render()
+            2️⃣ createStudent() → POST → add to students[] → render()
+            3️⃣ startEdit()     → open modal + fill inputs
+            4️⃣ updateStudent() → PUT  → update students[] (optimistic) → render()
+            5️⃣ deleteStudent() → DELETE → remove from students[] (optimistic) → render()
+         ========================================================= */
+
+      // =========================================================
+      // ✅ 1) API Configuration
+      // =========================================================
+
+      // ✅ Base URL for JSONPlaceholder demo API
+      const API_BASE = "https://jsonplaceholder.typicode.com";
+
+      // ✅ We'll GET /users and treat them as "students"
+      const LIST_URL = `${API_BASE}/users`;
+
+      // =========================================================
+      // ✅ 2) DOM References (UI Object)
+      // ---------------------------------------------------------
+      // ✅ Keep all DOM references in one place for easy reuse.
+      // =========================================================
+      const UI = {
+        // List area
+        list: document.getElementById("list"),
+        loading: document.getElementById("loading"),
+        error: document.getElementById("error"),
+        count: document.getElementById("count"),
+        search: document.getElementById("search"),
+
+        // Buttons
+        btnReload: document.getElementById("btnReload"),
+
+        // Add form inputs
+        addName: document.getElementById("addName"),
+        addEmail: document.getElementById("addEmail"),
+        addMajor: document.getElementById("addMajor"),
+        addGpa: document.getElementById("addGpa"),
+        btnAdd: document.getElementById("btnAdd"),
+        btnClear: document.getElementById("btnClear"),
+
+        // Modal elements
+        backdrop: document.getElementById("backdrop"),
+        editName: document.getElementById("editName"),
+        editEmail: document.getElementById("editEmail"),
+        editMajor: document.getElementById("editMajor"),
+        editGpa: document.getElementById("editGpa"),
+        editMeta: document.getElementById("editMeta"),
+        btnCancel: document.getElementById("btnCancel"),
+        btnUpdate: document.getElementById("btnUpdate"),
+
+        // Toast
+        toast: document.getElementById("toast"),
+      };
+
+      // =========================================================
+      // ✅ 3) App State
+      // =========================================================
+
+      // ✅ Local in-memory list (the UI renders from this)
+      // Because JSONPlaceholder doesn't persist changes.
+      let students = [];
+
+      // ✅ Holds which student is currently being edited in the modal
+      let editingId = null;
+
+      // ✅ Used for mapping users → students (fake majors)
+      const MAJORS = [
+        "Computer Science",
+        "Software Engineering",
+        "Information Systems",
+        "Cybersecurity",
+        "Data Science",
+      ];
+
+      // =========================================================
+      // ✅ 4) Small UI Helpers (Toast / Loading / Error / Modal)
+      // =========================================================
+
+      // ✅ Show a temporary message in the bottom-right corner
+      function showToast(message) {
+        UI.toast.textContent = message;
+        UI.toast.style.display = "block";
+        setTimeout(() => (UI.toast.style.display = "none"), 2500);
+      }
+
+      // ✅ Show/hide loading area (spinner)
+      function setLoading(isLoading) {
+        UI.loading.style.display = isLoading ? "flex" : "none";
+      }
+
+      // ✅ Show/hide error message
+      function setError(message = "error") {
+        UI.error.textContent = message;
+        UI.error.style.display = message ? "block" : "none";
+      }
+
+      // ✅ Open the edit modal
+      function openModal() {
+        UI.backdrop.style.display = "flex";
+        UI.backdrop.setAttribute("aria-hidden", "false");
+      }
+
+      // ✅ Close the edit modal and reset editing state
+      function closeModal() {
+        UI.backdrop.style.display = "none";
+        UI.backdrop.setAttribute("aria-hidden", "true");
+        editingId = null;
+      }
+
+      // ✅ Escape text before injecting into innerHTML (basic safety)
+      // Prevents user input from becoming real HTML
+      function esc(s) {
+        return String(s)
+          .replaceAll("&", "&amp;")
+          .replaceAll("<", "&lt;")
+          .replaceAll(">", "&gt;")
+          .replaceAll('"', "&quot;")
+          .replaceAll("'", "&#039;");
+      }
+
+      // ✅ GPA helper: keep number between 0.0 and 4.0 and rounded to 1 decimal
+      function clampGpa(value) {
+        const n = Number(value);
+        if (Number.isNaN(n)) return 0;
+        return Math.min(4, Math.max(0, Math.round(n * 10) / 10));
+      }
+
+      // =========================================================
+      // ✅ 5) Reusable Fetch Wrapper (apiFetch)
+      // ---------------------------------------------------------
+      // ✅ Always sends JSON headers.
+      // ✅ Manually checks res.ok to catch HTTP errors.
+      // ✅ Safely parses JSON even if body is empty.
+      // =========================================================
+      async function apiFetch(url, options = {}) {
+        const res = await fetch(url, {
+          headers: {
+            "Content-Type": "application/json",
+            ...(options.headers || {}),
+          },
+          ...options,
+        });
+
+        // ✅ fetch() only fails for network problems.
+        //    HTTP 404/500 still "succeed", so we check res.ok ourselves.
+        if (!res.ok) throw new Error(`HTTP Result : ${res.status}`);
+
+        // ✅ Some endpoints may return empty body, so parse safely.
+        //with res.json() and body  empty it cause failure / error
+        // you read response if it is empty you return null safely
+        const text = await res.text(); 
+        return text ? JSON.parse(text) : null;
+      }
+
+      // =========================================================
+      // ✅ 6) CRUD: LIST (GET)
+      // ---------------------------------------------------------
+      // ✅ Loads users from API then maps them to student objects.
+      // =========================================================
+      async function loadStudents() {
+        UI.btnReload.disabled = true; // ✅ prevent multiple clicks
+        setError("");
+        setLoading(true);
+
+        try {
+          // ✅ Get raw users from API
+          const users = await apiFetch(LIST_URL, { method: "GET" });
+
+          // ✅ Convert API users into our "student" shape
+          //    (we add major + gpa fields)
+          students = users.map((u) => ({
+            id: u.id,
+            fullName: u.name,
+            email: u.email,
+            major: MAJORS[u.id % MAJORS.length], // ✅ deterministic "random" major
+            gpa: clampGpa(2.6 + (u.id % 15) * 0.1), // ✅ deterministic, looks random-ish
+          }));
+
+          render();
+          showToast("✅ Loaded students");
+        } catch (e) {
+          setError(`❌ Failed to load students: ${e.message}`);
+        } finally {
+          setLoading(false); //Not render any thingh
+          UI.btnReload.disabled = false;
+        }
+      }
+
+      // =========================================================
+      // ✅ 7) CRUD: CREATE (POST)
+      // ---------------------------------------------------------
+      // ✅ Sends a demo POST request then adds student to local list.
+      // =========================================================
+      async function createStudent() {
+        // ✅ Read inputs
+        const fullName = UI.addName.value.trim();
+        const email = UI.addEmail.value.trim();
+        const major = UI.addMajor.value;
+        const gpa = clampGpa(UI.addGpa.value);
+
+        // ✅ Simple validation for beginners
+        if (!fullName) return showToast("❌ Name is required");
+        if (!email || !email.includes("@"))
+          return showToast("❌ Valid email is required");
+
+        UI.btnAdd.disabled = true;
+        setError("");
+
+        try {
+          // ✅ Demo POST request
+          const created = await apiFetch(`${API_BASE}/users`, {
+            method: "POST",
+            body: JSON.stringify({ name: fullName, email, major, gpa }),
+          });
+
+          // ✅ Because JSONPlaceholder doesn't persist,
+          //    we add the student locally to make CRUD feel real.
+          const newStudent = {
+            id: created?.id ?? Date.now(), // ✅ API may return id; fallback to timestamp
+            fullName,
+            email,
+            major,
+            gpa,
+          };
+
+          // ✅ Put new student at top of list
+          students.unshift(newStudent);
+
+          // ✅ Reset form inputs
+          UI.addName.value = "";
+          UI.addEmail.value = "";
+          UI.addMajor.value = "Computer Science";
+          UI.addGpa.value = "3.2";
+
+          render();
+          showToast("✅ Student created (POST)");
+        } catch (e) {
+          setError(`❌ Create failed: ${e.message}`);
+        } finally {
+          UI.btnAdd.disabled = false;
+        }
+      }
+
+      // =========================================================
+      // ✅ 8) CRUD: EDIT (Open modal)
+      // ---------------------------------------------------------
+      // ✅ Fills modal fields with selected student's data.
+      // =========================================================
+      function startEdit(id) {
+        const s = students.find((x) => x.id === id);
+        if (!s) return;
+
+        // ✅ Store which student is being edited
+        editingId = id;
+
+        // ✅ Fill modal fields
+        UI.editName.value = s.fullName;
+        UI.editEmail.value = s.email;
+        UI.editMajor.value = s.major;
+        UI.editGpa.value = s.gpa;
+
+        // ✅ Show small meta text inside modal
+        UI.editMeta.textContent = `Editing student id: ${id}`;
+
+        openModal();
+      }
+
+      // =========================================================
+      // ✅ 9) CRUD: UPDATE (PUT)
+      // ---------------------------------------------------------
+      // ✅ Optimistic update:
+      //    1) Update UI immediately
+      //    2) Call API
+      //    3) If API fails → revert back
+      // =========================================================
+      async function updateStudent() {
+        if (editingId == null) return;
+
+        // ✅ Read modal inputs
+        const fullName = UI.editName.value.trim();
+        const email = UI.editEmail.value.trim();
+        const major = UI.editMajor.value;
+        const gpa = clampGpa(UI.editGpa.value);
+
+        // ✅ Validate
+        if (!fullName) return showToast("❌ Name is required");
+        if (!email || !email.includes("@"))
+          return showToast("❌ Valid email is required");
+
+        UI.btnUpdate.disabled = true;
+        setError("");
+
+        // ✅ Find student in array
+        // Finding index of element to edit it
+        const idx = students.findIndex((s) => s.id === editingId);
+
+        // ✅ Backup old data in case we need revert
+        const old = { ...students[idx] };
+
+        // ✅ Optimistic UI change (update now) 
+        // it changes all fullName, email, major, gpa not others
+        students[idx] = { ...students[idx], fullName, email, major, gpa };
+        render();
+
+        try {
+          // ✅ Demo PUT request
+          await apiFetch(`${API_BASE}/users/${editingId}`, {
+            method: "PUT",
+            body: JSON.stringify({
+              id: editingId,
+              name: fullName,
+              email,
+              major,
+              gpa,
+            }),
+          });
+
+          showToast("✅ Student updated (PUT)");
+          closeModal();
+        } catch (e) {
+          // ✅ If API failed → revert UI back
+          students[idx] = old;
+          render();
+
+          setError(`❌ Update failed: ${e.message}`);
+          showToast("❌ Update failed (reverted)");
+        } finally {
+          UI.btnUpdate.disabled = false;
+        }
+      }
+
+      // =========================================================
+      // ✅ 10) CRUD: DELETE (DELETE)
+      // ---------------------------------------------------------
+      // ✅ Optimistic remove:
+      //    1) Remove from UI immediately
+      //    2) Call API
+      //    3) If API fails → restore backup
+      // =========================================================
+      async function deleteStudent(id) {
+        const s = students.find((x) => x.id === id);
+        if (!s) return;
+
+        // ✅ Ask user before deleting
+        if (!confirm(`Delete student "${s.fullName}"?`)) return;
+
+        setError("");
+
+        // ✅ Backup list before removing , is to copy this array in backup
+        const backup = [...students];
+
+        // ✅ Remove locally
+        students = students.filter((x) => x.id !== id);
+        render();
+
+        try {
+          // ✅ Demo DELETE request
+          await apiFetch(`${API_BASE}/users/${id}`, { method: "DELETE" });
+          showToast("✅ Student deleted (DELETE)");
+        } catch (e) {
+          // ✅ Revert if API fails
+          students = backup;
+          render();
+
+          setError(`❌ Delete failed: ${e.message}`);
+          showToast("❌ Delete failed (reverted)");
+        }
+      }
+
+      // =========================================================
+      // ✅ 11) Render Students List
+      // ---------------------------------------------------------
+      // ✅ Reads students[] and paints HTML cards into UI.list.
+      // ✅ Also supports search filtering.
+      // =========================================================
+      function render() {
+        // ✅ Read search query
+        const q = UI.search.value.trim().toLowerCase();
+
+        // ✅ Filter list if query exists
+        // Filtering by fullName or email or major
+        const filtered = q? 
+            students.filter(
+              (s) =>
+                s.fullName.toLowerCase().includes(q) ||
+                s.email.toLowerCase().includes(q) ||
+                s.major.toLowerCase().includes(q)
+            )
+          : students;
+
+        // ✅ Update "X shown" label
+        UI.count.textContent = `${filtered.length.toLocaleString()} shown`;
+
+        // ✅ Build list HTML
+        UI.list.innerHTML = filtered
+          .map(
+            (s) => `
+        <div class="item">
+          <div>
+            <div class="name">${esc(s.fullName)}</div>
+            <p class="meta">${esc(s.email)}</p>
+
+            <div style="margin-top:6px;">
+              <span class="pill">id: ${s.id}</span>
+              <span class="pill">Major: ${esc(s.major)}</span>
+              <span class="pill">GPA: ${Number(s.gpa).toFixed(1)}</span>
+            </div>
+          </div>
+
+          <div class="actions">
+            <!-- ✅ Inline onclick calls global functions exposed below -->
+            <button class="secondary" onclick="window.__editStudent(${
+              s.id
+            })">Edit</button>
+            <button class="danger" onclick="window.__delStudent(${
+              s.id
+            })">Delete</button>
+          </div>
+        </div>
+      `
+          )
+          .join("");
+
+        // ✅ If nothing found, show a friendly message
+        if (filtered.length === 0) {
+          UI.list.innerHTML = `<div class="muted">No students found.</div>`;
+        }
+      }
+
+      // =========================================================
+      // ✅ 12) Expose handlers for inline onclick
+      // ---------------------------------------------------------
+      // ✅ Because we used onclick="window.__editStudent(id)"
+      //    we must attach those functions to window.
+      // =========================================================
+      window.__editStudent = startEdit;
+      window.__delStudent = deleteStudent;
+
+      // =========================================================
+      // ✅ 13) Wire Events (Buttons + Inputs + Modal)
+      // =========================================================
+
+      // ✅ Reload list
+      UI.btnReload.addEventListener("click", loadStudents);
+
+      // ✅ Create student
+      UI.btnAdd.addEventListener("click", createStudent);
+
+      // ✅ Clear add form fields (no API calls)
+      UI.btnClear.addEventListener("click", () => {
+        UI.addName.value = "";
+        UI.addEmail.value = "";
+        UI.addMajor.value = "Computer Science";
+        UI.addGpa.value = "3.2";
+      });
+
+      // ✅ Search re-renders list instantly
+      UI.search.addEventListener("input", render);
+
+      // ✅ Cancel closes modal
+      UI.btnCancel.addEventListener("click", closeModal);
+
+      // ✅ Clicking outside modal (on backdrop) closes it
+      UI.backdrop.addEventListener("click", (e) => {
+        if (e.target === UI.backdrop) closeModal();
+      });
+
+      // ✅ Update student
+      UI.btnUpdate.addEventListener("click", updateStudent);
+
+      // ✅ Press Escape to close modal
+      window.addEventListener("keydown", (e) => {
+        if (e.key === "Escape" && UI.backdrop.style.display === "flex")
+          closeModal();
+      });
+
+      // =========================================================
+      // ✅ 14) Initial Load
+      // =========================================================
+      loadStudents();
+    </script>
+  </body>
+</html>

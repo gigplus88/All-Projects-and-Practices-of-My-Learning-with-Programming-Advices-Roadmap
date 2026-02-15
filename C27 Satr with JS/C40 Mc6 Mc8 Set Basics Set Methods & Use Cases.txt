@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>JavaScript Type System Demo</title>
+
+    <style></style>
+  </head>
+  <body>
+    <script>
+      const fruits = new Set();
+
+      fruits.add("apple");
+      fruits.add("banana");
+      fruits.add("apple"); // Duplicate, will not be added
+
+      console.log(fruits); // Output: Set(2) {"apple", "banana"}
+      console.log(fruits.size); // Output: true
+
+      console.log(fruits.has("banana")); // Output: true
+
+      console.log(fruits.delete("apple")); // Output: true
+
+      fruits.add("orange");
+      fruits.add("mango");
+      console.log(fruits); // Output: Set(3) {"banana", "orange", "mango"}
+
+      // Set auto delete duplicate items
+
+      /*"admin"
+      "editor"
+      "admin"*/
+      const roles = new Set();
+
+      roles.add("admin");
+      roles.add("editor");
+      roles.add("admin"); // Duplicate, will not be added
+
+      console.log(roles);
+
+      console.log(roles.size); // Output: 2
+      console.log(roles.has("editor")); // Output: true
+
+      console.log(roles.delete("admin")); // Output: 2
+
+      roles.clear();
+      console.log( "After clearing :" +roles.size); 
+
+
+
+
+
+      const scores = [10, 20, 20, 30, 30, 40];
+
+      console.log(scores)
+
+      const uniqueItems = [...new Set(scores)];
+
+      console.log(uniqueItems)
+
+    </script>
+  </body>
+</html>
