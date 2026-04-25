@@ -1,0 +1,149 @@
+using System;
+using System.Collections.ObjectModel;
+using System.Collections.Specialized;
+
+class Program
+{
+    static void Main()
+    {
+        ObservableCollection<string> stockPrices = new ObservableCollection<string>();
+        stockPrices.CollectionChanged += (sender, e) =>
+        {
+            if (e.Action == NotifyCollectionChangedAction.Add)
+                Console.WriteLine($"New Stock Price Added: {e.NewItems[0]}");
+            if (e.Action == NotifyCollectionChangedAction.Remove)
+                Console.WriteLine($"New Stock Price removed: {e.OldItems[0]}");
+            if (e.Action == NotifyCollectionChangedAction.Replace)
+                Console.WriteLine($"Update {e.OldItems[0]} price stock to : {e.NewItems[0]}");
+        };
+
+        stockPrices.Add("AAPL: 150.00");
+        stockPrices.Add("MSFT: 240.50");
+        stockPrices[0] = "AAPL : 180.00" ;
+        // Output:
+        // New Stock Price Added: AAPL: 150.00
+        // New Stock Price Added: MSFT: 240.50
+        Console.ReadKey();
+    }
+}
+
+
+
+
+
+
+
+
+//student example
+
+
+
+/*
+using System;
+using System.Collections.ObjectModel;
+using System.Collections.Specialized;
+using System.Threading;
+
+
+
+
+// * Problem: Display a list of real-time stock prices that update dynamically.
+
+
+namespace _03_RealTimeStockPrices
+{
+    internal class Program
+    {
+        class Stock
+        {
+            public string Name { get; set; }
+            private double price;
+            public double Price
+            {
+                get { return price; }
+                set
+                {
+                    if (price != value)
+                    {
+                        price = value;
+                        OnPriceChanged();
+                    }
+                }
+            }
+
+            public event Action PriceChanged;
+
+            public Stock(string name, double price)
+            {
+                Name = name;
+                Price = price;
+            }
+
+            protected virtual void OnPriceChanged()
+            {
+                PriceChanged?.Invoke();
+            }
+        }
+
+        static void Main()
+        {
+            var randNum = new Random();
+            ObservableCollection<Stock> Stocks = new ObservableCollection<Stock>();
+
+            Stocks.CollectionChanged += OnStocksPriceChanged;
+
+            Stocks.Add(new Stock("AAPL", 100.00));
+            Stocks.Add(new Stock("USD/XUD", 2491.00));
+            Stocks.Add(new Stock("TSL", 110.00));
+            Stocks.Add(new Stock("NVI", 116.41));
+
+            foreach (var stock in Stocks)
+            {
+                stock.PriceChanged += () => DisplayStocks(Stocks);
+            }
+
+            new Thread(() =>
+            {
+                while (true)
+                {
+                    Thread.Sleep(1000);
+                    Stocks[randNum.Next(Stocks.Count)].Price += randNum.Next(-25, 25);
+                }
+            }).Start();
+
+            Stocks.Add(new Stock("BTC", 45231.00));
+            Stocks.Add(new Stock("DOD", 323.00));
+
+
+            Console.ReadLine();
+        }
+
+        static void DisplayStocks(ObservableCollection<Stock> stocks)
+        {
+            Console.Clear();
+            Console.WriteLine("\n\nStocks:");
+            Console.WriteLine("Name\tPrice");
+            foreach (var stock in stocks)
+            {
+                if (stock.Price > 100.00) // Assuming 100.00 as the initial price for color change
+                {
+                    Console.ForegroundColor = ConsoleColor.Green;
+                }
+                else
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                }
+                Console.WriteLine($"{stock.Name}\t{stock.Price:F2}");
+                Console.ResetColor();
+            }
+        }
+
+        static void OnStocksPriceChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            DisplayStocks((ObservableCollection<Stock>)sender);
+        }
+    }
+}
+
+
+*/

@@ -1,0 +1,48 @@
+
+
+using System;
+
+using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.Remoting.Messaging;
+using static Guna.UI2.Native.WinApi;
+
+
+
+class Program
+{
+
+
+ 
+    static void Main()
+    {
+
+
+        /*
+        Example:
+        Input: set1 = [1, 2, 3], set2 = [3, 4, 5]
+        Output: [1, 2, 3, 4, 5]
+     */
+
+
+
+
+        SortedSet<int> s1 = new SortedSet<int>() { 1, 2, 2, 3 };
+        SortedSet<int> s2 = new SortedSet<int>() { 3, 4, 5 };
+
+
+        s1.Union(s2); // is delete duplicate elements
+
+
+        Console.WriteLine(string.Join(", ", s1)); // Output: 1, 2, 3, 4, 5
+
+        foreach (var item in s1)
+        {
+            Console.Write($" {item}");
+        }
+
+        Console.ReadKey();
+    }
+}
+
+

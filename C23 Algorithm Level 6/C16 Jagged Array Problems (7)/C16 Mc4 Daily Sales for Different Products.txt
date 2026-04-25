@@ -1,0 +1,43 @@
+
+using System;
+
+using System.Collections.Generic;
+using System.Linq;
+using System.Xml.Linq;
+
+class Program
+{
+   
+ 
+    static void Main()
+    {
+        int[][] ProductsSales = new int[3][];
+        ProductsSales[0] = new int[] { 1, 2, 3 }; // p 1
+        ProductsSales[1] = new int[] { 4, 5 };    // P 2
+        ProductsSales[2] = new int[] { 6, 7, 8, 9 }; // P 3
+
+
+
+
+
+        for (int i = 0; i < ProductsSales.Length; i++)
+        {
+            Console.Write($"Product {i+1}: ");
+
+
+            for (int j = 0;  j < ProductsSales[i].Length;  j++)
+            {
+                Console.Write(ProductsSales[i][j] + " Sale" + (ProductsSales[i][j] > 1 ? "s" : "" ));
+                if (j< ProductsSales[i].Length-1)
+                {
+                    Console.Write(" ,");
+                }
+            }
+
+            Console.WriteLine();
+        }
+
+
+        Console.ReadKey();
+    }
+}

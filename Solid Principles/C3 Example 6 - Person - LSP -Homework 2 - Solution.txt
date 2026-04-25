@@ -1,0 +1,81 @@
+using System;
+
+public class Person
+{
+    // Virtual method to send an email
+    public virtual void SendEmail()
+    {
+        Console.WriteLine("Sending email to a person...");
+    }
+
+}
+public class Employee : Person
+{
+    // Virtual method to send an email
+    public override void SendEmail()
+    {
+        Console.WriteLine("Sending email to a employee...");
+    }
+
+}
+
+public class PaidEmployee : Person
+{
+    // Virtual method to pay salary
+    public virtual void PaySalary()
+    {
+        Console.WriteLine("Paying salary to a employee...");
+    }
+
+}
+
+
+public class Manager : PaidEmployee
+{
+    // Override PaySalary for managers
+    public override void PaySalary()
+    {
+        Console.WriteLine("Paying salary to a manager...");
+    }
+
+    // Override SendEmail for managers
+    public override void SendEmail()
+    {
+        Console.WriteLine("Sending email to a manager...");
+    }
+}
+
+public class Student : Person
+{
+    // Override SendEmail for students
+    public override void SendEmail()
+    {
+        Console.WriteLine("Sending email to a student...");
+    }
+}
+
+public class Program
+{
+    public static void Main(string[] args)
+    {
+        Employee person = new Employee();
+
+        //Non paid employee
+        Employee person1 = new Employee(); //person1 has Employee properties and other EmployeePerson items
+        //person1.PaySalary();   // Calls PaySalary method for Employee
+        person1.SendEmail();   // Calls SendEmail method for Employee
+
+
+
+        PaidEmployee person2 = new Manager();
+        person2.PaySalary();   // Calls PaySalary method for Manager
+        person2.SendEmail();   // Calls SendEmail method for Manager
+
+        Person person3 = new Student();
+        person3.SendEmail();   // Calls SendEmail method for Student
+
+      
+
+        Console.ReadKey();
+    }
+}

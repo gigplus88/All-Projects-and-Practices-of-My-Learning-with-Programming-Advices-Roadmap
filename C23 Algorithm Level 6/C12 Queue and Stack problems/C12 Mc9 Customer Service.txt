@@ -1,0 +1,101 @@
+//My solution
+/*
+using System;
+using System.Collections.Generic;
+using System.Xml.Linq;
+
+
+class ClientInfo
+{
+    private string _name;
+    public string Name
+    {
+        get => _name ?? "Unknown"; // إذا كان الاسم نل، سيعيد "Unknown"
+        set => _name = value;
+    }
+    public DateTime Date { get; set; } = DateTime.Now;
+    public int Role { get; set; } = 0;
+
+    public ClientInfo()
+    {
+    }
+}
+public class Role
+{
+    private double _currentValue = 0;
+    private Queue<ClientInfo> _history = new Queue<ClientInfo>();
+    ClientInfo client = new ClientInfo();
+
+
+    // public double CurrentValue => _currentValue;
+
+    public void AddClient()
+    {
+        client.Role++;
+        _history.Enqueue(client);
+        Print();
+    }
+    void Print()
+    {
+        Console.WriteLine($"Ticket :{client.Role}");
+
+        Console.WriteLine($"Client :{client.Name}. \n Role: {client.Role}. \n Date: {client.Date.ToString()} \n ");
+
+    }
+
+    public void Ticket()
+    {
+        Print();
+    }
+
+}
+class Program
+{
+    //Problem: Implement undo functionality in a calculator.
+
+
+    static void Main()
+    {
+        Role role = new Role();
+
+        role.AddClient();
+        role.AddClient();
+
+
+
+
+
+        Console.ReadKey();
+    }
+}
+
+*/
+
+using System;
+using System.Collections.Generic;
+
+
+class CustomerService
+{
+    static void Main()
+    {
+        // Initialize a queue to simulate customer arrivals
+        Queue<string> customers = new Queue<string>();
+        customers.Enqueue("Customer1");
+        customers.Enqueue("Customer2");
+        customers.Enqueue("Customer3");
+
+
+        Console.WriteLine("Serving customers:\n");
+
+
+        // Serve customers in the order they arrived
+        while (customers.Count > 0)
+        {
+            // Dequeue the customer at the front of the queue
+            string currentCustomer = customers.Dequeue();
+            Console.WriteLine($"Serving: {currentCustomer}");
+        }
+        Console.ReadKey();
+    }
+}

@@ -1,0 +1,106 @@
+
+//My Solution
+
+
+
+
+using System;
+using System.CodeDom;
+using System.Collections;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
+using System.Management.Instrumentation;
+using System.Text;
+using static Guna.UI2.Native.WinApi;
+
+
+class Program
+{
+
+
+    static void Main()
+    {
+
+        Dictionary<string, Dictionary<string, string>> Translate =
+        new Dictionary<string, Dictionary<string, string>>()
+        {
+            {
+                "fr",
+                new Dictionary<string, string>()
+                {
+                    { "Bonjour", "Hello" },
+                    { "Au revoir", "Goodbye" }
+                }
+            }
+        };
+
+
+        Translate["fr"] = new Dictionary<string, string>() 
+        {
+            { "Bonjour", "Hello" },
+            { "Au revoir", "Goodbye" }
+        };
+
+
+
+
+
+
+
+
+        Console.WriteLine("Give me you Name");
+        string Name = Console.ReadLine().Trim();
+
+        Console.WriteLine("Give me you language");
+        string input = Console.ReadLine().Trim();
+
+        Console.WriteLine("Give me you word");
+        string word = Console.ReadLine().Trim();
+
+        if (Translate.ContainsKey(input))
+        {
+            if (Translate[input].ContainsKey(word))
+            {
+                string TransWord = Translate[input][word];
+                Console.WriteLine($"{Name} , your {word} in {input} is {TransWord}");
+
+            }
+        }
+
+
+
+        foreach (var language in Translate)
+        {
+            Console.WriteLine($"{language.Key}");
+            foreach (var item in language.Value)
+            {
+                Console.WriteLine($"{item.Key} : {item.Value}");
+            }
+        }
+
+        //Translate.Add("fr" , new Dictionary<string, string>()
+        //        {
+        //            { "Bonjour", "Hello" },
+        //            { "Au revoir", "Goodbye" }
+        //        }); 
+
+        Dictionary<string, string> SpanishTranslate = new Dictionary<string, string>();
+
+        SpanishTranslate.Add("Hello", "Holla");
+        SpanishTranslate.Add("Goodbye", "Adios");
+
+
+        foreach (var item in SpanishTranslate)
+        {
+            Console.WriteLine($"{item.Key} in Spanish: {item.Value}");
+        }
+
+
+
+
+        Console.ReadKey();
+    }
+}
+
+

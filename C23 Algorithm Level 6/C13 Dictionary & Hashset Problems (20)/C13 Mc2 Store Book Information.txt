@@ -1,0 +1,80 @@
+
+//My Solution
+
+
+
+
+using System;
+using System.CodeDom;
+using System.Collections;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
+using System.Management.Instrumentation;
+using System.Text;
+using static Guna.UI2.Native.WinApi;
+
+
+class Program
+{
+    
+    
+    static void Main()
+    {
+        (int id, string name) person = (1, "Ali");
+
+        Dictionary<string, (string Title, string Author)> BookInfo = new Dictionary<string, (string Title, string Author)>();
+
+        /*
+             Dictionary<string, (string Title, string Author)> books = new Dictionary<string, (string, string)>
+        {
+            { "978-3-16-148410-0", ("The Great Gatsby", "F. Scott Fitzgerald") },
+            { "978-1-61-729494-5", ("C# in Depth", "Jon Skeet") }
+        };
+         */
+
+
+        /*
+         tput:
+
+        ISBN: 978-3-16-148410-0, Title: The Great Gatsby, Author: F. Scott Fitzgerald
+
+        ISBN: 978-1-61-729494-5, Title: C# in Depth, Author: Jon Skeet
+         */
+
+        BookInfo.Add("978-3-16-148410-0", (Title: "The Great Gatsby" , Author : "F. Scott Fitzgerald") );
+        BookInfo.Add("978-1-61-729494-5", (Title: "C# in Depth", Author: "Jon Skeet"));
+
+
+        foreach (var item in BookInfo)
+        {
+            Console.WriteLine($"ISBN :{item.Key} , Title:{item.Value.Title} , Author: {item.Value.Author}");
+        }
+
+
+
+
+        Console.ReadKey();
+    }
+}
+
+
+
+
+
+//Teacher solution
+
+/*
+ *  Dictionary<string, double> studentGrades = new Dictionary<string, double>
+        {
+            { "Alice", 85.5 },
+            { "Bob", 90.0 },
+            { "Charlie", 78.5 }
+        };
+        
+        Console.WriteLine($"Student: Bob, Grade:" + studentGrades["Bob"]);
+        Console.ReadKey();
+        // Output:
+        // Student: Bob, Grade: 90
+       
+ */

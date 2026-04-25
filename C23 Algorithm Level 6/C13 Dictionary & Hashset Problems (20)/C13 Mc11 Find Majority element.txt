@@ -1,0 +1,114 @@
+
+//My Solution
+
+
+
+
+using System;
+
+using System.Collections.Generic;
+using System.Linq;
+
+
+
+class Program
+{
+
+    static int MajorityElement(int[] Input)
+    {
+        Dictionary<int, int> Counts = new Dictionary<int, int>();  // key=number ,Value = counter of tis number
+
+        int HalfLengh = Input.Length / 2;
+        int  longestCount = 0, CurrentCount = 0;
+
+        foreach (var item in Input)
+        {
+
+            //longestCount = 1;
+
+            //strings[arrWord[i]] = i;
+            if (!Counts.ContainsKey(item))
+            {
+                Counts[item] = 1;
+            }
+            else
+            {
+                Counts[item]++;
+            }
+
+            //longestCount = Math.Max(longestCount, CurrentCount);
+
+            if (Counts[item] > HalfLengh)
+            {
+                //CurrentCount = item;
+                return item;
+            }
+
+        }
+        return -1; // This line should not be reached in valid input
+    }
+    static List<int> MajorityElements(int[] Input)
+    {
+        Dictionary<int, int> Counts = new Dictionary<int, int>();  // key=number ,Value = counter of tis number
+        List<int> nums = new List<int>();
+
+        int HalfLengh = Input.Length / 2;
+        int longestCount = 0, CurrentCount = 0;
+
+        foreach (var item in Input)
+        {
+
+            //longestCount = 1;
+
+            //strings[arrWord[i]] = i;
+            if (!Counts.ContainsKey(item))
+            {
+                Counts[item] = 1;
+            }
+            else
+            {
+                Counts[item]++;
+            }
+
+            //longestCount = Math.Max(longestCount, CurrentCount);
+
+            if (Counts[item] > HalfLengh)
+            {
+                //CurrentCount = item;
+                nums.Add(item);
+                
+            }
+
+        }
+        return nums ??null ; // This line should not be reached in valid input
+    }
+
+    static void Main()
+    {
+        /*
+        Input: [3, 2, 3]
+        Output: 3
+
+
+         */
+
+
+
+
+        int[] Input = new int[] { 3 , 6 , 6 };
+
+
+        Console.WriteLine($"The majority element is: {MajorityElement( Input)}");
+
+
+        Console.WriteLine($"The majority elements are: {string.Join(",", MajorityElements(Input))}");
+
+
+
+
+
+        Console.ReadKey();
+    }
+}
+
+

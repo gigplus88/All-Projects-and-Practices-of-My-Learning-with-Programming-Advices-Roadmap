@@ -1,0 +1,56 @@
+
+//Teacher Solution
+
+
+
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Management.Instrumentation;
+
+
+class Program
+{
+    static Queue<int> RearrangeEvenOdd(Queue<int> queue)
+    {
+        Queue<int> EvenQueue = new Queue<int>();
+        Queue<int> OddQueue = new Queue<int>();
+
+        var res = queue.Where(x => x % 2 == 0).
+            Concat(queue.Where(  x => x % 2 != 0 )).ToList() ; 
+
+        //while (queue.Count>0)
+        //{
+        //    int value = queue.Dequeue();
+
+        //    if(value%2 ==0)
+        //        EvenQueue.Enqueue(value);
+        //    else
+        //    OddQueue.Enqueue(value);
+
+        //}
+
+        //while (EvenQueue.Count>0 )
+        //      queue.Enqueue(EvenQueue.Dequeue());
+
+        //while (OddQueue.Count > 0)
+        //    queue.Enqueue(OddQueue.Dequeue());
+
+      
+        
+
+        return new Queue<int>(res);   //queue;
+    }
+
+
+    static void Main()
+    {
+        Queue<int> queue = new Queue<int>(new[] { 1, 2, 3, 4, 5 , 6 });
+        Queue<int> rearrangedQueue = RearrangeEvenOdd(queue);
+        Console.WriteLine(string.Join(", ", rearrangedQueue)); // Output: 1, 6, 2, 5, 3, 4
+
+
+        Console.ReadKey();
+    }
+}

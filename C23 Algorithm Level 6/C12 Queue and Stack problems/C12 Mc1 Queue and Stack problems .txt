@@ -1,0 +1,129 @@
+using System;
+using System.Collections.Generic;
+
+
+class Program
+{
+    /*
+        Implement Browser Back Button
+        Problem: Use a stack to implement a browser's back button functionality.
+    */
+
+    public class clsBrowse
+    {
+        private Stack<string> goBack;
+        private Stack<string> goForward;
+        private string Current;
+
+        public clsBrowse(string Site)
+        {
+            Current = Site;
+            this.goBack =  new Stack<string>();
+            this.goForward = new Stack<string>();
+        }
+
+        public void GoBack()
+        {
+            if (goBack.Count > 0)
+            {
+                Current = this.goBack.Pop();
+                goForward.Push(this.Current);
+            }
+         
+            this.Print();
+            //return this.Current;
+        }
+        public void GoForward()
+        {
+            this.Current = this.goForward.Pop();
+            this.goBack.Push(this.Current);
+            this.Print();
+            //return this.Current;
+        }
+
+        public string GetCurrent()
+        {
+            if (this.goBack.Count >0)
+            {
+                return this.goBack.Peek();
+            }
+            return this.Current;
+        }
+        public void GoToWebSite( string Site)
+        {
+            this.goBack.Push(this.Current); // I preserve current page 
+            this.Current = Site;
+
+            goForward.Clear();
+
+            this.Print();
+           
+            //return true;
+        }
+        public void Print() { Console.WriteLine("Connected Now To: " + this.Current?? "Empty history"); }
+    }
+    static void Main()
+    {
+        clsBrowse browse = new clsBrowse("google.com");
+
+        browse.Print();
+        
+        browse.GoToWebSite("https://Anime.com");
+        browse.GoToWebSite("https://World.com");
+        browse.GoToWebSite("https://Death.com");
+        
+        browse.GoBack();
+        browse.GoBack();
+        
+        browse.GoForward();
+
+
+        /*
+
+        Console.WriteLine("Current site is: " + browse.GetCurrent());
+
+        Console.WriteLine("Go back from: " + browse.GoToWebSite("facebook"));
+
+
+        Console.WriteLine("Go back from: " + browse.GoBack());
+
+        Console.WriteLine("Go forward to: " + browse.GoForward());
+        Console.WriteLine("Current site is: " + browse.GetCurrent());
+
+        */
+
+
+
+
+        Stack<string> history = new Stack<string>();
+        bool BtnClick = false;
+        bool BtnBack = false;
+
+        history.Push("Page1");
+        history.Push("Page2");
+        history.Push("Page3");
+
+        Console.WriteLine("Back from: " + history.Pop() + " to back"); // Output: Back from: Page3 to Page2
+        Console.WriteLine("Back from: " + history.Pop() + " to back"); // Output: Back from: Page2 to   page1
+        Console.WriteLine("Current page is: " + history.Peek(), " to back"); // Output: Back from: Page2 to   page1
+
+
+        if (BtnClick)
+        {
+            history.Push("Page1");
+        }
+        if (BtnBack)
+        {
+            history.Pop();
+        }
+
+
+
+        // Wait for a key press before closing the console window.
+        Console.ReadKey();
+    }
+
+
+}
+
+

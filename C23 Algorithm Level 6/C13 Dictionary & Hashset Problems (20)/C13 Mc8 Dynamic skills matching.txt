@@ -1,0 +1,77 @@
+
+//My Solution
+
+
+
+
+using System;
+
+using System.Collections.Generic;
+using System.Linq;
+
+
+
+class Program
+{
+
+
+    static void Main()
+    {
+        /*
+         candidateSkills = { "C#", "SQL", "JavaScript" }
+
+        jobRequirements = { "C#", "JavaScript", "React" }
+
+        Output: Matching Skills: C#, JavaScript
+         */
+
+
+
+        List<string> Matches = new List<string>() ;
+
+        HashSet<string> candidateSkills = new HashSet<string>() { "C#", "SQL", "JavaScript" };
+        HashSet<string> jobRequirements = new HashSet<string>() { "C#", "JavaScript", "React" };
+
+
+        Matches = candidateSkills.Intersect(jobRequirements).ToList() ;
+
+        Console.Write($"Matching Skills:");
+
+        foreach (var s in Matches) 
+        {
+                Console.Write($" {string.Join(",", s)}");
+            
+        }
+
+
+
+        var matchine = new HashSet<string>(candidateSkills).Intersect(jobRequirements).ToList() ;
+
+        Console.WriteLine($"Matching Skills:");
+
+        foreach (var s in matchine)
+        {
+            Console.Write($" {string.Join(",", s)}");
+
+        }
+
+
+
+        //Teacher so
+        /*
+         *
+        HashSet<string> candidateSkills = new HashSet<string> { "C#", "SQL", "JavaScript" };
+        HashSet<string> jobRequirements = new HashSet<string> { "C#", "JavaScript", "React" };
+
+
+        candidateSkills.IntersectWith(jobRequirements);
+
+
+        Console.WriteLine("Matching Skills: " + string.Join(", ", candidateSkills));
+        Console.ReadKey();  
+         */
+        Console.ReadKey();
+    }
+}
+
+

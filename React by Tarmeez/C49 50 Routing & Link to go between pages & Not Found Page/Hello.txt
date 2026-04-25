@@ -1,0 +1,16 @@
+import { Link } from "react-router-dom";
+
+export default function Hello() {
+    return (
+        <>
+         <h1>Hello World</h1>
+
+        <Link to="/posts">
+           <div style={{ padding: "10px" , backgroundColor: "lightblue" , marginTop: "20px"}}>
+            <h2>Go to Home Page</h2>
+         </div>
+        </Link>
+        
+        </>
+    );
+}

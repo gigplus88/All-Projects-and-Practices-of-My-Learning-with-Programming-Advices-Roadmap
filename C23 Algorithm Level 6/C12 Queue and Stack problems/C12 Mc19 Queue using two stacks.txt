@@ -1,0 +1,82 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
+
+
+class WebServer
+{
+   
+    class Queue
+    {
+        public Queue()
+        {
+
+        }
+        private Stack<int> stack = new Stack<int>();
+        private Stack<int> stack2 = new Stack<int>();
+        int Val = 0;
+        // For non sorted Queues
+        public void Enqueue(int value)
+        {
+            this.stack.Push(value);
+        }
+        public int Dequeue()
+        {
+            // if stack2 is empty i full it
+            if (stack2.Count == 0)
+            {
+                while (this.stack.Count > 0)
+                {
+                    this.stack2.Push(this.stack.Pop());
+                }
+               
+            }
+            if (stack2.Count == 0)
+                throw new InvalidOperationException("Queue is empty");
+
+            return this.stack2.Pop(); ;
+
+        }
+        public bool IsEmpty()
+        {
+            return stack.Count == 0 && stack2.Count == 0;
+        }
+
+    }
+
+
+
+
+
+
+    static void Main()
+    {
+
+        Queue queue = new Queue();
+
+        queue.Enqueue(1);
+        queue.Enqueue(2);
+        queue.Enqueue(3);
+
+
+        Console.WriteLine(queue.Dequeue());
+        Console.WriteLine(queue.Dequeue());
+        queue.Enqueue(4);
+        Console.WriteLine(queue.Dequeue());
+        Console.WriteLine(queue.Dequeue());
+        Console.WriteLine(queue.IsEmpty());
+
+        Console.WriteLine(queue.Dequeue());
+
+
+
+        Console.ReadKey();
+
+    }
+
+}
+

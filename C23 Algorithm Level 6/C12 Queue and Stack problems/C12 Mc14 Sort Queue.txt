@@ -1,0 +1,60 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
+
+
+class WebServer
+{
+
+    // My Solution
+
+    static Queue<int> SortQueue(Queue<int> queue)
+    {
+        //this will generate a list from a queue
+        List<int> list = new List<int>(queue);
+        list.Sort();
+
+
+        // this will generate a queue from list
+        return new Queue<int>(list);
+    }
+
+
+
+    static void Main()
+    {
+
+        // Teacher Solution
+
+        Queue<int> queue2 = new Queue<int>( new[] { 5, 1, 3, 2, 4 });
+
+        Queue<int> SortedQueue = SortQueue(queue2);   //new Queue<int>(SortQueue(queue2));
+
+        Console.WriteLine(string.Join(",", SortedQueue));
+
+
+
+
+
+        // My Solution
+
+        var OrderdedQueue = queue2.OrderBy( x=> x).ToList();
+
+        Console.WriteLine(string.Join("," , OrderdedQueue)  );
+
+        queue2 = new Queue<int>(OrderdedQueue); // الآن الطابور أصبح [1, 2, 3, 4, 5]
+
+        foreach (var item in queue2)
+        {
+            Console.Write( item + ",");
+
+        }
+
+
+
+
+    }
+
+}

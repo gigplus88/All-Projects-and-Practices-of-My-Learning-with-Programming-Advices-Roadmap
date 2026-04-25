@@ -1,0 +1,80 @@
+
+//My Solution
+
+
+
+
+using System;
+
+using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.Remoting.Messaging;
+
+
+
+class Program
+{
+
+    static List<int> FindUnique(int[] Input)
+    {
+        Dictionary<int, int> Counts = new Dictionary<int, int>();  // key=number ,Value = counter of tis number
+        List<int> Unique = new List<int> ();
+
+
+        foreach (var item in Input)
+        {
+            if (!Counts.ContainsKey(item) )
+            {
+                Counts[item] = 1;
+                //Unique.Add(item);
+
+            }
+            else
+            {
+                Counts[item]++;
+                //Unique.Remove(item);
+            }
+
+        }
+
+        /*
+             foreach (var kvp in counts)
+            {
+                if (kvp.Value == 1)
+                    unique.Add(kvp.Key);
+            }
+        */
+
+        //return Unique; // This line should not be reached in valid input
+
+        return Counts.Where(x => x.Value == 1).Select( x => x.Key).ToList ();
+    }
+
+
+   
+    static void Main()
+    {
+        /*
+        Input: [1, 2, 2, 3, 4, 5, 3]
+        Output: [1, 4, 5]
+         */
+
+
+
+
+        int[] Input = new int[] { 1, 2, 2, 3, 4, 5, 3 };
+
+        var res = FindUnique(Input);
+        Console.WriteLine($"The unique element{(res.Count > 1 ? "s" : "")} is:");
+
+        foreach (var item in res)
+        {
+            Console.Write($"{item} ");
+        }
+
+
+        Console.ReadKey();
+    }
+}
+
+

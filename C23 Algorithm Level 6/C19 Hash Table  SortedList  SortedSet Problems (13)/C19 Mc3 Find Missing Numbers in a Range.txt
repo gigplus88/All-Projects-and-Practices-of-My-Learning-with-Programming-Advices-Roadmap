@@ -1,0 +1,63 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
+class Program
+{
+
+    static void Main()
+    {
+
+        //Description: Given a range of numbers, find the missing numbers by comparing with a SortedSet.
+
+
+        List<int> list = new List<int>() { 1, 2, 3 , 4 , 4 , 3 , 6 , 7 ,8 };
+
+        SortedSet<int> items = new SortedSet<int>(list);
+
+
+
+
+
+
+
+        int start = 0;
+        int end = list.Count;
+
+        SortedSet<int> items2 = new SortedSet<int>(Enumerable.Range(start ,end ) );
+
+        //Using LINQ
+        items2.ExceptWith(items);
+
+        
+
+        foreach (var item in items2)
+        {
+            Console.WriteLine(item);
+        }
+
+
+
+        int[] notUses = new int[list.Count];
+
+        for (int i = 0; i < items.Count; i++)
+        {
+            if (!items.Contains(i))
+            {
+                notUses[i] = i;
+                Console.WriteLine($"Missing number: {i}");
+            }
+
+        }
+
+        Console.ReadKey();
+    }
+}
+
+
+
+
+
+
+

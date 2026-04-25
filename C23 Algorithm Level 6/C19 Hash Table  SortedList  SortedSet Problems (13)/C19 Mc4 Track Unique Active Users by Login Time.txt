@@ -1,0 +1,96 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
+class Program
+{
+
+    
+
+    static void Main()
+    {
+
+     
+        SortedDictionary<string , DateTime> keyValues = new SortedDictionary<string , DateTime>();
+
+        DateTime dt = new DateTime(2025, 02, 3);
+        DateTime dt2 = new DateTime(2025, 03, 3);
+        DateTime dt3 = new DateTime(2025, 04, 3);
+        DateTime dt4 = new DateTime(2025, 05, 3);
+
+
+
+
+        keyValues.Add("user1", dt);
+        keyValues.Add("user2", dt2);
+        keyValues.Add("user3", dt3);
+        keyValues.Add("user4", dt4);
+
+        foreach (var item in keyValues)
+        {
+            Console.WriteLine(item.Key + ":"+ item.Value);
+        }
+
+
+
+
+
+
+
+
+
+
+        SortedSet< DateTime > items = new SortedSet< DateTime>();
+
+      
+
+
+        items.Add(( dt));
+        items.Add(( dt2));
+        items.Add(( dt3));
+        items.Add(( dt4));
+
+
+        foreach (var item in items)
+        {
+            Console.WriteLine(item);
+        }
+
+
+
+
+
+
+
+
+
+
+
+        //Teacher solution
+
+
+        SortedSet<DateTime> activeUsers = new SortedSet<DateTime>();
+
+        // Simulate user login times
+        activeUsers.Add(new DateTime(2024, 11, 19, 10, 0, 0));
+        activeUsers.Add(new DateTime(2024, 11, 19, 10, 15, 0));
+        activeUsers.Add(new DateTime(2024, 11, 19, 10, 10, 0));
+
+        Console.WriteLine("Active users login times (sorted):");
+        foreach (var time in activeUsers)
+        {
+            Console.WriteLine(time);
+        }
+
+
+        Console.ReadKey();
+    }
+}
+
+
+
+
+
+
+

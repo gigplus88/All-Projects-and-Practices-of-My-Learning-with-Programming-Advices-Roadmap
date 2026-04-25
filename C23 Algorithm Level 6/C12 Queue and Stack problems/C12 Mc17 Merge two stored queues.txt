@@ -1,0 +1,85 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
+using System.Threading;
+
+
+class WebServer
+{
+
+    static Queue<int> SortQueue(Queue<int> queue)
+    {
+        //this will generate a list from a queue
+        List<int> list = new List<int>(queue);
+        list.Sort();
+
+
+        // this will generate a queue from list
+        return new Queue<int>(list);
+    }
+
+    // For non sorted Queues
+    static Queue<int>MergeQueues(Queue<int> queue1 , Queue<int> queue2)
+    {
+        Queue<int> MainQueue = new Queue<int>();
+
+        while (queue1.Count>0 && queue2.Count>0)
+        {
+            MainQueue.Enqueue(queue1.Dequeue());
+            MainQueue.Enqueue(queue2.Dequeue());
+
+        }
+
+
+        return SortQueue(MainQueue);
+       
+    }
+
+    // For non sorted Queues
+    static Queue<int> MergeSortedQueues(Queue<int> queue1, Queue<int> queue2)
+    {
+        Queue<int> MainQueue = new Queue<int>();
+
+        while (queue1.Count > 0 && queue2.Count > 0)
+        {
+            if (queue1.Peek() <= queue2.Peek())
+                MainQueue.Enqueue(queue1.Dequeue());
+            else
+                MainQueue.Enqueue(queue2.Dequeue());
+        }
+
+        //if one of these queues is more than other
+
+        while (queue1.Count>0) MainQueue.Enqueue(queue1.Dequeue());
+
+        while (queue2.Count > 0) MainQueue.Enqueue(queue2.Dequeue());
+
+
+        return MainQueue;
+
+    }
+
+
+
+    static void Main()
+    {
+
+        Queue<int> queue1 = new Queue<int>(new[] { 1, 3, 5 });
+        Queue<int> queue2 = new Queue<int>(new[] { 2, 4, 6 });
+
+        //Queue<int> MergedQueue = new(  queue1.Concat(queue2).OrderBy(x => x) );
+
+       
+
+
+        //Console.WriteLine(string.Join(",", MergeQueues(queue1  , queue2)));
+
+        Console.WriteLine(string.Join(",", MergeSortedQueues(queue1, queue2)));
+
+
+    }
+
+}
+

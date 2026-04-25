@@ -1,0 +1,73 @@
+using System;
+using System.Collections.Generic;
+using System.Security;
+
+
+
+class Product
+{
+    public string Name { get; set; } 
+    public List<Product> Products { get; set; } = new List<Product>();
+
+
+    public Product(string name)
+    {
+        Name = name;
+    }
+
+
+    public void Print( string indent = "")
+    {
+
+        Console.WriteLine($"{indent}{"*" +Name}");
+
+        foreach (var Product in Products)
+        {
+            Product.Print( indent + "  ");
+        }
+    }
+}
+
+class Program
+{
+    static void Main()
+    {
+        var root = new Product("Electronic");
+
+        var Mobiles = new Product("Mobiles");
+        var Laptops = new Product("Laptops");
+
+
+        //Mobile types
+        var Samsung = new Product("Samsung");
+        var Apple = new Product("Apple");
+
+        Mobiles.Products.Add(Samsung);
+        Mobiles.Products.Add(Apple);
+
+
+        //Laptop types
+        var Lenovo = new Product("Lenovo");
+        var HP = new Product("HP");
+
+        Laptops.Products.Add(Lenovo);
+        Laptops.Products.Add(HP);
+
+
+
+
+
+        root.Products.Add(Mobiles);
+        root.Products.Add(Laptops);
+
+        Console.WriteLine("Category Hierarchy:");
+        root.Print();
+
+
+
+
+       
+
+        Console.ReadKey();
+    }
+}

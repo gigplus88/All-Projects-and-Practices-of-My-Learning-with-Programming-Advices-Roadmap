@@ -1,0 +1,52 @@
+import { useState } from 'react';
+
+export default function RequestTracker() {
+  const [pending, setPending] = useState(0);
+  const [completed, setCompleted] = useState(0);
+
+  
+  
+    async function handlePending(toPend){
+    if (toPend) 
+      setPending((prevCount) => prevCount+ 1);
+    else{
+      //await delay(3000);
+      setPending((prevCount) => prevCount - 1);
+      //handleCompleted();
+    }
+  }
+  
+  function handleCompleted(){
+    setCompleted((c) => c + 1);
+  }
+  
+  async function handleClick() {
+    handlePending(true);
+    await delay(3000);
+    handlePending(false);
+   handleCompleted();
+  }
+
+
+  return (
+    <>
+      <h3>
+        Pending: {pending}
+      </h3>
+      <h3>
+        Completed: {completed}
+      </h3>
+      <button onClick={handleClick}
+              disabled={pending ==5 }
+      >
+        Buy     
+      </button>
+    </>
+  );
+}
+
+function delay(ms) {
+  return new Promise(resolve => {
+    setTimeout(resolve, ms);
+  });
+}

@@ -1,0 +1,84 @@
+import { useState } from "react";
+
+
+export default function MyTest() {
+
+
+  //const Devices = ["iPhone", "iPad", "Android Phone", "Android Tablet"];
+
+    const Devices =  [{id: 1, name: "iPhone"}, {id: 2, name: "iPad"}, {id: 3, name: "Android Phone"}, {id: 4, name: "Android Tablet"}];
+
+   const [inputValue, setInputValue] = useState("");
+  const [ListValue, setListValue] = useState(Devices);
+
+   /*
+  const DevicesList = ListValue.map((device, index) => (
+    <li key={index}>{device} 
+    <button onClick={() => handleDeletedDevice(index)} >Delete</button>
+    <button onClick={() => handleUpdatedDevice(index)} >Update</button>
+     </li>
+  ));*/
+
+    const DevicesList = ListValue.map((device) => (
+    <li key={device.id}>{device.name} 
+    <button onClick={() => handleDeletedDevice(device.id)} >Delete</button>
+    <button onClick={() => handleUpdatedDevice(device.id)} >Update</button>
+     </li>
+  ))
+      
+    function handleUpdatedDevice(id){
+     /* const inputValue = document.getElementById("inputValue");
+      inputValue.focus();
+      inputValue.value = ListValue[index] ; 
+
+      inputValue.textContent = ListValue[index] ; */
+
+      const newValue = prompt("Enter the new value:");
+
+      
+      if (newValue !== null && newValue.trim() !== "") {
+        //const updatedList = [...ListValue]; // Create a copy of the current list
+       //updatedList[id] = newValue; // Update the specific index with the new value
+      
+       let newDevice = ListValue.map( (device) => 
+       device.id === id ? {...device , name: newValue /*device.name + " Updated"*/} : device);
+
+       //setListValue(updatedList);
+       setListValue(newDevice);
+       return newDevice;
+      }
+   // setListValue( ...ListValue); 
+
+    }
+  function handleDeletedDevice(id){
+      setListValue(   ListValue.filter((device) => device.id !== id));
+   }
+
+  function  handleInputValueChange(event){  
+    setInputValue(event.target.value );
+  }
+   function  handleDeviceValueChange(){
+    if (inputValue.trim() === "") return; // Prevent adding empty values
+
+     // Add the new device to the list , to Devices copied array with the new value
+   // setListValue([...ListValue, inputValue]);
+
+   let nextId = ListValue.length > 0 ? ListValue[ListValue.length - 1].id + 1 : 1; // Generate the next unique ID
+    setListValue([...ListValue, {id: nextId, name: inputValue}]);
+
+    setInputValue(""); // Clear the input field after adding the device
+  }
+
+  
+
+
+  return (
+    <>
+      <ul>{DevicesList}</ul>
+      <div>
+        <input id="inputValue" type="text" value={inputValue}  onChange={handleInputValueChange} />
+        <button onClick={handleDeviceValueChange} >Add</button>
+      </div>
+    </>
+  );
+}

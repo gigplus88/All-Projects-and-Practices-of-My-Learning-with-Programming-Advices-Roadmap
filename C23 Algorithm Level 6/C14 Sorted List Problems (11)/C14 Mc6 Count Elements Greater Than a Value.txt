@@ -1,0 +1,65 @@
+
+
+using System;
+
+using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.Remoting.Messaging;
+using static Guna.UI2.Native.WinApi;
+
+
+
+class Program
+{
+
+    static int CountElementsGreatThanValue(int[] elements, int Value)
+    {
+        SortedSet<int> s1 = new SortedSet<int>(elements);
+
+        if (!s1.Contains(Value)|| s1.Max == Value )
+            return 0 ;
+
+        //var res = s1.GetViewBetween(Value+1, s1.Max);
+        int CountValues = 0;
+        //foreach (var item in res)
+        //{
+        //    CountValues++;
+        //}
+
+        
+
+        return s1.GetViewBetween(Value + 1, s1.Max).Count();
+        //return CountValues;
+    }
+
+    static void Main()
+    {
+
+
+        /*
+       Example:
+        Input: set = [1, 2, 3, 4, 5], value = 3
+        Output: 2
+     */
+
+
+
+
+        int[] input = { 1, 2, 4, 3 , 6 ,7 ,8 };
+
+
+        int Value = 4;
+
+        Console.WriteLine( $"number of elements after {Value} are:{ CountElementsGreatThanValue(input, Value)} "); // Output: 1, 2, 3, 4, 5
+
+
+        Console.ReadKey();
+
+
+        // Teacher solution
+
+
+    }
+}
+
+

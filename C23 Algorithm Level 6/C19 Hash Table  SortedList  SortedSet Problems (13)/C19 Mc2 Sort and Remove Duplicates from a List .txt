@@ -1,0 +1,56 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Threading;
+class Program
+{
+
+    static void Main()
+    {
+        List<int> list = new List<int>() { 1, 2, 3 , 4 , 4 , 3 , 6 , 7 ,8 };
+
+        SortedSet<int> items = new SortedSet<int>(list);
+
+        //items.RemoveWhere(x => x.Equals(x) );
+
+        foreach (var item in items)
+        {
+            Console.WriteLine(item);
+        }
+
+        Console.ReadKey();
+    }
+}
+
+
+
+//Teacher solution
+
+/*
+  List<int> numbers = new List<int> { 5,5, 3, 8,8, 5, 2, 3, 1 };
+
+
+        Console.WriteLine("Unique and sorted numbers:");
+        foreach (var num in numbers)
+        {
+            Console.WriteLine(num);
+        }
+
+
+        SortedSet<int> uniqueSortedNumbers = new SortedSet<int>(numbers);
+
+
+        Console.WriteLine("\nUnique and sorted numbers:");
+        foreach (var num in uniqueSortedNumbers)
+        {
+            Console.WriteLine(num);
+        }
+
+
+        Console.WriteLine("\nPress any key to exit...");
+ */
+
+
+
+
+

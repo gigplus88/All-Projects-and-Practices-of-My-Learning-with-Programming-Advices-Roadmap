@@ -1,0 +1,55 @@
+
+using System;
+
+using System.Collections.Generic;
+using System.Linq;
+using System.Xml.Linq;
+
+class Program
+{
+   
+    static void Main()
+    {
+        /*
+         Student 1: [90, 85, 88]
+        Student 2: [76, 80]
+        Student 3: [92, 93, 89, 85]
+         */
+
+        int[][] studentMarks = new int[3][]; //array of 3 arrays
+
+        //int[][] nums = new int[][]
+        //{
+        //    new int[] { 90, 85, 88 },
+        //    new int[] { 90, 85, 88 },
+        //    new int[] { 90, 85, 88 },
+
+        //};
+
+
+
+        studentMarks[0] = new int[] { 90, 85, 88 };
+        studentMarks[1] = new int[] { 76, 80 };
+        studentMarks[2] = new int[] { 92, 93, 89, 85 };
+
+
+        for (int i = 0; i < studentMarks.Length; i++)
+        {
+            Console.Write($"Student {i+1}: ");
+
+            //for (int j = 0; j < studentMarks[i].Length; j++)
+            //{
+            //    Console.Write($"{studentMarks[i][j]} ");
+            //    if (j < studentMarks[i].Length - 1)
+            //        Console.Write(", ");
+            //}
+
+            Console.WriteLine(string.Join(", ", studentMarks[i]));
+
+            Console.WriteLine();
+        }
+
+
+        Console.ReadKey();
+    }
+}

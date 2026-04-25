@@ -1,0 +1,96 @@
+
+using System;
+using System.Collections.Generic;
+using System.Management.Instrumentation;
+using System.Web.UI.WebControls.WebParts;
+using static Guna.UI2.Native.WinApi;
+
+
+class FileNode
+{
+    public string Name { get; set; } // Name of the file or directory
+    public int Size { get; set; } // Indicates whether this node is a file
+    public List<FileNode> Children { get; set; } = new List<FileNode>(); // List of child nodes (subdirectories or files)
+
+
+
+    public enum enType
+    {
+        Directory,
+        File
+    }
+
+
+    public FileNode(string name, int size)
+    {
+        Name = name;
+        Size = size;
+    }
+    public int GetSubFileNumber()
+    {
+        int Counter = 0;
+        foreach (var child in Children)
+        {
+            Counter++;
+            Counter += child.GetDirectorySize();
+        }
+        return Counter;
+    }
+    public int GetDirectorySize()
+    {
+        int Counter = Size; // the size of this file
+
+        foreach (var child in Children)
+        {
+            Counter += child.GetDirectorySize();
+        }
+        return Counter;
+    }
+
+    public void Print(string indent = "")
+    {
+        Console.WriteLine(indent + Name + " " + Size + "Bytes"); // Print the current file/directory
+        foreach (var child in Children)
+        {
+            child.Print(indent + "  "); // Recursively print child nodes
+        }
+    }
+}
+
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        // Create the root directory
+        var root = new FileNode("root", 0);
+
+
+        // Create subdirectories and files
+        var documents = new FileNode("Documents", 0);
+        var photos = new FileNode("Photos", 0);
+
+        documents.Children.Add(new FileNode("Resume.docx", 20));
+        documents.Children.Add(new FileNode("Project.pdf", 20));
+
+        photos.Children.Add(new FileNode("Vacation.jpg", 10));
+        photos.Children.Add(new FileNode("Diving.jpg", 10));
+        photos.Children.Add(new FileNode("Family.jpg", 10));
+
+
+        // Add subdirectories to root
+        root.Children.Add(documents);
+        root.Children.Add(photos);
+
+
+        // Display the file system structure
+        Console.WriteLine("File System:\n");
+        root.Print();
+
+
+        Console.WriteLine("root size:" + photos.GetDirectorySize()); // 10 + 10 + 10 =30
+
+        // Pause the screen
+        Console.ReadKey();
+    }
+}

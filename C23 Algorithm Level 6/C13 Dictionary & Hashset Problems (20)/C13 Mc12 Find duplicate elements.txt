@@ -1,0 +1,100 @@
+
+//My Solution
+
+
+
+
+using System;
+
+using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.Remoting.Messaging;
+
+
+
+class Program
+{
+
+    static List<int> FindDuplicate(int[] Input)
+    {
+        Dictionary<int, int> Counts = new Dictionary<int, int>();  // key=number ,Value = counter of tis number
+        List<int> duplicate = new List<int> ();
+
+
+        foreach (var item in Input)
+        {
+            if (Counts.ContainsKey(item))
+            {
+                Counts[item]++;
+                if (Counts[item] ==2)
+                {
+                    duplicate.Add(item);
+                }
+            }
+            else
+            {
+                Counts[item] = 1;
+            }
+
+        }
+        return duplicate; // This line should not be reached in valid input
+    }
+    static Dictionary<int, int> FindDuplicates(int[] Input)
+    {
+        Dictionary<int, int> Counts = new Dictionary<int, int>();  // key=number ,Value = counter of tis number
+        List<int> duplicate = new List<int>();
+
+
+        foreach (var item in Input)
+        {
+            if (Counts.ContainsKey(item))
+            {
+                Counts[item]++;
+                if (Counts[item] == 2)
+                {
+                    duplicate.Add(item);
+                }
+            }
+            else
+            {
+                Counts[item] = 1;
+            }
+
+        }
+        return Counts; // This line should not be reached in valid input
+    }
+
+
+
+    static void Main()
+    {
+        /*
+        Input: [1, 2, 3, 4, 2, 5, 6, 1]
+        Output: [1, 2]
+         */
+
+
+
+
+        int[] Input = new int[] { 3 , 6 , 6 , 4, 4 , 4 ,4 };
+
+        var res = FindDuplicate(Input);
+        Console.WriteLine($"The duplicate element{(res.Count > 1 ? "s" : "")} is:");
+
+        foreach (var item in res)
+        {
+            Console.Write($"{item} ");
+        }
+
+        var res2 = FindDuplicates(Input);
+
+        foreach (var item in res2)
+        {
+            Console.Write($"{item.Key}:{item.Value} ");
+        }
+
+        Console.ReadKey();
+    }
+}
+
+

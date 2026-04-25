@@ -1,0 +1,43 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
+class Program
+{
+
+    
+
+    static void Main()
+    {
+
+        SortedSet< DateTime > items = new SortedSet< DateTime>();
+
+      
+
+
+        items.Add((  new DateTime(2024, 11, 19, 9, 0, 0) ));
+        items.Add((new DateTime(2024, 11, 19, 9, 30, 0)));
+        items.Add((new DateTime(2024, 11, 19, 9, 0, 04)));
+        items.Add((new DateTime(2024, 12, 19, 9, 0, 0)));
+
+
+        Console.WriteLine("timeline of events by their occurrence times is:");
+
+        foreach (var item in items)
+        {
+            Console.WriteLine(item);
+        }
+
+
+
+        Console.ReadKey();
+    }
+}
+
+
+
+
+
+
+

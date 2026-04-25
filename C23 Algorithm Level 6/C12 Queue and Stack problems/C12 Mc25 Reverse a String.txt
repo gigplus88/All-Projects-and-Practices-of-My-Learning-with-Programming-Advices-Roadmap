@@ -1,0 +1,107 @@
+
+//My Solution
+
+
+
+
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using System.Management.Instrumentation;
+using System.Text;
+
+
+class Program
+{
+   
+    static string ReverseString(string value )
+    {
+        Stack<char> stack = new Stack<char>(value);
+        StringBuilder res = new StringBuilder();
+
+        while (stack.Count > 0)
+        {
+            res.Append(stack.Pop());
+        }
+        return res.ToString();
+
+        //return new string(value.Reverse().ToArray() );
+
+
+    }
+
+
+    static void Main()
+    {
+
+        /*
+            Problem: Reverse a given string using a stack.
+
+            Input: "hello"
+            Output: "olleh"
+         */
+      
+
+
+        Console.WriteLine("Middle is : " + ReverseString( "hello"));
+
+
+
+        Console.ReadKey();
+    }
+}
+
+
+
+
+
+
+//Teacher Solution
+
+/*
+ * using System;
+using System.Collections.Generic;
+
+
+class ReverseString
+{
+    static string Reverse(string input)
+    {
+        Stack<char> stack = new Stack<char>();
+
+
+        // Push each character onto the stack
+        foreach (char c in input)
+        {
+            stack.Push(c);
+        }
+
+
+        // Pop characters to form the reversed string
+        string reversed = "";
+        while (stack.Count > 0)
+        {
+            reversed += stack.Pop();
+        }
+
+
+        return reversed;
+    }
+
+
+    static void Main()
+    {
+        string input = "hello";
+        Console.WriteLine($"Original: {input}");
+        Console.WriteLine($"Reversed: {Reverse(input)}");
+        Console.ReadKey();
+
+
+    }
+    
+}
+
+
+ */
+

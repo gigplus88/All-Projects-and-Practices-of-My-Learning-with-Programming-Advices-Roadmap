@@ -1,0 +1,41 @@
+using System;
+using System.Collections.Generic;
+
+class Program
+{//Start -> Go to Gaz Station -> Go to Super Market -> Go To Work -> Go to Cafe -> Go Home.
+
+
+    static void Main()
+    {
+        // Initialize a queue to represent ticket numbers
+        Stack<string> Backtracking = new Stack<string>();
+
+        Console.WriteLine("Start -> Go to Gaz Station -> Go to Super Market -> Go To Work -> Go to Cafe -> Go Home.\n");
+
+        Backtracking.Push("Start");
+        Backtracking.Push("Go to Gaz Station");
+        Backtracking.Push("Go to Super Market");
+        Backtracking.Push("Go To Work");
+        Backtracking.Push("Go to Cafe");
+        Backtracking.Push("Go Home");
+
+
+        Console.WriteLine("Backtracking...");
+        
+
+        // Process tickets in the queue
+        while (Backtracking.Count > 0)
+        {
+            string currentBacktracking = Backtracking.Pop();
+            Console.WriteLine("Back to: " + currentBacktracking);
+           
+        }
+        Console.WriteLine("No more Backtracking yet.");
+
+
+        Console.WriteLine("Backtracking System Simulation Ended.");
+        Console.ReadKey();
+    }
+}
+
+

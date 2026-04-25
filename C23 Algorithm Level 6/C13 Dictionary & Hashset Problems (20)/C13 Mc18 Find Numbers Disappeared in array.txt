@@ -1,0 +1,62 @@
+
+
+using System;
+
+using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.Remoting.Messaging;
+
+
+
+class Program
+{
+
+
+    static List<int> FindDisappearedArray(int[] input)
+    {
+        HashSet <int> items = new HashSet <int>(input);
+        List<int> result = new List<int>();
+
+        //items.OrderBy(x => x).ToList();
+
+
+        
+
+        for (int i = 1; i <= input.Max(); i++)
+        {
+            if (!items.Contains(i) )
+            {
+                result.Add(i);
+                
+            }
+        }
+
+
+
+        return result;
+    }
+    static void Main()
+    {
+        /*
+         Input: [4, 3, 2, 7, 8, 2, 3, 1]
+         Output: [5, 6]
+
+         */
+
+
+
+
+        int[] Input = { 4, 3, 2, 7, 8, 2, 3, 1 , 19 };
+
+
+
+
+        Console.Write($" {string.Join( "," , FindDisappearedArray(Input ))}");
+
+
+
+        Console.ReadKey();
+    }
+}
+
+

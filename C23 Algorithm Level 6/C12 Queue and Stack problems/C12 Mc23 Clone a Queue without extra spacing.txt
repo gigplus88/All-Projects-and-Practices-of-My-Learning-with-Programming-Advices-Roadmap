@@ -1,0 +1,65 @@
+
+//Teacher Solution
+
+
+
+
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using System.Management.Instrumentation;
+
+
+class Program
+{
+    static Queue<int> ReverseQueue(Queue<int> queue)
+    {
+        Stack<int> stack = new Stack<int>();
+        while (queue.Count > 0)
+        {
+            stack.Push(queue.Dequeue());
+        }
+        while (stack.Count > 0)
+        {
+            queue.Enqueue(stack.Pop());
+        }
+        return queue;
+    }
+    static Queue<int> CloneQueue(Queue<int> OriginalQueue , Queue<int> clone)
+    {
+        if (OriginalQueue.Count == 0)
+            return new Queue<int>();
+       
+        int value = OriginalQueue.Dequeue();
+
+        CloneQueue(OriginalQueue, clone);
+
+        // After dequeue we are Backtracking from Call stack which work by LIFO
+
+        clone.Enqueue(value);
+        OriginalQueue.Enqueue(value);
+
+
+        clone = ReverseQueue(clone);
+
+        return clone;
+
+    }
+
+
+    static void Main()
+    {
+        Queue<int> original = new Queue<int>(new[] { 1, 2, 3, 4 });
+        Queue<int> clone = new Queue<int>();
+
+
+        //CloneQueue(original, clone);
+
+        Console.WriteLine("Original: " + string.Join(", ", original));
+        Console.WriteLine("Clone   : " + string.Join(", ", CloneQueue(original, clone)));
+
+
+        Console.ReadKey();
+    }
+}

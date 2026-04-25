@@ -1,0 +1,44 @@
+using System;
+using System.Collections.ObjectModel;
+using System.Collections.Specialized;
+using System.Web.Hosting;
+
+class Program
+{
+    class ChatMessage
+    {
+        private string Name;
+        private DateTime date ;
+        ObservableCollection<ChatMessage> Message = new ObservableCollection<ChatMessage>();
+        public ChatMessage(string name , ObservableCollection<ChatMessage> Message  ) 
+        {
+            this.Name = name;
+            this.Message = Message;
+            date = DateTime.Now;
+
+        }
+        public event Action NotifyMessage;
+
+        protected virtual void OnMessageCome()
+        {
+            NotifyMessage?.Invoke();
+        }
+
+    }
+    static void Main()
+    {
+        ObservableCollection<string> chatMessages = new ObservableCollection<string>();
+        chatMessages.CollectionChanged += (sender, e) =>
+        {
+            if (e.Action == NotifyCollectionChangedAction.Add)
+                Console.WriteLine($"New Message: {e.NewItems[0]}");
+        };
+
+        chatMessages.Add("Hello!");
+        chatMessages.Add("How are you?");
+        // Output:
+        // New Message: Hello!
+        // New Message: How are you?
+        Console.ReadKey();
+    }
+}

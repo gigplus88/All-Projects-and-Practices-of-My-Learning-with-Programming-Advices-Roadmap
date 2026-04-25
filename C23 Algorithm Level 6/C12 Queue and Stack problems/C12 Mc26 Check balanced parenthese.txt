@@ -1,0 +1,63 @@
+
+//My Solution
+
+
+
+
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using System.Management.Instrumentation;
+using System.Text;
+
+
+class Program
+{
+   
+    static bool CheckBalancedParenthese(string value )
+    {
+        Stack<char> stack = new Stack<char>();
+
+     
+        foreach (char c in value)
+        {
+            if (c =='(' || c=='{' || c == '[')
+            {
+                stack.Push(c);
+            }
+            else if (c == ')' || c == '}' || c == ']')
+            {
+                if (stack.Count == 0)
+                {
+                    return false; // Because that s not the good begin of value
+                }
+
+                char top = stack.Pop();
+
+                if (c == ')' && top != '('  || c == '}' && top != '{' || c == ']' && top != ']')
+                {
+                    return false; // Bad character place
+                }
+            }
+        }
+        return stack.Count ==0; //Because poping of all stack items , means all value char are good
+
+    }
+
+
+    static void Main()
+    {
+
+
+        string value = "({[()]})";
+
+
+        Console.WriteLine("check balanced parenthese  : " + CheckBalancedParenthese(value));
+
+
+
+        Console.ReadKey();
+    }
+}
+

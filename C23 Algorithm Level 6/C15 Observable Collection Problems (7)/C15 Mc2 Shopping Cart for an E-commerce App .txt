@@ -1,0 +1,51 @@
+using System;
+using System.Collections.ObjectModel;
+using System.Collections.Specialized;
+
+class Program
+{
+    static void Main()
+    {
+        ObservableCollection<string> cart = new ObservableCollection<string>();
+
+        cart.CollectionChanged += (sender, e) =>
+        {
+            //this event will be fired on any change (add or remove.
+
+            if (e.Action == NotifyCollectionChangedAction.Add)
+                Console.WriteLine($"New item Added successfully: {e.NewItems[0]}");
+            if (e.Action == NotifyCollectionChangedAction.Remove)
+                Console.WriteLine($"item Removed successfully: {e.OldItems[0]}");
+            if (e.Action == NotifyCollectionChangedAction.Replace )
+                Console.WriteLine($"item {e.OldItems[0]} Updated to: {e.NewItems[0]} successfully");
+
+        };
+
+        Console.WriteLine($"Hello to your shopping:");
+
+
+        cart.Add("banana");
+        cart.Add("fish");
+
+        if (!cart.Remove("apple"))
+        {
+            Console.WriteLine($"Sorry that not found:");
+        }
+        cart.Remove("fish");
+        cart[0] = "strawbery";
+
+        // Output:
+        // New Student Added: Alice
+        // New Student Added: Bob
+        // Student Removed: Alice
+
+
+
+     
+
+        
+        Console.ReadKey();
+    }
+}
+
+

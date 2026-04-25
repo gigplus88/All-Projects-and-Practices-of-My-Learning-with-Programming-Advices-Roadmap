@@ -1,0 +1,159 @@
+// My Solution
+
+
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
+
+
+class WebServer
+{
+   
+    class Queue
+    {
+        public Queue()
+        {
+
+        }
+        private Stack<int> stack = new Stack<int>();
+        private Stack<int> stack2 = new Stack<int>();
+        int Val = 0;
+        // For non sorted Queues
+        public void Enqueue(int value)
+        {
+            this.stack.Push(value);
+        }
+        public int Dequeue()
+        {
+            // if stack2 is empty i full it
+            if (stack2.Count == 0)
+            {
+                while (this.stack.Count > 0)
+                {
+                    this.stack2.Push(this.stack.Pop());
+                }
+               
+            }
+            if (stack2.Count == 0)
+                throw new InvalidOperationException("Queue is empty");
+
+            return this.stack2.Pop(); ;
+
+        }
+        public bool IsEmpty()
+        {
+            return stack.Count == 0 && stack2.Count == 0;
+        }
+
+    }
+
+    static Queue<int> RearrangeQueue(Queue<int> queue)
+    {
+        int halfSize = queue.Count / 2;
+
+        Queue<int> queue2 = new Queue<int>();
+        Stack<int> stack = new Stack<int>();
+
+
+        for (int i = 0; i < halfSize; i++)
+        {
+            queue2.Enqueue(queue.Dequeue());  //Stack [1,2,3]
+        }
+        while (queue.Count>0)
+        {
+            stack.Push(queue.Dequeue());
+        }
+
+        while (stack.Count>0 && queue2.Count>0)
+        {
+            queue.Enqueue(queue2.Dequeue());
+            queue.Enqueue(stack.Pop());
+        }
+
+        return queue;
+    }
+
+
+
+
+
+    static void Main()
+    {
+
+        /*
+         * Input: Queue = [1, 2, 3, 4, 5, 6]
+           Output: Queue = [1, 6, 2, 5, 3, 4]
+         */
+        Queue<int> queue = new Queue<int>(new[] { 1, 2, 3, 4, 5, 6 });
+        
+        Queue<int> Rearrange = RearrangeQueue(queue);
+
+        while (Rearrange.Count>0)
+        {
+            Console.Write(Rearrange.Dequeue());
+        }
+
+
+
+        Console.ReadKey();
+
+    }
+
+}
+
+
+
+
+
+
+
+
+
+
+//Teacher Solution
+
+/*
+
+using System;
+using System.Collections.Generic;
+
+
+class Program
+{
+    static Queue<int> RearrangeAlternately(Queue<int> queue)
+    {
+        List<int> list = new List<int>(queue);
+        int n = list.Count;
+        Queue<int> result = new Queue<int>();
+
+
+        for (int i = 0; i < n / 2; i++)
+        {
+            result.Enqueue(list[i]);
+            result.Enqueue(list[n - i - 1]);
+        }
+
+        // if number of items is even
+        if (n % 2 != 0)
+        {
+            result.Enqueue(list[n / 2]);
+        }
+
+
+        return result;
+    }
+
+
+    static void Main()
+    {
+        Queue<int> queue = new Queue<int>(new[] { 1, 2, 3, 4, 5 });
+        Queue<int> rearrangedQueue = RearrangeAlternately(queue);
+        Console.WriteLine(string.Join(", ", rearrangedQueue)); // Output: 1, 6, 2, 5, 3, 4
+        Console.ReadKey();
+    }
+}
+*/

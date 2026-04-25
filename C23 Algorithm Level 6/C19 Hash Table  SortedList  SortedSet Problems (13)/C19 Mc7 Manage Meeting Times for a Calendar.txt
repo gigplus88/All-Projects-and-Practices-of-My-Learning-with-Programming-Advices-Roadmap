@@ -1,0 +1,35 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+
+class Program
+{
+
+    static void Main()
+    {
+
+
+        SortedSet<TimeSpan> meetingTimes = new SortedSet<TimeSpan>
+        {
+            new TimeSpan(16, 0, 4), // 4:00 PM
+            new TimeSpan(13, 45, 0), // 1:45 AM
+            new TimeSpan(1, 0, 0)  // 1:00 PM
+        };
+
+        Console.WriteLine("Today's meetings (sorted):");
+        foreach (var time in meetingTimes)
+        {
+            Console.WriteLine(time);
+        }
+
+        Console.WriteLine("Press any key to exit...");
+        Console.ReadKey();
+    }
+}
+
+
+
+
+
+
+

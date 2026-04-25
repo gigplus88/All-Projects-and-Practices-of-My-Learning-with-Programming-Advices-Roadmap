@@ -1,0 +1,54 @@
+
+
+using System;
+
+using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.Remoting.Messaging;
+using static Guna.UI2.Native.WinApi;
+
+
+
+class Program
+{
+
+
+    static bool ArraysAreDisjoint(int[] input1 , int[] input2)
+    {
+      
+        HashSet<int> items = new HashSet<int>(input2);
+
+        foreach (var item in input1)
+        {
+            if (items.Contains(item))
+            {
+                return false;
+            }
+        }
+
+
+        return true;
+    }
+    static void Main()
+    {
+        /*
+        Input: nums1 = [1, 2, 3], nums2 = [4, 5, 6]
+
+
+         */
+
+
+
+        int[] Input1 = { 1, 2, 3 } ,Input2 = { 3, 5, 6 } ;
+
+
+
+        Console.Write($" {string.Join( "," , ArraysAreDisjoint(Input1, Input2 ))}");
+
+
+
+        Console.ReadKey();
+    }
+}
+
+

@@ -1,0 +1,17 @@
+import { Outlet } from "react-router-dom";
+
+export default function PostLayout() {
+  return (
+    <>
+      <div style={{ background: "green" }}>
+        <h1>Header Posts</h1>
+      </div>
+
+      <Outlet />
+
+      <div style={{ background: "green" }}>
+        <h1>Footer Posts</h1>
+      </div>
+    </>
+  );
+}

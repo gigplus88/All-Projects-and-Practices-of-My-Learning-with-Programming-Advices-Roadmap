@@ -1,0 +1,95 @@
+using System;
+
+
+/* DIP:
+ High-level modules should not depend on low-level modules. 
+ Both should depend on abstractions (e.g., interfaces or abstract classes).
+
+ */
+
+// compatible SRP, OCP, DIP + DI design pattern.
+
+public interface IReportGenerator
+{
+    void Generate();
+}
+
+//High level module (DIP) + OCP (Open/closed p)
+public class ReportGenerator
+{
+    private IReportGenerator _ReportGenerator;
+
+    public ReportGenerator(IReportGenerator ReportGenerator)
+    {
+        // Direct dependency on interface or abstract class.
+
+        _ReportGenerator = ReportGenerator;
+    }
+
+    public void GenerateReport()
+    {
+        _ReportGenerator.Generate();
+    }
+}
+
+//Low level module (DIP)+ SRP
+
+public class PdfReportGenerator : IReportGenerator
+{
+    public void Generate()
+    {
+        Console.WriteLine("PDF report generated :-).");
+    }
+}
+//Low level module + SRP
+public class ExcelReportGenerator : IReportGenerator
+{
+    public void Generate()
+    {
+        Console.WriteLine("Excel report generated :-).");
+    }
+}
+
+//public class PdfReportGenerator
+//    {
+//        public void Generate()
+//        {
+//            Console.WriteLine("PDF report generated :-).");
+//        }
+//    }
+
+//    public class ReportGenerator
+//    {
+//        private PdfReportGenerator _pdfReportGenerator;
+
+
+//        public ReportGenerator()
+//        {
+//            // Direct dependency on PdfReport (low-level module)
+//            _pdfReportGenerator = new PdfReportGenerator();
+
+//        }
+
+//        public void GenerateReport()
+//        {
+//            _pdfReportGenerator.Generate();
+//        }
+
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        // Client code
+        ReportGenerator reportGenerator = new ReportGenerator(new PdfReportGenerator()); // Dependency injection
+        reportGenerator.GenerateReport();
+
+        reportGenerator = new ReportGenerator(new ExcelReportGenerator());
+        reportGenerator.GenerateReport();
+
+
+        Console.ReadKey();
+
+    }
+}
+

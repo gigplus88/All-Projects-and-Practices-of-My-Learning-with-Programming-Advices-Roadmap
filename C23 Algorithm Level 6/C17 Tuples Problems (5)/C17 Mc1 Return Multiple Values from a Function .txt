@@ -1,0 +1,22 @@
+using System;
+using System.Diagnostics;
+using System.Xml.Linq;
+class Program
+{
+    static (string Name, int Age, double Grade) GetStudentInfo(string Name , int Age , double Grade)
+    {
+        if (Age < 0)
+            throw new Exception("Age must be great than 0");
+            
+        return (Name , Age , Grade);   
+    }
+    static void Main()
+    {
+        var student = GetStudentInfo("Ayoub", 24, 15);
+
+        Console.WriteLine($"Name: {student.Name}, Age: {student.Age}, Grade: {student.Grade}");
+
+        Console.WriteLine(GetStudentInfo("Ayoub", 24, 15));
+        Console.ReadKey();
+    }
+}

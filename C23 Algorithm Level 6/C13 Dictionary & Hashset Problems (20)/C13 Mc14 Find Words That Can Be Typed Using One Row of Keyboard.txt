@@ -1,0 +1,158 @@
+
+
+using System;
+
+using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.Remoting.Messaging;
+
+
+
+class Program
+{
+
+    
+    
+    // My Solution
+    static List<string> RowWrite(string[] Input , string[] Querty)
+    {
+
+
+        Dictionary<string, int> Counts = new Dictionary<string, int>();  // key=number ,Value = counter of tis number
+        List<string> Unique = new List<string> ();
+
+
+        //}
+        ///if (Querty.Any(row => value.All(c => row.Contains(c))))
+        {
+
+            //isquerty = true;
+            //Unique.Add(item);
+
+        }
+
+        foreach (var item in Input) //for items
+        {
+            string value = item.ToLower();
+
+            for (int i = 0; i < Querty.Length; i++) //for qwerty items
+            {
+                bool isqwerty = true;
+
+                foreach (char c in value)
+                {
+                    if (!Querty[i].Contains(c))
+                    {
+                        isqwerty = false;
+                        break;
+                    }
+                }
+
+                if (isqwerty)
+                {
+                    Unique.Add(item);
+                    break;
+                }
+            }
+        }
+
+        //foreach (var item in Input)
+        //{
+        //    bool isquerty = true;
+        //    string value = item.ToLower();
+
+        //    if (Querty.Any(row => value.All(c => row.Contains(c))) )
+        //    {
+
+        //        isquerty = true;
+        //        Unique.Add(item);
+
+        //    }
+
+
+
+        //}
+
+        return Unique; // This line should not be reached in valid input
+
+    }
+
+    static string[] FindWords(string[] words)
+    {
+        string[] rows = { "qwertyuiop", "asdfghjkl", "zxcvbnm" };
+        Dictionary<char, int> charRow = new Dictionary<char, int>();
+
+
+        for (int i = 0; i < rows.Length; i++) // Dictionnary of   "qwertyuiop" characters  with --> 0 value
+        {                                     // "asdfghjkl" characters  with --> 1 value
+            foreach (char c in rows[i])       // "zxcvbnm" characters  with --> 2 value
+            {
+                charRow[c] = i;
+            }
+        }
+
+
+        List<string> result = new List<string>();
+
+
+        foreach (string word in words)
+        {
+            int row = charRow[char.ToLower(word[0])]; // the row of the first leter in the word
+            bool isValid = true;
+
+
+            foreach (char c in word)
+            {
+                if (charRow[char.ToLower(c)] != row) // if one letter in word is not in the same row -->
+                                                     // is invalid -->
+                                                     // i break it because all word isn t in the same qwerty.
+                {
+                    isValid = false;
+                    break;
+                }
+            }
+
+
+            if (isValid)
+                result.Add(word);
+        }
+
+
+        return result.ToArray();
+    }
+    static void Main()
+    {
+        /*
+        q w e r t y u i o p
+        a s d f g h j k l
+        z x c v b n m
+
+        Input:  ["Hello", "Alaska", "Dad", "Peace"]
+        Output: ["Alaska", "Dad"]
+         */
+
+
+
+
+        string[] Input ={ "Hello", "Alaska", "Dad", "Peace" };
+        string[] Querty = new string[] { "qwertyuiop", "asdfghjkl", "zxcvbnm"};
+
+
+        //var res = RowWrite(Input , Querty);
+
+        var res = FindWords(Input);
+       // Console.WriteLine($"The querty elements {(res.Count > 1 ? "s" : "")} are:");
+
+        foreach (var item in res)
+        {
+            Console.Write($"{item} ");
+        }
+
+
+
+
+        Console.ReadKey();
+    }
+}
+
+

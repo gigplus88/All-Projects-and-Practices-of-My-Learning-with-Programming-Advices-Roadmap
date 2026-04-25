@@ -1,0 +1,159 @@
+
+
+
+
+
+/*
+
+
+
+using System;
+
+using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.Remoting.Messaging;
+
+
+
+class Program
+{
+
+    /*
+      HashSet<int> set = new HashSet<int>(nums);
+        int n = nums.Length;
+
+
+        for (int i = 0; i <= n; i++)
+        {
+            if (!set.Contains(i))
+                return i;
+        }
+
+        return -1;
+     */
+
+    static List<char> FindCommonCharacters(string[] input)
+    {
+        List<char> common = new List<char>(input[0]);
+
+        for (int i = 1; i < input.Length; i++)
+        {
+            List<char> currentWord = input[i].ToList(); // get items of input array
+            
+            List<char> temp = new List<char>();
+          
+
+            foreach (var c in common)
+            {
+
+                if (currentWord.Remove(c)) // return true when the item was  found in the list (currentWord)
+                {
+                    temp.Add(c); 
+                }
+
+            }
+            common = temp;
+        }
+        return common;
+    }
+    static void Main()
+    {
+        /*
+       Problem: Find all common characters between multiple strings.
+
+        Example:
+        Input: ["bella", "label", "roller"]
+        Output: ["e", "l", "l"]
+
+        Key Points:
+
+        Use a dictionary to track minimum frequency of characters across strings.
+
+         */
+
+
+
+
+        string[] Input = { "bella", "label", "roller" };
+
+
+
+        Console.Write($" {string.Join( "," , FindCommonCharacters(Input))}");
+
+
+
+        Console.ReadKey();
+    }
+}
+
+
+
+*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//teacher solution
+
+using System;
+using System.Collections.Generic;
+
+class Program
+{
+    static List<string> CommonChars(string[] words)
+    {
+        int[] minFreq = new int[26];
+        Array.Fill(minFreq, int.MaxValue); //Get to all minFreq int.MaxValue
+
+
+        foreach (string word in words)
+        {
+            int[] charFreq = new int[26];
+            foreach (char c in word) // freq of all letter in word
+            {
+                charFreq[c - 'a']++;  //'a' is one
+            }
+
+
+            for (int i = 0; i < 26; i++) // store min frequencies of all letters by comparing it with begin word letter freq 
+            {
+                minFreq[i] = Math.Min(minFreq[i], charFreq[i]); // ex Math.Min( 2147483647 , 2)  2147483647 for minFreq , and 2 for number of 'l' frequencies
+            }
+        
+        }
+
+        // Print frequencies letters
+        List<string> result = new List<string>();
+        for (int i = 0; i < 26; i++)
+        {
+            for (int j = 0; j < minFreq[i]; j++) // ex: l has 2 frequencies
+            {
+                result.Add( ((char)(i + 'a')).ToString());
+            }
+        }
+
+        return result;
+    }
+
+    static void Main()
+    {
+        var result = CommonChars(new[] { "bella", "label", "roller" });
+        Console.WriteLine(string.Join(", ", result)); // Output: e, l, l
+        Console.ReadKey();
+
+    }
+}
+

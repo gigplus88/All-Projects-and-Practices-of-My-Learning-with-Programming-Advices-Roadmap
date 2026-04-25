@@ -1,0 +1,90 @@
+using System;
+using System.Collections.Generic;
+
+class DecisionNode
+{
+    public string Question { get; set; } // Task name
+    public DecisionNode Yes { get; set; }
+    public DecisionNode No { get; set; }
+
+
+
+    public DecisionNode(string name)
+    {
+        Question = name;
+      
+    }
+
+
+    //public void Print(string indent = "")
+    //{
+    //    Console.WriteLine(indent + Question + " : " );
+    //    foreach (var child in )
+    //    {
+    //        child.Print(indent + "  ");
+    //    }
+    //}
+}
+
+
+    class Program
+{
+    static void Main(string[] args)
+    {
+        var Root = new DecisionNode("Do you have time");
+
+        var dog = new DecisionNode("Do you like dog");
+        Root.Yes = dog;
+
+
+        var cat = new DecisionNode("Do you like cats!");
+        Root.No = cat;
+
+
+        var funny = new DecisionNode("Do you are funny!");
+        var fish = new DecisionNode("Do you like banana");
+
+
+        dog.No = new DecisionNode("Recommonded: avocado");
+        dog.Yes = new DecisionNode("Recommonded: avocado");
+
+        cat.Yes = new DecisionNode("Recommonded: ckitchen");
+        funny.Yes = new DecisionNode("Recommonded: Traveling");
+        fish.Yes = new DecisionNode("Recommonded: totop");
+
+
+         dog.No.No = new DecisionNode("No: It s not good");
+         cat.Yes.No = new DecisionNode("I dont like it");
+         funny.Yes.No = new DecisionNode("I dont have money");
+         fish.Yes = new DecisionNode("No , I dont know it");
+
+        var currentNode = Root;
+
+
+        while (currentNode.Yes != null && currentNode.No != null)
+        {
+            Console.WriteLine(currentNode.Question);
+            string answer = Console.ReadLine().Trim().ToLower(); // Get user input ("yes" or "no")
+
+
+            if (answer == "yes".ToLower())
+            {
+                //Console.WriteLine(currentNode.Yes.Question);
+                currentNode = currentNode.Yes;
+
+            }
+            if (answer == "No".ToLower())
+            {
+                //Console.WriteLine(currentNode.No.Question);
+                currentNode = currentNode.No;
+
+            }
+            else
+                Console.WriteLine("Please answer 'yes' or 'no'.");
+        }
+        Console.WriteLine(currentNode.Question);
+
+
+        Console.ReadKey();
+    }
+}

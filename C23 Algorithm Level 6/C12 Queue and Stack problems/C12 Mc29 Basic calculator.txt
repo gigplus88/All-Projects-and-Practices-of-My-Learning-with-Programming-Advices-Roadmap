@@ -1,0 +1,216 @@
+
+
+using System;
+using System.CodeDom;
+using System.Collections;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
+using System.Management.Instrumentation;
+using System.Text;
+using static Guna.UI2.Native.WinApi;
+
+
+class Program
+{
+   static int Operation(char Op ,int FirstVal , int LastVal)
+    {
+        int Res = 0;
+        switch (Op)
+        {
+            case '+':
+                Res = FirstVal + LastVal;
+                break;
+
+            case '-':
+                Res = FirstVal - LastVal;
+
+                break;
+
+            case '*':
+                Res = FirstVal * LastVal;
+
+                break;
+
+            case '/':
+                Res = FirstVal / LastVal;
+
+                break;
+
+        }
+        return Res;
+    }
+    static bool isOperator(char input)
+    {
+        string Op = "+-*/";
+
+        return Op.Contains(input);
+
+    }
+    
+
+    static string RemoveSpaces(string input)
+    {
+        return input.Replace(" ", "");
+    }
+    static int Precedence(char op)
+    {
+        if (op == '+' || op == '-') return 1;
+        if (op == '*' || op == '/') return 2;
+        return 0;
+    }
+    static int EvaluatePostfix(string value )
+    {
+
+        Stack<int> values = new Stack<int>();
+        Stack<char> ops = new Stack<char>();
+
+
+        int lastValue = 0 , FirstValue = 0;
+        char[] Char = new char[20];
+        
+        int Res = 0;
+
+        value = RemoveSpaces(value);
+
+        int j = 0;
+        for (int i = 0; i < value.Length; i++)
+        {
+            if (int.TryParse(value[i].ToString(), out int number))
+            {
+                values.Push(number);
+            }
+            else if (value[i] == '(')
+            {
+                ops.Push(value[i]);
+            }
+            else if (value[i] == ')')
+            {
+                // بما أن العنصر الذي أنا عليه لا يمثل ( أعمل pop و العملية المناسبة حتى أصل الى القوس
+                while (ops.Peek() != '(')
+                {
+                    int val2 = values.Pop();
+                    int val1 = values.Pop();
+                    char op = ops.Pop();
+
+                    values.Push(Operation(op, val1, val2));
+                }
+                ops.Pop(); // remove '('
+
+            }
+            else if(isOperator(value[i]) ) // it handles priority operations
+            {
+                while (ops.Count >0 && Precedence(ops.Peek()) >= Precedence(value[i]))
+                {
+                    int val2 = values.Pop();
+                    int val1 = values.Pop();
+                    char op = ops.Pop();
+                    values.Push(Operation(op, val1, val2));
+                }
+                ops.Push(value[i]);
+            }
+        }
+        
+
+        while ( ops.Count > 0) //We calculate to finish operations 
+        {
+            //j--;
+            int val2 = values.Pop();
+            int val1 = values.Pop();
+            char op = ops.Pop();
+
+            Res = Operation(op, val1, val2);
+            values.Push(Res);
+        }
+        //stack.Push(Res);
+
+
+        return values.Pop() ;
+    }
+
+
+    static void Main()
+    {
+
+
+        string value = "1 + (2 - 3) -4 +5 -9 +3 -2";
+        
+
+        Console.WriteLine("check is value palindrome : " + EvaluatePostfix(value));
+
+
+
+        Console.ReadKey();
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//Teacher solution
+using System;
+using System.Collections.Generic;
+
+class Program
+{
+    static int Calculate(string s)
+    {
+        Stack<int> stack = new Stack<int>();
+        int result = 0, sign = 1, number = 0;
+
+
+        foreach (char c in s)
+        {
+            if (char.IsDigit(c))
+            {
+                number = number * 10 + (c - '0');
+            }
+            else if (c == '+')
+            {
+                result += sign * number;
+                number = 0;
+                sign = 1;
+            }
+            else if (c == '-')
+            {
+                result += sign * number;
+                number = 0;
+                sign = -1;
+            }
+            else if (c == '(')
+            {
+                stack.Push(result);
+                stack.Push(sign);
+                result = 0;
+                sign = 1;
+            }
+            else if (c == ')')
+            {
+                result += sign * number;
+                number = 0;
+                result *= stack.Pop();
+                result += stack.Pop();
+            }
+        }
+
+        result += sign * number;
+        return result;
+    }
+
+    static void Main()
+    {
+        Console.WriteLine(Calculate("1 + (5 - 603)")); // Output: 3
+        Console.ReadKey();
+    }
+}

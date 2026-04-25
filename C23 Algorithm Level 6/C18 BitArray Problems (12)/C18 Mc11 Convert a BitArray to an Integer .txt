@@ -1,0 +1,61 @@
+using System;
+using System.Collections;
+
+using System.Threading;
+class Program
+{
+
+    static int BitArrayToInt(BitArray bits)
+    {
+        if (bits == null)
+            throw new ArgumentNullException("binary");
+        if (bits.Length > 32)
+            throw new ArgumentException("must be at most 32 bits long");
+
+        int result = 0;
+        for (int i = 0; i < bits.Length; i++)
+        {
+            if (bits[i])
+            {
+                result += (1 << i); // Add the value of the current bit
+            }
+        }
+        return result;
+    }
+
+
+    static void Main()
+    {
+
+
+        BitArray bits = new BitArray(new bool[] { true, false, true , true }); // Binary: 101
+
+
+        int result = BitArrayToInt( bits);
+        Console.WriteLine("Integer value of BitArray: " + result);
+
+
+
+
+        //Method 2 with copyTo
+        int[] array = new int[1]; // &item in int equal 32 bits
+        bits.CopyTo(array, 0); // copy elements from 0 index in array
+        Console.WriteLine(array[0]);
+
+        //Console.WriteLine($"eesult is :{string.Join("," , BitwiseBitArrays(Bits1, Bits2))} ");
+
+
+
+
+
+
+
+
+        Console.ReadKey();
+    }
+}
+
+
+
+
+

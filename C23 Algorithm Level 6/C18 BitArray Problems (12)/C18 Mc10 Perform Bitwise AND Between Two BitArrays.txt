@@ -1,0 +1,53 @@
+using System;
+using System.Collections;
+
+using System.Threading;
+class Program
+{
+
+    static BitArray BitwiseBitArrays( BitArray bits1 , BitArray bits2)
+    {
+        if (bits1.Length != bits2.Length)
+            throw new ArgumentException("BitArrays must have the same length!");
+
+        return bits1.And( bits2);
+    }
+
+    static void Main()
+    {
+
+
+         BitArray Bits1 = new BitArray( new bool[] { true, false, true, true, false, false, true, true });
+        BitArray Bits2 = new BitArray(new bool[] { true, true, false, true, false, true, true, false }); // All lights off  
+
+
+
+        foreach (bool item in BitwiseBitArrays(Bits1, Bits2))
+        {
+            if (item)
+                Console.Write($"1");
+            else
+                Console.Write($"0");
+        }
+
+
+        Console.WriteLine();
+
+
+        Console.WriteLine($"eesult is :{string.Join("," , BitwiseBitArrays(Bits1, Bits2))} ");
+    
+
+
+
+
+
+
+
+            Console.ReadKey();
+    }
+}
+
+
+
+
+

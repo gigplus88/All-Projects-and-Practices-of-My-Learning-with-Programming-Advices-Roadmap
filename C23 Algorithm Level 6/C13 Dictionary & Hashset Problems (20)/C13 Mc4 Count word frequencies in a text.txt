@@ -1,0 +1,73 @@
+
+//My Solution
+
+
+
+
+using System;
+using System.CodeDom;
+using System.Collections;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
+using System.Management.Instrumentation;
+using System.Text;
+using static Guna.UI2.Native.WinApi;
+
+
+class Program
+{
+
+
+    static void Main()
+    {
+
+        string input = "hello world hello universe";
+
+
+        Dictionary<string , int> strings = new Dictionary<string, int>();
+       
+
+
+        string[] arrWord =  input.Split(' ');
+
+        //teacher solution
+        /*
+         *    foreach (var word in text.Split(' '))
+        {
+            if (wordCount.ContainsKey(word))
+                wordCount[word]++;
+            else
+                wordCount[word] = 1;
+        }
+
+         */
+
+
+        int j = 0;
+        for (int i = 0; i < arrWord.Length; i++)
+        {
+            //strings[arrWord[i]] = i;
+            if (strings.ContainsKey(arrWord[i]))
+            {
+                strings[arrWord[i]]++;
+
+            }
+            else
+            {
+                strings.Add(arrWord[i], 1);
+            }
+        }
+
+   
+        foreach (var item in strings)
+        {
+            Console.WriteLine($"{item.Key}:{item.Value} " );
+        }
+
+
+        Console.ReadKey();
+    }
+}
+
+

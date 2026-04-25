@@ -1,0 +1,140 @@
+
+//My Solution
+
+
+
+
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
+using System.Management.Instrumentation;
+using System.Text;
+using static Guna.UI2.Native.WinApi;
+
+
+class Program
+{
+   static int Operation(char Op ,int FirstVal , int LastVal)
+    {
+        int Res = 0;
+        switch (Op)
+        {
+            case '+':
+                Res = FirstVal + LastVal;
+                break;
+
+            case '-':
+                Res = FirstVal - LastVal;
+
+                break;
+
+            case '*':
+                Res = FirstVal * LastVal;
+
+                break;
+
+            case '/':
+                Res = FirstVal / LastVal;
+
+                break;
+
+        }
+        return Res;
+    }
+   
+    static int EvaluatePostfix(string value )
+    {
+
+        Stack<int> stack = new Stack<int>();
+
+        
+        int lastValue = 0 , FirstValue = 0;
+        int Res = 0;
+        foreach (var item in value)
+        {
+            if (int.TryParse(item.ToString(), out int number) )
+            {
+                stack.Push(number);
+            }
+            else
+            {
+                lastValue = stack.Pop();
+                FirstValue = stack.Pop();
+
+                Res = Operation(item.ToString(), FirstValue , lastValue);
+
+                stack.Push(Res );
+            }
+                
+        }
+        return stack.Pop() ;
+    }
+
+
+    static void Main()
+    {
+
+
+        string value = "231*+9-";
+        
+
+        Console.WriteLine("check is value palindrome : " + EvaluatePostfix(value));
+
+
+
+        Console.ReadKey();
+    }
+}
+
+
+
+// Teacher Solution
+
+
+/*
+ 
+    using System;
+using System.Collections.Generic;
+
+class Program
+{
+    static int EvaluatePostfix(string expression)
+    {
+        Stack<int> stack = new Stack<int>();
+
+
+        foreach (char c in expression)
+        {
+            if (char.IsDigit(c))
+            {
+                stack.Push(c - '0');
+            }
+            else
+            {
+                int b = stack.Pop();
+                int a = stack.Pop();
+                switch (c)
+                {
+                    case '+': stack.Push(a + b); break;
+                    case '-': stack.Push(a - b); break;
+                    case '*': stack.Push(a * b); break;
+                    case '/': stack.Push(a / b); break;
+                }
+            }
+        }
+
+        return stack.Pop();
+    }
+
+    static void Main()
+    {
+        Console.WriteLine(EvaluatePostfix("231*+9-")); // Output: -4
+        Console.ReadKey();
+
+
+    }
+}
+
+ */

@@ -1,0 +1,88 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Net.Cache;
+using System.Xml.Linq;
+class Program
+{
+
+    static byte lights = 0;
+
+    static void UpdateLight(int lightNumber , bool status)
+    {
+        
+        if (status)
+            lights |= (byte)(1 << lightNumber); //(1 << lightNumber);==>  left shifting 1 by lightNumber
+        else
+            lights &= (byte)~(1 << lightNumber); 
+    }
+    static void TurnOffAll()
+    {
+        lights = 0;
+    }
+
+    static void DisplayStatus()
+    {
+        Console.WriteLine($"Displaying lights status ");
+
+        for (int i = 0; i < 8; i++)
+        {
+            bool isOn = (lights & (1<<i)) != 0;
+            Console.WriteLine($"light {i}: {(isOn ? "ON 💡" : "OFF 🌑")}");
+        }
+    }
+    static void Main()
+    {
+   
+
+        BitArray lights = new BitArray(10, false); // All lights off
+
+        Dictionary<string , bool> SurveyResponses = new Dictionary<string, bool>()
+        {
+            
+        
+        };
+
+        lights.Set(2, true);
+        lights.Set(4, true);
+        lights.Set(7, true);
+
+
+
+
+        for (int i = 0; i < lights.Count; i++)
+        {
+            SurveyResponses.Add($"user{i+1}",  lights[i]);
+        }
+
+
+        foreach (var item in SurveyResponses)
+        {
+            Console.WriteLine($"{item.Key} :Question {item.Value}");
+        }
+
+
+
+
+        //For teacher
+
+
+        // User 1 responses: Yes, No, Yes, Yes, No
+        lights[0] = true; // Question 1
+        lights[1] = false; // Question 2
+        lights[2] = true; // Question 3
+        lights[3] = true; // Question 4
+        lights[4] = false; // Question 5
+
+        for (int i = 0; i < lights.Length; i++)
+        {
+            Console.WriteLine($"User {i + 1}, Question {i + 1}: {lights[i]}");
+        }
+
+
+        Console.ReadKey();
+    }
+}
+
+

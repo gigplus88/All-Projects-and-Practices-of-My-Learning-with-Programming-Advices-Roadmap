@@ -1,0 +1,55 @@
+using System;
+using System.Collections;
+
+using System.Threading;
+class Program
+{
+
+    static (int trueVal , int FalseVal) CountBitsValue( BitArray bits)
+    {
+        int TrueV =0, FalseV=0 ;
+        foreach (bool item in bits)
+        {
+            if (item  )
+                TrueV++;
+            else
+                FalseV++;
+
+        }
+
+        return (TrueV, FalseV);
+    }
+
+    static void Main()
+    {
+
+
+         BitArray Bits = new BitArray(8 , true); // All lights off
+
+
+        Bits[0] = true;  //Yes
+        Bits[4] = false; //No
+        Bits[7] = false; //No
+
+        var res = CountBitsValue(Bits);
+
+
+
+
+        Console.WriteLine($"Count of true items is :{res.trueVal} , and false items is {res.FalseVal}");
+    
+
+
+
+
+
+
+
+            Console.ReadKey();
+    }
+}
+
+
+
+
+

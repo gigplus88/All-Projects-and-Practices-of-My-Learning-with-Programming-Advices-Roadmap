@@ -1,0 +1,75 @@
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
+using System.Numerics;
+
+
+class Program
+{
+    static void Main(string[] args)
+    {
+
+        Dictionary<string, (int start, int end)> Activities = new Dictionary<string, (int start, int end)>
+        { 
+          { "Activity 1", (1, 2) },
+          { "Activity 2", (3, 5) },
+          { "Activity 3", (0, 6) },
+          { "Activity 4", (5, 7) },
+          { "Activity 5", (8, 9) },
+          { "Activity 6", (10, 12) },        
+        };
+
+
+
+        Dictionary<string, (int start, int end)> TrackActivity()
+        {
+            int NumOfActivity = 0;
+            int LastEnd = 0;
+
+            var sortedActivities = Activities.OrderBy(x => x.Value.end).ToList();
+        
+
+            Dictionary<string, (int start, int end)> Result= new Dictionary<string, (int start, int end)>();
+
+            foreach (var item in sortedActivities)
+            {
+                Console.WriteLine($"{item.Key} ");
+                Console.WriteLine();
+                Console.WriteLine();
+
+
+                int start = item.Value.start;
+                int end = item.Value.end;
+                if (LastEnd < start)
+                {
+                    LastEnd = end;
+                    NumOfActivity++;
+                    Result.Add(item.Key, (start, end));
+                }
+                else
+                    continue;
+            }
+            return Result;
+        }
+
+        int NumOfActivity = 0;
+        foreach (var item in TrackActivity())
+        {
+            NumOfActivity++;
+            Console.WriteLine($"{item.Key} : {item.Value.start} => {item.Value.end}");
+        }
+        Console.WriteLine($"Maximum of Activities for this person is {NumOfActivity} and it is");
+
+
+
+
+
+
+
+
+
+        Console.ReadKey();
+    }
+}
+

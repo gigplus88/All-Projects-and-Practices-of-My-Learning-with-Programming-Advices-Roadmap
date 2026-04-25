@@ -1,0 +1,48 @@
+using System;
+using System.Collections.Generic;
+
+class  EmployeeNode
+{
+    public string Name { get; set; }
+    public string Job { get; set; }
+    public List< EmployeeNode> Children { get; set; } = new List< EmployeeNode>();
+
+    public  EmployeeNode(string job, string name)
+    {
+        Name = name;
+        Job = job;
+    }
+
+    public void Print(string indent = "")
+    {
+        Console.WriteLine(indent + Job + ": " + Name);
+        foreach (var child in Children)
+        {
+            child.Print(indent + "  ");
+        }
+    }
+} 
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        // إ (CEO)
+        var root = new  EmployeeNode("CEO", "Alice");
+
+        var VPMarketing = new  EmployeeNode("VP of Marketing", "Bob");
+        var VPTechnology = new  EmployeeNode("VP of Technology", "Lara");
+
+        VPMarketing.Children.Add(new  EmployeeNode("Marketing Manager", "Charlie"));
+        VPTechnology.Children.Add(new  EmployeeNode("Architect", "Tom"));
+
+        
+        root.Children.Add(VPMarketing);
+        root.Children.Add(VPTechnology);
+
+        Console.WriteLine("Company Hierarchy:\n");
+        root.Print();
+
+        Console.ReadKey();
+    }
+}

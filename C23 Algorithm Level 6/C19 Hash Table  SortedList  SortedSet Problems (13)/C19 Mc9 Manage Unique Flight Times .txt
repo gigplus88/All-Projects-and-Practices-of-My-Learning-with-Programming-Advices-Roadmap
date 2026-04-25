@@ -1,0 +1,39 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
+class Program
+{
+
+    static void Main()
+    {
+
+
+        SortedSet<DateTime> flightTime = new SortedSet<DateTime>
+        {
+           new DateTime(2026,03,12,04 , 20 ,3),
+           new DateTime(2026,04,12,14 , 30 ,3),
+           new DateTime(2026,06,12,14 , 20 ,3),
+           new DateTime(2026,06,12,14 , 20 ,3),
+
+        };
+
+               Console.WriteLine("Flight times (sorted):");
+
+        foreach (var time in flightTime)
+        {
+            Console.WriteLine(time);
+        }
+
+        Console.WriteLine("Press any key to exit...");
+        Console.ReadKey();
+    }
+}
+
+
+
+
+
+
+

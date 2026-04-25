@@ -1,0 +1,25 @@
+import { useParams } from "react-router-dom";
+import { useContext } from "react";
+import { PostContext } from "../Contexts/PostContext";
+import NotFound from "./NotFound";
+
+export default function Post() {
+  const { postId } = useParams();
+  const posts = useContext(PostContext);
+
+  const post = posts.find((p) => {
+    return p.id == postId;
+  });
+  if (!post) return <h2>Post with {postId} not found!</h2> ;
+
+  return (
+    <div style={{ background: "#e7bdbd", margin: "10px", padding: "10px" }}>
+      <h2>Post Details</h2>
+      <hr />
+      <h3>ID: {post.id}</h3>
+      <h1>Title: {post.title}</h1>
+      <p>{post.content}</p>
+    </div>
+  );
+}
+

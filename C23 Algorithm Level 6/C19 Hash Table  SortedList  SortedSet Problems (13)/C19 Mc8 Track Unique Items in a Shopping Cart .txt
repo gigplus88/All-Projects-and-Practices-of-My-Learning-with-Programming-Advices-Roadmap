@@ -1,0 +1,36 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
+class Program
+{
+
+    static void Main()
+    {
+
+
+        SortedSet<string> Cart = new SortedSet<string>
+        {
+           "Fish",
+           "Strawbery",
+           "Banana",
+        };
+
+        Console.WriteLine("Shopping cart items (sorted):");
+        foreach (var time in Cart)
+        {
+            Console.WriteLine(time);
+        }
+
+        Console.WriteLine("Press any key to exit...");
+        Console.ReadKey();
+    }
+}
+
+
+
+
+
+
+

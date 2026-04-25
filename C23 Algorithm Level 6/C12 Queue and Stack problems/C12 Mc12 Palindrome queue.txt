@@ -1,0 +1,89 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+
+
+class WebServer
+{
+
+    // Teacher Solution
+    
+     static Queue<int> ReverseQueue(Queue<int> queue)
+     {
+        Stack<int> stack = new Stack<int>();
+        while (queue.Count > 0)
+        {
+            stack.Push(queue.Dequeue());
+        }
+        while (stack.Count > 0)
+        {
+            queue.Enqueue(stack.Pop());
+        }
+        return queue;
+     }
+
+    static bool IsPalindromQueue(Queue<int> originalQueue)
+    {
+        
+        Queue<int> copyForReverse = new Queue<int>(originalQueue); // Clonage
+
+        Queue<int> reversedQueue = ReverseQueue(copyForReverse);
+
+        foreach (var item in originalQueue)
+        {
+            if (reversedQueue.Dequeue() != item)
+            {
+                return false;
+            }
+        }
+        return true;
+
+
+        // ننشئ نسخة حتى لا نخرب الطابور الأصلي
+      //  Queue<int> reversed = ReverseQueue(new Queue<int>(queue));
+
+        // استخدام LINQ للمقارنة المباشرة (أسرع وأضمن)
+       // return queue.SequenceEqual(reversed);
+    }
+    static bool IsPalindrome(Queue<int> queue)
+    {
+        Stack<int> stack = new Stack<int>(queue);
+        foreach (var item in queue)
+        {
+            if (stack.Pop() != item)
+                return false;
+        }
+        return true;
+    }
+
+    static void Main()
+    {
+          
+        Queue<int> queue = new Queue<int>(new[] { 1, 2, 3, 4, 5 });
+        Queue<int> reversedQueue = ReverseQueue(queue);
+        Console.WriteLine(string.Join(", ", reversedQueue)); // Output: 5, 4, 3, 2, 1
+
+        Queue<int> queue2 = new Queue<int>(new[] { 1, 2, 3, 2, 1 });
+        Queue<int> queue3 = new Queue<int>(new[] { 1, 2, 3, 4,3, 2, 1 , 32 });
+
+
+        if (IsPalindromQueue(queue3))
+        {
+            Console.WriteLine("is True");
+        }
+        else
+        {
+            Console.WriteLine("is False");
+        }
+        Console.ReadKey();
+
+        //Teacher Solution
+        /*
+         *   Queue<int> queue = new Queue<int>(new[] { 1, 2, 3, 2, 1 });
+            Console.WriteLine(IsPalindrome(queue)); // Output: True
+         
+         */
+    }
+
+}

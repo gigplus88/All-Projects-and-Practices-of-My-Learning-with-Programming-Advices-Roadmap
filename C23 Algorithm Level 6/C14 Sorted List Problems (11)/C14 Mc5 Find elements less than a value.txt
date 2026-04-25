@@ -1,0 +1,72 @@
+
+
+using System;
+
+using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.Remoting.Messaging;
+using static Guna.UI2.Native.WinApi;
+
+
+
+class Program
+{
+
+    static SortedSet<int> RemoveElementsLessThanRange(int[] elements , int Range )
+    {
+        SortedSet<int> s1 = new SortedSet<int>(elements) ;
+
+        
+         s1.RemoveWhere( x => x >= Range) ;
+        //return   s1.GetViewBetween(s1.Min , Range-1);
+       return s1;
+    }
+
+    static IEnumerable<int> ElementsLessThan(int[] elements, int Range)
+    {
+        SortedSet<int> s1 = new SortedSet<int>(elements);
+
+
+        return   s1.GetViewBetween(int.MinValue , Range-1);
+    }
+
+    static void Main()
+    {
+
+
+        /*
+        Example:
+        Input: set = [1, 2, 3, 4, 5], value = 4
+        Output: [1, 2, 3]
+     */
+
+
+
+
+        int[] input = { 1, 2, 4, 3 , 6 };
+
+
+        
+
+        Console.WriteLine(string.Join(", ", RemoveElementsLessThanRange( input , 4 ))); // Output: 1, 2, 3, 4, 5
+        Console.WriteLine(string.Join(", ", ElementsLessThan(input, 4))); // Output: 1, 2, 3, 4, 5
+
+
+        Console.ReadKey();
+
+
+        // Teacher solution
+
+
+        /*
+            SortedSet<int> sortedSet = new SortedSet<int> { 1, 2, 3, 4, 5 };
+        var range = sortedSet.GetViewBetween(int.MinValue, 3);
+
+        sortedSet = new SortedSet<int>(range);
+        Console.WriteLine(string.Join(", ", sortedSet)); // Output: 1, 2, 3
+        Console.ReadKey();
+         */
+    }
+}
+
+

@@ -1,0 +1,94 @@
+//Teacher solution
+
+/*
+	using System;
+using System.Collections.Generic;
+
+class Program
+{
+    static void Main()
+    {
+        Stack<int> calculatorStack = new Stack<int>();
+        calculatorStack.Push(10);
+        calculatorStack.Push(20);
+        calculatorStack.Push(30);
+
+
+        Console.WriteLine("Undo: " + calculatorStack.Pop()); // Output: Undo: 30
+        Console.WriteLine("Current Result: " + calculatorStack.Peek()); // Output: Current Result: 20
+        Console.ReadKey();
+    }
+}
+
+*/
+
+
+using System;
+using System.Collections.Generic;
+
+public class UndoCalculator
+{
+    private double _currentValue = 0;
+    private Stack<double> _history = new Stack<double>();
+
+    public double CurrentValue
+    { 
+        get { return _currentValue; }
+      
+        set 
+        {
+            _currentValue = value;
+        } 
+    }
+   // public double CurrentValue => _currentValue;
+
+    public void Add(double value)
+    {
+        _history.Push(_currentValue);
+        _currentValue += value;
+        Console.WriteLine($"Add value :{value} , with result: {_currentValue}");
+
+    }
+    public void Substract(double value)
+    {
+        _history.Push(_currentValue);
+        _currentValue -= value;
+        Console.WriteLine($"substract value :{value} , with result: {_currentValue}");
+
+    }
+     public void Undo()
+    {
+        if (_history.Count >0)
+        {
+            _currentValue = _history.Pop();
+            Console.WriteLine($"Old result is: {_currentValue}");
+        }
+      
+    }
+
+}
+    class Program
+{
+    //Problem: Implement undo functionality in a calculator.
+
+
+    static void Main()
+    {
+        UndoCalculator undoCalculator = new UndoCalculator();
+
+        undoCalculator.Add(4);
+        undoCalculator.Add(7);
+        undoCalculator.Add(7);
+        undoCalculator.Add(7);
+        undoCalculator.Add(7);
+        undoCalculator.Add(7);
+        undoCalculator.Substract(34);
+        undoCalculator.Substract(4);
+
+
+        Console.WriteLine( undoCalculator.CurrentValue );
+        undoCalculator.Undo();
+
+        Console.ReadKey();
+    }
+}

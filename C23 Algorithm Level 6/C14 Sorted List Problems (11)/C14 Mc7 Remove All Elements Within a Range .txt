@@ -1,0 +1,54 @@
+
+
+using System;
+
+using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.Remoting.Messaging;
+using static Guna.UI2.Native.WinApi;
+
+
+
+class Program
+{
+
+    static SortedSet<int> RemoveElementsWithinRange(int[] elements, int[] Range)
+    {
+        SortedSet<int> s1 = new SortedSet<int>(elements);
+       
+        
+        s1.GetViewBetween(Range.Min(), Range.Max()).Clear();
+
+
+
+       return s1;
+    }
+
+    static void Main()
+    {
+
+
+        /*
+      Example:
+        Input: set = [1, 2, 3, 4, 5], range = [2, 4]
+        Output: [1, 5]
+     */
+
+
+
+
+        int[] input = { 1, 2, 4, 3 , 6 ,7 ,8 };
+
+
+        int[] Value = { 2, 4 };
+
+        Console.WriteLine( $" result:{string.Join( "," , RemoveElementsWithinRange(input, Value))}  "); // Output: 1, 2, 3, 4, 5
+
+
+        Console.ReadKey();
+
+
+    }
+}
+
+

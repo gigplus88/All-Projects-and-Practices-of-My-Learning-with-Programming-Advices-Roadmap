@@ -1,0 +1,56 @@
+
+//My Solution
+
+
+
+
+using System;
+using System.CodeDom;
+using System.Collections;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
+using System.Management.Instrumentation;
+using System.Text;
+using static Guna.UI2.Native.WinApi;
+
+
+class Program
+{
+
+
+    static void Main()
+    {
+
+       HashSet<string> Visitors = new HashSet<string>();
+
+        string[] visits =
+       {
+            "192.168.1.1",
+            "10.0.0.5",
+            "192.168.1.1",
+            "172.16.0.3"
+        };
+
+        foreach (var V in visits) 
+        {
+            Visitors.Add(V);
+        }
+
+        var item = Visitors.FirstOrDefault().ToString();
+        var itemFind = Visitors.Where( x => x == "10.0.0.5.").FirstOrDefault();
+
+        Console.WriteLine(item);
+        Console.WriteLine(itemFind);
+
+
+
+
+        Console.WriteLine("Unique Visitors: " + Visitors.Count);
+
+
+        Console.ReadKey();
+    }
+}
+
+

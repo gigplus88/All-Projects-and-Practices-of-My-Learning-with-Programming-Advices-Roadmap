@@ -1,0 +1,86 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
+class Program
+{
+
+    
+    class Film
+    {
+        string _FilmName { get; set; }
+        DateTime _FilmTime { get; set; }
+
+        static SortedList<string , DateTime> film = new SortedList<string , DateTime>();
+
+        public Film(String FilmName , DateTime FilmTime) 
+        {
+            this._FilmName = FilmName;
+            this._FilmTime = FilmTime;
+        }
+
+        static public void StoreFilm(string FilmName , DateTime FilmTime)
+        {
+            film.Add(FilmName, FilmTime);
+        }
+        static public SortedList<string, DateTime> GetFilms()
+        {
+            return film;
+        }
+    }
+
+    static void Main()
+    {
+
+
+        Film.StoreFilm("ss", new DateTime(2026, 02, 14, 03, 32, 0)) ;
+        Film.StoreFilm("ss2", new DateTime(2026, 02, 12, 03, 32, 0));
+        Film.StoreFilm("ss3", new DateTime(2026, 01, 14, 03, 32, 0));
+        Film.StoreFilm("ss4", new DateTime(2026, 02, 14, 03, 0, 0));
+
+
+        var res = Film.GetFilms().Where(x => (x.Value >  DateTime.Now) ).FirstOrDefault().Key;
+
+
+        Console.WriteLine(res);
+
+
+        Console.WriteLine("Get films info:");
+
+        foreach (var item in Film.GetFilms())
+        {
+            Console.WriteLine(item.Key +":"+ item.Value);
+        }
+
+
+
+        //Teacher solution
+
+
+        SortedSet<DateTime> showtimes = new SortedSet<DateTime>
+        {
+            new DateTime(2024, 11, 19, 14, 0, 0),
+            new DateTime(2024, 11, 19, 12, 30, 0),
+            new DateTime(2024, 11, 19, 16, 15, 0)
+        };
+
+        Console.WriteLine("Next showtime: " + showtimes.Min);
+        Console.WriteLine("All showtimes:");
+        foreach (var time in showtimes)
+        {
+            Console.WriteLine(time.ToShortTimeString());
+        }
+
+        Console.WriteLine("Press any key to exit...");
+
+        Console.ReadKey();
+    }
+}
+
+
+
+
+
+
+

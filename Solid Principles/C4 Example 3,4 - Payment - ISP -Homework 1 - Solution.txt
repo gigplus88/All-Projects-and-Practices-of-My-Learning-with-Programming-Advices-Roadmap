@@ -1,0 +1,74 @@
+using System;
+
+
+public interface ICreditPayment
+{
+    void PayWithCreditCard();
+}
+public interface IPayPalPayment
+{
+    void PayWithPayPal();
+}
+public interface IBitcoinPayment
+{
+    void PayWithBitcoin();
+}
+
+
+
+public class CreditCardPayment : ICreditPayment
+{
+    public void PayWithCreditCard()
+    {
+        Console.WriteLine("Payment with credit card.");
+    }
+
+}
+
+public class PayPalPayment : IPayPalPayment
+{
+    public void PayWithPayPal()
+    {
+        Console.WriteLine("Payment with PayPal.");
+    }
+}
+public class BankPayment : ICreditPayment, IPayPalPayment,IBitcoinPayment
+{
+    public void PayWithPayPal()
+    {
+        Console.WriteLine("Bank Payment with PayPal.");
+    }
+    public void PayWithCreditCard()
+    {
+        Console.WriteLine("Bank Payment with credit card.");
+    }
+    public void PayWithBitcoin()
+    {
+        Console.WriteLine("Bank Payment with Bitcoin.");
+    }
+}
+
+
+public class Program
+{
+    public static void Main()
+    {
+        ICreditPayment creditCardPayment = new CreditCardPayment();
+        creditCardPayment.PayWithCreditCard();
+       
+
+        IPayPalPayment payPalPayment = new PayPalPayment();
+        payPalPayment.PayWithPayPal();
+    
+
+        BankPayment bankPayment = new BankPayment();
+        bankPayment.PayWithCreditCard();
+        bankPayment.PayWithPayPal();
+        bankPayment.PayWithBitcoin();
+
+
+
+        Console.ReadKey();
+
+    }
+}

@@ -1,0 +1,67 @@
+using System;
+using System.Collections.Generic;
+
+
+class WebServer
+{
+    class WPRequest
+    {
+        public DateTimeOffset ArrivedTime { get; private set; }
+
+        private string Urladdress { get; set; }
+
+        public WPRequest(string address="www.facebook.com")
+        {
+            ArrivedTime = DateTimeOffset.Now;
+            Urladdress = address;
+        }
+
+        public override string ToString()
+        {
+            return Urladdress;
+        }
+    }
+    static void Main()
+    {
+        WPRequest wPRequest1 = new WPRequest("www.google.com");
+        WPRequest wPRequest2 = new WPRequest("www.tarmeez.com");
+        WPRequest wPRequest3 = new WPRequest("www.skill.com");
+
+        wPRequest1.ToString();
+
+
+        WPRequest wPRequest5 = new WPRequest();
+        wPRequest5.ToString();
+
+        Queue<WPRequest> Req = new Queue<WPRequest>();
+
+        Req.Enqueue(wPRequest1);
+        Req.Enqueue(wPRequest2);
+        Req.Enqueue(wPRequest3);
+        Req.Enqueue(wPRequest5);
+
+        while (Req.Count > 0)
+        {
+            var currentRequest = Req.Dequeue();
+            Console.WriteLine($"Processed Url: {currentRequest.ToString()} \n Processed Time:{currentRequest.ArrivedTime}");
+        }
+
+
+
+
+
+        Queue<string> requests = new Queue<string>();
+        requests.Enqueue("Request1");
+        requests.Enqueue("Request2");
+        requests.Enqueue("Request3");
+
+
+        Console.WriteLine("Processing web requests:\n");
+        while (requests.Count > 0)
+        {
+            string currentRequest = requests.Dequeue();
+            Console.WriteLine($"Processed: {currentRequest}");
+        }
+        Console.ReadKey();
+    }
+}

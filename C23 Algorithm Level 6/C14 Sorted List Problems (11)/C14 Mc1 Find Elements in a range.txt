@@ -1,0 +1,49 @@
+
+
+using System;
+
+using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.Remoting.Messaging;
+using static Guna.UI2.Native.WinApi;
+
+
+
+class Program
+{
+
+
+    static SortedSet<int> FindInRange(int[] arr , int low , int high)
+    {
+        SortedSet< int> list = new SortedSet<int>(arr);
+
+        var res = list.GetViewBetween(low, high);
+    
+        return res;
+
+    }
+    static void Main()
+    {
+
+
+        /*
+        Input: set = [1, 2, 3, 4, 5], low = 2, high = 4
+        Output: [2, 3, 4]
+     */
+
+
+
+       int[]  Input= { 1, 2, 3, 4, 5 };
+
+
+
+
+        Console.Write($" {string.Join( "," , FindInRange(Input , 2 ,3))}");
+
+
+
+        Console.ReadKey();
+    }
+}
+
+

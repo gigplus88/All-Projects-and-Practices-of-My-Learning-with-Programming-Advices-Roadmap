@@ -1,0 +1,111 @@
+
+
+using System;
+
+using System.Collections.Generic;
+using System.Linq;
+using System.Xml.Linq;
+
+
+
+
+class Program
+{
+
+    static SortedDictionary<string , int> SortedPlayersByScore(SortedDictionary<string, int> ScorsPlayers)
+    {
+        if (ScorsPlayers.Count == 0)
+            return new SortedDictionary<string , int> ();
+
+        
+        SortedDictionary<string , int > s1 = new SortedDictionary< string ,int>(ScorsPlayers);
+
+        
+        return s1;
+    }
+
+    static void AddOrUpdateScore(SortedDictionary<string, int> score, string name, int newScore)
+    {
+        if (score.Count == 0)
+            Console.WriteLine("Empty player in this game");
+
+        if (score.ContainsKey(name) )
+        {
+            score[name] = newScore;
+            Console.WriteLine($"{name} score updated successfully to {score[name]}");
+
+        }
+        else 
+        {
+            score.Add(name, newScore);
+            Console.WriteLine($"Welcome to your play with score{newScore}");
+
+        }
+        
+
+    }
+
+
+    static void Main()
+    {
+
+
+
+
+        SortedDictionary<string, int> ScorsPlayers = new SortedDictionary<string, int>
+       {
+           { "z1", 19 },
+           { "p1", 2},
+           { "p2", 5 },
+           { "a0" , 3 },
+           { "a1" , 1 },
+           {"a2", 0 },
+           {"a4", 0 },
+
+        };
+
+
+
+        Console.WriteLine( $" result:{ string.Join( "," , SortedPlayersByScore(ScorsPlayers)) }  "); // Output: 1, 2, 3, 4, 5
+
+        AddOrUpdateScore(ScorsPlayers, "z1", 25);
+
+
+
+
+
+
+
+
+        //Teacher Solution
+
+
+        SortedList<string, int> leaderboard = new SortedList<string, int>
+        {
+            { "Alice", 1200 },
+            { "Charlie", 1500 },
+            { "Bob", 1300 }
+        };
+
+        foreach (var player in leaderboard)
+        {
+            Console.WriteLine($"Player: {player.Key}, Score: {player.Value}");
+        }
+        Console.ReadKey();
+
+        // Output:
+        // Player: Alice, Score: 1200
+        // Player: Bob, Score: 1300
+        // Player: Charlie, Score: 1500
+
+        Console.ReadKey();
+
+
+    }
+}
+
+
+
+
+
+

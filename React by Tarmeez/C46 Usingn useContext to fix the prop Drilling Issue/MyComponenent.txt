@@ -1,0 +1,19 @@
+import "./index.css";
+import MyInput from "./MyInput";
+import FormInputContext from "./Contexts/FormInputsContext";
+
+function MyComponent() {
+
+    return (
+        <>
+        <h1>My Header</h1>
+            <MyInput />
+         <h1>My footer</h1>
+
+        </>
+
+    )
+
+}
+
+export default  MyComponent ;

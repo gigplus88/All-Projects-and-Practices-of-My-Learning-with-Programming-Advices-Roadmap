@@ -1,0 +1,49 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
+
+
+class WebServer
+{
+
+    // My Solution
+
+    static Queue<int> RotateQueue(Queue<int> queue, int position)
+    {
+
+        //Input: Queue = [1, 2, 3, 4, 5], K = 2
+        //Output: Queue = [3, 4, 5, 1, 2]
+        if (queue == null || queue.Count == 0)
+        {
+            new Queue<int>();
+        }
+
+        for (int i = 0; i < position; i++)
+        {
+            queue.Enqueue(queue.Dequeue());
+
+        }
+
+        
+        return queue;
+    }
+
+
+
+    static void Main()
+    {
+
+        // Teacher Solution
+
+        Queue<int> queue = new Queue<int>(new[] { 1, 2, 3, 4, 5 });
+
+
+        Console.WriteLine(string.Join(",", RotateQueue(queue , 2)));
+
+
+    }
+
+}
+

@@ -1,0 +1,91 @@
+
+//My Solution
+
+
+
+
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using System.Management.Instrumentation;
+
+
+class Program
+{
+   
+    static int MiddleQueue(Queue<int> queue )
+    {
+        List<int> list = new List<int>(queue);
+
+
+        if (queue.Count % 2 == 0)
+        {
+            throw new Exception("We dont have any middle in even num of total queue elements");
+        }
+
+        int Counter = 0;
+        int middleIndex = queue.Count/2;
+        int middleValue = 0;
+
+        foreach (var item in queue)
+        {
+            if (Counter == middleIndex)
+            {
+                middleValue = item;
+                break;
+            }
+            Counter++;
+        }
+
+        //int res = list.ElementAt(list.Count/2);
+
+        return middleValue;
+
+    }
+
+
+    static void Main()
+    {
+
+        /*
+            Input: Queue = [1, 2, 3, 4, 5]
+            Output: 3
+         */
+        Queue<int> queue = new Queue<int>(new[] { 1, 2, 3, 4 , 5 , 7 , 8 });
+
+
+        //CloneQueue(original, clone);
+
+        Console.WriteLine("Middle is : " + MiddleQueue( queue));
+
+
+
+        Console.ReadKey();
+    }
+}
+
+//Teacher Solution
+
+/*
+using System;
+using System.Collections.Generic;
+
+class Program
+{
+    static int FindMiddle(Queue<int> queue)
+    {
+        List<int> list = new List<int>(queue);
+        return list[list.Count / 2];
+    }
+
+
+    static void Main()
+    {
+        Queue<int> queue = new Queue<int>(new[] { 1, 2, 3, 4, 5 });
+        Console.WriteLine(FindMiddle(queue)); // Output: 3
+        Console.ReadKey();
+    }
+}
+
+*/

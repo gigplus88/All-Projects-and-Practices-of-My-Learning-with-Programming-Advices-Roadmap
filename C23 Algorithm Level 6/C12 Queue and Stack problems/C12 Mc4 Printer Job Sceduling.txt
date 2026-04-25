@@ -1,0 +1,183 @@
+
+using System;
+using System.Collections.Generic;
+
+public class UndoCalculator
+{
+    private double _currentValue = 0;
+    private Stack<double> _history = new Stack<double>();
+
+    public double CurrentValue
+    { 
+        get { return _currentValue; }
+      
+        set 
+        {
+            _currentValue = value;
+        } 
+    }
+   // public double CurrentValue => _currentValue;
+
+    public void Add(double value)
+    {
+        _history.Push(_currentValue);
+        _currentValue += value;
+        Console.WriteLine($"Add value :{value} , with result: {_currentValue}");
+
+    }
+    public void Substract(double value)
+    {
+        _history.Push(_currentValue);
+        _currentValue -= value;
+        Console.WriteLine($"substract value :{value} , with result: {_currentValue}");
+
+    }
+     public void Undo()
+    {
+        if (_history.Count >0)
+        {
+            _currentValue = _history.Pop();
+            Console.WriteLine($"Old result is: {_currentValue}");
+        }
+      
+    }
+
+}
+    class Program
+{
+    //Problem: Implement undo functionality in a calculator.
+
+
+    static void Main()
+    {
+        Queue<string> jobs = new Queue<string>();
+
+        jobs.Enqueue("job1");
+        jobs.Enqueue("job2");
+        jobs.Enqueue("job3");
+        jobs.Enqueue("job4");
+        jobs.Enqueue("job5");
+        jobs.Enqueue("job6");
+        int i = 0;
+        foreach (var item in jobs)
+        {
+            i++;
+            Console.WriteLine($"Jobs {i}:" + item);
+ 
+        }
+        if (jobs.Count >0)
+        {
+            Console.WriteLine("Processing: " + jobs.Dequeue()); // Output: Processing: Document1
+            Console.WriteLine("Next Job: " + jobs.Peek()); // Output: Next Job: Document2
+            Console.WriteLine("Jobs by levels:" + jobs.Dequeue());
+        }
+
+
+
+
+
+        Console.ReadKey();
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+
+using System;
+using System.Collections.Generic;
+using System.Xml.Linq;
+
+
+class ClientInfo
+{
+    private string _name;
+    public string Name
+    {
+        get => _name ?? "Unknown"; // إذا كان الاسم نل، سيعيد "Unknown"
+        set => _name = value;
+    }
+    public DateTime Date { get; set; } = DateTime.Now;
+    public int Role { get; set; } = 0;
+ 
+    public ClientInfo( ) 
+    {
+    }
+}
+public class Role
+{
+    private double _currentValue = 0;
+    private Stack<ClientInfo> _history = new Stack<ClientInfo>();
+    ClientInfo client = new ClientInfo();
+
+   
+   // public double CurrentValue => _currentValue;
+
+    public void AddClient()
+    {
+        ClientInfo client = new ClientInfo();
+        client.Role++;
+        _history.Push(client);
+
+    }
+     void Print()
+    {
+        Console.WriteLine($"Client :{client.Name}. \n Role: {client.Role}. \n Date: {client.Date.ToString()} ");
+
+    }
+
+    public void Ticket()
+    {
+        Print();
+    }
+
+    
+     public void Undo()
+    {
+        if (_history.Count >0)
+        {
+            //_currentValue = _history.Pop();
+            Console.WriteLine($"Old result is: {_currentValue}");
+        }
+      
+    }
+
+}
+    class Program
+{
+    //Problem: Implement undo functionality in a calculator.
+
+
+    static void Main()
+    {
+        Role role = new Role();
+
+        role.AddClient();
+        role.AddClient();
+
+        role.Ticket();
+
+
+
+
+        Console.ReadKey();
+    }
+}
+*/

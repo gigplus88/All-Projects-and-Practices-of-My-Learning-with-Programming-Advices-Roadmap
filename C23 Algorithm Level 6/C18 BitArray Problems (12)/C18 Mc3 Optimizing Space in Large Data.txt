@@ -1,0 +1,39 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Net.Cache;
+using System.Xml.Linq;
+class Program
+{
+    static bool BookSeat(int number ,ref BitArray seats)
+    {
+        if (number < 1 || number > seats.Length) return false;
+        seats[number-1] = true;
+        return seats[number - 1];
+    }
+    static void Main()
+    {
+
+
+         BitArray seats = new BitArray(1000, false); // All lights off
+
+        seats[999] = true;  // seat 1000 booked
+        seats[100] = true; // seat 101 booked
+
+
+        Console.WriteLine($"Seat 101 booked: {seats[100]}"); // Output: True
+        Console.WriteLine($"Seat 1000 booked: {seats[999]}"); // Output: True
+
+        var res = BookSeat(6 ,ref seats);
+        Console.WriteLine($"Seat 6: {seats.Get(5)}"); // Output: True
+
+
+
+      
+
+        Console.ReadKey();
+    }
+}
+
+

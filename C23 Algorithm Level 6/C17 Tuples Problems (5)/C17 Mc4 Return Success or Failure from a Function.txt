@@ -1,0 +1,50 @@
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Net.Cache;
+using System.Xml.Linq;
+class Program
+{
+    static (bool Status , double Mark) CheckStudentMak(double Mark)
+    {
+
+        if (Mark < 10)
+            return (false ,  Mark);
+        return (true, Mark);
+    }
+    static void Main()
+    {
+
+
+        Console.WriteLine($" Mark {CheckStudentMak(8).Mark}  , Success is {CheckStudentMak( 8).Status }  ");
+
+
+
+
+        // Output: Name: Player1, Health: 100, Score: 2000
+
+        Console.ReadKey();
+    }
+}
+
+
+//Teacher Solution
+/*
+    using System;
+
+class Program
+{
+    static (bool Success, int Value) CheckStudentStatus(int input)
+    {
+        bool success= input >= 50? true : false;
+        return (success, input);
+    }
+    static void Main()
+    {
+        var result = CheckStudentStatus(55);
+        Console.WriteLine($"Success: {result.Success}, Value: {result.Value}");
+        // Output: Success: True, Value: 55
+        Console.ReadKey();
+    }
+}
+ */

@@ -1,0 +1,68 @@
+import { useContext, useState } from 'react';
+import { places } from './data.js';
+import { getImageUrl } from './utils.js';
+import ImageContext from "Context/ImageContext";
+
+
+//We can use one context or two contexts one to size and other to place obj
+export default function App() {
+  const ImageData = useContext(ImageContext);
+  const [isLarge, setIsLarge] = useState(false);
+  const imageSize = isLarge ? 150 : 100;
+  return (
+    <ImageData.Provider value={{Size : imageSize , place : null}}> 
+          
+
+          <label>
+            <input
+              type="checkbox"
+              checked={isLarge}
+              onChange={e => {
+                setIsLarge(e.target.checked);
+              }}
+            />
+            Use large images
+          </label>
+          <hr />
+        <List />
+      </ImageData.Provider>
+    
+  )
+}
+function List() {
+  const { Size } = useContext(ImageContext);
+  const listItems = places.map(place =>
+    <li key={place.id}>
+      <ImageData.Provider value={{Size :Size , place : place}}>   
+        <Place    />
+      </ImageData.Provider>
+    </li>
+  );
+  return <ul>{listItems}</ul>;
+}
+
+function Place() {
+      const {place} = useContext(ImageData);
+  return (
+    <>
+      <PlaceImage
+      />
+      <p>
+        <b>{place.name}</b>
+        {': ' + place.description}
+      </p>
+    </>
+  );
+}
+
+function PlaceImage() {
+        const {place , Size} = useContext(ImageData);
+  return (
+    <img
+      src={getImageUrl(place)}
+      alt={place.name}
+      width={Size}
+      height={Size}
+    />
+  );
+}

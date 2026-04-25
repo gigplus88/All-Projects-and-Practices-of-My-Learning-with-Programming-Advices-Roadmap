@@ -1,0 +1,114 @@
+
+
+using System;
+
+using System.Collections.Generic;
+using System.Linq;
+
+
+
+
+class Program
+{
+
+    static bool CheckRangesInSet(int[] elements, int[] Range1 , int[] Range2)
+    {
+        if (elements.Length == 0)
+            return false;
+           
+        SortedSet<int> s1 = new SortedSet<int>(elements);
+
+
+
+        bool IsRangeContained(int[] r)
+        {
+            int min = r.Min();
+            int max = r.Max();
+
+            // التحقق: هل أصغر وأكبر قيمة في النطاق موجودتان فعلياً في المجموعة؟
+            return s1.Contains(min) && s1.Contains(max);
+        }
+        //return (Range1.Min() >= MinElements && Range1.Max() <= MaxElements) && (Range2.Min() >= MinElements && Range2.Max() <= MaxElements);
+        return IsRangeContained(Range1) && IsRangeContained(Range2);
+    }
+
+
+    static void Main()
+    {
+
+
+        /*
+      Example:
+        Input: set = [1, 2, 3, 4, 5], value = 3
+        Output: 3
+
+
+     */
+
+
+
+
+        //int[] input = { 1, 2, 4, 3 };
+        int[] input = { 1 , 3 , 2 , 4 , 5 ,6,7 };
+
+        int[] r1 = { 1,2 };
+        int[] r2 = { 5,9};
+
+
+        Console.WriteLine("r1 min" + r1.Min());
+        Console.WriteLine("r2 max" + r1.Max());
+
+
+        Console.WriteLine( "r2 min"+ r2.Min());
+        Console.WriteLine("r2 max" + r2.Max());
+
+
+        Console.WriteLine( $" result:{CheckRangesInSet(input, r1 , r2) }  "); // Output: 1, 2, 3, 4, 5
+
+
+
+        Console.ReadKey();
+
+
+    }
+}
+
+
+
+
+
+
+//teacher solution Using tuple in List of low high
+
+/*
+    using System;
+    using System.Collections.Generic;
+
+    class Program
+    {
+        static bool ContainsAllRanges(SortedSet<int> set, List<(int, int)> ranges)
+        {
+            foreach (var (low, high) in ranges)
+            {
+                var range = set.GetViewBetween(low, high);
+                if (range.Count != (high - low + 1))
+                    return false;
+            }
+            return true;
+        }
+
+        static void Main()
+        {
+            SortedSet<int> set = new SortedSet<int> { 1, 2, 3, 4, 5 };
+            var ranges = new List<(int, int)> { (1, 2), (4, 5) };
+            Console.WriteLine(ContainsAllRanges(set, ranges)); // Output: True
+            Console.ReadKey();
+        }
+    }
+
+ */
+
+
+
+
+

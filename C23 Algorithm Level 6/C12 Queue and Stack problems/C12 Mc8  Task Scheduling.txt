@@ -1,0 +1,42 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+
+class Program
+{//Start -> Go to Gaz Station -> Go to Super Market -> Go To Work -> Go to Cafe -> Go Home.
+
+
+    static void Main()
+    {
+        // ["Task1", "Task2", "Task3", "Task4"]
+
+        string[] Tasks = { "Task1", "Task2", "Task3", "Task4" };
+
+        Queue<string> TasksQueue = new Queue<string>();
+
+        Console.WriteLine(Tasks.Length);
+        Console.WriteLine(TasksQueue.Count);
+
+        for (int j = 1; j <= Tasks.Length; j++)
+        {
+            TasksQueue.Enqueue($"Task{j}");  
+        }
+
+
+        // Process tickets in the queue
+        int i = 0;
+        while (TasksQueue.Count > 0)
+        {
+            i++;
+            string currentTask = TasksQueue.Dequeue();
+            Console.WriteLine($"Task {i}: " + currentTask);
+           
+        }
+
+
+        Console.WriteLine("Tasks  System Simulation Ended.");
+        Console.ReadKey();
+    }
+}
+
+

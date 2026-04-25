@@ -1,0 +1,103 @@
+using System;
+
+public interface IEmailDevice
+{
+    void SendEmail();
+
+}
+public interface ICallDevice
+{
+    void MakeCall();
+
+}
+public interface IPhotoDevice
+{
+    void TakePhoto();
+
+}
+public interface IGPSDevice
+{
+    void UseGPS();
+
+}
+public interface ISmartphone:IEmailDevice , IPhotoDevice , IGPSDevice , ICallDevice //New contract has all four contract
+{
+  
+}
+public interface IAdvancedCamera : IEmailDevice, IPhotoDevice // Grouping of two interface in o,ne interface
+{
+
+}
+public class Smartphone : ISmartphone //ICallDevice , IPhotoDevice , IEmailDevice , IGPSDevice
+{
+    public void MakeCall()
+    {
+        Console.WriteLine("Making a call.");
+    }
+
+    public void TakePhoto()
+    {
+        Console.WriteLine("Taking Photo.");
+    }
+
+    public void SendEmail()
+    {
+        Console.WriteLine("Sending an email.");
+    }
+
+    public void UseGPS()
+    {
+        Console.WriteLine("Using GPS.");
+    }
+}
+
+public class Computer : IEmailDevice
+{
+    public void SendEmail()
+    {
+        Console.WriteLine("Sending an email.");
+    }
+}
+public class Camera : IPhotoDevice
+{
+    public void TakePhoto()
+    {
+        Console.WriteLine("Take photo.");
+    }
+}
+public class AdvancedCamera : IAdvancedCamera
+{
+    public void TakePhoto()
+    {
+        Console.WriteLine("Take photo.");
+    }
+    public void SendEmail()
+    {
+        Console.WriteLine("Sending an email.");
+    }
+
+}
+public class Program
+{
+    public static void Main()
+    {
+        Smartphone smartphone = new Smartphone();
+        Console.WriteLine("SmartPhone:");
+        smartphone.MakeCall();
+        smartphone.TakePhoto();
+        smartphone.SendEmail();
+        smartphone.UseGPS();
+
+        Computer computer = new Computer();
+        Console.WriteLine("\nComputer:");
+        computer.SendEmail();
+       
+        Camera camera = new Camera();
+        Console.WriteLine("Camera");
+        camera.TakePhoto();
+
+        Console.ReadKey();
+
+        
+    }
+}

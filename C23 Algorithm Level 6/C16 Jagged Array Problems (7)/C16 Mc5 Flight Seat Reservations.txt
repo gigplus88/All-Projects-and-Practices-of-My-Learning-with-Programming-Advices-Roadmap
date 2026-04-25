@@ -1,0 +1,42 @@
+
+using System;
+
+using System.Collections.Generic;
+using System.Linq;
+using System.Xml.Linq;
+
+class Program
+{
+   
+ 
+    static void Main()
+    {
+        bool[][] flightSeats = new bool[2][];
+
+        flightSeats[0] = new bool[] { true, false, true }; // p 1
+        flightSeats[1] = new bool[] { true, true , false };    // P 2
+
+
+
+
+
+        for (int i = 0; i < flightSeats.Length; i++)
+        {
+            Console.Write($"Flight {i+1}: ");
+
+
+
+            foreach (bool item in flightSeats[i])
+            {
+                Console.Write((item ? "available" : "Occupied") + " Seat");
+                Console.Write("  ");
+
+            }
+
+            Console.WriteLine();
+        }
+
+
+        Console.ReadKey();
+    }
+}

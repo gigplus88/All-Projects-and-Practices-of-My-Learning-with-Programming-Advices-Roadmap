@@ -1,0 +1,65 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
+using System.Threading;
+
+
+class WebServer
+{
+   
+
+
+    // For non sorted Queues
+    static void Stream(string stream)
+    {
+        // calculate chars
+        // if is repeate u delete it from queue
+
+        Dictionary<char, int> countMap = new Dictionary<char, int>();  // char for character and int for number of repeat char
+        Queue<char> queue = new Queue<char>();
+
+        foreach (char chr in stream)
+        {
+            if (!countMap.ContainsKey(chr))
+            {
+                countMap[chr] = 0;
+            }
+
+            countMap[chr]++ ; 
+            queue.Enqueue(chr);
+
+            //Delete Repeat char
+
+            //countMap[queue.Peek()] > 1 this char is repeated
+            while (queue.Count>0 && countMap[queue.Peek()] > 1) 
+            {
+                queue.Dequeue();
+            }
+
+            // Print char not repeated
+
+            Console.Write(queue.Count > 0 ? queue.Peek() + " " : "- ");
+        }
+       
+    }
+
+    
+
+
+
+    static void Main()
+    {
+
+
+
+        Stream("aabc");
+
+
+        Console.ReadKey();
+
+    }
+
+}
+

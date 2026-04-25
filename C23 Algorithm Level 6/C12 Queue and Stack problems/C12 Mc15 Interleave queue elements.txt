@@ -1,0 +1,185 @@
+//Teacher solution
+/*
+using System;
+using System.Collections.Generic;
+
+class Program
+{
+    static void InterleaveQueue(Queue<int> queue)// [1, 2, 3 , 4 , 5 ,6]
+    {
+        int halfSize = queue.Count / 2;
+        Stack<int> stack = new Stack<int>();
+        for (int i = 0; i < halfSize; i++)
+        {
+            stack.Push(queue.Dequeue());  //Stack [1,2,3]
+        }
+        // We use stack to change first part to end of queue 
+
+        while (stack.Count > 0)
+        {
+            queue.Enqueue(stack.Pop()); //queue [4,5,6, 3,2,1]
+        }
+
+        for (int i = 0; i < halfSize; i++)
+        {
+            queue.Enqueue(queue.Dequeue());  //queue [3,2,1 ,4,5,6] 
+                                             // Is the core
+        }
+
+        for (int i = 0; i < halfSize; i++)
+        {
+            stack.Push(queue.Dequeue());
+        }
+
+        while (stack.Count > 0)
+        {
+            queue.Enqueue(stack.Pop());
+            queue.Enqueue(queue.Dequeue());
+        }
+    }
+
+
+    static void Main()
+    {
+        Queue<int> queue = new Queue<int>(new[] { 1, 2, 3, 4, 5, 6 });
+        InterleaveQueue(queue);
+        Console.WriteLine(string.Join(", ", queue)); // Output: 1, 4, 2, 5, 3, 6
+
+
+       
+        Console.ReadKey();
+    }
+}
+*/
+
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
+
+
+class WebServer
+{
+
+    // My Solution
+
+    static Queue<int> InterleaveQueueElements(Queue<int> queue)
+    {
+	if (queue.Count % 2 != 0)
+    	   throw new ArgumentException("queue items must be odd");
+        Queue<int> FirstHalfQueue = new Queue<int>(); //queue.Take(queue.Count / 2)
+
+        int HalfCount = queue.Count / 2;
+
+
+        for (int i = 0; i < HalfCount; i++)
+        {
+
+            FirstHalfQueue.Enqueue(queue.Dequeue());
+        }
+        // Other items are in the queue
+
+
+        while (FirstHalfQueue.Count > 0)
+        {
+
+            queue.Enqueue(FirstHalfQueue.Dequeue());
+
+            queue.Enqueue(queue.Dequeue());
+        }
+        // this will generate a queue from list
+        return queue;
+    }
+
+
+
+    static void Main()
+    {
+
+        // Teacher Solution
+
+        Queue<int> queue = new Queue<int>(new[] { 1, 2, 3, 4, 5, 6 });
+
+
+
+
+        Console.WriteLine(string.Join(",", InterleaveQueueElements(queue)));
+
+
+
+
+
+
+
+    }
+
+}
+
+
+    /*
+     using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
+
+
+class WebServer
+{
+
+    // My Solution
+
+    static Queue<int> InterleaveQueueElements(Queue<int> queue)
+    {
+        Queue<int> queue1 = new Queue<int>(); //queue.Take(queue.Count / 2)
+
+        int HalfCount = queue.Count/2;
+
+
+        for (int i = 0; i < HalfCount; i++)
+        {
+            
+            queue1.Enqueue(queue.Dequeue());            
+        }
+        // Other items are in the queue
+
+
+        while (queue1.Count>0)
+        {
+        
+            queue.Enqueue(queue1.Dequeue());
+                     
+            queue.Enqueue(queue.Dequeue());
+        }
+        // this will generate a queue from list
+        return queue;
+    }
+
+
+
+    static void Main()
+    {
+
+        // Teacher Solution
+
+        Queue<int> queue = new Queue<int>( new[] { 1, 2, 3, 4, 5, 6 });
+
+
+       
+
+        Console.WriteLine(string.Join(",", InterleaveQueueElements(queue)));
+
+
+
+
+
+
+
+    }
+
+}
+
+     */
+
+}

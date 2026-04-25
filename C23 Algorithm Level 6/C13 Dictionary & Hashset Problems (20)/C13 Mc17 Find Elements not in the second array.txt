@@ -1,0 +1,73 @@
+
+
+using System;
+
+using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.Remoting.Messaging;
+
+
+
+class Program
+{
+
+
+    static List<int> FindElementsNotInSecondArray(int[] input1 , int[] input2)
+    {
+        HashSet <int> items = new HashSet <int>(input2);
+        List<int> Finds = new List<int>();
+
+        foreach (var item in input1)
+        {
+            if (!input2.Contains(item) )
+            {
+                Finds.Add(item);
+            }
+        }
+
+
+        //Method 2
+        //foreach (var item in input1)
+        //{
+        //    if (!items.Contains(item))
+        //    {
+        //        Finds.Add(item);
+        //    }
+        //}
+
+        /*
+          HashSet<int> result = new HashSet<int>(First);
+
+        result.ExceptWith(Second);
+
+        return result.ToArray();
+         */
+        return Finds;
+    }
+    static void Main()
+    {
+        /*
+      Example:
+        Input: nums1 = [1, 2, 3, 4], nums2 = [3, 4, 5, 6]
+        Output: [1, 2]
+
+         */
+
+
+
+
+        int[] Input1 = { 1, 2, 3, 4 };
+        int[] Input2 = { 3, 4, 5, 6 };
+
+
+
+
+        Console.Write($" {string.Join( "," , FindElementsNotInSecondArray(Input1 , Input2))}");
+
+
+
+        Console.ReadKey();
+    }
+}
+
+

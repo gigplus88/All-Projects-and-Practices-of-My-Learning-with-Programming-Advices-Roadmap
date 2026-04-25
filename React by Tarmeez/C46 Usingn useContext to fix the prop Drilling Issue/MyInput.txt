@@ -1,0 +1,25 @@
+import { useContext } from "react";
+import FormInputContext from "./Contexts/FormInputsContext";
+
+function MyInput( ){ 
+
+   const formInputContext = useContext(FormInputContext); // in real i have little contexts , this is one of them
+   console.log("formInputContext", formInputContext);
+   
+    return(
+        <>
+            
+            <label>{formInputContext.labelTitle}</label>
+
+            <input
+                className="inputStyle"
+                type="text"
+                name="phone"
+                value={formInputContext.inputValue}
+                onChange= {(e) => { formInputContext.handleChange(e.target.value)  }}
+            />
+        </>
+    );
+}
+
+export default MyInput;

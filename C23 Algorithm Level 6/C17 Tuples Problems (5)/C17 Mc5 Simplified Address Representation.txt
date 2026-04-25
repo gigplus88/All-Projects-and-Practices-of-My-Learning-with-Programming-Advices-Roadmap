@@ -1,0 +1,29 @@
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Net.Cache;
+using System.Xml.Linq;
+class Program
+{
+
+    //Output: Address: 123 Main St, Springfield, IL, 62704
+
+    //Street: "123 Main St", City: "Springfield", State: "IL", Zip: "62704"
+    static (string Street, string City, string State, int Mark) PresentAddress( string Street ,string City, string State,   int Mark)
+    {
+
+        return ( Street,  City,  State,  Mark);
+    }
+    static void Main()
+    {
+        var Address = (Street: "123 Main St", City: "Springfield", State: "IL", Zip: "62704");
+
+        Console.WriteLine($" Address: {Address.Street}  , City: {Address.City} , State: {Address.State} , Zip: {Address.Zip}  ");
+
+
+
+        Console.ReadKey();
+    }
+}
+
+

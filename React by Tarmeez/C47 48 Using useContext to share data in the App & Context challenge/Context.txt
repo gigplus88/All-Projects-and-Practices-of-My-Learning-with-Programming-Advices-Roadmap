@@ -1,0 +1,4 @@
+import { createContext } from "react";
+
+let ImageContext  = createContext({Size : 100 ,place :{ name: "" , description: "" }});
+  export default ImageContext;

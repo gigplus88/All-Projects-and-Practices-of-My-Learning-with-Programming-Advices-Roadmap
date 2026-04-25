@@ -1,0 +1,107 @@
+
+//My solution
+/*using System;
+using System.Collections.Generic;
+
+
+class Program
+{
+    
+
+    public class BinaryConverter
+    {
+        public int Dec;
+        public float Res;
+        public int Bin;
+
+        public BinaryConverter( int Dec )
+        {
+            this.Dec = Dec;
+        }
+        public int GetModulo(int Dec)
+        {
+            int res = Dec % 2;
+            return res;
+        }
+        public int GetResultDivision(int Dec)
+        {
+            int res = Dec / 2;
+            return res;
+        }
+
+        string PopAllResult(Stack<int> Decimal)
+        {
+            string Result = "";
+
+            while (Decimal.Count > 0)
+            {
+                Result +=   Decimal.Pop().ToString();
+            }
+            return Result;
+        }
+        public string ConvertToBinary()
+        {
+            if (this.Dec == 0) return "0";
+
+            Stack<int> Decimal = new Stack<int>();
+
+
+            int currentNum = this.Dec;
+
+            while (currentNum > 0)
+            {
+                Decimal.Push(GetModulo(currentNum));
+
+                currentNum = GetResultDivision(currentNum);
+
+            }
+   
+             //Decimal.Push(GetModulo(firstRe));
+
+            return PopAllResult(Decimal);
+            
+        }
+
+
+
+    }
+    static void Main()
+    {
+        BinaryConverter co = new BinaryConverter(8);
+        Console.WriteLine( co.ConvertToBinary());
+
+
+
+
+        Console.ReadKey();
+    }
+
+
+}*/
+
+
+//Teacher Solution
+using System;
+using System.Collections.Generic;
+
+class Program
+{
+    static string DecimalToBinary(int number)
+    {
+        Stack<int> stack = new Stack<int>();
+
+        while (number > 0)
+        {
+            stack.Push(number % 2);
+            number /= 2;
+        }
+
+        return string.Join("", stack);
+    }
+
+    static void Main()
+    {
+        Console.WriteLine(DecimalToBinary(10)); // Output: 1010
+        Console.ReadKey();
+    }
+}

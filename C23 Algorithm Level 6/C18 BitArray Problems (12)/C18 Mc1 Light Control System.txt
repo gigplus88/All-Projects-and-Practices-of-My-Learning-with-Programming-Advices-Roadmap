@@ -1,0 +1,74 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Net.Cache;
+using System.Xml.Linq;
+class Program
+{
+
+    static byte lights = 0;
+
+    static void UpdateLight(int lightNumber , bool status)
+    {
+        
+        if (status)
+            lights |= (byte)(1 << lightNumber); //(1 << lightNumber);==>  left shifting 1 by lightNumber
+        else
+            lights &= (byte)~(1 << lightNumber); 
+    }
+    static void TurnOffAll()
+    {
+        lights = 0;
+    }
+
+    static void DisplayStatus()
+    {
+        Console.WriteLine($"Displaying lights status ");
+
+        for (int i = 0; i < 8; i++)
+        {
+            bool isOn = (lights & (1<<i)) != 0;
+            Console.WriteLine($"light {i}: {(isOn ? "ON 💡" : "OFF 🌑")}");
+        }
+    }
+    static void Main()
+    {
+        //UpdateLight(3, true);
+
+        //// 2. تشغيل المصباح رقم 5
+        //UpdateLight(5, true);
+
+        //DisplayStatus();
+
+        //// 3. إطفاء جميع المصابيح دفعة واحدة
+        //TurnOffAll();
+        //Console.WriteLine("\nتم إطفاء جميع المصابيح...");
+        //UpdateLight(5, true);
+
+        //DisplayStatus();
+
+
+        BitArray lights = new BitArray(8, false); // All lights off
+
+        lights[0] = true; // turn on light 1
+        lights[3] = true; // turn on light 4
+
+        Console.WriteLine($"Light 1: {lights[0]}, Light 4: {lights[3]}"); // Output: Light 1: True, Light 6: True
+
+        lights.SetAll(false); // Turn off all lights
+        Console.WriteLine($"Light 1 after reset: {lights[0]}"); // Output: Light 1 after reset: False
+
+
+
+        lights.SetAll(false);
+        Console.WriteLine($" {lights.Get(0)}"); // Output: Light 1: True, Light 6: True
+        Console.WriteLine($" Count {lights.Count}"); // Output: Light 1: True, Light 6: True
+
+
+
+        Console.ReadKey();
+    }
+}
+
+

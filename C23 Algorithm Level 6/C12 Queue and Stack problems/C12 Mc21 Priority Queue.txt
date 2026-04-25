@@ -1,0 +1,153 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
+
+
+class WebServer
+{
+   
+    class PriorityQueue
+    {
+        public PriorityQueue()
+        {
+
+        }
+
+        private SortedDictionary<int, Queue<int>> data =
+               new SortedDictionary<int, Queue<int>>();
+
+        
+
+       
+
+        public void Enqueue(int Value, int Priority)
+        {
+            if (!data.ContainsKey(Priority))
+            {
+                data[Priority] = new Queue<int>();
+            }
+
+            // I can get the same priority to great than one element
+
+            data[Priority].Enqueue(Value);
+
+
+        }
+        public int[] Dequeue()
+        {
+            if (data.Count ==0)
+              throw new InvalidOperationException("Queue is empty");
+
+            
+            int highestPriority = data.Last().Key;
+
+            Queue<int> value = data[highestPriority];
+
+            int[] ValuePrioriry = new int [value.Count];
+            int Count = value.Count;
+
+            for (int i = 0; i < Count; i++)
+            {
+                ValuePrioriry[i] = value.Dequeue();
+            }
+            if (data[highestPriority].Count == 0)
+                data.Remove(highestPriority);
+
+            return ValuePrioriry;
+        }
+
+
+    }
+
+
+
+
+
+
+    static void Main()
+    {
+        PriorityQueue queue = new PriorityQueue();
+
+        queue.Enqueue(2, 3);
+        queue.Enqueue(4, 5);
+        queue.Enqueue(5, 6);
+        queue.Enqueue(7, 6);
+        queue.Enqueue(45, 23);
+        queue.Enqueue(70, 23);
+        queue.Enqueue(17, 23);
+
+
+
+        //Console.WriteLine(   queue.Dequeue().Length );
+        int[] Res = queue.Dequeue();
+
+        foreach (var item in Res)
+        {
+            Console.WriteLine(item);
+
+        }
+
+
+
+        Console.ReadKey();
+
+    }
+
+}
+
+//Teacher Solution
+/*
+ * using System;
+using System.Collections.Generic;
+
+
+class PriorityQueue
+{
+    private SortedDictionary<int, Queue<int>> queue = new SortedDictionary<int, Queue<int>>();
+
+
+    public void Enqueue(int value, int priority)
+    {
+        if (!queue.ContainsKey(priority))
+        {
+            queue[priority] = new Queue<int>();
+        }
+        queue[priority].Enqueue(value);
+    }
+
+
+    public int? Dequeue()
+    {
+        if (queue.Count == 0) return null;
+
+
+        int highestPriority = queue.Keys.Min();
+        int value = queue[highestPriority].Dequeue();
+        if (queue[highestPriority].Count == 0)
+        {
+            queue.Remove(highestPriority);
+        }
+        return value;
+    }
+}
+
+
+class Program
+{
+    static void Main()
+    {
+        PriorityQueue pq = new PriorityQueue();
+        pq.Enqueue(10, 3);
+        pq.Enqueue(5, 1);
+        pq.Enqueue(20, 2);
+        Console.WriteLine(pq.Dequeue()); // Output: 5
+        Console.ReadKey();
+    }
+}
+
+ */
+

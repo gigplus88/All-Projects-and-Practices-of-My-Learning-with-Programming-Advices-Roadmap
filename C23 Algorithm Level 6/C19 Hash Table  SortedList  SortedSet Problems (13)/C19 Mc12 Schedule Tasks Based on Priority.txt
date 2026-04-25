@@ -1,0 +1,96 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.CompilerServices;
+using System.Threading;
+class Program
+{
+
+    // Priority by priority num then Desc
+    class Task :IComparable<Task>
+    {
+        public int Priority { get; set; }
+        public string Desc { get; set; }
+        public Task(int priority , string Desc) 
+        {
+            this.Priority = priority;
+            this.Desc = Desc;
+        }
+
+        public int CompareTo(Task other) 
+        {
+            int res = Priority.CompareTo(other.Priority);
+
+            if(res ==0) res = Desc.CompareTo(other.Desc);
+
+            return res;
+        }
+    }
+    static void Main()
+    {
+        SortedSet<(int Priority, string Task)> PriorityTask = new SortedSet<(int, string)>();
+
+
+        PriorityTask.Add((1, "Task1"));
+        PriorityTask.Add((2, "Task4"));
+        PriorityTask.Add((4, "Task2"));
+        PriorityTask.Add((8, "Task8"));
+
+
+        foreach (var item in PriorityTask)
+        {
+            Console.WriteLine(item.Priority + " " + item.Task);
+        }
+
+
+
+
+
+
+        //SortedSet<Task> PriorityTs = new SortedSet<Task>
+        //{
+        //    new Task { Priority = 2, Description = "Write report" },
+        //    new Task { Priority = 1, Description = "Fix critical bug" },
+        //    new Task { Priority = 3, Description = "Team meeting" }
+        //};
+
+
+
+
+        //PriorityTs.Add(new Task(2, "A"));
+        //PriorityTs.Add(new Task(1, "Q"));
+
+        Task task = new Task(4, "A");
+        Task task1 = new Task(3, "i");
+        Task task2 = new Task(3, "b");
+
+        PriorityTs.Add(task);
+        PriorityTs.Add(task1);
+        PriorityTs.Add(task2);
+
+
+
+
+
+        foreach (var item in PriorityTs)
+        {
+            Console.WriteLine(item.Priority + " " + item.Desc);
+        }
+
+
+        task.CompareTo(task);
+
+
+
+        Console.ReadKey();
+    }
+  
+}
+
+
+
+
+
+
+

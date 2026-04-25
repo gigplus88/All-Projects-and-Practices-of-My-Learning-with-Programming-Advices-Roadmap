@@ -1,0 +1,8 @@
+import { createContext } from "react";
+
+//provider
+  let FormInputContext = createContext({labelTitle : "" , handleChange : null , inputValue : null});
+
+
+
+  export default FormInputContext;

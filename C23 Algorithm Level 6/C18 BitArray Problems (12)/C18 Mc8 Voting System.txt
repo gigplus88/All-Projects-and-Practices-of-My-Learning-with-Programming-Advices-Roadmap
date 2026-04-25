@@ -1,0 +1,69 @@
+using System;
+using System.Collections;
+
+using System.Threading;
+class Program
+{
+
+    static void ChangeLightStatus(BitArray Light, bool green, bool red, bool yellow)
+    {
+        Light[0] = red;
+        Light[1] = yellow;
+        Light[2] = green;
+
+    }
+    static void DisplayLight(string message, BitArray Light)
+    {
+        Console.Clear();
+        Console.WriteLine($"--- {message} ---");
+        Console.WriteLine($"[{(Light[0] ? " RED " : "   ")}]");
+        Console.WriteLine($"[{(Light[1] ? " YELLOW" : "   ")}]");
+        Console.WriteLine($"[{(Light[2] ? "GREEN " : "   ")}]");
+        Console.WriteLine("----------------");
+    }
+
+    static void Main()
+    {
+
+
+         BitArray MemebersVote = new BitArray(8 , true); // All lights off
+
+
+        MemebersVote[0] = true;  //Yes
+        MemebersVote[4] = false; //No
+        MemebersVote[7] = false; //No
+
+
+        for (int i = 0; i < MemebersVote.Count; i++)
+        {
+            Console.Write( $"Member  {i+1} : { (MemebersVote[i]? "Yes": "No")}  ");
+
+        }
+        Console.WriteLine();
+
+        Console.WriteLine($"Member  {MemebersVote.Count}  ");
+
+
+
+
+
+        BitArray votes = new BitArray(new bool[] { true, false, true, true, false, false, true, true });
+
+
+        int yesVotes = 0;
+        foreach (bool vote in votes)
+        {
+            if (vote) yesVotes++;
+        }
+
+        Console.WriteLine($"Yes Votes: {yesVotes} out of {votes.Count} ");
+        Console.ReadKey();
+
+        Console.ReadKey();
+    }
+}
+
+
+
+
+

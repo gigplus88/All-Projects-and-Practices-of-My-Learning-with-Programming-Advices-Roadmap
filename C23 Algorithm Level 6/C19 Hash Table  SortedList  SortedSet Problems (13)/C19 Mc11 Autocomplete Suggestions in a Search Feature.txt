@@ -1,0 +1,59 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.CompilerServices;
+using System.Threading;
+class Program
+{
+
+    static void Main()
+    {
+
+
+        SortedSet<string> autocomplete = new SortedSet<string>
+        {
+            "sug1", "sug2","sug3", "sug4", "apple", "application", "appreciate", "banana", "band", "bandwidth", "cat", 
+            "cater", "above" , "avocado" ,  "avoo" , "avo" , "ajio" , "asio" , "akio" , "aapl" , "agoud",
+        };
+
+
+
+        Console.WriteLine("Search:");
+        string Prefix = Console.ReadLine();
+
+
+        Console.WriteLine("All Prefix in alphabetic:");
+        foreach (var time in GetSuggestions(autocomplete,  Prefix))
+        {
+            Console.WriteLine(time);
+        }
+
+        Console.WriteLine("Press any key to exit...");
+        Console.ReadKey();
+    }
+    static IEnumerable<string> GetSuggestions(SortedSet<string> words , string Prefix)
+    {
+        int count = 0;
+        foreach (var item in words)
+        {
+            if (string.IsNullOrEmpty( Prefix) || count >= 10)
+            {
+                yield break;
+            }
+            if (item.StartsWith(Prefix, StringComparison.OrdinalIgnoreCase))
+            {
+                count++;
+                yield return item;
+            }
+        }
+    }
+
+}
+
+
+
+
+
+
+

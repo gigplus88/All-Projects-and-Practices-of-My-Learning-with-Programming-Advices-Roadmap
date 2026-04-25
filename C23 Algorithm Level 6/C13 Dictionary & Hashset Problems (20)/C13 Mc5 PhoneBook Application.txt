@@ -1,0 +1,57 @@
+
+//My Solution
+
+
+
+
+using System;
+using System.CodeDom;
+using System.Collections;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
+using System.Management.Instrumentation;
+using System.Text;
+using static Guna.UI2.Native.WinApi;
+
+
+class Program
+{
+
+
+    static void Main()
+    {
+
+        /*
+         * Alice's Phone: 123-456-7890
+
+Bob's Phone: 987-654-3210
+         */
+
+
+
+        Dictionary<string, string> PhoneBooks = new Dictionary<string, string>()
+        {
+            { "Alice" , "123-456-7890" },
+            {"Bob" , "987-654-3210" },
+        };
+
+
+
+
+
+        foreach (var item in PhoneBooks)
+        {
+            Console.WriteLine($"{item.Key}:{item.Value} ");
+        }
+
+        Console.WriteLine("Give me your name");
+
+        string Name = Console.ReadLine() ?? "none";
+
+        Console.WriteLine(PhoneBooks[Name.Trim()]);
+        Console.ReadKey();
+    }
+}
+
+

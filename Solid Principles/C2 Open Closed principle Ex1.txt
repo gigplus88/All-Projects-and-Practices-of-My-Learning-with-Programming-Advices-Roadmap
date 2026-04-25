@@ -1,0 +1,157 @@
+using System;
+using static LoggingService;
+
+public interface ILogging
+{
+     void Log(string message);
+}
+public class LoggingService
+{
+    private ILogging _Logging;
+   // public enum enLoggingType { ToFile, ToEventLog, ToDatabase }
+   public LoggingService(ILogging notification)
+   {
+        _Logging = notification;
+        
+   }
+   
+    public void SendNotification( string message = "")
+    {
+
+        _Logging.Log(message);
+
+    }
+
+
+}
+public class LogToEventLog:ILogging
+{
+    public string Message { get; set; }
+
+    public  void  Log(string message )
+    {
+
+        Console.WriteLine($"\nLog to EventLog: {message}");
+    }
+}
+public class LogToFile: ILogging
+{
+    public void Log(string message)
+    {
+        Console.WriteLine($"\nLog to file: {message}");
+    }
+}
+public class LogToDatabase: ILogging
+{
+    public string Message { get; set; }
+
+    public void Log(string message)
+    {
+        Console.WriteLine($"\nLog to Database: {message}");
+    }
+}
+class Program
+{
+    static void Main()
+    {
+        LoggingService LoggingService = new LoggingService( new LogToFile()); 
+
+        LoggingService.SendNotification("Error Occured line xxx.");
+
+
+        LoggingService = new LoggingService(new LogToEventLog()); 
+
+        LoggingService.SendNotification("Error Occured line xxx.");
+
+
+        LoggingService = new LoggingService(new LogToDatabase()); 
+
+        LoggingService.SendNotification("Error Occured line xxx.");
+
+
+
+        Console.ReadKey();
+
+    }
+}
+
+
+
+//Ex 2 Notification by SRP & OCP
+
+/*
+using System;
+
+public interface INotification
+{
+     void Send(string to , string message);
+}
+public class NotificationService
+{
+    private INotification _Notification;
+   // public enum enLoggingType { ToFile, ToEventLog, ToDatabase }
+   public NotificationService(INotification notification)
+   {
+        _Notification = notification;
+        
+   }
+   
+    public void SendNotification(string to , string message = "")
+    {
+
+        _Notification.Send(to, message);
+
+    }
+
+
+}
+public class Email:INotification
+{
+    public string Message { get; set; }
+
+    public  void  Send(string to, string message )
+    {
+
+        Console.WriteLine($"\n{to}: {message}");
+    }
+}
+public class Fax: INotification
+{
+    public void Send(string to, string message)
+    {
+        Console.WriteLine($"\n{to}: {message}");
+    }
+}
+public class Message: INotification
+{
+    public void Send(string to, string message)
+    {
+        Console.WriteLine($"\n{to}: {message}");
+    }
+}
+class Program
+{
+    static void Main()
+    {
+        NotificationService LoggingService = new NotificationService( new Fax()); 
+
+        LoggingService.SendNotification("Saad", "Error Occured line xxx.");
+
+
+        LoggingService = new NotificationService(new Email()); 
+
+        LoggingService.SendNotification("Rachid", "Error Occured line xxx.");
+
+
+        LoggingService = new NotificationService(new Message()); 
+
+        LoggingService.SendNotification("Rachad", "Error Occured line xxx.");
+
+
+
+        Console.ReadKey();
+
+    }
+}
+
+*/

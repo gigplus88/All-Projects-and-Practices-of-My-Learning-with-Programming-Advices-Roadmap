@@ -1,0 +1,60 @@
+
+//My Solution
+
+
+
+
+using System;
+using System.CodeDom;
+using System.Collections;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
+using System.Management.Instrumentation;
+using System.Text;
+using static Guna.UI2.Native.WinApi;
+
+
+class Program
+{
+    
+    
+    static void Main()
+    {
+
+       Dictionary<string , int> StudentInfo = new Dictionary<string , int>();
+
+        StudentInfo.Add("Bob" , 90 );
+
+
+        foreach (var item in StudentInfo)
+        {
+            Console.WriteLine($"Student:{item.Key} , Grade:{item.Value}");
+        }
+
+
+
+        Console.ReadKey();
+    }
+}
+
+
+
+
+
+//Teacher solution
+
+/*
+ *  Dictionary<string, double> studentGrades = new Dictionary<string, double>
+        {
+            { "Alice", 85.5 },
+            { "Bob", 90.0 },
+            { "Charlie", 78.5 }
+        };
+        
+        Console.WriteLine($"Student: Bob, Grade:" + studentGrades["Bob"]);
+        Console.ReadKey();
+        // Output:
+        // Student: Bob, Grade: 90
+       
+ */

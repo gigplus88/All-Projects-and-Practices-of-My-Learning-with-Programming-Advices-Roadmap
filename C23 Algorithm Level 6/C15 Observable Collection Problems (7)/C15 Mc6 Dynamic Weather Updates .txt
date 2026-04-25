@@ -1,0 +1,27 @@
+using System;
+using System.Collections.ObjectModel;
+using System.Collections.Specialized;
+using System.Web.Hosting;
+
+class Program
+{
+   
+    static void Main()
+    {
+        ObservableCollection<string> weatherUpdates = new ObservableCollection<string>();
+        weatherUpdates.CollectionChanged += (sender, e) =>
+        {
+            if (e.Action == NotifyCollectionChangedAction.Add)
+                Console.WriteLine($"weather Updated to: {e.NewItems[0]}");
+            if (e.Action == NotifyCollectionChangedAction.Remove)
+                Console.WriteLine($"weather info {e.OldItems[0]} removed.");
+        };
+
+        weatherUpdates.Add("Fes : Rainy 20 °C!");
+        weatherUpdates.Add("Rabat : Sunny 27 °C");
+        // Output:
+        // New Message: Hello!
+        // New Message: How are you?
+        Console.ReadKey();
+    }
+}

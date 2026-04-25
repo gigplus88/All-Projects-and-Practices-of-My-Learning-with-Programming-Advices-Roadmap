@@ -1,0 +1,218 @@
+
+//My one
+
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using System.Management.Instrumentation;
+using System.Runtime.CompilerServices;
+using System.Threading;
+using System.Xml.Linq;
+using static Program;
+class Program
+{
+
+
+    public class FileNode<T>
+    {
+        public T Value { get; set; }
+        public List<FileNode<T>> Children { get; set; }
+
+        public FileNode(T value)
+        {
+            this.Value = value;
+            Children = new List<FileNode<T>>();
+        }
+        public void AddChild(FileNode<T> Child)
+        {
+            Children.Add(Child);
+        }
+
+    }
+    public class Tree<T>
+    {
+        public FileNode<T> Root { get; private set; }
+
+        public Tree(T RootValue)
+        {
+            Root = new FileNode<T>(RootValue);
+        }
+
+    }
+    public class File
+    {
+        public string Name { get; set; }
+
+        public File(string name)
+        {
+            Name = name;
+        }
+    }
+
+    public static void PrintTree(FileNode<File> node, string indent = "  ")
+    {
+        Console.WriteLine(indent + node.Value.Name);
+        foreach (var child in node.Children)
+        {
+            PrintTree(child, indent + "  ");
+        }
+    }
+
+
+    static void Main()
+    {
+
+        /*
+         ile System:
+
+        Directory: root
+
+         Directory: Documents
+         File: Resume.docx
+          File: Project.pdf
+        Directory: Photos
+          File: Vacation.jpg
+          File: Diving.jpg
+          File: Family.jpg
+         */
+
+ 
+
+
+
+
+
+        // File root = new File("MainFolder");
+        var MainFolder = new Tree<File>(new File("MainFolder"));
+
+        // FileNode<string> Root = new FileNode<string>("MainFolder");
+
+
+        FileNode<File> Documents = new FileNode<File>(new File("Documents"));
+        FileNode<File> Photos = new FileNode<File>((new File("Photos")));
+
+
+        //Add Root child
+        MainFolder.Root.AddChild(Documents);
+        MainFolder.Root.AddChild(Photos);
+
+
+
+
+
+        FileNode<File> ResumeDocs = new FileNode<File>((new File("Resume.docx")));
+        FileNode<File> ProjectPdf = new FileNode<File>((new File("Project.pdf")));
+
+
+        //Documents files
+        Documents.AddChild(ResumeDocs);
+        Documents.AddChild(ProjectPdf);
+
+
+
+        FileNode<File> Vacation = new FileNode<File>(new File(("Vacation.jpg")));
+        FileNode<File> Diving = new FileNode<File>((new File("Diving.jpg")));
+        FileNode<File> Family = new FileNode<File>((new File("Family.jpg")));
+
+
+        Photos.AddChild(Vacation);
+        Photos.AddChild(Diving);
+        Photos.AddChild(Family);
+
+
+
+
+
+        PrintTree(MainFolder.Root);
+
+
+        Console.ReadKey();
+    }
+  
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//Teacher solution
+using System;
+using System.Collections.Generic;
+
+
+class FileNode
+{
+    public string Name { get; set; } // Name of the file or directory
+    public bool IsFile { get; set; } // Indicates whether this node is a file
+    public List<FileNode> Children { get; set; } = new List<FileNode>(); // List of child nodes (subdirectories or files)
+
+
+
+    public enum enType
+    {
+        Directory,
+        File
+    }
+
+
+    public FileNode(string name, enType fType)
+    {
+        Name = name;
+        IsFile = fType == enType.File ? true : false;
+    }
+
+
+    public void Print(string indent = "")
+    {
+        Console.WriteLine(indent + (IsFile ? "File: " : "Directory: ") + Name); // Print the current file/directory
+        foreach (var child in Children)
+        {
+            child.Print(indent + "  "); // Recursively print child nodes
+        }
+    }
+}
+
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        // Create the root directory
+        var root = new FileNode("root", FileNode.enType.Directory);
+
+
+        // Create subdirectories and files
+        var documents = new FileNode("Documents", FileNode.enType.Directory);
+        var photos = new FileNode("Photos", FileNode.enType.Directory);
+        documents.Children.Add(new FileNode("Resume.docx", FileNode.enType.File));
+        documents.Children.Add(new FileNode("Project.pdf", FileNode.enType.File));
+        photos.Children.Add(new FileNode("Vacation.jpg", FileNode.enType.File));
+        photos.Children.Add(new FileNode("Diving.jpg", FileNode.enType.File));
+        photos.Children.Add(new FileNode("Family.jpg", FileNode.enType.File));
+
+
+        // Add subdirectories to root
+        root.Children.Add(documents);
+        root.Children.Add(photos);
+
+
+        // Display the file system structure
+        Console.WriteLine("File System:\n");
+        root.Print();
+
+
+        // Pause the screen
+        Console.ReadKey();
+    }
+}

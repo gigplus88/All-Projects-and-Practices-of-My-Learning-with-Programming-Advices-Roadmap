@@ -1,0 +1,71 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.CompilerServices;
+using System.Threading;
+class Program
+{
+
+    // Priority by priority num then Desc
+    class Theater 
+    {
+        SortedSet<int> reservedSeats = new SortedSet<int>();
+
+        public Theater() 
+        {
+            
+        }
+        public bool BookSeat(int seatNumber)
+        {
+            bool isAdded = reservedSeats.Add(seatNumber);
+
+            if (isAdded)
+                Console.WriteLine($"Seat {seatNumber} reserved successfully.");
+            else
+                Console.WriteLine($"Sorry seat {seatNumber} is already reserved ");
+
+            return isAdded;
+        }
+
+        public void DisplayReservedSeats()
+        {
+            Console.WriteLine("Display Theater seat by order:");
+            foreach (int seat in reservedSeats)
+            {
+                Console.WriteLine("Seat"+ seat + " ");
+            }
+            Console.WriteLine();
+        }
+
+    }
+
+   
+    static void Main()
+    {
+        SortedSet<int> reservedSeats = new SortedSet<int>();
+
+        Theater theater = new Theater();
+
+        theater.BookSeat(2);
+        theater.BookSeat(3);
+        theater.BookSeat(1);
+        theater.BookSeat(2);
+
+
+
+        theater.DisplayReservedSeats();
+
+
+
+        Console.ReadKey();
+    }
+  
+}
+
+
+
+
+
+
+

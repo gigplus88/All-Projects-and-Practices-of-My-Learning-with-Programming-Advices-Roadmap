@@ -1,0 +1,95 @@
+import "./App.css";
+
+import { Routes, Route, Link } from "react-router-dom";
+import Hello from "./NewPro/Hello";
+import Home from "./NewPro/Home";
+import PostList from "./NewPro/PostList";
+import Post from "./NewPro/Post";
+import { PostContext } from "./Contexts/PostContext";
+import NotFound from "./NewPro/NotFound";
+import DeletePost from "./NewPro/DeletePost";
+import NewPost from "./NewPro/NewPost";
+import PostLayout from "./NewPro/PostLayout";
+function App() {
+  
+const postData = [
+  {
+    id: 1,
+    title: "Post Title 1",
+    content:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. .",
+  },
+   {
+    id: 2,
+    title: "Post Title 2",
+    content:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. .",
+  },
+   {
+    id: 3,
+    title: "Post Title 3",
+    content:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. .",
+  },
+];
+  return (
+    <>
+      
+     <PostContext.Provider value={postData}>
+       <Link to="/">
+        <button>Home</button>
+      </Link>
+
+      <Link to="/posts">
+        <button>Posts</button>
+      </Link>
+
+       <Link to="/about">
+        <button>About</button>
+      </Link>
+
+       <Link to="/contact">
+        <button>Contact</button>
+      </Link>
+
+      <Link to="/Hello">
+        <button>Hello</button>
+      </Link>
+
+    
+
+      <Routes>
+        <Route path="/Hello" element={<Hello />} />
+        <Route path="/" element={<Home />} />
+        
+
+        <Route path="/posts" element={<PostLayout />}>              
+          <Route index element={<PostList />} />
+          <Route path="newPost" element = { <NewPost />} />
+          <Route path=":postId" element = { <Post />} />
+          <Route path="deletePost" element = { <DeletePost />} />
+
+        </Route>
+
+        <Route path="/about" element={<h1>About Page</h1>} />
+        <Route path="/contact" element={<h1>Contact Page</h1>} />
+        <Route path="*" element={<NotFound/>} />
+      </Routes>
+    </PostContext.Provider>
+    </>
+  );
+}
+export default App;
+{
+  /* <UserContext.Provider value={{ name: "John", userName: "john_doe" }}>
+        {/* <MyInput /> */
+}
+
+{
+  /* <MyForm /> */
+}
+
+{
+  /* <MyTest counterNumber={5} personName="John" />
+      </UserContext.Provider> */
+}

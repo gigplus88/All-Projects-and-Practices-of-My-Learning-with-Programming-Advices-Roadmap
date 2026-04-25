@@ -1,0 +1,52 @@
+
+//My Solution
+
+
+
+
+using System;
+
+using System.Collections.Generic;
+
+
+
+class Program
+{
+
+
+    static void Main()
+    {
+
+       HashSet<int> Seen = new HashSet<int>();
+
+        int[] numbers = { 1, 2, 3, 2, 5, 1 };
+
+       
+        int Counter = 0;
+        foreach (var n in numbers) 
+        {
+            if (!Seen.Add(n)) // If element is added it returns false 
+            {
+                Console.WriteLine($"Duplicate detected: {n}");
+            }
+        }
+
+        /*
+          HashSet<string> dataEntries = new HashSet<string>();
+
+        string[] entries = { "A", "B", "C", "A" }; // A is a duplicate
+        foreach (var entry in entries)
+        {
+            if (!dataEntries.Add(entry))
+            {
+                Console.WriteLine($"Duplicate detected: {entry}");
+            }
+        }
+
+        */
+
+        Console.ReadKey();
+    }
+}
+
+

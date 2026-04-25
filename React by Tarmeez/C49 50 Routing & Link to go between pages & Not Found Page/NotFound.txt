@@ -1,0 +1,13 @@
+import { Link } from "react-router-dom";
+
+export default function NotFound(){
+    return (
+    <>
+        <h1>404 - Not Found</h1>
+        <h3>Sorry Page Not found</h3>
+
+        <Link to={"/"}>
+            <button>Return back to Home page</button>
+        </Link>
+    </>   
+)};

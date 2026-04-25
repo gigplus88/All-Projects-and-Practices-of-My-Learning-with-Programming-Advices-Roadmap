@@ -1,3 +1,5 @@
+
+//the value of (Node) must be lower or equal than their children
 using System;
 using System.Collections.Generic;
 using System.Xml.Linq;

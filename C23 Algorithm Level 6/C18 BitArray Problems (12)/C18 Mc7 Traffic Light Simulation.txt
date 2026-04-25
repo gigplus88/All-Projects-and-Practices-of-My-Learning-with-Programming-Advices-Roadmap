@@ -1,0 +1,78 @@
+using System;
+using System.Collections;
+
+using System.Threading;
+class Program
+{
+
+    static void ChangeLightStatus(BitArray Light, bool green, bool red, bool yellow)
+    {
+        Light[0] = red;
+        Light[1] = yellow;
+        Light[2] = green;
+
+    }
+    static void DisplayLight(string message, BitArray Light)
+    {
+        Console.Clear();
+        Console.WriteLine($"--- {message} ---");
+        Console.WriteLine($"[{(Light[0] ? " RED " : "   ")}]");
+        Console.WriteLine($"[{(Light[1] ? " YELLOW" : "   ")}]");
+        Console.WriteLine($"[{(Light[2] ? "GREEN " : "   ")}]");
+        Console.WriteLine("----------------");
+    }
+
+    static void Main()
+    {
+
+
+         BitArray Light = new BitArray(12); // All lights off
+
+        while (true)
+        {
+
+            ChangeLightStatus(Light,green:false,red:true, yellow:false);
+            DisplayLight("Stop", Light);
+            Thread.Sleep(10000);
+
+            ChangeLightStatus(Light, green: false, red: true, yellow: true);
+            DisplayLight("Prepare", Light);
+            Thread.Sleep(3000);
+
+            ChangeLightStatus(Light, green: true, red: false, yellow: false);
+            DisplayLight("Go", Light);
+            Thread.Sleep(10000);
+        }
+
+
+
+        //Teacher Solution
+
+        /*
+         *  BitArray trafficLights = new BitArray(9); // 3 intersections, 3 lights each
+ // Green at intersection 1
+ trafficLights[2] = true;
+
+
+ // Change light to Yellow
+ trafficLights[2] = false;
+ trafficLights[1] = true;
+
+
+ Console.WriteLine("Intersection 1 Lights:");
+ Console.WriteLine($"Red: {trafficLights[0]}, Yellow: {trafficLights[1]}, Green: {trafficLights[2]}");
+ Console.ReadKey();
+
+         
+         */
+
+
+
+        Console.ReadKey();
+    }
+}
+
+
+
+
+

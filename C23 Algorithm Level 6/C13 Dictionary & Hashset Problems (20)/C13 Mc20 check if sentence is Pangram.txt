@@ -1,0 +1,72 @@
+
+
+using System;
+
+using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.Remoting.Messaging;
+using static Guna.UI2.Native.WinApi;
+
+
+
+class Program
+{
+
+
+    static bool IfPangram(string input1)
+    {
+
+        HashSet<char> letters = new HashSet<char>();
+
+        foreach (var c in input1.Trim().ToLower())
+        {
+            if (c >= 'a' && c <= 'z')
+            {
+                letters.Add(c);
+            }
+            
+        }
+
+
+        //Teacher solution
+        //foreach (char c in input1.ToLower())
+        //{
+        //    if (char.IsLetter(c))
+        //        letters.Add(c);
+        //}
+
+        return letters.Count == 26;
+
+
+
+        // return new HashSet<char>(input1.ToLowerInvariant())
+        // .Count(ch => char.IsLetter(ch)) == 26;
+
+        // return false;
+}
+    static void Main()
+    {
+    /*
+    Input: "The quick brown fox jumps over the lazy dog"
+    Output: True
+
+
+     */
+
+
+
+       string  Input= "%The quick brown fox jumps over the lazy dog";
+        string Input1 = "abcdefghijklmnopqrstuvwxyz";
+
+
+
+
+        Console.Write($" {string.Join( "," , IfPangram(Input))}");
+
+
+
+        Console.ReadKey();
+    }
+}
+
+

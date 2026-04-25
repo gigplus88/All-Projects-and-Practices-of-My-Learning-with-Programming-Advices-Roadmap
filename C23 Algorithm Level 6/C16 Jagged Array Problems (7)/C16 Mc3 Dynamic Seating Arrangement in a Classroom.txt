@@ -1,0 +1,48 @@
+
+using System;
+
+using System.Collections.Generic;
+using System.Linq;
+using System.Xml.Linq;
+
+class Program
+{
+   
+    public void DisplayRow(int[][] classroomSeats  , int Rows)
+    {
+        classroomSeats = new int[Rows][];
+        for (int i = 0; i < classroomSeats.Length; i++)
+        {
+            Console.Write($"Region {i + 1}: ");
+
+
+            Console.WriteLine(string.Join(", ", classroomSeats[i]));
+
+            Console.WriteLine();
+        }
+    }
+    static void Main()
+    {
+        int[][] classroomSeats = new int[3][];
+        classroomSeats[0] = new int[] { 1, 2, 3 }; // Row 1
+        classroomSeats[1] = new int[] { 4, 5 };    // Row 2
+        classroomSeats[2] = new int[] { 6, 7, 8, 9 }; // Row 3
+
+
+
+
+
+        for (int i = 0; i < classroomSeats.Length; i++)
+        {
+            Console.Write($"Region {i+1}: ");
+
+          
+            Console.WriteLine(string.Join(", ", classroomSeats[i]));
+
+            Console.WriteLine();
+        }
+
+
+        Console.ReadKey();
+    }
+}

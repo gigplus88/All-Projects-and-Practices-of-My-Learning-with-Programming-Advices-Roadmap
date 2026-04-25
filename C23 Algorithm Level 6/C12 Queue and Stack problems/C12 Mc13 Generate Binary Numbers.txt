@@ -1,0 +1,78 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+
+
+class WebServer
+{
+
+    // My Solution
+
+    static Queue<string>  GenerateBinaryResults( int input)
+    {
+        Queue<string>  queue = new Queue<string>(); 
+
+        string Out ="0" ;
+        int Counter=1;
+
+        while (Counter <= input)
+        {
+            if (Counter% 2 != 0 && Out.EndsWith("0") )
+            {
+                Out = Out.Replace('0', '1');
+                queue.Enqueue(Out);
+            }
+            if (Counter % 2 == 0 && !Out.EndsWith("0"))
+            {
+                Out += '0';
+                queue.Enqueue(Out);
+            }
+            Counter++;
+        }
+
+        return queue;
+    }
+
+    // Teacher Solution
+    static void GenerateBinaryNumbers(int n)
+    {
+        Queue<string> queue = new Queue<string>();
+        queue.Enqueue("1");
+
+
+        for (int i = 0; i < n; i++)
+        {
+            string binary = queue.Dequeue();
+            Console.WriteLine(binary);
+            queue.Enqueue(binary + "0");
+            queue.Enqueue(binary + "1");
+        }
+    }
+
+    static void Main()
+    {
+        // My Solution
+
+        Queue<string> queue2 = new Queue<string>(GenerateBinaryResults(5));
+        string current = "";
+
+    
+        foreach (var item in queue2)
+        {
+            Console.Write(item + ",");
+
+        }
+
+
+        // Teacher Solution
+
+        GenerateBinaryNumbers(5);
+        // Output: 1, 10, 11, 100, 101
+
+
+
+
+    }
+
+}

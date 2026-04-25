@@ -1,0 +1,127 @@
+
+using System;
+using System.Collections.Generic;
+using System.Xml.Linq;
+
+
+public class TrafficSystem
+{
+    private string _currentVehicle ;
+
+    public string CurrentValue => _currentVehicle;
+
+    public TrafficSystem()
+    {
+
+    }
+    public void TrafficProcess(Queue<string> Traffic )
+    {
+        
+        if (Traffic.Count > 0)
+        {
+            string passedVehicle = Traffic.Dequeue();
+            Console.WriteLine($"{passedVehicle} has passed.");
+
+            Console.WriteLine("Vehicles waiting: " + (Traffic.Count > 0 ? string.Join(", ", Traffic) : "No vehicles"));
+
+        }
+        else
+        {
+            Console.WriteLine("No vehicles waiting");
+
+            _currentVehicle = "No vehicles waiting";
+        }
+            
+        //Print();
+    }
+
+
+}
+    class Program
+{
+    //Problem: Implement undo functionality in a calculator.
+
+
+    static void Main()
+    {
+        Queue<string> Traffic = new Queue<string>();
+
+        Console.WriteLine("Traffic started");
+
+        Traffic.Enqueue("Car 1");
+        Traffic.Enqueue("Truck 1");
+        Traffic.Enqueue("Bike 1");
+        Traffic.Enqueue("Bus 1");
+
+        TrafficSystem trafficSystem = new TrafficSystem();
+
+        trafficSystem.TrafficProcess(Traffic);
+
+        //Console.WriteLine($"Traffic in waiting is: {trafficSystem.CurrentValue}");
+
+        trafficSystem.TrafficProcess(Traffic);
+        trafficSystem.TrafficProcess(Traffic);
+
+       
+
+        trafficSystem.TrafficProcess(Traffic);
+        trafficSystem.TrafficProcess(Traffic);
+
+       
+
+
+        Console.ReadKey();
+    }
+}
+
+
+//Teacher solution
+/*
+ using System;
+using System.Collections.Generic;
+
+
+class Program
+{
+    static void Main()
+    {
+        // Initialize a queue to represent vehicles at the traffic signal
+        Queue<string> trafficQueue = new Queue<string>();
+
+
+        // Add vehicles to the queue
+        trafficQueue.Enqueue("Car 1");
+        trafficQueue.Enqueue("Truck 1");
+        trafficQueue.Enqueue("Bike 1");
+        trafficQueue.Enqueue("Bus 1");
+
+
+        Console.WriteLine("Traffic Signal Simulation Started...\n");
+
+        while (trafficQueue.Count > 0)
+        {
+            // Process the vehicle at the front of the queue
+            string vehicle = trafficQueue.Dequeue();
+            Console.WriteLine($"{vehicle} has passed the signal.\n");
+
+
+            // Display the remaining vehicles
+            if (trafficQueue.Count > 0)
+            {
+                Console.WriteLine("Vehicles waiting: " + string.Join(", ", trafficQueue));
+            }
+            else
+            {
+                Console.WriteLine("No vehicles waiting.");
+            }
+
+
+            Console.WriteLine();
+        }
+
+
+        Console.WriteLine("Traffic Signal Simulation Ended.");
+        Console.ReadKey();
+    }
+}
+ */

@@ -1,0 +1,76 @@
+import { useState } from "react";
+
+
+
+
+export default function ShoppingCart() {
+  const [count, setCount] = useState(0);
+
+
+   function handleIncrease(/*const numberofTimes*/ ) {
+    //let newCount = count + 1;
+    //setCount(newCount);
+    // setCount(newCount + 1);
+
+    setCount((prevCount) => prevCount+ 1);
+    setCount((prevCount) => prevCount + 1);
+
+    //    setCount((prevCount) => prevCount* numberofTimes);
+
+  }
+
+  return (
+    <div>
+       <h1>The count is: {count}</h1>
+        <button onClick={ handleIncrease}>+</button>  
+    </div>
+  );
+}
+
+/*
+import AddTodo from './AddTodo.jsx';
+import TaskList from './TaskList.jsx';
+
+let nextId = 3;
+const initialTodos = [
+  { id: 0, title: 'Buy milk', done: true },
+  { id: 1, title: 'Eat tacos', done: false },
+  { id: 2, title: 'Brew tea', done: false },
+];
+
+export default function TaskApp() {
+  const [todos, setTodos] = useState(
+    initialTodos
+  );
+
+  function handleAddTodo(title) {
+    setTodos([...todos , title? { id: nextId++,title , done: false } : null]);
+  }
+
+  function handleChangeTodo(nextTodo) {
+   
+   const newTaskList = todos.map((t) =>
+     t.id === nextTodo.id? nextTodo : t
+    );
+    setTodos(newTaskList);
+  }
+
+  function handleDeleteTodo(todoId) {
+    
+    setTodos([ todos.filter((t) => t.id !== todoId)]);
+  }
+
+  return (
+    <>
+      <AddTodo
+        onAddTodo={handleAddTodo}
+      />
+      <TaskList
+        todos={todos}
+        onChangeTodo={handleChangeTodo}
+        onDeleteTodo={handleDeleteTodo}
+      />
+    </>
+  );
+}
+*/

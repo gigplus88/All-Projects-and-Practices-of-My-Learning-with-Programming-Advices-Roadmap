@@ -1,0 +1,56 @@
+
+
+using System;
+
+using System.Collections.Generic;
+using System.Linq;
+
+
+
+
+class Program
+{
+
+    static int ElementsLessThanValue(int[] elements, int Value)
+    {
+        SortedSet<int> s1 = new SortedSet<int>(elements);
+
+
+       
+        return s1.GetViewBetween(int.MinValue, Value).Count();
+        //return elements.Count(x => x <= Value);
+    }
+
+    static void Main()
+    {
+
+
+        /*
+      Example:
+        Input: set = [1, 2, 3, 4, 5], value = 3
+        Output: 3
+
+
+     */
+
+
+
+
+        //int[] input = { 1, 2, 4, 3 };
+        int[] input = { 10, 20, 30, 40 , 3 , 2 };
+        
+
+
+        int Value =  3;
+
+        Console.WriteLine( $" result:{ElementsLessThanValue(input, Value) }  "); // Output: 1, 2, 3, 4, 5
+
+
+
+        Console.ReadKey();
+
+
+    }
+}
+
+

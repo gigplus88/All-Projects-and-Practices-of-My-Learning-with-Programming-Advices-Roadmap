@@ -1,0 +1,191 @@
+
+
+// Teacher solution with deph (number of level friend) number
+
+using System;
+using System.Collections.Generic;
+
+
+class Person
+{
+    public string Name { get; set; } // Name of the person
+    public List<Person> Friends { get; set; } = new List<Person>(); // List of friends (connections)
+
+
+    // Constructor to initialize a person with a name
+    public Person(string name)
+    {
+        Name = name;
+    }
+
+
+    // Recursive method to print the person's social network up to a specified depth
+    public void PrintFriends(int depth, string indent = "")
+    {
+        if (depth == 0) return; // Stop printing if the depth limit is reached
+        Console.WriteLine(indent + Name); // Print the current person's name
+        foreach (var friend in Friends) // Loop through the list of friends
+        {
+            friend.PrintFriends(depth - 1, indent + "  "); // Recursively print friends with reduced depth
+        }
+    }
+}
+
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        // Create instances of people
+        var alice = new Person("Alice");
+        var bob = new Person("Bob");
+        var charlie = new Person("Charlie");
+        var dave = new Person("Dave");
+
+
+        // Establish friendships
+        alice.Friends.Add(bob); // Alice is friends with Bob
+        alice.Friends.Add(charlie); // Alice is friends with Charlie
+        bob.Friends.Add(dave); // Bob is friends with Dave
+
+
+        // Print Alice's social network up to 2 levels deep
+        Console.WriteLine("Alice's Social Network:");
+        alice.PrintFriends(3); // Print friends and friends-of-friends
+
+
+        // Pause the screen
+        Console.ReadKey();
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Typing of all friends 
+using System;
+using System.Collections.Generic;
+using System.Runtime.CompilerServices;
+using System.Xml.Linq;
+
+namespace GeneralTreeExample
+{
+    public class Person<T>
+    {
+        public T Name { get; set; }
+        public List<Person<T>> Friends { get; set; } = new List<Person<T>>();
+
+        public Person(T value)
+        {
+            this.Name = value;
+            Friends = new List<Person<T>>();
+        }
+
+        public void AddChild(Person<T> child)
+        {
+            Friends.Add(child);
+        }
+
+        public Person<T> Find(T value)
+        {
+            if (EqualityComparer<T>.Default.Equals(Name, value))
+                return this;
+
+            foreach (var child in Friends)
+            {
+                var found = child.Find(value);
+                if (found != null)
+                    return found;
+            }
+
+            return null; // Not found
+        }
+
+    }
+
+    public class Tree<T>
+    {
+        public Person<T> Root { get; private set; }
+
+        public Tree(T rootValue)
+        {
+            Root = new Person<T>(rootValue);
+        }
+
+        public void PrintTree(string indent = " ")
+        {
+            PrintTree(this.Root, indent);
+        }
+
+        private static void PrintTree<T>(Person<T> node, string indent = " ")
+        {
+            Console.WriteLine(indent + node.Name);
+            foreach (var child in node.Friends)
+            {
+                PrintTree(child, indent + "  ");
+            }
+        }
+
+        public Person<T> Find(T value)
+        {
+            return Root?.Find(value);
+        }
+
+    }
+
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            // Creating the tree
+            var Ayoub = new Tree<string>("Ayoub");
+
+            var Saad = new Person<string>("Saad");
+            var Salim = new Person<string>("Salim");
+            var Rayan = new Person<string>("Rayan");
+
+            // Adding departments to the CEO node
+            Ayoub.Root.AddChild(Saad);
+            Ayoub.Root.AddChild(Salim);
+            Ayoub.Root.AddChild(Rayan);
+
+            // Adding employees to departments
+            Saad.AddChild(new Person<string>("Rami"));
+            Salim.AddChild(new Person<string>("Rayan"));
+            Salim.AddChild(new Person<string>("Mounir"));
+            Rayan.AddChild(new Person<string>("Salmi"));
+
+            // Printing the tree
+            Ayoub.PrintTree();
+
+            Console.WriteLine("\nFinding Developer...");
+            if (Ayoub.Find("Salim") == null)
+                Console.WriteLine("Not Found :-(");
+            else
+                Console.WriteLine("Found :-)");
+
+            Console.WriteLine("\nFinding DBA...");
+            if (Ayoub.Find("DBA") == null)
+                Console.WriteLine("Not Found :-(");
+            else
+                Console.WriteLine("Found :-)");
+
+            Console.ReadKey();
+
+        }
+
+
+    }
+}
+  

@@ -1,0 +1,41 @@
+using System;
+using System.Collections;
+
+using System.Threading;
+class Program
+{
+
+    static void Main()
+    {
+        Hashtable ht = new Hashtable()
+        {
+            { "Brightness", 80 },
+            { "Volume", 50 },
+            { "IsDarkMode", true },
+            { "Charge", 20 },
+
+        }; //Object typed
+
+        //Hashtable ht2 = new Hashtable(ht);
+
+        Hashtable ht2 = new Hashtable();
+
+        foreach (DictionaryEntry item in ht)
+        {
+            ht2.Add(item.Key , item.Value);
+        }
+
+        foreach (DictionaryEntry item in ht2)
+        {
+            Console.WriteLine($" {item.Key}:{item.Value}");
+        }
+
+
+        Console.ReadKey();
+    }
+}
+
+
+
+
+

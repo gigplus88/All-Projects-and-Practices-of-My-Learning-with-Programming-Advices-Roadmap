@@ -1,0 +1,31 @@
+using System;
+using System.Diagnostics;
+using System.Net.Cache;
+using System.Xml.Linq;
+class Program
+{
+    static (string Name, string health, double score) GetPlayerInfo(string Name , string health, double score)
+    {
+       
+            
+        return (Name , health, score);   
+    }
+    static void Main()
+    {
+
+        //a player's name, health, and score in a game.
+        var student = GetPlayerInfo("Ayoub", "Good", 15);
+
+        Console.WriteLine($"Name: {student.Name}, Age: {student.health}, Grade: {student.score}");
+
+        student = GetPlayerInfo("Ayoub", "Bad", 12);
+        Console.WriteLine( "Name: "+ student.Name + "Health: " + student.health + "Score: " + student.score);
+
+        var p = (Name: "Saad", Age: 40);
+        var player = (Name: "Player1", Health: 100, Score: 2000);
+        Console.WriteLine($"Name: {player.Name}, Health: {player.Health}, Score: {player.Score}");
+        // Output: Name: Player1, Health: 100, Score: 2000
+
+        Console.ReadKey();
+    }
+}

@@ -1,0 +1,145 @@
+using System;
+
+class TreeNode
+{
+    public int Value { get; set; }
+    public TreeNode Left { get; set; }
+    public TreeNode Right { get; set; }
+
+
+    public TreeNode(int value)
+    {
+        Value = value;
+    }
+}
+
+class BinaryTree
+{
+    public TreeNode Root { get;  set; } // The root node of the tree
+
+   
+    public void PrintTree()
+    {
+        PrintTree(Root, 0);
+    }
+
+
+    private void PrintTree(TreeNode root, int space)
+    {
+        int COUNT = 10;  // Distance between levels to adjust the visual representation
+        if (root == null)
+            return;
+
+
+        space += COUNT;
+        PrintTree(root.Right, space); // Print right subtree first, then root, and left subtree last
+
+
+        Console.WriteLine();
+        for (int i = COUNT; i < space; i++)
+            Console.Write(" ");
+        Console.WriteLine(root.Value); // Print the current node after space
+
+
+        PrintTree(root.Left, space); // Recur on the left child
+    }
+    public int MaxDepth(TreeNode root)
+    {
+        if (root == null) return 0;
+
+
+        // Recursively calculate depth of left and right subtrees
+        int leftDepth = MaxDepth(root.Left);
+        int rightDepth = MaxDepth(root.Right);
+
+
+        // Return the larger depth + 1 (for the current level)
+        return Math.Max(leftDepth, rightDepth) + 1;
+    }
+  
+    public List<int> LargestValuesAtEachLevel(TreeNode root) //BFS
+    {
+        var result = new List<int>();
+
+        if (root == null) return null;
+
+        Queue<TreeNode> queue = new Queue<TreeNode>();
+        queue.Enqueue(root);
+
+        int level = 0;
+        while (queue.Count > 0)
+        {
+            int nodesInLevel = queue.Count; // Number of nodes in the same level
+            int maxAtLevel = int.MinValue;
+
+            //Console.Write($"Level {level+1}: ");
+
+            for (int i = 0; i < nodesInLevel; i++)
+            {
+                TreeNode current = queue.Dequeue();
+
+                if (current.Value > maxAtLevel)
+                    maxAtLevel = current.Value;
+
+                if (current.Left != null) queue.Enqueue(current.Left);
+                if (current.Right != null) queue.Enqueue(current.Right);
+            }
+
+            //Console.WriteLine($"Largest value in {level+1} is {maxAtLevel}");
+            result.Add(maxAtLevel);
+        }
+        return result;
+    }
+    public bool  AreIdentical(TreeNode tree1 , TreeNode tree2)
+    {
+        if (tree1 == null && tree2 == null)
+            return true;
+        
+        if (tree1 == null || tree2 == null || tree1.Value != tree2.Value)
+        {
+            return false;
+        }
+     
+
+        return (tree1.Value == tree2.Value && AreIdentical(tree1.Left, tree2.Left) &&
+               AreIdentical(tree1.Right, tree2.Right)) ;
+    }
+}
+
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        var tree = new BinaryTree();
+
+
+        // Build a sample tree
+        var root1 = new TreeNode(1);
+        root1.Left = new TreeNode(3);
+        var right1 = root1.Right = new TreeNode(2);
+
+        right1.Left = new TreeNode(5);
+        right1.Right = new TreeNode(4);
+
+
+        // Calculate and print the maximum depth
+        //Console.WriteLine($"Maximum Depth: {tree.MaxDepth(root)}");
+
+        tree.Root = root1;
+
+        Console.WriteLine("Tree 1");
+        tree.PrintTree();
+
+
+
+        Console.WriteLine("\nLargest Values at Each Level:");
+        var largestValues = tree.LargestValuesAtEachLevel(root1);
+        for (int i = 0; i < largestValues.Count; i++)
+        {
+            Console.WriteLine($"Level {i + 1}: {largestValues[i]}");
+        }
+
+        Console.ReadKey();
+    }
+}

@@ -1,0 +1,137 @@
+
+using System;
+using System.Collections.Generic;
+using System.Xml.Linq;
+
+
+public class Ticket
+{
+    private string _currentVehicle ;
+
+    public string CurrentValue => _currentVehicle;
+
+    public Ticket()
+    {
+
+    }
+    public void TakTicket(Queue<int> Ticket, int number )
+    {
+        Ticket.Enqueue(number);
+        Console.WriteLine($"Ticket {number} issued.");   
+    }
+
+    public void TicketProcess(Queue<int> Ticket)
+    {
+        if (Ticket.Count > 0)
+        {
+            int passedTicket = Ticket.Dequeue();
+            Console.WriteLine($"Processing Ticket: {passedTicket}");
+
+            Console.WriteLine("Remaining Tickets: " + (Ticket.Count > 0 ? string.Join(", ", Ticket) : "No more tickets in the queue."));
+
+        }
+        else
+        {
+            Console.WriteLine("No more tickets in the queue.");
+
+        }
+
+    }
+
+
+}
+class Program
+{
+    //Problem: Implement undo functionality in a calculator.
+
+
+    static void Main()
+    {
+        Queue<int> Traffic = new Queue<int>();
+        Ticket ticket = new Ticket();
+
+        
+         
+        // Simulate ticket generation
+        for (int i = 101; i <= 105; i++)
+        {
+        ticket.TakTicket(Traffic, i);
+        }
+
+        /*
+        ticket.TakTicket(Traffic ,101);
+        ticket.TakTicket(Traffic, 102);
+        ticket.TakTicket(Traffic, 103);
+        ticket.TakTicket(Traffic, 104);
+        ticket.TakTicket(Traffic, 105);
+        */
+        Console.WriteLine("Ticketing System Simulation Started...");
+
+        ticket.TicketProcess(Traffic);
+        ticket.TicketProcess(Traffic);
+        ticket.TicketProcess(Traffic);
+        ticket.TicketProcess(Traffic);
+        ticket.TicketProcess(Traffic);
+        ticket.TicketProcess(Traffic);
+
+        Console.WriteLine("Ticketing System Simulation Ended.");
+
+
+        /*
+         using System;
+        using System.Collections.Generic;
+
+        class Program
+        {
+            static void Main()
+            {
+                // Initialize a queue to represent ticket numbers
+                Queue<int> ticketQueue = new Queue<int>();
+
+
+                // Simulate ticket generation
+                for (int i = 101; i <= 105; i++)
+                {
+                    ticketQueue.Enqueue(i);
+                    Console.WriteLine($"Ticket {i} issued.");
+                }
+
+
+                Console.WriteLine("\nTicketing System Simulation Started...\n");
+
+
+                // Process tickets in the queue
+                while (ticketQueue.Count > 0)
+                {
+                    int currentTicket = ticketQueue.Dequeue();
+                    Console.WriteLine($"Processing Ticket: {currentTicket}");
+
+
+                    // Display remaining tickets in the queue
+                    if (ticketQueue.Count > 0)
+                    {
+                        Console.WriteLine("Remaining Tickets: " + string.Join(", ", ticketQueue));
+                    }
+                    else
+                    {
+                        Console.WriteLine("No more tickets in the queue.");
+                    }
+
+
+                    Console.WriteLine();
+                }
+
+
+                Console.WriteLine("Ticketing System Simulation Ended.");
+                Console.ReadKey();
+            }
+        }
+
+        */
+
+
+        Console.ReadKey();
+    }
+}
+
+
