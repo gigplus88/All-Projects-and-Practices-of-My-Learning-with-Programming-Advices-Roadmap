@@ -1,0 +1,90 @@
+🧬 Pattern 1 — Load Then Update (Recommended ✅)
+✔ Best practice in most cases
+var student = context.Students
+    .First(s => s.StudentId == dto.StudentId);
+
+student.FirstName = dto.FirstName;
+student.PhoneNumber = dto.PhoneNumber;
+
+context.SaveChanges();
+
+
+✔ Why This Is Good
+✔ loads real row first
+✔ tracked automatically
+✔ updates only changed fields
+✔ safer with concurrency
+✔ easier validation
+
+
+🧬 Pattern 2 — Controlled Attach (Precise ⚠️)
+✔ Update specific fields only
+var student = new Student
+{
+    StudentId = dto.StudentId,
+    PhoneNumber = dto.PhoneNumber
+};
+
+context.Attach(student);
+
+context.Entry(student)
+    .Property(s => s.PhoneNumber)
+    .IsModified = true;
+
+context.SaveChanges();
+
+
+✔ Why Use It
+✔ efficient
+✔ updates only selected columns
+✔ useful in PATCH scenarios
+
+
+⚠️ Risk
+✔ developer must manually control fields
+✔ easy to forget required properties
+
+
+🧬 Pattern 3 — Update() (Full Update ⚠️⚠️)
+❗ Most dangerous pattern if misused
+var student = new Student
+{
+    StudentId = dto.StudentId,
+    FirstName = dto.FirstName,
+    PhoneNumber = dto.PhoneNumber
+};
+
+context.Students.Update(student);
+
+context.SaveChanges();
+
+
+🎯 What Happens
+👉 EF marks ALL properties as Modified
+UPDATE Students
+SET FirstName = ...,
+    PhoneNumber = ...,
+    ...
+WHERE StudentId = 1
+
+⚠️ Very Important Warning
+👉 Missing fields in DTO may overwrite existing DB values
+
+//📖 Real API Example
+
+[HttpPut("{id}")]
+public IActionResult UpdateStudent(int id, UpdateStudentDto dto)
+{
+    var student = context.Students
+        .FirstOrDefault(s => s.StudentId == id);
+
+    if (student == null)
+        return NotFound();
+
+    student.FirstName = dto.FirstName;
+    student.PhoneNumber = dto.PhoneNumber;
+
+    context.SaveChanges();
+
+    return NoContent();
+}

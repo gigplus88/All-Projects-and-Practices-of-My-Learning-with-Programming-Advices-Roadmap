@@ -1,0 +1,128 @@
+/*
+========================================================
+Code Overview
+--------------------------------------------------------
+Purpose:
+- Demonstrate Include()
+- Demonstrate ThenInclude()
+- Load related data from TrainingCenterDB
+- Preview SQL using ToQueryString()
+- Enable runtime logging
+
+Key Points:
+- Include() loads first-level related data
+- ThenInclude() loads deeper related data
+- ToQueryString previews query shape
+- Runtime logging shows actual executed SQL
+========================================================
+*/
+
+using ConsoleApp1.Data;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
+using ConsoleApp1.Data;
+
+// Configuration setup
+IConfiguration configuration = new ConfigurationBuilder()
+    .SetBasePath(Directory.GetCurrentDirectory())
+    .AddJsonFile("appsettings.json", optional: false)
+    .Build();
+
+// Read connection string
+string? connectionString =
+    configuration.GetConnectionString("DefaultConnection");
+
+// Validate values
+if (string.IsNullOrWhiteSpace(connectionString))
+{
+    Console.WriteLine("Connection string not found.");
+    return;
+}
+
+// Create options with logging
+var options =
+    new DbContextOptionsBuilder<AppDbContext>()
+        .UseSqlServer(connectionString)
+        .LogTo(Console.WriteLine, LogLevel.Information)
+        .EnableSensitiveDataLogging()
+        .Options;
+
+// Create context
+using var context = new AppDbContext(options);
+
+Console.WriteLine("Connected successfully.");
+Console.WriteLine();
+
+// Call main method
+ShowStudentsWithEnrollmentsAndCourses(context);
+
+//👉 Include() loads Student → Enrollments
+//👉 ThenInclude() continues the path to Enrollments → Course
+
+
+/// <summary>
+/// Loads students with their enrollments and related courses.
+/// </summary>
+static void ShowStudentsWithEnrollmentsAndCourses(AppDbContext context)
+{
+    // Build query first
+    var query2 = context.Students
+        .Include(s => s.Enrollments)
+            .ThenInclude(e => e.Course)
+        .OrderBy(s => s.StudentId);
+
+    var query = context.Students
+    .Select(s => new { 
+            s.FirstName ,
+            s.LastName , 
+            Courses = s.Enrollments.Select( e => new { e.Course.Title , e.Course.Level })
+    }  ) ;
+
+    var data =
+    context.Students
+        .Select(s => new
+        {
+            s.FirstName,
+            Courses =
+                s.Enrollments
+                 .Select(e => e.Course.Title)
+        });
+
+    // Preview SQL before execution
+    PreviewSQLUsingToQueryString(query.ToQueryString());
+
+
+    // Execute query
+    var students = query.ToList();
+
+    Console.WriteLine("\nStudents With Enrollments and Courses:");
+    Console.WriteLine("--------------------------------------");
+
+    foreach (var student in students)
+    {
+        Console.WriteLine($"{student.FirstName} {student.LastName}");
+
+        foreach (var enrollment in student.Courses)
+        {
+            Console.WriteLine(
+                $"   Course Title: {enrollment.Title}, " +
+                $"Course Level: {enrollment.Level}" 
+               );
+        }
+
+        Console.WriteLine();
+    }
+}
+
+
+/// <summary>
+/// Displays generated SQL before execution.
+/// </summary>
+static void PreviewSQLUsingToQueryString(string SQLString)
+{
+    Console.WriteLine("\nPreview SQL using ToQueryString():");
+    Console.WriteLine("----------------------------------");
+    Console.WriteLine(SQLString);
+    Console.WriteLine();
+}

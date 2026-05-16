@@ -1,0 +1,116 @@
+/*
+========================================================
+Code Overview
+--------------------------------------------------------
+Purpose:
+- Demonstrate AsNoTracking()
+- Show read-only query optimization
+- Use TrainingCenterDB real schema
+
+
+Key Points:
+- Better for lists and reports
+- No change tracking overhead
+- Faster for read-only screens
+========================================================
+*/
+
+
+using ConsoleApp1.Data;
+using ConsoleApp1.Data;
+using ConsoleApp1.Entities;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using System.Data.SqlTypes;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
+using Microsoft.Extensions.Logging;
+
+// Configuration
+IConfiguration configuration = new ConfigurationBuilder()
+    .SetBasePath(Directory.GetCurrentDirectory())
+    .AddJsonFile("appsettings.json", optional: false)
+    .Build();
+
+
+string? connectionString =
+    configuration.GetConnectionString("DefaultConnection");
+
+
+if (string.IsNullOrWhiteSpace(connectionString))
+{
+    Console.WriteLine("Connection string not found.");
+    return;
+}
+
+
+// DbContext
+var options = new DbContextOptionsBuilder<AppDbContext>()
+    .UseSqlServer(connectionString)
+    .LogTo(Console.WriteLine, LogLevel.Information)
+    .EnableSensitiveDataLogging()
+    .Options;
+
+
+using var context = new AppDbContext(options);
+
+
+Console.WriteLine("Connected successfully.");
+Console.WriteLine();
+
+
+ShowStudents(context);
+ShowStudentsWithAutoTracking(context);
+
+static void ShowStudents(AppDbContext context)
+{
+    var query  = context.Students
+        .AsNoTracking()
+        .Where(s => s.Status == "Active")
+        .OrderBy(s => s.StudentId);
+
+
+    var students = query.ToList();
+
+    //PreviewSQLUsingToQueryString(query.ToQueryString());
+
+    Console.WriteLine(
+          $"\nStudents number {students.Count} ");
+    Console.WriteLine(
+       $"\nNumber of trackers  {context.ChangeTracker.Entries().Count()} ");
+
+    foreach (var student in students)
+    {
+        Console.WriteLine(
+            $"{student.StudentId} - {student.FirstName} {student.LastName}");
+    }
+}
+static void ShowStudentsWithAutoTracking(AppDbContext context)
+{
+    var query = context.Students
+        .Where(s => s.Status == "Active")
+        .OrderBy(s => s.StudentId);
+
+   // PreviewSQLUsingToQueryString(query.ToQueryString());
+
+    var students = query.ToList();
+
+    Console.WriteLine(
+           $"\n\nStudents number {students.Count} ");
+        Console.WriteLine(
+           $"\nNumber of trackers  {context.ChangeTracker.Entries().Count()} ");
+
+    foreach (var student in students)
+    {
+        Console.WriteLine(
+            $"{student.StudentId} - {student.FirstName} {student.LastName}");
+    }
+}
+static void PreviewSQLUsingToQueryString(string SQLString)
+{
+    Console.WriteLine("\nPreview SQL using ToQueryString():");
+    Console.WriteLine("----------------------------------");
+    Console.WriteLine(SQLString);
+    Console.WriteLine();
+}
+
+

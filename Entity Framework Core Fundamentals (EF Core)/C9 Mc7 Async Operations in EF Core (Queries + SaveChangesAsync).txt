@@ -1,0 +1,6 @@
+var student = await context.Students
+    .FirstAsync(s => s.StudentId == 1);
+
+student.PhoneNumber = "0799999999";
+
+await context.SaveChangesAsync();

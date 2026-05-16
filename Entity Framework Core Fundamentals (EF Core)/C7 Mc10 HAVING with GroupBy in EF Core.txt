@@ -1,0 +1,110 @@
+/*
+========================================================
+Code Overview
+--------------------------------------------------------
+Purpose:
+- Demonstrate HAVING with GroupBy()
+- Filter grouped results
+- Use TrainingCenterDB real schema
+- Preview SQL before execution
+
+Key Points:
+- GroupBy creates summaries
+- Where after GroupBy becomes HAVING
+- Reports happen in database
+========================================================
+*/
+
+using ConsoleApp1.Data;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
+using ConsoleApp1.Data;
+
+
+// Configuration setup
+IConfiguration configuration = new ConfigurationBuilder()
+    .SetBasePath(Directory.GetCurrentDirectory())
+    .AddJsonFile("appsettings.json", optional: false)
+    .Build();
+
+
+// Read connection string
+string? connectionString =
+    configuration.GetConnectionString("DefaultConnection");
+
+if (string.IsNullOrWhiteSpace(connectionString))
+{
+    Console.WriteLine("Connection string not found.");
+    return;
+}
+
+
+// Create options
+var options =
+    new DbContextOptionsBuilder<AppDbContext>()
+        .UseSqlServer(connectionString)
+        .LogTo(Console.WriteLine, LogLevel.Information)
+        .EnableSensitiveDataLogging()
+        .Options;
+
+
+// Create context
+using var context = new AppDbContext(options);
+
+Console.WriteLine("Connected successfully.");
+Console.WriteLine();
+
+ShowStudentsPerStatusHaving(context);
+
+
+/// <summary>
+/// Shows statuses having more than 2 students.
+/// </summary>
+static void ShowStudentsPerStatusHaving(AppDbContext context)
+{
+    Console.WriteLine("Statuses With More Than 2 Students");
+    Console.WriteLine("----------------------------------");
+
+    // Build query first
+    var query =
+        context.Students
+               .GroupBy(s => s.Status)
+               .Where(g => g.Count() > 2)
+               .Select(g => new
+               {
+                   Status = g.Key,
+                   TotalStudents = g.Count()
+               })
+               .OrderBy(x => x.Status);
+
+    // Preview SQL before execution
+    PreviewSQLUsingToQueryString(
+        query.ToQueryString());
+
+    // Execute query
+    var report = query.ToList();
+
+    Console.WriteLine();
+
+    foreach (var row in report)
+    {
+        Console.WriteLine(
+            $"{row.Status} : {row.TotalStudents}");
+    }
+}
+
+
+/// <summary>
+/// Displays generated SQL before execution.
+/// </summary>
+static void PreviewSQLUsingToQueryString(
+    string SQLString)
+{
+    Console.WriteLine(
+        "\nPreview SQL using ToQueryString():");
+    Console.WriteLine(
+        "----------------------------------");
+    Console.WriteLine(SQLString);
+    Console.WriteLine();
+}
