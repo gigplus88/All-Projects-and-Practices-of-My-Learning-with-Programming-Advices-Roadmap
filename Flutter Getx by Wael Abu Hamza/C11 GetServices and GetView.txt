@@ -1,0 +1,191 @@
+
+
+
+
+
+
+
+// main
+
+import 'package:flutter/material.dart';
+import 'package:flutter_pro/Login.dart';
+import 'package:flutter_pro/admin.dart';
+import 'package:flutter_pro/homepage.dart';
+import 'package:flutter_pro/middleware/auth_middleware.dart';
+import 'package:flutter_pro/middleware/super_middleware.dart';
+import 'package:flutter_pro/services/settings.dart';
+import 'package:flutter_pro/super.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_instance/src/extension_instance.dart';
+
+import 'package:get/get_navigation/get_navigation.dart';
+import 'package:get/get_navigation/src/root/get_material_app.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+SharedPreferences? sharedPreferences;
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  //sharedPreferences = await SharedPreferences.getInstance();
+  await initialServices();
+
+  runApp(MyApp());
+}
+
+Future initialServices() async {
+  print("init services");
+  await Get.putAsync(() => SettingsServices().init());
+}
+
+class MyApp extends StatefulWidget {
+  const MyApp({super.key});
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return GetMaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: HomePage(),
+      initialRoute: '/',
+      //initialBinding: MyBindings(), //Method1
+      getPages: [
+        //Method2 for binding
+        GetPage(
+          name: '/',
+          page: () => const Login(),
+          //middlewares: [AuthMiddleware(), SuperMiddleware()],
+        ),
+        GetPage(name: '/home', page: () => const HomePage()),
+        GetPage(name: '/admin', page: () => const Admin()),
+        GetPage(name: '/super', page: () => const Super()),
+      ],
+    );
+  }
+}
+
+
+
+
+
+
+
+
+
+//HomePage 
+
+
+
+import 'package:flutter/material.dart';
+import 'package:flutter_pro/main.dart';
+import 'package:flutter_pro/services/settings.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_navigation/src/extension_navigation.dart';
+import 'package:get/get_state_manager/src/rx_flutter/rx_getx_widget.dart';
+import 'package:get/get_state_manager/src/simple/get_view.dart';
+
+class HomePage extends GetView<SettingsServices> {
+  const HomePage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text("Home Page")),
+      body: Center(
+        child: Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Center(
+                  child: MaterialButton(
+                    color: Colors.green,
+                    onPressed: () {
+                      controller.increase();
+                    },
+                    child: Text("++"),
+                  ),
+                ),
+                Container(
+                  padding: EdgeInsets.all(20),
+                  child: GetX<SettingsServices>(
+                    builder: (c) => Center(child: Text("${c.counter}")),
+                  ),
+                ),
+
+                SizedBox(width: 10),
+                Center(
+                  child: MaterialButton(
+                    color: Colors.red,
+                    onPressed: () {
+                      controller.decrease();
+                    },
+                    child: Text("--"),
+                  ),
+                ),
+                Center(
+                  child: MaterialButton(
+                    color: Colors.red,
+                    onPressed: () {
+                      controller.sharedPreferences.clear();
+                    },
+                    child: Text("Clear"),
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+
+
+
+
+
+
+
+
+//SettingsServices 
+
+
+
+import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+class SettingsServices extends GetxService {
+  late SharedPreferences sharedPreferences;
+
+  RxInt counter = 0.obs;
+  Future<SettingsServices> init() async {
+    //start services
+    sharedPreferences = await SharedPreferences.getInstance();
+
+    //end services
+    counter.value = sharedPreferences.getInt("counter") ?? 0;
+    return this;
+  }
+
+  increase() {
+    counter.value++;
+    sharedPreferences.setInt("counter", counter.value);
+  }
+
+  decrease() {
+    counter.value--;
+    sharedPreferences.setInt("counter", counter.value);
+  }
+}
+
+

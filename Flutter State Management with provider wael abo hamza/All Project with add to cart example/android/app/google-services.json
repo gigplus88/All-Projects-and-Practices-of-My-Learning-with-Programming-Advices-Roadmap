@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "342813350391",
+    "project_id": "flutter-pro-app-2026",
+    "storage_bucket": "flutter-pro-app-2026.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:342813350391:android:3869bc77ff3df87413b6f2",
+        "android_client_info": {
+          "package_name": "com.example.flutter_pro"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyByqe5Jxh2fLrrmU17IyMSJzBXhLoST4-k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

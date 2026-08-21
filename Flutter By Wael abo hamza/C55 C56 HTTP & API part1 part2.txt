@@ -1,0 +1,89 @@
+import 'dart:convert';
+
+import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+
+class HomePage extends StatefulWidget {
+  const HomePage({super.key});
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  late ScrollController scrollController;
+
+  List<dynamic>? responseObj;
+  bool isLoading = false;
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text("Http Request Example")),
+      body: ListView(
+        padding: const EdgeInsets.all(30),
+        children: [
+          MaterialButton(
+            color: Colors.blue,
+            textColor: Colors.white,
+            onPressed: () async {
+              await getData();
+            },
+            child: const Text("Http Request"),
+          ),
+          const SizedBox(height: 20),
+
+          // معالجة عرض الحالات بشكل صحيح
+          if (isLoading)
+            const Center(child: CircularProgressIndicator())
+          else if (responseObj != null && responseObj!.isNotEmpty)
+            ...List.generate(
+              responseObj!.length,
+              (index) => Card(
+                child: ListTile(
+                  title: Text("Title: ${responseObj![index]['title']}"),
+                  subtitle: Text("Id: ${responseObj![index]['id']}"),
+                ),
+              ),
+            )
+          else
+            const Text("Not yet loaded"),
+        ],
+      ),
+    );
+  }
+
+  Future<void> getData() async {
+    setState(() {
+      isLoading = true;
+    });
+
+    try {
+      var response = await http.get(
+        Uri.parse("https://jsonplaceholder.typicode.com/posts"),
+      );
+
+      if (response.statusCode == 200) {
+        setState(() {
+          responseObj = jsonDecode(response.body);
+          isLoading = false;
+        });
+      }
+    } catch (e) {
+      debugPrint("Error: $e");
+      setState(() {
+        isLoading = false;
+      });
+    }
+  }
+}

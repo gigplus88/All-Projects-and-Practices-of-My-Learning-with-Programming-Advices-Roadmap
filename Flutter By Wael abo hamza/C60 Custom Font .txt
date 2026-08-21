@@ -1,0 +1,76 @@
+
+
+//mani.dart
+
+import 'package:flutter/material.dart';
+import 'package:flutter_pro/homepage.dart';
+import 'package:flutter_pro/pageone.dart';
+import 'package:flutter_pro/pagetwo.dart';
+
+void main() {
+  runApp(MyApp());
+}
+
+class MyApp extends StatefulWidget {
+  const MyApp({super.key});
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      theme: ThemeData(
+        fontFamily: "Lumanosimo",
+      ),
+      home: HomePage(),
+      routes: {
+        '/home': (context) => const HomePage(),
+        '/pageone': (context) => const PageOne(),
+        '/pagetwo': (context) => const PageTwo(),
+      },
+    );
+  }
+}
+  
+
+
+
+
+
+//homepage.dart
+import 'package:flutter/material.dart';
+
+class HomePage extends StatefulWidget {
+  const HomePage({super.key});
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  String? name;
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text("Http Request Example")),
+      body: ListView(
+        padding: const EdgeInsets.all(16.0),
+        children: [
+          Text(
+            "Hello , Are you fine",
+            style: TextStyle(fontSize: 24, fontFamily: "Lumanosimo"),
+          ),
+        ],
+      ),
+    );
+  }
+}

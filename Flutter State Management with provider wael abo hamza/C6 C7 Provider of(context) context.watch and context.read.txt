@@ -1,0 +1,82 @@
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+class Test extends StatefulWidget {
+  const Test({super.key});
+
+  @override
+  State<Test> createState() => _TestState();
+}
+
+class _TestState extends State<Test> {
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return ChangeNotifierProvider(
+      create: (context) => Model(),
+      child: Scaffold(
+        appBar: AppBar(title: const Text("Add Category")),
+        body: WidgetChild(),
+      ),
+    );
+  }
+}
+
+class WidgetChild extends StatelessWidget {
+  const WidgetChild({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    var model = Provider.of<Model>(context, listen: true);
+
+    return Container(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Center(
+            // watch to listen and  read
+            //read to read data from model
+            //"${context.watch<Model>().name2}",
+            //"${context.read<Model>().name2}",
+            child: Text(
+              "${context.watch<Model>().name2}",
+              style: const TextStyle(fontSize: 24),
+            ),
+          ),
+          const SizedBox(height: 10),
+
+          MaterialButton(
+            color: Colors.blue,
+            onPressed: () {
+              // model.changeName2();
+              context.read<Model>().changeName2();
+            },
+            child: Text("Do Somethings"),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class Model extends ChangeNotifier {
+  String name1 = "Welcome";
+  String name2 = "Welcome2";
+
+  get showone => name1;
+  get showtwo => name2;
+
+  void changeName() {
+    name1 = "Ayoub";
+    notifyListeners();
+  }
+
+  void changeName2() {
+    name2 = "Ayoub2";
+    notifyListeners();
+  }
+}

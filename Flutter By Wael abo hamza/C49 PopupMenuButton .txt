@@ -1,0 +1,67 @@
+import 'package:flutter/material.dart';
+
+class HomePage extends StatelessWidget {
+  const HomePage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("List generate"),
+        actions: [
+          PopupMenuButton(
+            icon: Icon(Icons.access_alarm, color: Colors.black),
+            iconSize: 50,
+            //color: Colors.amber,
+            onSelected: (val) {
+              print(val);
+            },
+            onOpened: () {
+              print("popupMenuButton openend");
+            },
+            onCanceled: () {
+              print("popupMenuButton cancelled");
+            },
+            itemBuilder: (context) => [
+              PopupMenuItem(
+                child: Text("one"),
+                value: "value of one",
+                onTap: () {
+                  print("I am one");
+                },
+              ),
+              PopupMenuItem(child: Text("two"), 
+              value: "value of two" , 
+               onTap: () {
+                  print("I am two");
+                },
+                ),
+              PopupMenuItem(child: Text("three"), 
+              value: "value of three" ,
+               onTap: () {
+                  print("I am three");
+                },),
+            ],
+          ),
+        ],
+      ),
+      body: ListView(
+        padding: const EdgeInsets.all(30),
+        children: [
+          MaterialButton(
+            onPressed: () {
+              Navigator.pushNamed(context, "/pageone");
+            },
+            child: Text("Go to page one"),
+          ),
+          MaterialButton(
+            onPressed: () {
+              Navigator.pushNamed(context, "/pagetwo");
+            },
+            child: Text("Go to page two"),
+          ),
+        ],
+      ),
+    );
+  }
+}

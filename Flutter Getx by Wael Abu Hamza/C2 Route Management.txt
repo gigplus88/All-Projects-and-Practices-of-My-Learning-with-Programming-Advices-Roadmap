@@ -1,0 +1,363 @@
+//main
+
+import 'package:flutter/material.dart';
+import 'package:flutter_pro/PageOne.dart';
+import 'package:flutter_pro/PageThree.dart';
+import 'package:flutter_pro/PageTwo.dart';
+import 'package:flutter_pro/homepage.dart';
+import 'package:get/get_navigation/get_navigation.dart';
+import 'package:get/get_navigation/src/root/get_material_app.dart';
+import 'package:provider/provider.dart';
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  //await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  runApp(MyApp());
+}
+
+class MyApp extends StatefulWidget {
+  const MyApp({super.key});
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return GetMaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: HomePage(),
+      initialRoute: '/',
+      getPages: [
+        GetPage(name: '/', page: () => const HomePage()),
+        GetPage(name: '/pageOne', page: () => const PageOne()),
+        GetPage(name: '/pageTwo', page: () => const PageTwo()),
+        GetPage(name: '/pageThree', page: () => const PageThree()),
+      ],
+    );
+  }
+}
+
+
+
+
+
+
+//HomePage
+
+
+import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_pro/PageOne.dart';
+import 'package:flutter_pro/PageThree.dart';
+import 'package:flutter_pro/PageTwo.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_navigation/src/extension_navigation.dart';
+
+class HomePage extends StatefulWidget {
+  const HomePage({super.key});
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text("Home Page")),
+      body: Container(
+        padding: EdgeInsets.symmetric(horizontal: 10),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Center(
+              child: MaterialButton(
+                color: Colors.red,
+                textColor: Colors.white,
+                onPressed: () {
+                  //push
+                  Get.to(PageOne());
+                },
+                child: Text("Page one with (to) "),
+              ),
+            ),
+            SizedBox(height: 10),
+
+            Center(
+              child: MaterialButton(
+                color: Colors.red,
+                textColor: Colors.white,
+                onPressed: () {
+                  //pushReplacement
+                  Get.off(PageTwo());
+                },
+                child: Text("Page two with (off)"),
+              ),
+            ),
+            SizedBox(height: 10),
+            Center(
+              child: MaterialButton(
+                color: Colors.red,
+                textColor: Colors.white,
+                onPressed: () {
+                  //pushAndRemoveUntil
+                  Get.offAll(PageThree());
+
+                  //Get.toNamed("pageThree");
+                  //Get.offNamed("pageThree");
+                },
+                child: Text("Page three with (off all)"),
+              ),
+            ),
+            SizedBox(height: 10),
+
+            Center(
+              child: MaterialButton(
+                color: Colors.red,
+                textColor: Colors.white,
+                onPressed: () {
+                  //if this is the final page don t pop;
+                  // Navigator.maybePop(context);
+
+                  // pop from the app
+                  //Navigator.pop(context);
+
+                  //For pop if we can
+                  Get.back();
+                },
+                child: Text("Pop (maybepop)"),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+
+
+
+
+//pageOne
+
+import 'package:flutter/material.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_navigation/src/extension_navigation.dart';
+
+class PageOne extends StatefulWidget {
+  const PageOne({super.key});
+
+  @override
+  State<PageOne> createState() => _PageOneState();
+}
+
+class _PageOneState extends State<PageOne> {
+  int _counter = 0;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("الصفحة الأولى"),
+        backgroundColor: Colors.blue,
+        foregroundColor: Colors.white,
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Text(
+              "مرحباً بك في الصفحة الأولى",
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 20),
+            Text("العداد: $_counter", style: const TextStyle(fontSize: 18)),
+            const SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: () {
+                setState(() {
+                  _counter++;
+                });
+              },
+              child: const Text("زيادة العداد"),
+            ),
+            const SizedBox(height: 10),
+            // الانتقال للصفحة الثانية باستخدام GetX Routing
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(backgroundColor: Colors.blue, foregroundColor: Colors.white),
+              onPressed: () {
+                Get.toNamed('/two');
+                // أو يمكنك الانتقال مباشرة هكذا بدون مسارات مسمى:
+                // Get.to(() => const PageTwo());
+              },
+              child: const Text("الانتقال إلى الصفحة الثانية"),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+
+
+
+
+
+
+//pageTwo
+
+
+
+import 'package:flutter/material.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_navigation/src/extension_navigation.dart';
+
+class PageTwo extends StatefulWidget {
+  const PageTwo({super.key});
+
+  @override
+  State<PageTwo> createState() => _PageTwoState();
+}
+
+class _PageTwoState extends State<PageTwo> {
+  String _message = "جاهز للانتقال";
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("الصفحة الثانية"),
+        backgroundColor: Colors.green,
+        foregroundColor: Colors.white,
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              _message,
+              style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: () {
+                setState(() {
+                  _message = "تم التفاعل في الصفحة الثانية!";
+                });
+              },
+              child: const Text("تغيير النص"),
+            ),
+            const SizedBox(height: 10),
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.green,
+                foregroundColor: Colors.white,
+              ),
+              onPressed: () {
+                Get.toNamed('/three');
+              },
+              child: const Text("الانتقال إلى الصفحة الثالثة"),
+            ),
+            const SizedBox(height: 10),
+            // العودة للخلف باستخدام GetX
+            OutlinedButton(
+              onPressed: () {
+                Get.back();
+              },
+              child: const Text("رجوع للخلف"),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+
+
+
+
+
+
+//pageThree
+
+
+
+import 'package:flutter/material.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_navigation/src/extension_navigation.dart';
+
+class PageThree extends StatefulWidget {
+  const PageThree({super.key});
+
+  @override
+  State<PageThree> createState() => _PageThreeState();
+}
+
+class _PageThreeState extends State<PageThree> {
+  bool _isActive = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("الصفحة الثالثة"),
+        backgroundColor: Colors.orange,
+        foregroundColor: Colors.white,
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Text(
+              "الصفحة الثالثة والاخيرة",
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 20),
+            Switch(
+              value: _isActive,
+              onChanged: (value) {
+                setState(() {
+                  _isActive = value;
+                });
+              },
+            ),
+            const SizedBox(height: 20),
+            // العودة للصفحة الأولى ومسح كل الـ Stack باستخدام GetX
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.red,
+                foregroundColor: Colors.white,
+              ),
+              onPressed: () {
+                Get.offAllNamed(
+                  '/',
+                ); // يعيد التوجيه للبداية ويزيل الصفحات السابقة من الذاكرة
+              },
+              child: const Text("العودة للبداية (مسح الـ Stack)"),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}

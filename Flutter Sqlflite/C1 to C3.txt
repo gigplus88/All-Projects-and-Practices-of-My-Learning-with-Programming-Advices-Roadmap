@@ -1,0 +1,172 @@
+
+//to change Tables in DB (2 methods) => 1- Upgrade function wo write query to build it , then we change onCreate version to new version.
+
+				     => 2- Delete Db and create new , with new query
+
+//sqlDb.dart
+
+
+import 'package:sqflite/sqflite.dart';
+import 'package:path/path.dart';
+
+class SqlDb {
+  static Database? _db;
+
+  Future<Database?> get db async {
+    /* if (_db == null) {
+      _db = await initialDb();   
+       return _db;
+    }*/
+    return _db == null ? _db = await initialDb() : _db;
+  }
+
+  initialDb() async {
+    String databasepath = await getDatabasesPath();
+    String path = join(databasepath, 'note.db');
+    Database myDb = await openDatabase(
+      path,
+      onCreate: _onCreate,
+      version: 2,
+      onUpgrade: _onUpgrade,
+    );
+
+    return myDb;
+  }
+
+  _onUpgrade(Database db, int oldVersion, int newVersion) {
+    print("onUpgrade==============================");
+  }
+
+  _onCreate(Database db, int Version) async {
+    await db.execute('''
+    CREATE TABLE notes (
+    'id' INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, 
+    'note' TEXT NOT NULL
+     )
+''');
+    print("Creat DB and notes Table==============================");
+  }
+
+  // --- SELECT  ---
+  Future<List<Map>> readData(String sql) async {
+    Database? mydb = await db;
+    List<Map> response = await mydb!.rawQuery(sql);
+    return response;
+  }
+
+  // --- INSERT ---
+  Future<int> insertData(String sql) async {
+    Database? mydb = await db;
+    int response = await mydb!.rawInsert(sql);
+    return response;
+  }
+
+  // --- UPDATE ---
+  Future<int> updateData(String sql) async {
+    Database? mydb = await db;
+    int response = await mydb!.rawUpdate(sql);
+    return response;
+  }
+
+  // --- DELETE  ---
+  Future<int> deleteData(String sql) async {
+    Database? mydb = await db;
+    int response = await mydb!.rawDelete(sql);
+    return response;
+  }
+}
+
+
+
+
+
+//homepage
+
+import 'package:flutter/material.dart';
+import 'package:flutter_pro/main.dart';
+import 'package:flutter_pro/services/settings.dart';
+import 'package:flutter_pro/sqldb.dart';
+import 'package:get/get.dart';
+
+class HomePage extends StatefulWidget {
+  const HomePage({super.key});
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  final SettingsServices settingsServices = Get.find();
+  SqlDb sqlDb = SqlDb();
+  //String? myTheme;
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text("homepage".tr)),
+      body: Container(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Center(
+              child: MaterialButton(
+                color: Colors.blue,
+                onPressed: () async {
+                  List<Map> response = await sqlDb.readData(
+                    "Select * from 'notes'",
+                  );
+                  print(response);
+                },
+                child: const Text("Read Data"),
+              ),
+            ),
+            const SizedBox(height: 20),
+            Center(
+              child: MaterialButton(
+                color: Colors.blue,
+                onPressed: () async {
+                  int response = await sqlDb.insertData(
+                    "INSERT INTO 'notes' (note) VALUES (' note two')",
+                  );
+                  print(response);
+                },
+                child: const Text("Insert Data"),
+              ),
+            ),
+            const SizedBox(height: 20),
+            Center(
+              child: MaterialButton(
+                color: Colors.blue,
+                onPressed: () async {
+                  int response = await sqlDb.insertData(
+                    "DELETE FROM 'notes' Where id = 2",
+                  );
+                  print(response);
+                },
+                child: const Text("Delete note"),
+              ),
+            ),
+            const SizedBox(height: 20),
+            Center(
+              child: MaterialButton(
+                color: Colors.blue,
+                onPressed: () async {
+                  int response = await sqlDb.insertData(
+                    "UPDATE 'notes' SET 'note'= 'this is your note' Where id = 3",
+                  );
+                  print(response);
+                },
+                child: const Text("Update note"),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}

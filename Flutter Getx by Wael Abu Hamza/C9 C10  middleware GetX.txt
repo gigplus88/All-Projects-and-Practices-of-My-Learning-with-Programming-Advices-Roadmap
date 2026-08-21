@@ -1,0 +1,325 @@
+//middlewares
+
+
+
+import 'package:flutter/src/widgets/navigator.dart';
+import 'package:get/get_navigation/src/routes/route_middleware.dart';
+
+class SuperMiddleware extends GetMiddleware {
+  @override
+  int? get priority => 1;
+  bool myVar = true;
+
+  @override
+  RouteSettings? redirect(String? route) {
+    if (myVar == true) {
+      return RouteSettings(name: "/super");
+    }
+
+    return super.redirect(route);
+  }
+}
+
+
+import 'package:flutter/src/widgets/navigator.dart';
+import 'package:flutter_pro/main.dart';
+import 'package:get/get_navigation/src/routes/route_middleware.dart';
+
+class AuthMiddleware extends GetMiddleware {
+
+  @override
+    int? get priority => 2;
+  
+
+  @override
+  RouteSettings? redirect(String? route) {
+    if (sharedPreferences!.getString("role") == "user") {
+      return RouteSettings(name: "/home");
+    }
+    if (sharedPreferences!.getString("role") == "admin") {
+      return RouteSettings(name: "/admin");
+    }
+    return super.redirect(route);
+  }
+}
+
+
+
+
+
+
+
+
+//Admin  page
+
+import 'package:flutter/material.dart';
+import 'package:flutter_pro/main.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_navigation/src/extension_navigation.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+class Admin extends StatefulWidget {
+  const Admin({super.key});
+
+  @override
+  State<Admin> createState() => _AdminState();
+}
+
+class _AdminState extends State<Admin> {
+  int counter = 0;
+  //final controller = Get.lazyPut(() => HomeController());
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text("Admin Page")),
+      body: Center(
+        child: Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                  padding: EdgeInsets.all(20),
+                  child: MaterialButton(
+                    color: Colors.red,
+                    onPressed: () async {
+                      sharedPreferences!.clear();
+
+                      Get.offAllNamed('/');
+                    },
+                    child: Text("Sign Out"),
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+
+
+
+
+
+//HomePage 
+
+
+import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_pro/ScreenOne.dart';
+import 'package:flutter_pro/ScreenTwo.dart';
+import 'package:flutter_pro/controller/HomeController.dart';
+import 'package:flutter_pro/main.dart';
+import 'package:flutter_pro/utils/myBindings.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_instance/src/extension_instance.dart';
+import 'package:get/get_navigation/src/extension_navigation.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+class HomePage extends StatefulWidget {
+  const HomePage({super.key});
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  int counter = 0;
+  //final controller = Get.lazyPut(() => HomeController());
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text("Home Page")),
+      body: Center(
+        child: Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                  padding: EdgeInsets.all(20),
+                  child: MaterialButton(
+                    color: Colors.red,
+                    onPressed: () async {
+                      sharedPreferences!.clear();
+
+                      Get.offAllNamed('/');
+                    },
+                    child: Text("Sign Out"),
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+
+
+
+
+
+//Login
+
+
+
+import 'package:flutter/material.dart';
+import 'package:flutter_pro/ScreenOne.dart';
+import 'package:flutter_pro/ScreenTwo.dart';
+import 'package:flutter_pro/main.dart';
+import 'package:flutter_pro/utils/myBindings.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_navigation/src/extension_navigation.dart';
+
+class Login extends StatefulWidget {
+  const Login({super.key});
+
+  @override
+  State<Login> createState() => _LoginState();
+}
+
+class _LoginState extends State<Login> {
+  //final controller = Get.lazyPut(() => HomeController());
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text("Login Page")),
+      body: Center(
+        child: Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                  padding: EdgeInsets.all(20),
+                  child: MaterialButton(
+                    onPressed: () {
+                      sharedPreferences!.setString("role", "user");
+                      Get.offNamed("/home");
+                    },
+                    child: Text("Login user"),
+                  ),
+                ),
+
+                Container(
+                  padding: EdgeInsets.all(20),
+                  child: MaterialButton(
+                    onPressed: () {
+                      sharedPreferences!.setString("role", "admin");
+                      Get.offNamed("/admin");
+                    },
+                    child: Text("Login Admin"),
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+
+
+
+
+
+
+
+//main
+
+import 'package:flutter/material.dart';
+import 'package:flutter_pro/Login.dart';
+import 'package:flutter_pro/admin.dart';
+import 'package:flutter_pro/homepage.dart';
+import 'package:flutter_pro/middleware/auth_middleware.dart';
+import 'package:flutter_pro/middleware/super_middleware.dart';
+import 'package:flutter_pro/super.dart';
+
+import 'package:get/get_navigation/get_navigation.dart';
+import 'package:get/get_navigation/src/root/get_material_app.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+SharedPreferences? sharedPreferences;
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  //await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  sharedPreferences = await SharedPreferences.getInstance();
+  runApp(MyApp());
+}
+
+class MyApp extends StatefulWidget {
+  const MyApp({super.key});
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return GetMaterialApp(
+      debugShowCheckedModeBanner: false,
+      //home: Login(),
+      initialRoute: '/',
+      //initialBinding: MyBindings(), //Method1
+      getPages: [
+        //Method2 for binding
+        GetPage(
+          name: '/',
+          page: () => const Login(),
+          middlewares: [AuthMiddleware(), SuperMiddleware()],
+        ),
+        GetPage(name: '/home', page: () => const HomePage()),
+        GetPage(name: '/admin', page: () => const Admin()),
+        GetPage(name: '/super', page: () => const Super()),
+      ],
+    );
+  }
+}

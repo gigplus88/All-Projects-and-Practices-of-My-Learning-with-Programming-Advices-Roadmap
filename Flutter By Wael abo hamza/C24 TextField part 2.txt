@@ -1,0 +1,60 @@
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(MyApp());
+}
+
+class MyApp extends StatefulWidget {
+  const MyApp({super.key});
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  bool? status = true;
+  
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: Scaffold(
+        appBar: AppBar(title: const Text("Ayoub fellah")),
+        body: Container(
+          padding: EdgeInsets.all(10),
+          color: Colors.blue[50],
+
+          child: Column(
+           
+            children: [
+             TextField( 
+             /* enabled: status,
+              decoration: InputDecoration(
+                border: OutlineInputBorder(),
+                focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.red , width: 3 ),
+                  borderRadius: BorderRadius.circular(10)
+                ),
+                enabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color : Colors.green , width: 2),
+                ),
+                disabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.black , width:2)
+                )
+              ),*/
+
+
+              //maxLength: 10,
+              keyboardType: TextInputType.phone,
+              //minLines: 2,
+              //maxLines: 4,// max of line appear in the screen
+
+              
+             )
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}

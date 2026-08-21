@@ -1,0 +1,73 @@
+import 'dart:convert';
+import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+
+class HomePage extends StatefulWidget {
+  const HomePage({super.key});
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  late Future<List<dynamic>> _postsFuture;
+
+  @override
+  void initState() {
+    super.initState();
+    _postsFuture = getData();
+  }
+
+  Future<List<dynamic>> getData() async {
+    final response;
+    try {
+       response = await http.get(
+        Uri.parse("https://jsonplaceholder.typicode.com/posts"),
+      );
+
+      if (response.statusCode == 200) {
+        return jsonDecode(response.body) as List<dynamic>;
+      }
+    } catch (e) {
+      throw Exception("Failed to load posts");
+    }
+    return jsonDecode(response.body) as List<dynamic>;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text("Http Request Example")),
+      body: FutureBuilder<List<dynamic>>(
+        future: _postsFuture,
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(child: CircularProgressIndicator());
+          }
+          if (snapshot.connectionState == ConnectionState.done) {
+             if (snapshot.hasError) {
+            return Center(child: Text("Error: ${snapshot.error}"));
+          }
+
+          if (snapshot.hasData && snapshot.data!.isNotEmpty) {
+            final posts = snapshot.data!;
+            return ListView.builder(
+              itemCount: posts.length,
+              itemBuilder: (context, i) {
+                return ListTile(
+                  title: Text("Title: ${posts[i]['title']}"),
+                  subtitle: Text("Body: ${posts[i]['body']}"),
+                  leading: Text("Id: ${posts[i]['id']}"),
+                );
+              },
+            );
+          }
+          }
+      
+
+          return const Center(child: Text("No data found"));
+        },
+      ),
+    );
+  }
+}

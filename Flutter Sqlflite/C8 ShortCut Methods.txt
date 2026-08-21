@@ -1,0 +1,637 @@
+// sqlDb
+
+
+
+
+import 'package:sqflite/sqflite.dart';
+import 'package:path/path.dart';
+
+class SqlDb {
+  static Database? _db;
+
+  Future<Database?> get db async {
+    /* if (_db == null) {
+      _db = await initialDb();   
+       return _db;
+    }*/
+    return _db == null ? _db = await initialDb() : _db;
+  }
+
+  initialDb() async {
+    String databasepath = await getDatabasesPath();
+    String path = join(databasepath, 'note.db');
+    Database myDb = await openDatabase(
+      path,
+      onCreate: _onCreate,
+      version: 3,
+      onUpgrade: _onUpgrade,
+    );
+
+    return myDb;
+  }
+
+  _onUpgrade(Database db, int oldVersion, int newVersion) async {
+    await db.execute("ALTER TABLE notes ADD COLUMN color TEXT");
+    print("onUpgrade==============================");
+  }
+
+  _onCreate(Database db, int Version) async {
+    Batch batch = db.batch();
+
+    /*batch.execute('''
+    CREATE TABLE notes (
+    'id' INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, 
+    'title' TEXT NOT NULL,
+    'note' TEXT NOT NULL
+     )
+''');
+    batch.execute('''
+    CREATE TABLE students (
+    'id' INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, 
+    'title' TEXT NOT NULL,
+    'note' TEXT NOT NULL
+     )
+''');
+    batch.execute('''
+    CREATE TABLE orders (
+    'id' INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, 
+    'title' TEXT NOT NULL,
+    'note' TEXT NOT NULL
+     )
+''');
+
+    await batch.commit();
+*/
+      await db.execute('''
+    CREATE TABLE notes (
+    'id' INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, 
+    'title' TEXT NOT NULL,
+    'note' TEXT NOT NULL
+     )
+''');  
+    print("Creat DB and notes Table==============================");
+  }
+
+  // --- SELECT  ---
+  Future<List<Map>> readData(String sql) async {
+    Database? mydb = await db;
+    List<Map> response = await mydb!.rawQuery(sql);
+    return response;
+  }
+
+  // --- INSERT ---
+  Future<int> insertData(String sql) async {
+    Database? mydb = await db;
+    int response = await mydb!.rawInsert(sql);
+    return response;
+  }
+
+  // --- UPDATE ---
+  Future<int> updateData(String sql) async {
+    Database? mydb = await db;
+    int response = await mydb!.rawUpdate(sql);
+    return response;
+  }
+
+  // --- DELETE  ---
+  Future<int> deleteData(String sql) async {
+    Database? mydb = await db;
+    int response = await mydb!.rawDelete(sql);
+    return response;
+  }
+
+
+
+
+
+  /* Shortcuts method SQFLITE */
+
+ // --- SELECT  ---
+  Future<List<Map>> read(String table) async {
+    Database? mydb = await db;
+    List<Map> response = await mydb!.query(table);
+    return response;
+  }
+
+  // --- INSERT ---
+  Future<int> insert(String table ,Map<String, Object?> values) async {
+    Database? mydb = await db;
+    int response = await mydb!.insert(table , values);
+    return response;
+  }
+
+  // --- UPDATE ---
+  Future<int> update(String table , Map<String, Object?> values ,String? myWhere) async {
+    Database? mydb = await db;
+    int response = await mydb!.update(table , values, where:myWhere );
+    return response;
+  }
+
+  // --- DELETE  ---
+  Future<int> delete(String table,String? myWhere) async {
+    Database? mydb = await db;
+    int response = await mydb!.delete(table , where: myWhere);
+    return response;
+  }
+
+
+
+
+
+
+
+
+
+  DeleteDb() async {
+    String databasepath = await getDatabasesPath();
+    String path = join(databasepath, 'note.db');
+    await deleteDatabase(path);
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+// Home page
+
+
+import 'package:flutter/material.dart';
+import 'package:flutter_pro/editNote.dart';
+import 'package:flutter_pro/main.dart';
+import 'package:flutter_pro/services/settings.dart';
+import 'package:flutter_pro/sqldb.dart';
+import 'package:get/get.dart';
+
+class HomePage extends StatefulWidget {
+  const HomePage({super.key});
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  final SettingsServices settingsServices = Get.find();
+  SqlDb sqlDb = SqlDb();
+  List<Map> notes = [];
+  bool isLoading = false;
+
+  Future<List<Map>> readData() async {
+    //List<Map> response = await sqlDb.readData("SELECT * FROM  notes");
+
+    //shortcut
+    List<Map> response = await sqlDb.read("notes");
+    print(response);
+    notes.addAll(response);
+    isLoading = false;
+    if (this.mounted) {
+      setState(() {});
+    }
+    ;
+    return response;
+  }
+
+  @override
+  void initState() {
+    readData();
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text("homepage".tr)),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Get.toNamed("addNote");
+        },
+        child: Icon(Icons.add),
+      ),
+      body: isLoading == true
+          ? Center(child: CircularProgressIndicator())
+          : Container(
+              child: ListView(
+                children: [
+                  MaterialButton(
+                    color: Colors.blue,
+                    onPressed: () async {
+                      await sqlDb.DeleteDb();
+                      print("is deleted");
+                    },
+                    child: const Text("Delete DB "),
+                  ),
+
+                  ListView.builder(
+                    itemCount: notes.length,
+                    physics: NeverScrollableScrollPhysics(),
+                    shrinkWrap: true,
+                    itemBuilder: (context, i) {
+                      return Card(
+                        child: ListTile(
+                          title: Text("${notes[i]['title']}"),
+                          subtitle: Text("${notes[i]['note']}"),
+                          leading: Text("${notes[i]['color']}"),
+                          trailing: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              IconButton(
+                                icon: const Icon(
+                                  Icons.delete,
+                                  color: Colors.red,
+                                ),
+                                onPressed: () async {
+                                  var noteId = notes[i]['id'];
+
+                                  /*int response = await sqlDb.deleteData('''
+                                            DELETE FROM notes WHERE id = $noteId
+                                          ''');*/
+
+                                  //Shortcut
+                                  int response = await sqlDb.delete(
+                                    "notes",
+                                    "id = '$noteId'",
+                                  );
+                                  notes.removeWhere(
+                                    (element) => element['id'] == noteId,
+                                  );
+                                  setState(() {});
+                                  print("Deleted rows: $response");
+
+                                  if (response > 0) {
+                                    if (!mounted) return;
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      const SnackBar(
+                                        content: Text(
+                                          'Note Deleted Successfully',
+                                        ),
+                                      ),
+                                    );
+
+                                    setState(() {});
+                                  }
+                                },
+                              ),
+                              SizedBox(width: 10),
+                              IconButton(
+                                icon: const Icon(
+                                  Icons.edit,
+                                  color: Colors.blue,
+                                ),
+                                onPressed: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => EditNote(
+                                        id: notes[i]['id'],
+                                        note: notes[i]['note'],
+                                        title: notes[i]['title'],
+                                        color: notes[i]['color'],
+                                      ),
+                                    ),
+                                  );
+                                },
+                              ),
+                            ],
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+
+                  // return Center(child: CircularProgressIndicator());
+                ],
+              ),
+            ),
+    );
+  }
+}
+
+
+
+
+
+//Add page
+
+
+import 'package:flutter/material.dart';
+import 'package:flutter_pro/sqldb.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/route_manager.dart'; // تأكد أن المسار صحيح لمجلد مشروعك
+
+class AddNote extends StatefulWidget {
+  const AddNote({super.key});
+
+  @override
+  State<AddNote> createState() => _AddNoteState();
+}
+
+class _AddNoteState extends State<AddNote> {
+  SqlDb sqlDb = SqlDb();
+
+  final TextEditingController noteController = TextEditingController();
+  final TextEditingController title = TextEditingController();
+  final TextEditingController color = TextEditingController();
+
+  GlobalKey<FormState> formState = GlobalKey();
+  bool isLoading = false;
+
+  @override
+  void dispose() {
+    noteController.dispose();
+    super.dispose();
+  }
+
+  Future<void> addNoteToDatabase() async {
+    String noteText = noteController.text.trim();
+    String noteTitleTxt = title.text.trim();
+    String noteColorTxt = color.text.trim();
+
+    if (noteText.isEmpty) {
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(const SnackBar(content: Text('Please Add your note !')));
+      return;
+    }
+
+    setState(() {
+      isLoading = true;
+    });
+
+    try {
+      /*int response = await sqlDb.insertData('''
+        INSERT INTO notes (note , title , color) 
+        VALUES ('$noteText' ,'$noteTitleTxt' , '$noteColorTxt')
+        
+        ''');*/
+
+        //shortcut
+      int response = await sqlDb.insert(
+        "notes",{
+          "note":'$noteText',
+          "title":'$noteTitleTxt',
+          "color":'$noteColorTxt'
+        }
+       );
+
+      print("Response ID: $response");
+
+      if (response > 0) {
+        if (!mounted) return;
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Note Added Successfully ')),
+        );
+
+        Get.offNamed("/homepage");
+      }
+    } catch (e) {
+      print("Error: $e");
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(const SnackBar(content: Text('Error to Add this Note ')));
+    } finally {
+      if (mounted) {
+        setState(() {
+          isLoading = false;
+        });
+      }
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text('Add Note')),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Form(
+          key: formState,
+          child: Column(
+            children: [
+              //Title
+              TextField(
+                controller: title,
+                //maxLines: 4,
+                decoration: const InputDecoration(
+                  hintText: 'Enter your Title here...',
+                  border: OutlineInputBorder(),
+                ),
+              ),
+              const SizedBox(height: 20),
+              TextField(
+                controller: noteController,
+                maxLines: 4,
+                decoration: const InputDecoration(
+                  hintText: 'Enter your Note here...',
+                  border: OutlineInputBorder(),
+                ),
+              ),
+              const SizedBox(height: 20),
+              TextField(
+                controller: color,
+                //maxLines: 4,
+                decoration: const InputDecoration(
+                  hintText: 'Enter your color here...',
+                  border: OutlineInputBorder(),
+                ),
+              ),
+              const SizedBox(height: 20),
+
+              SizedBox(
+                width: double.infinity,
+                height: 50,
+                child: ElevatedButton(
+                  onPressed: isLoading ? null : addNoteToDatabase,
+                  child: isLoading
+                      ? const CircularProgressIndicator(color: Colors.white)
+                      : const Text(
+                          'Save Note ',
+                          style: TextStyle(fontSize: 18),
+                        ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+
+
+
+
+
+//Edit page
+
+
+
+
+import 'package:flutter/material.dart';
+import 'package:flutter_pro/sqldb.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/route_manager.dart';
+
+class EditNote extends StatefulWidget {
+  final int id;
+  final String note;
+  final String title;
+  final String color;
+  EditNote({
+    super.key,
+    required this.id,
+    required this.note,
+    required this.title,
+    required this.color,
+  });
+
+  @override
+  State<EditNote> createState() => _EditNoteState();
+}
+
+class _EditNoteState extends State<EditNote> {
+  SqlDb sqlDb = SqlDb();
+
+  final TextEditingController noteController = TextEditingController();
+  final TextEditingController title = TextEditingController();
+  final TextEditingController color = TextEditingController();
+
+  GlobalKey<FormState> formState = GlobalKey();
+  bool isLoading = false;
+  initialData() {
+    noteController.text = widget.note;
+    title.text = widget.title;
+    color.text = widget.color;
+  }
+
+  @override
+  void initState() {
+    initialData();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    noteController.dispose();
+    super.dispose();
+  }
+
+  Future<void> editNote() async {
+    String noteText = noteController.text.trim();
+    String noteTitleTxt = title.text.trim();
+    String noteColorTxt = color.text.trim();
+    int id = widget.id;
+    if (noteText.isEmpty) {
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(const SnackBar(content: Text('Please edit your note !')));
+      return;
+    }
+
+    setState(() {
+      isLoading = true;
+    });
+
+    try {
+      /*int response = await sqlDb.updateData('''
+        UPDATE notes Set  
+        note = '$noteText' ,
+        title = '$noteTitleTxt' ,
+        color = '$noteColorTxt'
+        Where id = '$id'
+        ''');*/
+     int response = await sqlDb.update("notes", {
+      "note":'$noteText',
+      "title":'$noteTitleTxt',
+      "color":'$noteColorTxt'
+     },
+     "id = '$id'");
+      print("Response ID: $response");
+
+      if (response > 0) {
+        if (!mounted) return;
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Note edited Successfully ')),
+        );
+
+        Get.offNamed("/homepage");
+      }
+    } catch (e) {
+      print("Error: $e");
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(const SnackBar(content: Text('Error to edit this Note ')));
+    } finally {
+      if (mounted) {
+        setState(() {
+          isLoading = false;
+        });
+      }
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text('Edit Note')),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Form(
+          key: formState,
+          child: Column(
+            children: [
+              //Title
+              TextField(
+                controller: title,
+                //maxLines: 4,
+                decoration: const InputDecoration(
+                  hintText: 'Enter your Title here...',
+                  border: OutlineInputBorder(),
+                ),
+              ),
+              const SizedBox(height: 20),
+              TextField(
+                controller: noteController,
+                maxLines: 4,
+                decoration: const InputDecoration(
+                  hintText: 'Enter your Note here...',
+                  border: OutlineInputBorder(),
+                ),
+              ),
+              const SizedBox(height: 20),
+              TextField(
+                controller: color,
+                //maxLines: 4,
+                decoration: const InputDecoration(
+                  hintText: 'Enter your color here...',
+                  border: OutlineInputBorder(),
+                ),
+              ),
+              const SizedBox(height: 20),
+
+              SizedBox(
+                width: double.infinity,
+                height: 50,
+                child: ElevatedButton(
+                  onPressed: isLoading ? null : editNote,
+                  child: isLoading
+                      ? const CircularProgressIndicator(color: Colors.white)
+                      : const Text(
+                          'Save Note ',
+                          style: TextStyle(fontSize: 18),
+                        ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}

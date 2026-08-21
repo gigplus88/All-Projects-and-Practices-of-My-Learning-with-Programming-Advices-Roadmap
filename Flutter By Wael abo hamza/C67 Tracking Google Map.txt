@@ -1,0 +1,112 @@
+import 'dart:async';
+import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+
+class ItemsDetails extends StatefulWidget {
+  const ItemsDetails({super.key});
+
+  @override
+  State<ItemsDetails> createState() => _ItemsDetailsState();
+}
+
+class _ItemsDetailsState extends State<ItemsDetails> {
+  // جعل المتحكم قابلاً للقيم الفارغة لمنع الانهيار عند تحميل الصفحة
+  GoogleMapController? gmc;
+
+  List<Marker> markers = [];
+  StreamSubscription<Position>? positionStream;
+
+  CameraPosition cameraPosition = const CameraPosition(
+    target: LatLng(34.018124, -5.007845),
+    zoom: 12.4746,
+  );
+
+  @override
+  void initState() {
+    super.initState();
+    initialStream();
+  }
+
+  Future<void> initialStream() async {
+    bool serviceEnabled;
+    LocationPermission permission;
+
+    serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!serviceEnabled) {
+      return; // يفضل إظهار تنبيه للمستخدم بدلاً من throw
+    }
+
+    permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.denied) return;
+    }
+
+    if (permission == LocationPermission.deniedForever) return;
+
+    // تهيئة إعدادات الموقع لتوافق أفضل مع الويب وتجنب خطأ LegacyJavaScriptObject
+    const LocationSettings locationSettings = LocationSettings(
+      accuracy: LocationAccuracy.high,
+      distanceFilter: 10,
+    );
+
+    positionStream =
+        Geolocator.getPositionStream(locationSettings: locationSettings).listen(
+          (Position? position) {
+            if (position != null && mounted) {
+              LatLng currentLatLng = LatLng(
+                position.latitude,
+                position.longitude,
+              );
+
+              setState(() {
+                markers.clear();
+                markers.add(
+                  Marker(
+                    markerId: const MarkerId("current_location"),
+                    position: currentLatLng,
+                    infoWindow: const InfoWindow(title: "موقعي الحالي"),
+                  ),
+                );
+              });
+
+              // التحقق من أن الخريطة تم إنشاؤها قبل تحريك الكاميرا
+              gmc?.animateCamera(CameraUpdate.newLatLng(currentLatLng));
+            }
+          },
+        );
+  }
+
+  @override
+  void dispose() {
+    positionStream?.cancel();
+    gmc?.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        centerTitle: true,
+        title: const Text("Live Marker Tracking"),
+        backgroundColor: Colors.grey[200],
+      ),
+      body: SizedBox(
+        height: 500,
+        child: GoogleMap(
+          onTap: (argument) {
+            print("Tapped at: ${argument.latitude}, ${argument.longitude}");
+          },
+          markers: markers.toSet(),
+          initialCameraPosition: cameraPosition,
+          mapType: MapType.normal,
+          onMapCreated: (GoogleMapController controller) {
+            gmc = controller;
+          },
+        ),
+      ),
+    );
+  }
+}

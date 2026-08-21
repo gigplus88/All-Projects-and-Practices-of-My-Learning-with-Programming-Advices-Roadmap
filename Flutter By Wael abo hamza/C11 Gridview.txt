@@ -1,0 +1,66 @@
+import 'package:flutter/material.dart';
+
+// تعريف القائمة هنا خارج الـ class
+final List employee = [
+  {"name": "Ayoub", "age": 28, "last Name": "Fellah"},
+  {"name": "Saad", "age": 20, "last Name": "Fellah"},
+  {"name": "Salim", "age": 18, "last Name": "Fellah"},
+  {"name": "Houda", "age": 48, "last Name": "Fellah"},
+  {"name": "Salima", "age": 15, "last Name": "Fellah"},
+];
+
+void main() {
+  runApp(const MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: Scaffold(
+        appBar: AppBar(title: const Text("Ayoub fellah")),
+        body: Container(
+          height: 600,
+          /*child: GridView(
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 4, //num of column
+              mainAxisSpacing: 10.0, // space between rows التباعد الطولي
+              childAspectRatio: 5.0, // نسبة الطول مع العرض في الشاشة 
+              crossAxisSpacing: 10.0,
+              mainAxisExtent: 80,// طول العناصر
+              
+            ),
+            children:[
+              Container(child: Text("Ayoub"), color: Colors.amberAccent, ),
+              Container(child: Text("Samir"), color: Colors.black, ),
+              Container(child: Text("Saad"), color: Colors.redAccent, ),
+              Container(child: Text("Rachad"), color: Colors.green, ),
+              Container(child: Text("Zaid"), color: Colors.greenAccent, ),
+              Container(child: Text("Salma"), color: Colors.orangeAccent, ),
+
+            ],
+          ),*/
+          child: GridView.count(
+              crossAxisCount: 4, //num of column
+              mainAxisSpacing: 10.0, // space between rows التباعد الطولي
+              childAspectRatio: 2.0, // نسبة الطول مع العرض في الشاشة 
+              crossAxisSpacing: 10.0,  
+            children:[
+              Container(child: Text("Ayoub"), color: Colors.amberAccent, ),
+              Container(child: Text("Samir"), color: Colors.black, ),
+              Container(child: Text("Saad"), color: Colors.redAccent, ),
+              Container(child: Text("Rachad"), color: Colors.green, ),
+              Container(child: Text("Zaid"), color: Colors.greenAccent, ),
+              Container(child: Text("Salma"), color: Colors.orangeAccent, ),
+
+              
+
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}

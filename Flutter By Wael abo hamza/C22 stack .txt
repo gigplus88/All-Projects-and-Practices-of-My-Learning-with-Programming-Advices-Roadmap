@@ -1,0 +1,47 @@
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(MyApp());
+}
+
+class MyApp extends StatefulWidget {
+  const MyApp({super.key});
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  bool? footStatus = false;
+  bool? bascketStatus = false;
+
+  bool? tenisStatus = false;
+
+  String? selectedCountry = "Morocco";
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: Scaffold(
+        appBar: AppBar(title: const Text("Ayoub fellah")),
+        body: Container(
+          padding: EdgeInsets.all(10),
+          color: Colors.blue[50],
+
+          child: Stack(
+            clipBehavior: Clip.none,
+            alignment: Alignment.center,
+            children: [
+              Container(width: 300, height: 300, color: Colors.red),
+              Positioned(
+                right: 0,
+                child: Container(width: 200, height: 200, color: Colors.blue)),
+              Container(width: 100, height: 100, color: Colors.green),
+              Positioned(left: 0, top: 0, child: Text("AYOUB")),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}

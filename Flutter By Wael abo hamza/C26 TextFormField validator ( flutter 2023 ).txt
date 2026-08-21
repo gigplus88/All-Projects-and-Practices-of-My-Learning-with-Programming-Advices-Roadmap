@@ -1,0 +1,77 @@
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(MyApp());
+}
+
+class MyApp extends StatefulWidget {
+  const MyApp({super.key});
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  // TextEditingController username = TextEditingController();
+  String? textValue;
+  GlobalKey<FormState> formKey = GlobalKey<FormState>();
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: Scaffold(
+        appBar: AppBar(title: const Text("Ayoub fellah")),
+        body: Container(
+          padding: EdgeInsets.all(10),
+          color: Colors.blue[50],
+
+          child: Form(
+            key: formKey,
+            child: Column(
+              children: [
+                TextFormField(
+                  maxLength: 10,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return "Please enter your username ";
+                    }
+                    return "Good info";
+                  },
+                ),
+                Container(height: 20),
+
+                TextFormField(
+                  maxLength: 10,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return "Please enter your phone number ";
+                    }
+                     if (value.length < 10) {
+                      return "Please enter a valid phone number ";
+                    }
+                    return "Good info";
+                  },
+                ),
+                Container(height: 20),
+
+                MaterialButton(
+                  textColor: Colors.white,
+                  color: Colors.red,
+                  onPressed: () {
+                    if (formKey.currentState!.validate()) {
+                      print("Valid");
+                    } else {
+                      print("Not Valid");
+                    }
+                  },
+                  child: Text("Valid"),
+                ),
+                //Text(formKey.currentState!.validate() ? "Valid input info" : "Not Valid input info"),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}

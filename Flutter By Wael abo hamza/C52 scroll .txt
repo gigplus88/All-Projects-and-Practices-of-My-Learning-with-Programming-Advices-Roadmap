@@ -1,0 +1,78 @@
+import 'package:flutter/material.dart';
+
+class HomePage extends StatefulWidget {
+  const HomePage({super.key});
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  late ScrollController scrollController;
+
+  @override
+  void initState() {
+    scrollController = ScrollController();
+
+    scrollController.addListener(() {
+      print("${scrollController.offset}");
+    });
+
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    scrollController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text("Search Delegate")),
+      body: ListView(
+        controller: scrollController,
+        padding: const EdgeInsets.all(30),
+        children: [
+          MaterialButton(
+            padding: EdgeInsets.all(50),
+            color: Colors.blue,
+            onPressed: () {
+              //scrollController.jumpTo(9000);
+              scrollController.animateTo(
+                9300,
+                duration: Duration(seconds: 6),
+                curve: Curves.easeInOut,
+              );
+            },
+            child: Text("Jump to bottom"),
+          ),
+          ...List.generate(
+            100,
+            (index) => Container(
+              alignment: Alignment.center,
+              height: 100,
+
+              child: Text("$index", style: TextStyle(fontSize: 25)),
+              color: index.isEven ? Colors.red : Colors.green,
+            ),
+          ),
+          MaterialButton(
+            padding: EdgeInsets.all(50),
+            color: Colors.blue,
+            onPressed: () {
+              //scrollController.jumpTo(0);
+              scrollController.animateTo(
+                0,
+                duration: Duration(seconds: 6),
+                curve: Curves.easeIn,
+              );
+            },
+            child: Text("Jump to Top"),
+          ),
+        ],
+      ),
+    );
+  }
+}

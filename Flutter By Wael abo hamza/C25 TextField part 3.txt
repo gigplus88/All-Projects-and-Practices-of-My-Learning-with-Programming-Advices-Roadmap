@@ -1,0 +1,64 @@
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(MyApp());
+}
+
+class MyApp extends StatefulWidget {
+  const MyApp({super.key});
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  // TextEditingController username = TextEditingController();
+  String? textValue;
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: Scaffold(
+        appBar: AppBar(title: const Text("Ayoub fellah")),
+        body: Container(
+          padding: EdgeInsets.all(10),
+          color: Colors.blue[50],
+
+          child: Column(
+            children: [
+              TextField(
+                /*controller: username*/
+                onChanged: (val) {
+                  setState(() {
+                    textValue = val;
+                  });
+                  
+                },
+              ),
+              Container(margin: EdgeInsets.only(top: 5)),
+              MaterialButton(
+                
+                color: Colors.blue,
+                textColor: Colors.white,
+                onPressed: () {
+                  print(textValue);
+                },
+                child: Text("print"),
+              ),
+              Text("$textValue"),
+              /*MaterialButton(
+                
+                color: Colors.blue,
+                textColor: Colors.white,
+                onPressed: () {
+                  print(username.text);
+                },
+                child: Text("print"),
+              ),
+              */
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}

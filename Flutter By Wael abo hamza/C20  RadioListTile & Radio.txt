@@ -1,0 +1,79 @@
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(MyApp());
+}
+
+class MyApp extends StatefulWidget {
+  const MyApp({super.key});
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  bool status = true;
+  String? selectedCountry = "Morocco";
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: Scaffold(
+        appBar: AppBar(title: const Text("Ayoub fellah")),
+        body: Container(
+          padding: EdgeInsets.all(10),
+          color: Colors.blue[50],
+
+// كل مجموعة ب groupValue واحد
+          child: Column(
+            children: [
+              Text("Choose Your Country" , style: TextStyle(fontSize:20),),
+
+              RadioListTile(
+                activeColor: Colors.blue,
+                //enabled: false,
+                hoverColor: Colors.amberAccent,
+                //contentPadding: EdgeInsets.all(20),
+                title: Text("Morocco"),
+                value: "Morocco",
+                groupValue: selectedCountry,
+                onChanged: (value) {
+                  setState(() {
+                    selectedCountry = value;
+                  
+                  });
+                },
+                
+              ),
+               RadioListTile(
+                title: Text("Egypt"),
+                value: "Egypt",
+                groupValue: selectedCountry,
+                onChanged: (value) {
+                  setState(() {
+                    selectedCountry = value;
+                  
+                  });
+                },
+                
+              ),
+               RadioListTile(
+                title: Text("Tunisie"),
+                value: "Tunisie",
+                groupValue: selectedCountry,
+                onChanged: (value) {
+                  setState(() {
+                    selectedCountry = value;
+                  
+                  });
+                },
+                
+              ),
+              Text("Your Country is $selectedCountry")
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}

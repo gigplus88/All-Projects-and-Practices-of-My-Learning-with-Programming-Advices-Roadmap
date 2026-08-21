@@ -1,0 +1,144 @@
+import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
+import 'dart:async';
+
+class ItemsDetails extends StatefulWidget {
+  const ItemsDetails({super.key});
+
+  @override
+  State<ItemsDetails> createState() => _ItemsDetailsState();
+}
+
+class _ItemsDetailsState extends State<ItemsDetails> {
+  String locationMessage = "Press the button to get your location";
+  bool isLoading = false;
+  String distanceMessage = "Press the button to get your distance";
+
+  StreamSubscription<Position>? positionStream;
+
+  final double targetLat = 32.28434;
+  final double targetLong = 21.23474;
+
+  @override
+  void dispose() {
+    positionStream?.cancel();
+    super.dispose();
+  }
+
+  Future<void> _getCurrentLocation() async {
+    setState(() {
+      isLoading = true;
+      locationMessage = "Fetching location...";
+      distanceMessage = "Fetching distance...";
+    });
+
+    try {
+      await _checkPermissionAndService();
+
+      await positionStream?.cancel();
+
+      positionStream = Geolocator.getPositionStream().listen((Position? position) {
+        if (position != null) {
+          double distanceInMeters = Geolocator.distanceBetween(
+            position.latitude,
+            position.longitude,
+            targetLat,
+            targetLong,
+          );
+
+          setState(() {
+            locationMessage =
+                "Latitude: ${position.latitude}\nLongitude: ${position.longitude}";
+            
+            distanceMessage = "Distance: ${distanceInMeters/1000} meters";
+            
+            isLoading = false;
+          });
+        }
+      });
+    } catch (e) {
+      setState(() {
+        locationMessage = "Error: $e";
+        distanceMessage = "Error: $e";
+        isLoading = false;
+      });
+    }
+  }
+
+  Future<void> _checkPermissionAndService() async {
+    bool serviceEnabled;
+    LocationPermission permission;
+
+    serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!serviceEnabled) {
+      throw 'Location services are disabled.';
+    }
+
+    permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.denied) {
+        throw 'Location permissions are denied';
+      }
+    }
+
+    if (permission == LocationPermission.deniedForever) {
+      throw 'Location permissions are permanently denied, we cannot request permissions.';
+    }
+
+
+     // When we reach here, permissions are granted and we can
+  // continue accessing the position of the device.
+  
+  
+  //return await Geolocator.getCurrentPosition();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        centerTitle: true,
+        title: const Text("Geolocator & Distance"),
+        backgroundColor: Colors.grey[200],
+        elevation: 0.0,
+        iconTheme: const IconThemeData(color: Colors.grey),
+      ),
+      body: Center(
+        child: Padding(
+          padding: const EdgeInsets.all(24.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                locationMessage,
+                textAlign: TextAlign.center,
+                style: const TextStyle(
+                  fontSize: 18.0,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              const SizedBox(height: 15),
+              Text(
+                distanceMessage,
+                textAlign: TextAlign.center,
+                style: const TextStyle(
+                  fontSize: 16.0,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.blueAccent,
+                ),
+              ),
+              const SizedBox(height: 30),
+              isLoading
+                  ? const CircularProgressIndicator()
+                  : ElevatedButton(
+                      onPressed: _getCurrentLocation,
+                      child: const Text("Get Current Location"),
+                    ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}

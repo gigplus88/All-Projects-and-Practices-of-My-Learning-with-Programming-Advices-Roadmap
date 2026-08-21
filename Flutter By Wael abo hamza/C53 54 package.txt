@@ -1,0 +1,62 @@
+import 'package:flutter/material.dart';
+import 'package:awesome_dialog/awesome_dialog.dart';
+
+class HomePage extends StatefulWidget {
+  const HomePage({super.key});
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  late ScrollController scrollController;
+
+  @override
+  void initState() {
+    super.initState();
+    scrollController = ScrollController();
+    scrollController.addListener(() {
+      debugPrint("${scrollController.offset}");
+    });
+  }
+
+  @override
+  void dispose() {
+    scrollController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text("Search Delegate")),
+      body: ListView(
+        controller: scrollController,
+        padding: const EdgeInsets.all(30),
+        children: [
+          MaterialButton(
+            onPressed: () {
+              AwesomeDialog(
+                context: context,
+                dialogType: DialogType.warning,
+                headerAnimationLoop: true,
+                animType: AnimType.bottomSlide,
+                title: 'Question',
+                desc: 'Dialog description here...',
+                buttonsTextStyle: const TextStyle(color: Colors.black),
+                showCloseIcon: true,
+                btnCancelOnPress: () {
+                  debugPrint("Cancel is clicked");
+                },
+                btnOkOnPress: () {
+                  debugPrint("Ok is clicked");
+                },
+              ).show();
+            },
+            child: const Text("Show Dialog"),
+          ),
+        ],
+      ),
+    );
+  }
+}

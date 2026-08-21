@@ -1,0 +1,69 @@
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(MyApp());
+}
+
+class MyApp extends StatefulWidget {
+  const MyApp({super.key});
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  bool? footStatus = false;
+  bool? bascketStatus = false;
+
+  bool? tenisStatus = false;
+
+  String? selectedCountry = "Morocco";
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: Scaffold(
+        appBar: AppBar(title: const Text("Ayoub fellah")),
+        body: Container(
+          padding: EdgeInsets.all(10),
+          color: Colors.blue[50],
+
+          child: Column(
+           
+            children: [
+             TextField( 
+              decoration: InputDecoration(
+                //hintText: "username",
+                //hintStyle: TextStyle(color: Colors.blue ,backgroundColor: Colors.amberAccent),
+                //labelText: "username",
+                //labelStyle: TextStyle( color: Colors.blueAccent ),
+                //Summary of label and labelStyle
+                //label: Text("username" , style: TextStyle(color:Colors.red),),
+
+                //prefix: Icon(Icons.person) , prefixStyle:TextStyle(color:Colors.cyan ,  fontSize: 20),
+               /*
+                prefixIcon: Icon(Icons.person),
+                prefixIconColor: Colors.red,
+                */
+
+                /*
+                prefixText: "username",
+                prefixStyle: TextStyle(color: Colors.blueAccent , fontWeight: FontWeight.w100),
+                */
+
+                suffixText: "username",
+                prefixStyle: TextStyle(color: Colors.blueAccent , fontWeight: FontWeight.w100),
+                fillColor: Colors.lime,
+                filled: true,
+
+                icon: Icon(Icons.person),
+                iconColor: Colors.red,
+              ),
+             )
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}

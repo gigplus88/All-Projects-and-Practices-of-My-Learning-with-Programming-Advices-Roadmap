@@ -1,0 +1,75 @@
+import 'package:flutter/material.dart';
+
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+
+class ItemsDetails extends StatefulWidget {
+  const ItemsDetails({super.key});
+
+  @override
+  State<ItemsDetails> createState() => _ItemsDetailsState();
+}
+
+class _ItemsDetailsState extends State<ItemsDetails> {
+  late GoogleMapController gmc;
+
+  // Marker is a point in maps
+  List<Marker> markers = [
+    // Marker(markerId: MarkerId("1"), position: LatLng(34.018124, -5.007845)),
+    //Marker(markerId: MarkerId("2"), position: LatLng(34.018324, -5.017845)),
+    //Marker(markerId: MarkerId("3"), position: LatLng(34.018524, -5.107845)),
+  ];
+
+  CameraPosition cameraPosition = CameraPosition(
+    target: LatLng(34.018124, -5.007845),
+    zoom: 12.4746,
+  );
+  @override
+  void dispose() {
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        centerTitle: true,
+        title: const Text("Geolocator & Distance"),
+        backgroundColor: Colors.grey[200],
+        elevation: 0.0,
+        iconTheme: const IconThemeData(color: Colors.grey),
+      ),
+      body: Container(
+        height: 500,
+        child: Column(
+          children: [
+            Expanded(
+              child: GoogleMap(
+                onTap: (argument) {
+                  print("--------------------");
+                  print(argument.longitude);
+                  print(argument.latitude);
+                  markers.add(
+                    Marker(
+                      markerId: /* MarkerId("$argument.latitude")*/ MarkerId(
+                        "1",
+                      ), // it constant , to choose a position in maps
+                      position: LatLng(argument.latitude, argument.longitude),
+                    ),
+                  );
+                  print("--------------------");
+                  setState(() {});
+                },
+                markers: markers.toSet(),
+                initialCameraPosition: cameraPosition,
+                mapType: MapType.normal,
+                onMapCreated: (controller) {
+                  gmc = controller;
+                },
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}

@@ -1,0 +1,185 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_pro/aboutus.dart';
+
+// push with replacement to remove the previous page from the stack and prevent going back to it
+//pushReplacement is used to navigate to a new page and replace the current page in the navigation stack. 
+
+class HomePage extends StatelessWidget {
+  const HomePage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text("Home")),
+      body: ListView(
+        children: [
+          const Center(
+            child: Text(
+              "Welcome to the Home Page",
+              style: TextStyle(fontSize: 20),
+            ),
+          ),
+
+          Container(
+            color: Colors.grey[200],
+            margin: const EdgeInsets.symmetric(horizontal: 20),
+            
+            child: MaterialButton(
+              color: Colors.blue,
+              padding: const EdgeInsets.all(5),
+              
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const AboutUsPage()),
+                );
+              },
+              child: const Text("Go to About Us"),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+  
+
+
+
+
+
+
+//About page
+
+import 'package:flutter/material.dart';
+import 'package:flutter_pro/homepage.dart';
+import 'package:flutter_pro/contact.dart';
+
+class AboutUsPage extends StatelessWidget {
+  const AboutUsPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text("About Us")),
+      body: ListView(
+        children: [
+          Center(child: Text("Welcome to the About Us Page")),
+          Container(
+            color: Colors.red[200],
+            margin: const EdgeInsets.symmetric(horizontal: 20),
+
+            child: MaterialButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const HomePage()),
+                );
+              },
+              child: const Text("Go to Home Page"),
+            ),
+          ),
+          Container(
+            color: Colors.grey[200],
+            margin: const EdgeInsets.all(20),
+
+            child: MaterialButton(
+              color: Colors.blue,
+              padding: const EdgeInsets.all(5),
+
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const ContactPage()),
+                );
+              },
+              child: const Text("Go to Contact Us"),
+            ),
+          ),
+
+          Container(
+            color: Colors.grey[200],
+            margin: const EdgeInsets.all(20),
+
+            child: MaterialButton(
+              color: Colors.blue,
+              padding: const EdgeInsets.all(5),
+
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: const Text("Go to Back"),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+   
+
+
+
+
+//Contatct page
+
+
+
+
+
+
+ import 'package:flutter/material.dart';
+ import 'package:flutter_pro/homepage.dart';
+ import 'package:flutter_pro/aboutus.dart';
+
+
+ class ContactPage extends StatelessWidget {
+   const ContactPage({super.key});
+
+   @override
+   Widget build(BuildContext context) {
+     return Scaffold(
+       appBar: AppBar(
+         title: const Text("Contact Us"),
+       ),
+       body: ListView(
+        children:[
+             Center(
+           child: Text("Welcome to the Contact Us Page"),
+         ),
+          Container(
+            color: Colors.red[200],
+            margin: const EdgeInsets.symmetric(horizontal: 20),
+            
+            child: MaterialButton(
+              
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const HomePage()),
+                );
+              },
+              child: const Text("Go to Home Page"),
+            ),
+          ),
+          Container(
+            color: Colors.red[200],
+            margin: const EdgeInsets.all(5),
+            
+            child: MaterialButton(
+              
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const AboutUsPage()),
+                );
+              },
+              child: const Text("Go to About Us Page"),
+            ),
+          ),
+        ]
+          
+       ),
+     );
+   }
+ }

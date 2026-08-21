@@ -1,0 +1,29 @@
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(const MyApp()); // to runing app
+}
+
+//MyApp Widget
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  // This widget is the root of your application.
+  // This is widget function
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: Scaffold(
+        appBar: AppBar(title: Text("Ayoub fellah")),
+        body: Container(
+          child: Image.asset(
+            "images/Gemini_Generated_Image_4b2rr94b2rr94b2r.png",
+            width: 600,
+            height: 500,
+            fit: BoxFit.cover,
+          ),
+        ),
+      ),
+    );
+  }
+}

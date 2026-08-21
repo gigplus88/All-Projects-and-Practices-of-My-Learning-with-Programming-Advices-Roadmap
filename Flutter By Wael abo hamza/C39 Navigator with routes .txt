@@ -1,0 +1,144 @@
+//main page
+
+
+import 'package:flutter/material.dart';
+import 'package:flutter_pro/homepage.dart';
+import 'package:flutter_pro/aboutus.dart';
+import 'package:flutter_pro/contact.dart';
+
+void main() {
+  runApp(MyApp());
+}
+
+class MyApp extends StatefulWidget {
+  const MyApp({super.key});
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
+  /*To build The tabBar DefaultTabController(length: 3)Number of tabs*/
+  /* initialIndex: 0 The index of the tab to be selected when the app starts*/
+
+  TabController? tabController;
+
+  List imagesNames = [
+    "images/Gemini_Generated_Image_4b2rr94b2rr94b2r.png",
+    "images/download(5).jpg",
+    "images/20260514_183120.jpg",
+    "images/ChatGPT Image Jul 6, 2026, 12_02_14 AM.png",
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: HomePage(),
+      routes:{
+        '/home' : (context) => const HomePage(),
+        '/about' : (context) => const AboutUsPage(),
+        '/contact' : (context) => const ContactPage(),
+      }
+    );
+  }
+}
+
+
+
+
+
+//Home page
+
+
+
+
+
+
+
+ import 'package:flutter/material.dart';
+ import 'package:flutter_pro/homepage.dart';
+ import 'package:flutter_pro/aboutus.dart';
+
+
+ class ContactPage extends StatelessWidget {
+   const ContactPage({super.key});
+
+   @override
+   Widget build(BuildContext context) {
+     return Scaffold(
+       appBar: AppBar(
+         title: const Text("Contact Us"),
+       ),
+       body: ListView(
+        children:[
+             Center(
+           child: Text("Welcome to the Contact Us Page"),
+         ),
+          Container(
+            color: Colors.red[200],
+            margin: const EdgeInsets.symmetric(horizontal: 20),
+            
+            child: MaterialButton(
+              
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const HomePage()),
+                );
+              },
+              child: const Text("Go to Home Page with push"),
+            ),
+          ),
+          Container(
+            color: Colors.red[200],
+            margin: const EdgeInsets.all(5),
+            
+            child: MaterialButton(
+              
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const AboutUsPage()),
+                );
+              },
+              child: const Text("Go to About Us Page with push"),
+            ),
+          ),
+
+           Container(
+            color: Colors.red[200],
+            margin: const EdgeInsets.all(5),
+            
+            child: MaterialButton(
+              
+              onPressed: () {
+                Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(builder: (context) => const HomePage()),
+                  (route) => false,
+                );
+              },
+              child: const Text("Go to Home Page with pushAndRemoveUntil "),
+            ),
+          ),
+           Container(
+            color: Colors.red[200],
+            margin: const EdgeInsets.all(5),
+            
+            child: MaterialButton(
+              
+              onPressed: () {
+                Navigator.pushReplacementNamed(
+                  context,
+                  '/home',
+                );
+              },
+              child: const Text("Go to Home Page with pushAndRemoveUntil "),
+            ),
+          ),
+        ]
+          
+       ),
+     );
+   }
+ }

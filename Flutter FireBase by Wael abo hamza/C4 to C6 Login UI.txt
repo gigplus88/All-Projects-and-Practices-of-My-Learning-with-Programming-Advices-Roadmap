@@ -1,0 +1,290 @@
+//Login
+
+
+import 'package:flutter/gestures.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_pro/components/custombuttonauth.dart';
+import 'package:flutter_pro/components/customlogoauth.dart';
+import 'package:flutter_pro/components/textformfield.dart';
+
+class Login extends StatefulWidget {
+  const Login({super.key});
+
+  @override
+  State<Login> createState() => _LoginState();
+}
+
+class _LoginState extends State<Login> {
+  TextEditingController email = TextEditingController();
+  TextEditingController password = TextEditingController();
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Container(
+        padding: const EdgeInsets.all(20),
+        child: ListView(
+          children: [
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(height: 50),
+                const CustomLogoAuth(),
+                Container(height: 20),
+                const Text(
+                  "Login",
+                  style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+                ),
+                Container(height: 10),
+                const Text(
+                  "Login To Continue Using The App",
+                  style: TextStyle(color: Colors.grey),
+                ),
+                Container(height: 20),
+                const Text(
+                  "Email",
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                ),
+                Container(height: 10),
+                CustomTextForm(
+                  hinttext: "Enter Your Email",
+                  mycontroller: email,
+                ),
+                Container(height: 10),
+                const Text(
+                  "Password",
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                ),
+                Container(height: 10),
+                CustomTextForm(
+                  hinttext: "Enter Your Password",
+                  mycontroller: password,
+                ),
+                Container(
+                  margin: const EdgeInsets.only(top: 10, bottom: 20),
+                  alignment: Alignment.topRight,
+                  child: const Text(
+                    "Forgot Password ?",
+                    style: TextStyle(fontSize: 14),
+                  ),
+                ),
+              ],
+            ),
+            CustomButtonAuth(title: "login", onPressed: () {}),
+            Container(height: 20),
+            MaterialButton(
+              padding: const EdgeInsets.all(20),
+              height: 40,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(20),
+              ),
+              color: Colors.red[700],
+              textColor: Colors.white,
+              onPressed: () {},
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Text("Login With Google  "),
+                  Image.asset("images/google.png", width: 20),
+                ],
+              ),
+            ),
+            Container(height: 20),
+            Center(
+              child: Text.rich(
+                TextSpan(
+                  children: [
+                    const TextSpan(text: "Don't Have An Account ? "),
+                    TextSpan(
+                      text: "Register",
+                      style: const TextStyle(
+                        color: Colors.blue,
+                        fontWeight: FontWeight.bold,
+                      ),
+                      recognizer: TapGestureRecognizer()
+                        ..onTap = () {
+                          Navigator.of(context).pushNamed("signup");
+                        },
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+
+
+
+
+
+//SingUp
+
+
+
+import 'package:flutter/material.dart';
+import 'package:flutter_pro/components/custombuttonauth.dart';
+import 'package:flutter_pro/components/customlogoauth.dart';
+import 'package:flutter_pro/components/textformfield.dart';
+import 'package:flutter/gestures.dart';
+
+class SignUp extends StatefulWidget {
+  const SignUp({super.key});
+
+  @override
+  State<SignUp> createState() => _SignUpState();
+}
+
+class _SignUpState extends State<SignUp> {
+  TextEditingController username = TextEditingController();
+  TextEditingController email = TextEditingController();
+  TextEditingController password = TextEditingController();
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Container(
+        padding: const EdgeInsets.all(20),
+        child: ListView(
+          children: [
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(height: 50),
+                const CustomLogoAuth(),
+                Container(height: 20),
+                const Text(
+                  "SignUp",
+                  style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+                ),
+                Container(height: 10),
+                const Text(
+                  "SignUp To Continue Using The App",
+                  style: TextStyle(color: Colors.grey),
+                ),
+                Container(height: 20),
+                const Text(
+                  "username",
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                ),
+                Container(height: 10),
+                CustomTextForm(
+                  hinttext: "ُEnter Your username",
+                  mycontroller: username,
+                ),
+                Container(height: 20),
+                const Text(
+                  "Email",
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                ),
+                Container(height: 10),
+                CustomTextForm(
+                  hinttext: "ُEnter Your Email",
+                  mycontroller: email,
+                ),
+                Container(height: 10),
+                const Text(
+                  "Password",
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                ),
+                Container(height: 10),
+                CustomTextForm(
+                  hinttext: "ُEnter Your Password",
+                  mycontroller: password,
+                ),
+                Container(
+                  margin: const EdgeInsets.only(top: 10, bottom: 20),
+                  alignment: Alignment.topRight,
+                  child: const Text(
+                    "Forgot Password ?",
+                    style: TextStyle(fontSize: 14),
+                  ),
+                ),
+              ],
+            ),
+            CustomButtonAuth(title: "SignUp", onPressed: () {}),
+            Container(height: 20),
+
+            Container(height: 20),
+
+            // Text("Don't Have An Account ? Resister" , textAlign: TextAlign.center,)
+            Center(
+              child: Text.rich(
+                TextSpan(
+                  children: [
+                    TextSpan(text: "Have An Account ? "),
+                    TextSpan(
+                      text: "Login",
+                      style: TextStyle(
+                        color: Colors.orange,
+                        fontWeight: FontWeight.bold,
+                      ),
+                      recognizer: TapGestureRecognizer()
+                        ..onTap = () {
+                          Navigator.of(context).pushNamed("login");
+                        },
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+
+
+
+
+//main
+
+
+
+
+import 'package:flutter/material.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter_pro/auth/signup.dart';
+import 'firebase_options.dart';
+import 'package:flutter_pro/auth/login.dart';
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  runApp(MyApp());
+}
+
+class MyApp extends StatefulWidget {
+  const MyApp({super.key});
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      theme: ThemeData(
+        // appBarTheme: AppBarTheme(backgroundColor: Colors.blue),
+        textTheme: TextTheme(
+          //bodySmall: TextStyle(color: Colors.red, fontSize: 16),
+          //bodyMedium: TextStyle(color: Colors.blue, fontSize: 20),
+          //bodyLarge: TextStyle(color: Colors.green, fontSize: 24),
+        ),
+        //fontFamily: "Lumanosimo",
+      ),
+      home: Login(),
+      routes: {"signup": (context) => SignUp(), "login": (context) => Login()},
+    );
+  }
+}
+
+
+

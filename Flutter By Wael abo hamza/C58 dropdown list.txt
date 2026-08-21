@@ -1,0 +1,215 @@
+// appTextField
+
+import 'package:flutter/material.dart';
+
+class AppTextField extends StatefulWidget {
+  final TextEditingController textEditingController;
+  final String title;
+  final String hint;
+  final bool isReadOnly;
+  final VoidCallback? onTextFieldTap;
+  final List<dynamic>? dataList; 
+
+  const AppTextField({
+    required this.textEditingController,
+    required this.title,
+    required this.hint,
+    this.isReadOnly = false,
+    this.onTextFieldTap,
+    this.dataList, 
+    super.key,
+  });
+
+  @override
+  State<AppTextField> createState() => _AppTextFieldState();
+}
+
+class _AppTextFieldState extends State<AppTextField> {
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(widget.title),
+        const SizedBox(height: 5.0),
+        TextFormField(
+          controller: widget.textEditingController,
+          cursorColor: Colors.black,
+          readOnly: widget.isReadOnly,
+          onTap: widget.isReadOnly
+              ? () {
+                  FocusScope.of(context).unfocus();
+                  widget.onTextFieldTap?.call();
+                }
+              : null,
+          decoration: InputDecoration(
+            filled: true,
+            fillColor: Colors.black12,
+            contentPadding: const EdgeInsets.only(
+              left: 8,
+              bottom: 0,
+              top: 0,
+              right: 15,
+            ),
+            hintText: widget.hint,
+            border: const OutlineInputBorder(
+              borderSide: BorderSide(width: 0, style: BorderStyle.none),
+              borderRadius: BorderRadius.all(Radius.circular(8.0)),
+            ),
+          ),
+        ),
+        const SizedBox(height: 15.0),
+      ],
+    );
+  }
+}
+
+
+
+
+
+
+
+//homePage
+
+
+import 'package:flutter/material.dart';
+import 'package:flutter_pro/package/apptextfield.dart';
+
+class HomePage extends StatefulWidget {
+  const HomePage({super.key});
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  final TextEditingController countryController = TextEditingController();
+  final TextEditingController ageController = TextEditingController();
+
+  final List<String> countriesList = [
+    "Morocco",
+    "UAE",
+    "OMAN",
+    "Egypt",
+    "Saudi Arabia",
+  ];
+  final List<int> agesList = [18, 19, 20, 21, 22];
+
+  @override
+  void dispose() {
+    countryController.dispose();
+    ageController.dispose();
+    super.dispose();
+  }
+
+  void showGenericBottomSheet(
+    List<dynamic> sourceList,
+    String searchedItem,
+    TextEditingController targetController,
+  ) {
+    List<dynamic> filteredList = List.from(sourceList);
+
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(16.0)),
+      ),
+      builder: (context) {
+        return StatefulBuilder(
+          builder: (BuildContext context, StateSetter setStateModal) {
+            return Container(
+              height: MediaQuery.of(context).size.height * 0.6,
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "Select $searchedItem",
+                    style: const TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 18.0,
+                    ),
+                  ),
+                  const SizedBox(height: 12.0),
+                  TextField(
+                    decoration: InputDecoration(
+                      hintText: "Search $searchedItem...",
+                      prefixIcon: const Icon(Icons.search),
+                      border: const OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                      ),
+                    ),
+                    onChanged: (value) {
+                      setStateModal(() {
+                        filteredList = sourceList
+                            .where(
+                              (c) => c
+                                  .toString()
+                                  .toLowerCase()
+                                  .contains(value.toLowerCase()),
+                            )
+                            .toList();
+                      });
+                    },
+                  ),
+                  const SizedBox(height: 12.0),
+                  Expanded(
+                    child: ListView.builder(
+                      itemCount: filteredList.length,
+                      itemBuilder: (context, index) {
+                        return ListTile(
+                          title: Text(filteredList[index].toString()),
+                          onTap: () {
+                            setState(() {
+                              targetController.text =
+                                  filteredList[index].toString();
+                            });
+                            Navigator.pop(context);
+                          },
+                        );
+                      },
+                    ),
+                  ),
+                ],
+              ),
+            );
+          },
+        );
+      },
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text("Http Request Example")),
+      body: ListView(
+        padding: const EdgeInsets.all(16.0),
+        children: [
+          AppTextField(
+            textEditingController: countryController,
+            title: "Select Country",
+            hint: "Country",
+            isReadOnly: true,
+            onTextFieldTap: () {
+              showGenericBottomSheet(countriesList, "Country", countryController);
+            },
+          ),
+
+
+          AppTextField(
+            textEditingController: ageController,
+            title: "Select Age",
+            hint: "Age",
+            isReadOnly: true,
+            onTextFieldTap: () {
+              showGenericBottomSheet(agesList, "Age", ageController);
+            },
+          ),
+        ],
+      ),
+    );
+  }
+}

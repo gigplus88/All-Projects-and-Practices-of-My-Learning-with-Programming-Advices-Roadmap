@@ -1,0 +1,100 @@
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(MyApp());
+}
+
+class MyApp extends StatefulWidget {
+  const MyApp({super.key});
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  // TextEditingController username = TextEditingController();
+  String? textValue;
+  GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  String? username;
+  String? phoneNumber;
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: Scaffold(
+        appBar: AppBar(title: const Text("Ayoub fellah")),
+        body: Container(
+          padding: EdgeInsets.all(10),
+          color: Colors.blue[50],
+
+          child: Form(
+            key: formKey,
+            child: Column(
+              children: [
+                TextFormField(
+                  decoration: InputDecoration(
+                    labelText: "Username",
+                    hintText: "Enter your username",
+                    border: OutlineInputBorder(),
+                  ),
+                  maxLength: 10,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return "Please enter your username ";
+                    }
+                    return null;
+                  },
+                  onSaved: (value) {
+                    username = value;
+                  },
+                ),
+                Container(height: 20),
+
+                TextFormField(
+                  decoration: InputDecoration(
+                    labelText: "Phone Number",
+                    hintText: "Enter your phone number",
+                    border: OutlineInputBorder(),
+                  ),
+                  maxLength: 12,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return "Please enter your phone number ";
+                    }
+                     if (value.length < 9 || value.length > 12) {
+                      return "Please enter a valid phone number (9 to 12 digits)";
+                    }
+                    return null;
+                  },
+                  onSaved: (value) {
+                    phoneNumber = value;
+                  },
+                ),
+                Container(height: 20),
+
+                MaterialButton(
+                  textColor: Colors.white,
+                  color: Colors.red,
+                  onPressed: () {
+                    // We save the form state after we validate the input fields
+                    if (formKey.currentState!.validate()) {
+                      print("Valid");
+                      formKey.currentState!.save();
+                      print("Username: $username");
+                      print("Phone Number: $phoneNumber");
+                    } else {
+                      print("Not Valid");
+                    
+                    }
+                  },
+                  child: Text("Valid"),
+                ),
+                //Text(formKey.currentState!.validate() ? "Valid input info" : "Not Valid input info"),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}

@@ -1,0 +1,47 @@
+import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+class HomePage extends StatefulWidget {
+  const HomePage({super.key});
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  String? name;
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text("Http Request Example")),
+      body: ListView(
+        padding: const EdgeInsets.all(16.0),
+        children: [
+          MaterialButton(
+            onPressed: () async {
+              SharedPreferences sharedPreferences =
+                  await SharedPreferences.getInstance();
+              sharedPreferences.setString("name", "Ayoub");
+            },
+            child: Text("Set Name"),
+          ),
+          MaterialButton(
+            onPressed: () async {
+              SharedPreferences sharedPreferences =
+                  await SharedPreferences.getInstance();
+              String value = sharedPreferences.getString("name")!;
+              print(value);
+            },
+            child: Text("print Name"),
+          ),
+        ],
+      ),
+    );
+  }
+}

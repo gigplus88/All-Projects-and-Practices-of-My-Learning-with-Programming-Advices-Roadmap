@@ -1,0 +1,145 @@
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(MyApp());
+}
+
+class MyApp extends StatefulWidget {
+  const MyApp({super.key});
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  // TextEditingController username = TextEditingController();
+
+  //GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: Scaffold(
+        //key: scaffoldKey,
+        drawer: Drawer(
+          backgroundColor: Colors.red,
+          shadowColor: Colors.red,
+          clipBehavior: Clip.antiAliasWithSaveLayer,
+
+          child: Container(
+            padding: EdgeInsets.all(8),
+            color: Colors.blue[50],
+            child: ListView(
+              children:[
+                //First Row
+                Row(
+                  children:[
+
+                  Container(
+                    padding: EdgeInsets.all(8),
+                    child:
+                     ClipRRect(
+                      borderRadius: BorderRadius.circular(100),
+                      child: Image.asset(
+                        "images/Gemini_Generated_Image_4b2rr94b2rr94b2r.png",
+                        width: 100,
+                        height: 100,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                    
+                  ),
+                  Expanded(
+                    
+                    child: ListTile(
+                      
+                      title: Text(
+                        "John Doe",
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      subtitle: Text(
+                        "john.doe@example.com",
+                        style: TextStyle(
+                          fontSize: 16,
+                        ),
+                      ),
+
+                    ),
+                  )
+                ]),
+
+                //First ListTile
+                ListTile(
+                  title: Text("Home"),
+                  leading: Icon(Icons.home),
+                  onTap: () {
+                    // Handle Home tap
+                  },
+                ),
+
+                //Second ListTile
+                ListTile(
+                  title: Text("Profile"),
+                  leading: Icon(Icons.person),
+                  onTap: () {
+                    // Handle Profile tap
+                  },
+                ),
+
+                //Third ListTile
+                ListTile(
+                  title: Text("Settings"),
+                  leading: Icon(Icons.settings),
+                  onTap: () {
+                    // Handle Settings tap
+                  },
+                ),
+
+                //Fourth ListTile
+                ListTile(
+                  title: Text("Logout"),
+                  leading: Icon(Icons.logout),
+                  onTap: () {
+                    // Handle Logout tap
+                  },
+                ),
+              ],),
+          )
+        ),
+       // endDrawer: Drawer(),
+        appBar: AppBar(
+          title: const Text(
+            "Drawers",
+          ),
+          titleTextStyle: TextStyle(
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+            color: Colors.white,
+          ),
+          centerTitle: true,
+          backgroundColor: Colors.blue[900],
+         
+          elevation: 25.0,
+          shadowColor: Colors.blue[200],
+          
+        ),
+
+
+        body: Container(
+          padding: EdgeInsets.all(10),
+          color: Colors.blue[50],
+
+          child:const Center(
+            child: Text(
+              "Swipe from the left or tap the menu icon to open the Drawer.",
+              textAlign: TextAlign.center,
+              style: TextStyle(fontSize: 16, color: Colors.black54),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}

@@ -1,0 +1,74 @@
+import 'package:flutter/material.dart';
+
+// push with replacement to remove the previous page from the stack and prevent going back to it
+// pushReplacement is used to navigate to a new page and replace the current page in the navigation stack.
+GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
+
+class HomePage extends StatelessWidget {
+  const HomePage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      key: scaffoldKey,
+      appBar: AppBar(title: const Text("Home")),
+      body: ListView(
+        children: [
+          const SizedBox(height: 50),
+          Center(
+            child: MaterialButton(
+              color: Colors.blue,
+              child: const Text("show ", style: TextStyle(color: Colors.white)),
+              onPressed: () {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    action: SnackBarAction(
+                      label: "ok",
+                      onPressed: () {
+                        print("is ok");
+                      },
+                    ),
+                    content: Text("Data added successfully"),
+                    duration: Duration(seconds: 1),
+                    shape: ContinuousRectangleBorder(
+                      borderRadius: BorderRadiusGeometry.circular(20),
+                    ),
+                  ),
+                );
+                /*scaffoldKey.currentState?.showBottomSheet(
+                  (context) => Container(
+                    height: 200,
+                    color: Colors.grey[200],
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        ElevatedButton(
+                          onPressed: () {
+                            Navigator.pushReplacementNamed(context, '/home');
+                          },
+                          child: const Text("Home"),
+                        ),
+                        ElevatedButton(
+                          onPressed: () {
+                            Navigator.pushReplacementNamed(context, '/about');
+                          },
+                          child: const Text("About Us"),
+                        ),
+                        ElevatedButton(
+                          onPressed: () {
+                            Navigator.pushReplacementNamed(context, '/contact');
+                          },
+                          child: const Text("Contact"),
+                        ),
+                      ],
+                    ),
+                  ),
+                );*/
+              },
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}

@@ -1,0 +1,4 @@
+firebase_core
+cloud_firestore
+firebase_storage
+firebase_messaging

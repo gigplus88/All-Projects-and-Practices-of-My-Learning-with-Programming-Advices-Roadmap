@@ -1,0 +1,86 @@
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(MyApp());
+}
+
+class MyApp extends StatefulWidget {
+  const MyApp({super.key});
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  bool? footStatus = false;
+    bool? bascketStatus = false;
+
+  bool? tenisStatus = false;
+
+ 
+  String? selectedCountry = "Morocco";
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: Scaffold(
+        appBar: AppBar(title: const Text("Ayoub fellah")),
+        body: Container(
+          padding: EdgeInsets.all(10),
+          color: Colors.blue[50],
+
+          child: Column(
+            children: [
+              Text(
+                "Choose Your favorite hobbies",
+                style: TextStyle(fontSize: 20),
+              ),
+
+              /* Checkbox(
+                
+                value: status,
+                onChanged: (val) {
+                  setState(() {
+                    status = val!;
+                  });
+                },
+              ),
+
+      */
+              CheckboxListTile(
+                activeColor: Colors.orange,
+                checkColor: Colors.black,
+                hoverColor: Colors.greenAccent,
+                title: Text("Basketball"),
+                value: bascketStatus,
+                onChanged: (val) {
+                  setState(() {
+                    bascketStatus = val!;
+                  });
+                },
+              ),
+              CheckboxListTile(
+                title: Text("Football"),
+                value: footStatus,
+                onChanged: (val2) {
+                  setState(() {
+                    footStatus = val2!;
+                  });
+                },
+              ),
+              CheckboxListTile(
+                title: Text("Tenis"),
+                value: tenisStatus,
+                onChanged: (val) {
+                  setState(() {
+                    tenisStatus = val!;
+                  });
+                },
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}

@@ -1,0 +1,63 @@
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(MyApp());
+}
+
+class MyApp extends StatefulWidget {
+  const MyApp({super.key});
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  bool status = true;
+    bool statusList = true;
+
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: Scaffold(
+        appBar: AppBar(title: const Text("Ayoub fellah")),
+        body: Container(
+          padding: EdgeInsets.all(10),
+          color: Colors.blue[50],
+
+          child: Column(
+            children: [
+              Switch(
+                activeThumbColor: Colors.green,
+                inactiveThumbColor: Colors.red,
+                value: status,
+                onChanged: (val) {
+                  setState(() {
+                    print(val);
+                    status = val;
+                  });
+                },
+              ),
+
+              //switch by all ligne of switch widget
+               SwitchListTile(
+                title: Text("Quiz Status"),
+                activeThumbColor: Colors.green,
+                inactiveThumbColor: Colors.red,
+                value: statusList,
+                onChanged: (val) {
+                  setState(() {
+                    print(val);
+                    statusList = val;
+                  });
+                },
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+

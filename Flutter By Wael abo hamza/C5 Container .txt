@@ -1,0 +1,56 @@
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(const MyApp()); // to runing app
+}
+
+//MyApp Widget
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  // This widget is the root of your application.
+  // This is widget function
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: Scaffold(
+        appBar: AppBar(title: Text("Ayoub fellah")),
+        body: Container(
+          decoration: BoxDecoration(
+            color: Colors.amber,
+            borderRadius: BorderRadius.all(Radius.circular(4000)),
+            border: Border.all(color: Colors.black, width: 4),
+            boxShadow: [
+              BoxShadow(
+                color: const Color.fromARGB(255, 26, 144, 235),
+                offset: Offset(-2, -2),
+                spreadRadius: 10, // propagation
+                blurRadius: 15,
+              ),
+              BoxShadow(
+                color: const Color.fromARGB(255, 245, 122, 51),
+                offset: Offset(2, 2),
+                spreadRadius: 10, // propagation
+                blurRadius: 15,
+              ),
+            ],
+          ),
+          padding: EdgeInsets.all(15),
+          margin: EdgeInsets.all(40),
+          alignment: Alignment.center,
+          width: 500,
+          height: 500,
+          child: Text(
+            "This is a body",
+            style: TextStyle(
+              color: Colors.red,
+              fontSize: 60.3,
+              fontWeight: FontWeight.w600,
+              //backgroundColor: Colors.amber,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}

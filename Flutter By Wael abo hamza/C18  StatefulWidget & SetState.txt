@@ -1,0 +1,80 @@
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(MyApp());
+}
+
+class MyApp extends StatefulWidget {
+  const MyApp({super.key});
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  int i = 0;
+  bool status = true;
+  var icon = Icon(Icons.star);
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: Scaffold(
+        appBar: AppBar(title: const Text("Ayoub fellah")),
+        body: Container(
+          padding: EdgeInsets.all(10),
+          color: Colors.blue[50],
+
+          child: Column(
+            children: [
+              IconButton(
+                onPressed: () {
+                  setState(() {
+                    status = !status;
+                    print(status);
+                  });
+                },
+                icon: Icon(
+                  status ? Icons.star : Icons.star_border_outlined,
+                  size: 40, 
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+/*
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: Scaffold(
+       
+        appBar: AppBar(title: const Text("Ayoub fellah")),
+        body: Container(
+          padding: EdgeInsets.all(10),
+          color: Colors.blue[50],
+         
+           child: Column(
+            children: [
+              // Container 1
+            IconButton(onPressed: (){}, icon: Icon(Icons.add)),
+            Text("Counter 1"),
+            IconButton(onPressed: (){}, icon: Icon(Icons.remove)),
+
+             
+
+
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+*/

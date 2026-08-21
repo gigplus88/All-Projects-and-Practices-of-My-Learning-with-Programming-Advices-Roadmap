@@ -1,0 +1,68 @@
+import 'package:flutter/material.dart';
+
+// تعريف القائمة هنا خارج الـ class
+final List employee = [
+  {"name": "Ayoub", "age": 28, "last Name": "Fellah"},
+  {"name": "Saad", "age": 20, "last Name": "Fellah"},
+  {"name": "Salim", "age": 18, "last Name": "Fellah"},
+  {"name": "Houda", "age": 48, "last Name": "Fellah"},
+  {"name": "Salima", "age": 15, "last Name": "Fellah"},
+];
+
+void main() {
+  runApp(const MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: Scaffold(
+        appBar: AppBar(title: const Text("Ayoub fellah")),
+        body: Container(
+          height: 600,
+          child: ListView(
+            children: [
+              Card(
+                margin: EdgeInsets.only(bottom: 20 , top:10 , right: 20 , left: 10),
+                shape: //Border.all(color: Colors.red ,width: 10 , style: BorderStyle.solid),
+                
+                RoundedRectangleBorder(
+                  
+                  borderRadius: BorderRadius.circular(120),
+                ),
+                child: ListTile(
+                  onTap: () { //on card click
+                    print("is taped");
+                  },
+                  isThreeLine: true,
+                  leading: Text("leading"),
+                  enabled: true,
+                  title: Text("title"),
+                  subtitle: Text("subTitle"),
+                  trailing: Text("trailing"),
+                ),
+              ),
+               Card(
+                margin: EdgeInsets.only(bottom: 20 , top:10 , right: 20 , left: 10),
+                child: ListTile(
+                  isThreeLine: true,
+                  onTap: () {
+                    print("is taped");
+                  },
+                  leading: Text("leading"),
+                  enabled: true,
+                  title: Text("title"),
+                  subtitle: Text("subTitle"),
+                  trailing: Text("trailing"),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}

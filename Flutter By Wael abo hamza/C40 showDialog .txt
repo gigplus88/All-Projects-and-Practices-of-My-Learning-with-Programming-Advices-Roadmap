@@ -1,0 +1,65 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_pro/aboutus.dart';
+
+// push with replacement to remove the previous page from the stack and prevent going back to it
+// pushReplacement is used to navigate to a new page and replace the current page in the navigation stack.
+
+class HomePage extends StatelessWidget {
+  const HomePage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text("Home")),
+      body: ListView(
+        children: [
+          const SizedBox(height: 50),
+          Center(
+            child: MaterialButton(
+              color: Colors.blue,
+              child: const Text(
+                "show Alert",
+                style: TextStyle(color: Colors.white),
+              ),
+              onPressed: () {
+                // Show a fully customized AlertDialog
+                showDialog(
+                  //barrierDismissible: false, // Prevents dismissing the dialog by tapping outside
+                  context: context,
+                  builder: (BuildContext context) {
+                    return AlertDialog(
+                      backgroundColor: Colors.redAccent,
+                      contentPadding: const EdgeInsets.all(40.0),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(15.0),
+                      ),
+                      title: const Text("Alert Title"),
+                      content: const Text("This is a sample alert message in Flutter."),
+                      actions: [
+                        // Cancel button
+                        TextButton(
+                          onPressed: () {
+                            Navigator.of(context).pop(); // Close the dialog
+                          },
+                          child: const Text("Cancel"),
+                        ),
+                        // Confirm button
+                        TextButton(
+                          onPressed: () {
+                            // Add your action here
+                            Navigator.of(context).pop(); // Close the dialog
+                          },
+                          child: const Text("OK"),
+                        ),
+                      ],
+                    );
+                  },
+                );
+              },
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}

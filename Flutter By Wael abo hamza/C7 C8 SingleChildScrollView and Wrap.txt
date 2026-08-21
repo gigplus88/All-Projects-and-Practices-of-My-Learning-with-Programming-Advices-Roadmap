@@ -1,0 +1,155 @@
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(const MyApp()); // to runing app
+}
+
+//MyApp Widget
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  // This widget is the root of your application.
+  // This is widget function
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: Scaffold(
+        appBar: AppBar(title: Text("Ayoub fellah")),
+        body: Wrap(
+          //Agree array of widgets
+          children: [
+            Text("Ayoub fellah"),
+            Container(width: 100, height: 100, color: Colors.red),
+            Container(width: 100, height: 100, color: Colors.yellow),
+            Container(width: 100, height: 300, color: Colors.blue),
+            Container(width: 200, height: 100, color: Colors.blue),
+            Container(width: 150, height: 100, color: Colors.black),
+            Column(
+              children: [
+                Container(width: 100, height: 100, color: Colors.yellow),
+                Container(width: 100, height: 300, color: Colors.black),
+                Container(width: 200, height: 100, color: Colors.blue),
+                Container(width: 100, height: 100, color: Colors.yellow),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//For Vertical scrolling
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(const MyApp()); // to runing app
+}
+
+//MyApp Widget
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  // This widget is the root of your application.
+  // This is widget function
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: Scaffold(
+        appBar: AppBar(title: Text("Ayoub fellah")),
+        body: SingleChildScrollView(
+          child: Column(
+            //Agree array of widgets
+            children: [
+              Text("Ayoub fellah"),
+              Container(width: 100, height: 100, color: Colors.red),
+              Container(width: 100, height: 100, color: Colors.yellow),
+              Container(width: 100, height: 300, color: Colors.blue),
+              Container(width: 200, height: 100, color: Colors.blue),
+              Container(width: 150, height: 100, color: Colors.black),
+              Column(
+                children: [
+                  Container(width: 100, height: 100, color: Colors.yellow),
+                  Container(width: 100, height: 300, color: Colors.black),
+                  Container(width: 200, height: 100, color: Colors.blue),
+                  Container(width: 100, height: 100, color: Colors.yellow),
+                ],
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//For horizontal scrolling
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(const MyApp()); // to runing app
+}
+
+//MyApp Widget
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  // This widget is the root of your application.
+  // This is widget function
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: Scaffold(
+        appBar: AppBar(title: Text("Ayoub fellah")),
+        body: SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: Row(
+            //Agree array of widgets
+            children: [
+              Text("Ayoub fellah"),
+              Container(width: 100, height: 100, color: Colors.red),
+              Container(width: 100, height: 100, color: Colors.yellow),
+              Container(width: 100, height: 300, color: Colors.blue),
+              Container(width: 200, height: 100, color: Colors.blue),
+              Container(width: 150, height: 100, color: Colors.black),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+

@@ -1,0 +1,134 @@
+10//Like
+
+SELECT * FROM `users` WHERE name like 'w%'   #begin with
+SELECT * FROM `users` WHERE name like '%d'   #finish with
+SELECT * FROM `users` WHERE name like '%w%'
+SELECT * FROM `users` WHERE name like 'wa%' 
+SELECT * FROM `users` WHERE name like '_a%' #a in the second letter
+SELECT * FROM `users` WHERE name like 'a_%' #begin with a and it has two letter in the min 
+SELECT * FROM `users` WHERE name like 'a_%' #begin with a and it has two letter in the min 
+SELECT * FROM `users` WHERE name like 'a__%' #begin with a and it has three letter in the min
+SELECT * FROM `users` WHERE name like 'a%l' #begin with a and end with l 
+
+
+//11 - BETWEEN & In
+
+SELECT * FROM `users` WHERE country IN ('morrocco','Malisie ')
+
+
+//12 - Aliases
+SELECT country as 'my country' FROM `users`
+
+
+//13 - Group By - HAVING
+SELECT name ,SUM(mark) FROM `student` GROUP by name;
+SELECT name ,AVG(mark) as TotalMark FROM `student`GROUP by name  HAVING TotalMark > 59 ;
+
+
+
+//14 - constraint ( UNIQUE - Not Null )
+see laptop mysql
+
+
+//15 - constraint ( PRIMARY KEY vs UNIQUE )
+see laptop mysql
+
+
+//16 - constraint ( DEFAULT )
+see laptop mysql
+
+
+//17 - Relationships
+se laptop for tables relations
+
+
+//18 - one to many ( foreign key constraint)
+
+category with many items (see laptop)
+
+
+//19 - one to one ( foreign key constraint)
+
+//20 - many to many
+
+//21 - join ( INNERJOIN - LEFTJOIN - RIGHTJOIN )
+
+
+//22 - WHERE EXISTS
+
+
+//23 - any
+
+SELECT items.item_name FROM `items` 
+WHERE items.item_id = any
+(select orders_details.orders_details_items from orders_details WHERE orders_details.orders_details_quantity =2);
+
+
+//24 - UNION AND UNION ALL (union of more than one select in the same select)
+
+SELECT items.item_name FROM items 
+UNION SELECT categories.c_name FROM categories
+
+
+//25 - IFNULL & COALESCE
+SELECT items.item_name , IFNULL( items.i_price , 0) FROM items   (or) SELECT items.item_name , COALESCE( items.i_price , 0) FROM items 
+
+
+//26 27 28 - datatype part 1(int ... , float ... ) 2(date ...) 3 (string...)
+char use static memory is  very heavy in memory but when you know your lengh is perform than VARCHAR
+Char 0-255 static
+varchar 0 -65535 dynamic
+
+
+Enum for one choice
+Set for multiple choice
+
+
+//29 - create And drop ( Database )
+
+CREATE DATABASE wael;
+
+Drop DATABASE wael;
+
+
+//30 - create And drop ( table )
+
+CREATE TABLE gifts (
+i_id  int(11) not null AUTO_INCREMENT,
+i_name varchar(160) ,
+    
+PRIMARY key(i_id)
+);
+
+Drop table gifts;
+
+
+
+//31 - ALTER TABLE
+
+//Modify exist column and drop column
+
+Alter table gifts MODIFY i_name	varchar(100)
+Alter table gifts drop i_name	varchar(100)
+
+
+//Add / drop constraints
+
+Alter table gifts add UNIQUE(i_name)
+Alter table gifts drop index i_name
+
+
+
+//32 - view (MYSQL - SQL)
+
+CREATE VIEW itemsmobile 
+AS
+select items.* FROM items WHERE items.i_categories =1
+
+
+
+
+
+
+
+

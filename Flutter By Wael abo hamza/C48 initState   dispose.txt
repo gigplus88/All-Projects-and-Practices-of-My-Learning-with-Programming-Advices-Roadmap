@@ -1,0 +1,198 @@
+
+
+// main page
+
+
+import 'package:flutter/material.dart';
+import 'package:flutter_pro/homepage.dart';
+import 'package:flutter_pro/pageone.dart';
+import 'package:flutter_pro/pagetwo.dart';
+
+void main() {
+  runApp(MyApp());
+}
+
+class MyApp extends StatefulWidget {
+  const MyApp({super.key});
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
+ 
+
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: HomePage(),
+      routes:{
+        '/home' : (context) => const HomePage(),
+        '/pageone' : (context) => const PageOne(),
+        '/pagetwo' : (context) => const PageTwo(),
+
+       
+      }
+    );
+  }
+}
+
+
+
+
+
+//home page
+
+
+
+import 'package:flutter/material.dart';
+
+
+
+
+class HomePage extends StatelessWidget {
+  const HomePage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+ 
+    return Scaffold(
+      appBar: AppBar(title: Text("List generate")),
+      body: ListView(
+        padding: const EdgeInsets.all(30),
+        children: [
+         MaterialButton(
+          onPressed: (){
+           Navigator.pushNamed(context, "/pageone");
+          } , child: Text("Go to page one"),
+          ),
+         MaterialButton(
+          onPressed: (){
+           Navigator.pushNamed(context, "/pagetwo");
+
+          } , child: Text("Go to page two"),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+
+
+
+//Page one 
+
+
+import 'package:flutter/material.dart';
+
+
+class PageOne extends StatefulWidget {
+  const PageOne({super.key});
+
+  @override
+  State<PageOne> createState() => _PageOneState();
+}
+
+class _PageOneState extends State<PageOne> {
+  @override
+  void initState() {
+    super.initState();
+
+    print("initial Page one");
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+        print("pop Page one from tree");
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text("Page One")),
+      body: ListView(
+        padding: const EdgeInsets.all(30),
+        children: [
+          MaterialButton(
+            onPressed: () {
+              Navigator.pushNamedAndRemoveUntil(
+                context,
+                "/home",
+                (route) => false,
+              );
+            },
+            child: Text("Go to home page"),
+          ),
+          MaterialButton(
+            onPressed: () {
+              Navigator.pushNamed(context, "/pagetwo");
+            },
+            child: Text("Go to page two"),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+
+
+
+
+
+
+//Page two
+
+
+
+import 'package:flutter/material.dart';
+
+
+class PageTwo extends StatefulWidget {
+  const PageTwo({super.key});
+
+  @override
+  State<PageTwo> createState() => _PageTwoState();
+}
+
+class _PageTwoState extends State<PageTwo> {
+
+    @override
+  void initState() {
+    super.initState();
+
+    print("initial Page two");
+  }
+
+   @override
+  void dispose() {
+    super.dispose();
+        print("pop Page two from tree");
+  }
+
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text("Page Two")),
+      body: ListView(padding: const EdgeInsets.all(30), children: [
+           MaterialButton(
+          onPressed: (){
+           Navigator.pushNamedAndRemoveUntil(context, "/home", (route)=>false);
+          } , child: Text("Go to home page"),
+          ),
+         MaterialButton(
+          onPressed: (){
+           Navigator.pushNamed(context, "/pageone");
+
+          } , child: Text("Go to page one"),
+          ),
+        ],
+      ),
+    );
+  }
+}
+

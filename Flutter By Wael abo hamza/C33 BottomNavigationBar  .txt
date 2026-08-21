@@ -1,0 +1,81 @@
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(const MyApp());
+}
+
+class MyApp extends StatefulWidget {
+  const MyApp({super.key});
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  // Track the current selected index for the BottomNavigationBar
+  int _currentIndex = 1;
+
+  // List of titles or views corresponding to the tabs
+  final List<String> _tabTitles = ["Home", "Profile", "Settings"];
+  final List<Widget> _tabViews = [
+    const Center(child: Text("Home View", style: TextStyle(fontSize: 24 , ))),
+    const Center(child: Text("Profile View", style: TextStyle(fontSize: 24))),
+    const Center(child: Text("Settings View", style: TextStyle(fontSize: 24))),
+  ];
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: Scaffold(
+        bottomNavigationBar: BottomNavigationBar(
+          backgroundColor: const Color.fromARGB(255, 159, 185, 223),
+          selectedFontSize: 14.0,
+          selectedItemColor: Colors.white,
+          unselectedItemColor: Colors.black54,
+          selectedLabelStyle: const TextStyle(
+            fontWeight: FontWeight.bold,
+          ),
+          currentIndex: _currentIndex,
+          onTap: (index) {
+            setState(() {
+              _currentIndex = index; // Update state when a tab is tapped
+            });
+          },
+          items: const [
+            BottomNavigationBarItem(
+              icon: Icon(Icons.home),
+              label: "Home",
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.person),
+              label: "Profile",
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.settings),
+              label: "Settings",
+            ),
+          ],
+        ),
+        appBar: AppBar(
+          title: const Text("BottomNavigationBar Example"),
+          titleTextStyle: const TextStyle(
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+            color: Colors.white,
+          ),
+          centerTitle: true,
+          backgroundColor: const Color.fromARGB(255, 159, 185, 223),
+          elevation: 25.0,
+        ),
+        body: Container(
+          padding: const EdgeInsets.all(10),
+          color: Colors.blue[50],
+          child: Center(
+            child: _tabViews[_currentIndex]
+            ),
+            
+          ),
+        ),
+    );
+  }
+}

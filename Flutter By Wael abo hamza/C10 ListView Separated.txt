@@ -1,0 +1,49 @@
+import 'package:flutter/material.dart';
+
+// تعريف القائمة هنا خارج الـ class
+final List employee = [
+  {"name": "Ayoub", "age": 28, "last Name": "Fellah"},
+  {"name": "Saad", "age": 28, "last Name": "Fellah"},
+  {"name": "Salim", "age": 28, "last Name": "Fellah"},
+  {"name": "Houda", "age": 28, "last Name": "Fellah"},
+  {"name": "Salima", "age": 28, "last Name": "Fellah"},
+];
+
+void main() {
+  runApp(const MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key}); 
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: Scaffold(
+        appBar: AppBar(title: const Text("Ayoub fellah")),
+        body: SizedBox(
+          height: 400,
+          child: ListView.separated(
+            physics: NeverScrollableScrollPhysics(),
+            shrinkWrap: true,
+            separatorBuilder: (context, index) {
+              return Container(height: 50, color: Colors.black);
+            },
+            itemCount: employee.length,
+            itemBuilder: (context, index) {
+              return Container(
+                padding: const EdgeInsets.all(8.0),
+                color: index.isEven ? Colors.amber : Colors.blue,
+                child: Text(
+                  "${employee[index]['name']} ${employee[index]['last Name']} : ${employee[index]['age']}",
+                  style: const TextStyle(fontSize: 20, color: Colors.black),
+                  textAlign: TextAlign.center,
+                ),
+              );
+            },
+          ),
+        ),
+      ),
+    );
+  }
+}

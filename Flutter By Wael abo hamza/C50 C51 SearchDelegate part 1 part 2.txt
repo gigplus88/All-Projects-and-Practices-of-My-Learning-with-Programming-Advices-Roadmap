@@ -1,0 +1,109 @@
+import 'package:flutter/material.dart';
+
+class HomePage extends StatelessWidget {
+  const HomePage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Search Delegate"),
+        actions: [
+          IconButton(
+            onPressed: () {
+              showSearch(context: context, delegate: CustomSearch());
+            },
+            icon: Icon(Icons.search),
+          ),
+        ],
+      ),
+      body: ListView(padding: const EdgeInsets.all(30), children: [
+        ]
+      ),
+    );
+  }
+}
+
+class CustomSearch extends SearchDelegate {
+  String? clickedItem;
+  List username = [
+    "Ayoub",
+    "Saad",
+    "Rachad",
+    "Salim",
+    "Loaye",
+    "Somaya",
+    "Maroua",
+  ];
+
+  List? filteredList;
+  @override
+  List<Widget>? buildActions(BuildContext context) {
+    return [
+      IconButton(
+        onPressed: () {
+          // query is a build ion variable stores data from search bar
+          query = "";
+        },
+        icon: Icon(Icons.close),
+      ),
+    ];
+  }
+
+  @override
+  Widget? buildLeading(BuildContext context) {
+    return IconButton(
+      onPressed: () {
+        // to close showSearch bar
+        close(context, null);
+        //Navigator.pop(context);
+      },
+      icon: Icon(Icons.arrow_back),
+    );
+  }
+
+  @override
+  Widget buildResults(BuildContext context) {
+   String displayResult = clickedItem ?? query;
+
+    return Center(
+      child: Text(
+        "لقد اخترت: $displayResult",
+        style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+      ),
+    );
+  }
+
+  @override
+  Widget buildSuggestions(BuildContext context) {
+    List filteredList = username
+        .where(
+          (element) => element.toLowerCase().contains(query.toLowerCase()),
+        )
+        .toList();
+
+    return ListView.builder(
+      itemCount: query == "" ? username.length : filteredList.length,
+      itemBuilder: (context, i) {
+        final item = query == "" ? username[i] : filteredList[i];
+
+        return InkWell(
+          onTap: () {
+            clickedItem = item;
+            showResults(context);
+          },
+          child: Card(
+            child: Padding(
+              padding: const EdgeInsets.all(15.0),
+              child: Text(
+                item,
+                style: const TextStyle(fontSize: 20),
+              ),
+            ),
+          ),
+        );
+      },
+      );
+    }
+  }
+

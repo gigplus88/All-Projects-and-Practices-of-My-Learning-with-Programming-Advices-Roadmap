@@ -1,0 +1,182 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_pro/customcard.dart';
+
+
+void main() {
+  runApp(MyApp());
+}
+
+class MyApp extends StatefulWidget {
+  const MyApp({super.key});
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
+  /*To build The tabBar DefaultTabController(length: 3)Number of tabs*/
+  /* initialIndex: 0 The index of the tab to be selected when the app starts*/
+
+  TabController? tabController;
+
+  List imagesNames = [
+    "images/Gemini_Generated_Image_4b2rr94b2rr94b2r.png",
+    "images/download(5).jpg",
+    "images/20260514_183120.jpg",
+    "images/ChatGPT Image Jul 6, 2026, 12_02_14 AM.png",
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: Scaffold(
+        appBar: AppBar(
+          title: const Text("TabBar Example"),
+          titleTextStyle: TextStyle(
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+            color: Colors.white,
+          ),
+          centerTitle: true,
+          backgroundColor: const Color.fromARGB(255, 159, 185, 223),
+
+          elevation: 25.0,
+          // shadowColor: Colors.blue[200],
+        ),
+
+        body: Container(
+          padding: EdgeInsets.all(10),
+          color: Colors.blue[50],
+
+          child: Column(
+            children: [
+              CustomlistTile(
+                name: "John Doe",
+                description: "Software Engineer",
+                icon: Icons.person,
+                trailingIcon: Icons.arrow_forward_ios,
+                imagePath: "images/Gemini_Generated_Image_4b2rr94b2rr94b2r.png",
+              ),
+
+              CustomlistTile(
+                name: "Jane Smith",
+                description: "Graphic Designer",
+                icon: Icons.person,
+                trailingIcon: Icons.arrow_forward_ios,
+                imagePath: "images/download(5).jpg",
+              ),
+
+              CustomlistTile(
+                name: "Michael Johnson",
+                description: "Product Manager",
+                icon: Icons.person,
+                trailingIcon: Icons.art_track_outlined,
+                imagePath: "images/20260514_183120.jpg",
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+/*
+
+class CustomlistTile extends StatelessWidget {
+  final String name;
+    final String description;
+    final IconData icon;
+    final IconData trailingIcon;
+    final String imagePath;
+  const CustomlistTile({super.key , required this.name, required this.description, required this.icon, required this.trailingIcon , required this.imagePath});
+
+  @override
+  Widget build(BuildContext context) {
+    
+
+    return Card(
+      color: Colors.grey[200],
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10),
+      ),
+      child: Row(
+        children: [
+          Container(
+            height: 100,
+            width: 100,
+            margin: EdgeInsets.all(8),
+            child: Image.asset(
+              imagePath,
+              fit: BoxFit.cover,
+            ),
+          ),
+          Expanded(
+            child: ListTile(
+              title: Text(name),
+              subtitle: Text(description),
+              leading: Icon(icon),
+              trailing: Icon(trailingIcon),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+ */
+
+
+
+
+
+import 'package:flutter/material.dart';
+
+class CustomlistTile extends StatelessWidget {
+  final String name;
+    final String description;
+    final IconData icon;
+    final IconData trailingIcon;
+    final String imagePath;
+  const CustomlistTile({super.key , required this.name, required this.description, required this.icon, required this.trailingIcon , required this.imagePath});
+
+  @override
+  Widget build(BuildContext context) {
+    
+
+    return Card(
+      color: Colors.grey[200],
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(10.0),
+        child: Row(
+          children: [
+            Container(
+              height: 100,
+              width: 100,
+              margin: EdgeInsets.all(8),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(100),
+                child: Image.asset(
+                  imagePath,
+                  fit: BoxFit.cover,
+                ),
+              ),
+            ),
+            Expanded(
+              child: ListTile(
+                title: Text(name),
+                subtitle: Text(description),
+                leading: Icon(icon),
+                trailing: Icon(trailingIcon),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}

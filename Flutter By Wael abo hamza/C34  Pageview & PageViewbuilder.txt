@@ -1,0 +1,108 @@
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(MyApp());
+}
+
+class MyApp extends StatefulWidget {
+  const MyApp({super.key});
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
+
+
+/*To build The tabBar DefaultTabController(length: 3)Number of tabs*/
+/* initialIndex: 0 The index of the tab to be selected when the app starts*/
+
+  TabController? tabController;
+
+List imagesNames = [
+  "images/Gemini_Generated_Image_4b2rr94b2rr94b2r.png",
+  "images/download(5).jpg",
+  "images/20260514_183120.jpg",
+  "images/ChatGPT Image Jul 6, 2026, 12_02_14 AM.png",
+];
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home:
+        Scaffold(
+        appBar: AppBar(
+          title: const Text(
+            "TabBar Example",
+          ),
+          titleTextStyle: TextStyle(
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+            color: Colors.white,
+          ),
+          centerTitle: true,
+          backgroundColor: const Color.fromARGB(255, 159, 185, 223),
+          
+          elevation: 25.0,
+         // shadowColor: Colors.blue[200],
+        ),
+
+
+        body: Container(
+          padding: EdgeInsets.all(10),
+          color: Colors.blue[50],
+
+          child: Column(
+            children:[
+              /* SizedBox(
+                height: 500,
+                 child: PageView(
+                 onPageChanged: (value) {
+                    print("Page Changed to index $value");
+                 },
+                 //reverse: true, to reverse the order of the pages
+                 //physics: NeverScrollableScrollPhysics(), to stop scrolling
+                  children: [
+                   Image.asset(
+                    "images/Gemini_Generated_Image_4b2rr94b2rr94b2r.png",
+                    fit: BoxFit.cover,
+                   ),
+                    Image.asset(
+                    "images/download(5).jpg",
+                    fit: BoxFit.cover,
+                   ),
+                  ],
+                 ),
+               ), */
+
+                  SizedBox(
+                height: 500,
+                 child: PageView.builder(  
+                  itemCount: imagesNames.length,
+                  itemBuilder: (context, index) {
+                    return  ClipRRect(
+                      borderRadius: BorderRadius.circular(10), 
+                      
+                      child: Image.asset(
+                        imagesNames[index],
+                        fit: BoxFit.cover,
+                      ),
+                    );
+                  },
+                  
+                
+                 //reverse: true, to reverse the order of the pages
+                 //physics: NeverScrollableScrollPhysics(), to stop scrolling
+                 
+                 ),
+               ),
+            
+            
+            ]
+          )
+        ),
+      ),
+    
+    );
+  }
+}

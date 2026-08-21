@@ -1,0 +1,38 @@
+import 'package:flutter/material.dart';
+
+GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
+
+class HomePage extends StatelessWidget {
+  const HomePage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final List<Map<String, dynamic>> clients = [
+      {"name": "ayoub", "age": 22},
+      {"name": " saad", "age": 25},
+      {"name": "Rachd", "age": 14},
+      {"name": "Salim", "age": 32},
+    ];
+
+    return Scaffold(
+      appBar: AppBar(title: Text("List generate")),
+      key: scaffoldKey,
+      body: ListView(
+        padding: const EdgeInsets.all(30),
+        children: [
+          ...List.generate(clients.length, (index) {
+            return Card(
+              child: ListTile(
+                title: Text(
+                  '${clients[index]["name"]}' +
+                      'its age is ' +
+                      '${clients[index]["age"]}',
+                ),
+              ),
+            );
+          }),
+        ],
+      ),
+    );
+  }
+}

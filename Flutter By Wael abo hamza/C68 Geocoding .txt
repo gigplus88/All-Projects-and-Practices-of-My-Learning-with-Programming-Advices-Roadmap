@@ -1,0 +1,128 @@
+import 'dart:async';
+import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+
+class ItemsDetails extends StatefulWidget {
+  const ItemsDetails({super.key});
+
+  @override
+  State<ItemsDetails> createState() => _ItemsDetailsState();
+}
+
+class _ItemsDetailsState extends State<ItemsDetails> {
+  GoogleMapController? gmc;
+
+  List<Marker> markers = [];
+  StreamSubscription<Position>? positionStream;
+
+  // موقع افتراضي ابتدائي
+  final CameraPosition cameraPosition = const CameraPosition(
+    target: LatLng(34.018124, -5.007845),
+    zoom: 12.4746,
+  );
+
+  @override
+  void initState() {
+    super.initState();
+    initialStream();
+  }
+
+  Future<void> initialStream() async {
+    try {
+      bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
+      if (!serviceEnabled) return;
+
+      LocationPermission permission = await Geolocator.checkPermission();
+      if (permission == LocationPermission.denied) {
+        permission = await Geolocator.requestPermission();
+        if (permission == LocationPermission.denied) return;
+      }
+
+      if (permission == LocationPermission.deniedForever) return;
+
+      Position position = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high,
+      );
+
+      if (mounted) {
+        LatLng currentLatLng = LatLng(position.latitude, position.longitude);
+        setState(() {
+          markers.clear();
+          markers.add(
+            Marker(
+              markerId: const MarkerId("current_location"),
+              position: currentLatLng,
+              infoWindow: const InfoWindow(title: "موقعي الحالي"),
+            ),
+          );
+        });
+
+        gmc?.animateCamera(CameraUpdate.newLatLng(currentLatLng));
+      }
+
+      const LocationSettings locationSettings = LocationSettings(
+        accuracy: LocationAccuracy.high,
+        distanceFilter: 10,
+      );
+
+      positionStream = Geolocator.getPositionStream(
+        locationSettings: locationSettings,
+      ).listen((Position? position) {
+        if (position != null && mounted) {
+          LatLng currentLatLng = LatLng(position.latitude, position.longitude);
+
+          setState(() {
+            markers.clear();
+            markers.add(
+              Marker(
+                markerId: const MarkerId("current_location"),
+                position: currentLatLng,
+                infoWindow: const InfoWindow(title: "موقعي الحالي"),
+              ),
+            );
+          });
+
+          gmc?.animateCamera(CameraUpdate.newLatLng(currentLatLng));
+        }
+      });
+    } catch (e) {
+      print("خطأ في تحديد الموقع: $e");
+    }
+  }
+
+  @override
+  void dispose() {
+    positionStream?.cancel();
+    gmc?.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        centerTitle: true,
+        title: const Text("تتبع الموقع المباشر"),
+        backgroundColor: Colors.grey[200],
+      ),
+      body: SizedBox(
+        height: 500,
+        child: GoogleMap(
+          onTap: (argument) {
+            // يتم طباعة الإحداثيات مباشرة عند النقر على الخريطة بدون أخطاء
+            print("تم النقر على خط عرض: ${argument.latitude}, خط طول: ${argument.longitude}");
+          },
+          markers: markers.toSet(),
+          initialCameraPosition: cameraPosition,
+          mapType: MapType.normal,
+          myLocationEnabled: true,
+          myLocationButtonEnabled: true,
+          onMapCreated: (GoogleMapController controller) {
+            gmc = controller;
+          },
+        ),
+      ),
+    );
+  }
+}

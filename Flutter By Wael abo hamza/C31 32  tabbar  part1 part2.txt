@@ -1,0 +1,182 @@
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(MyApp());
+}
+
+class MyApp extends StatefulWidget {
+  const MyApp({super.key});
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
+
+
+/*To build The tabBar DefaultTabController(length: 3)Number of tabs*/
+/* initialIndex: 0 The index of the tab to be selected when the app starts*/
+
+  TabController? tabController;
+
+  @override
+  void initState() {
+    super.initState();
+    tabController = TabController(length: 3, vsync: this);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home:
+        Scaffold(
+        appBar: AppBar(
+          title: const Text(
+            "TabBar Example",
+          ),
+          titleTextStyle: TextStyle(
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+            color: Colors.white,
+          ),
+          centerTitle: true,
+          backgroundColor: const Color.fromARGB(255, 159, 185, 223),
+          
+          elevation: 25.0,
+         // shadowColor: Colors.blue[200],
+          bottom:TabBar(
+            controller: tabController,
+            dividerColor: Colors.white,
+            dividerHeight: 2.0,
+            indicatorPadding: EdgeInsets.all(5.0),
+            indicatorColor: Colors.white,
+            indicatorWeight: 5.0,
+            indicatorSize: TabBarIndicatorSize.tab,
+            labelColor: Colors.white,
+            //unselectedLabelColor: Colors.white70,
+            unselectedLabelStyle: TextStyle(
+              fontSize: 10,
+            ),
+            //onHover: (value, index) => print("Hovering on tab $index: $value"),
+            onTap: (value) => print("Tapped on tab $value"),
+            isScrollable: false,
+
+            //اضافة العناصر ، كل عنصر هو Tab
+            tabs: [
+              Tab(
+                icon: Icon(Icons.home),
+                text: "Home",
+                
+              ),
+              Tab(
+                icon: Icon(Icons.person),
+                text: "Profile",
+              ),
+              Tab(
+                icon: Icon(Icons.settings),
+                text: "Settings",
+              ),
+            ],
+          ),
+          
+        ),
+
+
+        body: Container(
+          padding: EdgeInsets.all(10),
+          color: Colors.blue[50],
+
+          child: TabBarView(
+            controller: tabController,
+            children:[
+               
+              Center(
+                child: Column(
+                  children: [
+                    Text(
+                      "Home page",
+                      style: TextStyle(
+                        fontSize: 30,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.blue[900],
+                      ),
+                    ),
+                    MaterialButton(
+                      onPressed: () {
+                        tabController!.animateTo(1);
+                      },
+                      color: Colors.blue[900],
+                      child: Text(
+                        "Go to Profile",
+                        style: TextStyle(
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Column(
+                children: [
+                  Center(
+                    child: Text(
+                      "Profile",
+                      style: TextStyle(
+                        fontSize: 30,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.blue[900],
+                      ),
+                    ),
+                    
+                    
+                  ),
+                   MaterialButton(
+                      onPressed: () {
+                        tabController!.animateTo(2);
+                      },
+                      color: Colors.blue[900],
+                      child: Text(
+                        "Go to Settings",
+                        style: TextStyle(
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                ],
+              ),
+              Column(
+                children: [
+                  Center(
+                    child: Text(
+                      "Settings",
+                      style: TextStyle(
+                        fontSize: 30,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.blue[900],
+                      ),
+                    ),
+                  ),
+                  MaterialButton(
+                      onPressed: () {
+                        if (tabController!.index > 0) {
+                          tabController!.animateTo(tabController!.index - 1);
+                        }
+                      },
+                      color: Colors.blue[900],
+                      child: Text(
+                        "Go to Previous",
+                        style: TextStyle(
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                ],
+              ),
+            ]
+          )
+        ),
+      ),
+    
+    );
+  }
+}
